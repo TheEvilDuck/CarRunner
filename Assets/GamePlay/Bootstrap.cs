@@ -3,6 +3,7 @@ using Common;
 using Common.States;
 using Gameplay.States;
 using Gameplay.UI;
+using Services.PlayerInput;
 using UnityEngine;
 
 namespace Gameplay
@@ -15,9 +16,15 @@ namespace Gameplay
         private List<IPausable>_pausableControls;
         private TimerMediator _timerMediator;
         private StateMachine _gameplayStateMachine;
+        private IPlayerInput _playerInput;
 
         private void Awake() 
         {
+            if (SystemInfo.deviceType== DeviceType.Desktop)
+                _playerInput = new DesktopInput();
+            else if (SystemInfo.deviceType == DeviceType.Handheld)
+                _playerInput = new MobileInput();
+
             _timer = new Timer(_startTime);
             _pausableControls = new List<IPausable>();
             _pausableControls.Add(_timer);
@@ -38,6 +45,7 @@ namespace Gameplay
         private void Update() 
         {
             _gameplayStateMachine.Update();
+            _playerInput.Update();
         }
 
         private void OnDestroy() 
