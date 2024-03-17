@@ -5,14 +5,17 @@ namespace Gameplay.States
     public class RaceGameState : State
     {
         private Timer _timer;
-        public RaceGameState(StateMachine stateMachine, Timer timer) : base(stateMachine)
+        private readonly CarBehaviour _car;
+        public RaceGameState(StateMachine stateMachine, Timer timer, CarBehaviour carBehaviour) : base(stateMachine)
         {
             _timer = timer;
+            _car = carBehaviour;
         }
 
         public override void Enter()
         {
             _timer.Restart();
+            _car.enabled = true;
 
             _timer.end+=OnTimerEnd;
         }

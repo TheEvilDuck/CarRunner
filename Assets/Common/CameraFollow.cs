@@ -17,7 +17,7 @@ namespace Common.Components
         _target = target;
     }
 
-    private void Update() 
+    private void FixedUpdate() 
     {
         Vector3 targetPosition = _target.position+transform.rotation*_offset;
 
@@ -27,11 +27,11 @@ namespace Common.Components
 
         if (directionVector.magnitude<=_midDistance)
             if (_currentSpeed>0)
-                _currentSpeed-=0.2f*Time.deltaTime;
+                _currentSpeed-=0.2f;
             else
                 _currentSpeed = 0;
         else
-            _currentSpeed = _acceleration*Time.deltaTime;
+            _currentSpeed = _acceleration;
 
 
         transform.position+=directionVector*_currentSpeed;
