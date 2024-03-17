@@ -12,9 +12,11 @@ namespace Gameplay
     {
         [SerializeField]private float _startTime = 20f;
         [SerializeField]private TimerView _timerView;
+        [SerializeField]private TimerGate[] _timerGates;
         private Timer _timer;
         private List<IPausable>_pausableControls;
         private TimerMediator _timerMediator;
+        private TimerAndGatesMediator _timerAndGatesMediator;
         private StateMachine _gameplayStateMachine;
         private IPlayerInput _playerInput;
 
@@ -40,6 +42,8 @@ namespace Gameplay
             _gameplayStateMachine.AddState(preStartState);
             _gameplayStateMachine.AddState(raceGameState);
             _gameplayStateMachine.AddState(gameoverState);
+
+            _timerAndGatesMediator = new TimerAndGatesMediator(_timerGates, _timer);
         }
 
         private void Update() 
@@ -51,6 +55,7 @@ namespace Gameplay
         private void OnDestroy() 
         {
             _timerMediator.Dispose();
+            _timerAndGatesMediator.Dispose();
         }
     }
 }

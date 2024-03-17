@@ -1,24 +1,31 @@
 using System;
+using Gameplay.UI;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class TimerGate : MonoBehaviour
+namespace Gameplay
 {
-    public event Action<float> passed;
-    private bool _passed;
-    private float _time;
-    public void Init(float time)
+    [RequireComponent(typeof(Collider))]
+    public class TimerGate : MonoBehaviour
     {
-        _time = time;
-    }
-    private void OnTriggerEnter(Collider other) 
-    {
-        //TODO здесь нужна дополнительная проверка на наличие компонента авто
+        public event Action<float> passed;
+        private bool _passed;
+        [SerializeField]private float _time;
+        [SerializeField]private TimerGateView _view;
 
-        if (_passed)
-            return;
+        private void Awake() 
+        {
+            _view.Init(_time);
+        }
+        private void OnTriggerEnter(Collider other) 
+        {
+            if (!other.gameObject.TryGetComponent<TestCar>(out TestCar testCar))
+                return;
 
-        passed?.Invoke(_time);
-        _passed = true;
+            if (_passed)
+                return;
+
+            passed?.Invoke(_time);
+            _passed = true;
+        }
     }
 }
