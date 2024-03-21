@@ -6,9 +6,9 @@ namespace Common.Components
 {
     [SerializeField]private Transform _target;
     [SerializeField]private Vector3 _offset;
-    [SerializeField]private float _midDistance;
-    [SerializeField]private float _acceleration;
-    [SerializeField]private float _angle;
+    [SerializeField]private float _speed = 10f;
+    [SerializeField]private float _angle = 10f;
+    [SerializeField]private float _minDistance = 10f;
 
     private float _currentSpeed;
 
@@ -17,24 +17,15 @@ namespace Common.Components
         _target = target;
     }
 
-    private void FixedUpdate() 
+    private void Update() 
     {
         Vector3 targetPosition = _target.position+transform.rotation*_offset;
 
         Vector3 directionVector = targetPosition-transform.position;
 
-        
+        targetPosition-=Vector3.ClampMagnitude(directionVector.normalized*_minDistance,_minDistance);
 
-        if (directionVector.magnitude<=_midDistance)
-            if (_currentSpeed>0)
-                _currentSpeed-=0.2f;
-            else
-                _currentSpeed = 0;
-        else
-            _currentSpeed = _acceleration;
-
-
-        transform.position+=directionVector*_currentSpeed;
+        transform.position=Vector3.Lerp(transform.position,targetPosition,Time.deltaTime*_speed);
         transform.rotation = _target.rotation;
         transform.Rotate(Vector3.right, _angle);
 
