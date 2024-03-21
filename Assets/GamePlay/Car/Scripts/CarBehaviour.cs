@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class CarBehaviour : MonoBehaviour
 {
-    public const float TURN_DEGREE = 45f;
+    public const float TURN_DEGREE = 30f;
     [SerializeField] private WheelData[] _wheels;
     [SerializeField] private float _acceleration;
-    [SerializeField] private float _maxSpeed = 2500;
-    private float _turnDegree; //� ��������
+    [SerializeField] private float _maxSpeed = 500;
+    private float _turnDegree = 0; //in degrees
 
     private void FixedUpdate()
     {
-        //������� ������ 
-        //���� ���� ����� ������
-        foreach(WheelData wheel in _wheels)
+        //Turning and twisting
+        foreach (WheelData wheel in _wheels)
         {
             if (wheel.IsTorque)
             {
@@ -23,7 +22,7 @@ public class CarBehaviour : MonoBehaviour
                 {
                     wheel.WheelCollider.motorTorque = _maxSpeed;
                 }
-            } 
+            }
             if (wheel.IsTurnable)
             {
                 wheel.WheelCollider.steerAngle = _turnDegree;
@@ -31,7 +30,7 @@ public class CarBehaviour : MonoBehaviour
         }
     }
 
-    //turnValue - � ��������
+    //turnValue - in degrees
     public void SetTurnDegree(float turnValue)
     {
         _turnDegree = turnValue;
