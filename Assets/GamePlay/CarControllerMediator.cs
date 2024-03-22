@@ -23,7 +23,7 @@ namespace Gameplay
         //сюда прилетают значения от -1 до 1
         private void OnHorizontalInput(float horizontalInput)
         {
-            _car.SetTurnDegree(CarBehaviour.TURN_DEGREE*horizontalInput);
+            _car.SetTurnDegree(horizontalInput);
         }
     }
 }
