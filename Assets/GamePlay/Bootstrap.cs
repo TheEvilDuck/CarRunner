@@ -13,6 +13,7 @@ namespace Gameplay
         [SerializeField]private float _startTime = 20f;
         [SerializeField]private TimerView _timerView;
         [SerializeField]private TimerGate[] _timerGates;
+        [SerializeField]private Garage[] _garages;
         [SerializeField]private CarBehaviour _car;
         private Timer _timer;
         private List<IPausable>_pausableControls;
@@ -48,6 +49,11 @@ namespace Gameplay
             _timerAndGatesMediator = new TimerAndGatesMediator(_timerGates, _timer);
 
             _carControllerMediator = new CarControllerMediator(_car, _playerInput);
+
+            foreach(Garage garage in _garages)
+            {
+                garage.Init(_timer);
+            }
         }
 
         private void Update() 
