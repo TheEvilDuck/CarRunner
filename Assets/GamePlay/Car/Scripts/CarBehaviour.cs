@@ -8,8 +8,8 @@ public class CarBehaviour : MonoBehaviour
     private const float _innerTurnDegree = 45f;
     private float _externalTurnDegree = (float)(Math.Atan2(2.37f, 1.3f + 2.37f / Math.Tan(_innerTurnDegree))*180/Math.PI);
     [SerializeField] private WheelData[] _wheels;
-    [SerializeField] private float _acceleration;
-    [SerializeField] private float _maxSpeed = 500;
+    private float _acceleration;
+    private float _maxSpeed = 500;
     private float _turnDegree = 0; //in degrees
 
     private void FixedUpdate()
@@ -57,6 +57,12 @@ public class CarBehaviour : MonoBehaviour
             }
             
         }
+    }
+
+    public void Init(float Acceleration, float MaxSpeed)
+    {
+        _acceleration = Acceleration;
+        _maxSpeed = MaxSpeed;
     }
 
     //turnValue - in degrees
