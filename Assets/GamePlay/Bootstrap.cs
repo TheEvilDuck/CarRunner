@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using Common;
 using Common.States;
+using Gameplay.Cars;
+using Gameplay.Garages;
 using Gameplay.States;
+using Gameplay.TimerGates;
 using Gameplay.UI;
 using Services.PlayerInput;
 using UnityEngine;
@@ -14,7 +17,9 @@ namespace Gameplay
         [SerializeField]private TimerView _timerView;
         [SerializeField]private TimerGate[] _timerGates;
         [SerializeField]private Garage[] _garages;
-        [SerializeField]private CarBehaviour _car;
+        [SerializeField]private Car _car;
+        [SerializeField]private CarConfig _startConfig;
+        [SerializeField]private GameObject _wheelPrefab;
         private Timer _timer;
         private List<IPausable>_pausableControls;
         private TimerMediator _timerMediator;
@@ -22,6 +27,7 @@ namespace Gameplay
         private CarControllerMediator _carControllerMediator;
         private StateMachine _gameplayStateMachine;
         private IPlayerInput _playerInput;
+        private CarSwitcher _carSwitcher;
 
         private void Awake() 
         {
@@ -39,8 +45,8 @@ namespace Gameplay
             _gameplayStateMachine = new StateMachine();
 
             PreStartState preStartState = new PreStartState(_gameplayStateMachine);
-            RaceGameState raceGameState = new RaceGameState(_gameplayStateMachine, _timer, _car);
-            GameoverState gameoverState = new GameoverState(_gameplayStateMachine, _car);
+            RaceGameState raceGameState = new RaceGameState(_gameplayStateMachine, _timer, _car.CarBehavior);
+            GameoverState gameoverState = new GameoverState(_gameplayStateMachine, _car.CarBehavior);
 
             _gameplayStateMachine.AddState(preStartState);
             _gameplayStateMachine.AddState(raceGameState);
@@ -48,12 +54,16 @@ namespace Gameplay
 
             _timerAndGatesMediator = new TimerAndGatesMediator(_timerGates, _timer);
 
-            _carControllerMediator = new CarControllerMediator(_car, _playerInput);
+            _carControllerMediator = new CarControllerMediator(_car.CarBehavior, _playerInput);
 
             foreach(Garage garage in _garages)
             {
                 garage.Init(_timer);
             }
+
+            _carSwitcher = new CarSwitcher(_car,_garages,_timer, _wheelPrefab);
+
+            _car.InitCar(_startConfig, _wheelPrefab);
         }
 
         private void Update() 
@@ -67,6 +77,7 @@ namespace Gameplay
             _timerMediator.Dispose();
             _timerAndGatesMediator.Dispose();
             _carControllerMediator.Dispose();
+            _carSwitcher.Dispose();
         }
     }
 }

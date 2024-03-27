@@ -188,7 +188,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7473445529605700499}
   - component: {fileID: 3738653615869582802}
-  - component: {fileID: 1716584119410967843}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -240,33 +239,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1716584119410967843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3949569772539485620}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4ab8c10a4bdeac47841c5988ddebda0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _wheels:
-  - <WheelCollider>k__BackingField: {fileID: 7512587553226689586}
-    <IsTurnable>k__BackingField: 1
-    <IsTorque>k__BackingField: 0
-  - <WheelCollider>k__BackingField: {fileID: 7867962826289230859}
-    <IsTurnable>k__BackingField: 1
-    <IsTorque>k__BackingField: 0
-  - <WheelCollider>k__BackingField: {fileID: 2237278693218059259}
-    <IsTurnable>k__BackingField: 0
-    <IsTorque>k__BackingField: 1
-  - <WheelCollider>k__BackingField: {fileID: 476806884518165960}
-    <IsTurnable>k__BackingField: 0
-    <IsTorque>k__BackingField: 1
-  _acceleration: 50
-  _maxSpeed: 500
 --- !u!1 &4382425278673236896
 GameObject:
   m_ObjectHideFlags: 0

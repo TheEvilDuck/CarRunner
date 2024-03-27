@@ -1,6 +1,6 @@
 using System;
 
-namespace Gameplay
+namespace Gameplay.TimerGates
 {
     public class TimerAndGatesMediator : IDisposable
     {

@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a13ed0a0258ab5b4cbd546fc414a6c87, type: 3}
-  m_Name: CarConfig_Lada
+  m_Name: TestSuper
   m_EditorClassIdentifier: 
-  _acceleration: 100
-  _maxSpeed: 500
-  _modelOfCar: {fileID: 919132149155446097, guid: 7072075bbe630f84f8a8200350a4713d, type: 3}
-  <Acceleration1>k__BackingField: 0
+  <Acceleration>k__BackingField: 999999
+  <MaxSpeed>k__BackingField: 999999
+  <ModelOfCar>k__BackingField: {fileID: -462981019419857548, guid: 7072075bbe630f84f8a8200350a4713d, type: 3}
+  <Materials>k__BackingField:
+  - {fileID: 2100000, guid: ea765ad7f0973054aba7d4e164e60b95, type: 2}

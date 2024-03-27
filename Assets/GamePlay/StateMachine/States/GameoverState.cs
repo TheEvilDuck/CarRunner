@@ -1,4 +1,5 @@
 using Common.States;
+using Gameplay.Cars;
 using UnityEngine;
 
 namespace Gameplay.States

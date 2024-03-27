@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Gameplay.UI
+namespace Gameplay.TimerGates
 {
     public class TimerGateView : MonoBehaviour
     {

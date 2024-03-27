@@ -1,7 +1,7 @@
 using System;
 using Services.PlayerInput;
 
-namespace Gameplay
+namespace Gameplay.Cars
 {
     public class CarControllerMediator : IDisposable
     {

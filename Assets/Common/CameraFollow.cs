@@ -17,7 +17,7 @@ namespace Common.Components
         _target = target;
     }
 
-    private void Update() 
+    private void FixedUpdate() 
     {
         Vector3 targetPosition = _target.position+transform.rotation*_offset;
 
@@ -25,7 +25,7 @@ namespace Common.Components
 
         targetPosition-=Vector3.ClampMagnitude(directionVector.normalized*_minDistance,_minDistance);
 
-        transform.position=Vector3.Lerp(transform.position,targetPosition,Time.deltaTime*_speed);
+        transform.position=Vector3.Lerp(transform.position,targetPosition,_speed);
         transform.rotation = _target.rotation;
         transform.Rotate(Vector3.right, _angle);
 

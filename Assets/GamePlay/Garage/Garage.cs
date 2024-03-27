@@ -1,25 +1,29 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Gameplay.Cars;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.Garages
 {
     [RequireComponent(typeof(Collider))]
-    public class Garage : CarCollisionDetector
+    public class Garage : CarCollisionDetector, IGarageData
     {
-        [SerializeField] private float _time;
+        [field: SerializeField] public float AdditionalTime {get; private set;}
+        [field: SerializeField] public CarConfig CarConfig {get; private set;}
+        [field: SerializeField] public float ComparsionTime {get; private set;}
+        [SerializeField] private GarageView _garageView;
         private Timer _timer; 
         public event Action<bool> passed;
 
         public void Init(Timer timer)
         {
-            _timer = timer;       
+            _timer = timer;     
+
+            _garageView.Init(this);
         }
 
         protected override void OnPassed()
         {
-            passed?.Invoke(_timer.CurrentTime >= _time);
+            passed?.Invoke(_timer.CurrentTime >= ComparsionTime);
         }
     }
 }
