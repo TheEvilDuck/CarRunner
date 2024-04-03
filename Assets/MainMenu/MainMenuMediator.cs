@@ -15,7 +15,7 @@ namespace MainMenu
             _sceneLoader = sceneLoader;
 
             _mainMenuView.ExitClickedEvent.AddListener(OnExitClecked);
-            _mainMenuView.PlayClickedEvent.AddListener(OnPlayClecked);
+            _mainMenuView.PlayClickedEvent.AddListener(OnPlayClecked); 
         }
 
         public void Dispose()
