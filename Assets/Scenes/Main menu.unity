@@ -305,9 +305,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2766240931849273489, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_text
-      value: 'Play
-
-'
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 7001046365671124443, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: m_Color.a
+      value: 0.9254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 7001046365671124443, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7001046365671124443, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7001046365671124443, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -732,9 +746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2766240931849273489, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_text
-      value: 'Exit
-
-'
+      value: Exit
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
