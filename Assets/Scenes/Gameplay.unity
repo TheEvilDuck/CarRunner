@@ -207,6 +207,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6cd4fdd6a5f055d4d97507ef7187e17c, type: 2}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <CarConfig>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c9885d914542c241b35b217f01fe4fd, type: 2}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <AdditionalTime>k__BackingField
       value: 55
       objectReference: {fileID: 0}
@@ -352,6 +356,10 @@ PrefabInstance:
       propertyPath: CarConfig
       value: 
       objectReference: {fileID: 11400000, guid: 80d06fd6e9ca2924d8baf1de8e637246, type: 2}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <CarConfig>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 6cd4fdd6a5f055d4d97507ef7187e17c, type: 2}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <AdditionalTime>k__BackingField
       value: 50
@@ -546,6 +554,10 @@ PrefabInstance:
       propertyPath: CarConfig
       value: 
       objectReference: {fileID: 11400000, guid: 5e85e5b81b5f1564d897cceb46afebd4, type: 2}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <CarConfig>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c9885d914542c241b35b217f01fe4fd, type: 2}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <AdditionalTime>k__BackingField
       value: 55
@@ -763,8 +775,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78143f8b38e6f1c4db706bce51478156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CarBehavior: {fileID: 4620018153176073308}
-  CarView: {fileID: 1183187503}
+  <CarBehavior>k__BackingField: {fileID: 4620018153176073308}
+  <CarView>k__BackingField: {fileID: 1183187503}
 --- !u!1 &981900866
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,6 +1327,10 @@ PrefabInstance:
       propertyPath: CarConfig
       value: 
       objectReference: {fileID: 11400000, guid: 7c9885d914542c241b35b217f01fe4fd, type: 2}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <CarConfig>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: 5e85e5b81b5f1564d897cceb46afebd4, type: 2}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <AdditionalTime>k__BackingField
       value: 50
