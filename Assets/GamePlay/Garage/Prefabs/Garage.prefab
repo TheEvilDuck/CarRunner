@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 533.53876, y: 213.57727, z: -22.839975}
-  m_LocalScale: {x: 1, y: 1.4723, z: 0.055096}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3.1845, y: 4.6885395, z: 0.17545322}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6230941947092531592}
   m_Father: {fileID: 0}
@@ -121,9 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e71228311ae76f049bae87f41124bd1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <AdditionalTime>k__BackingField: 0
-  <CarConfig>k__BackingField: {fileID: 0}
-  <ComparsionTime>k__BackingField: 0
+  <AdditionalTime>k__BackingField: 10
+  <CarConfig>k__BackingField: {fileID: 11400000, guid: 7c9885d914542c241b35b217f01fe4fd, type: 2}
+  <ComparsionTime>k__BackingField: 20
   _garageView: {fileID: 7844699710321420086}
 --- !u!1 &3023467219160155514
 GameObject:

@@ -8,7 +8,7 @@ namespace Gameplay.Cars
     public class CarBehaviour : MonoBehaviour
     {
         //public const float TURN_DEGREE = 30f;
-        private const float _innerTurnDegree = 45f;
+        private const float _innerTurnDegree = 55f;
         private float _externalTurnDegree = (float)(Math.Atan2(2.37f, 1.3f + 2.37f / Math.Tan(_innerTurnDegree))*180/Math.PI);
         [SerializeField] private WheelData[] _wheels;
         [SerializeField] private Rigidbody _rigidBody;
