@@ -394,6 +394,7 @@ MonoBehaviour:
   _car: {fileID: 943429565}
   _startConfig: {fileID: 11400000, guid: 6ec3e89559be18d419f7e1e6a7dec812, type: 2}
   _wheelPrefab: {fileID: 8081287674897411264, guid: 49e02334eab26ed4282e087f3b39bc85, type: 3}
+  _soundController: {fileID: 1944693410}
 --- !u!4 &284236323
 Transform:
   m_ObjectHideFlags: 0
@@ -1874,13 +1875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _backgroundAudioSource: {fileID: 52774739}
   _sfxAudioSource: {fileID: 1509585668}
-  _sounds:
-  - _name: Background Music
-    _clip: {fileID: 8300000, guid: 26364aaf1f64b40c1a047b0bacfbd10e, type: 3}
-  - _name: SFX Garage
-    _clip: {fileID: 8300000, guid: 9ee2bbf3911a4448bbcbb25e6e57c892, type: 3}
-  - _name: SFX Gate
-    _clip: {fileID: 8300000, guid: dd532fdb2a61e4cc5bc727f3b32a69a8, type: 3}
+  _sound: {fileID: 11400000, guid: 078496f8149d97e4dbaf2aeee0882cb7, type: 2}
 --- !u!54 &2013474798 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 3738653615869582802, guid: 4b2f8ac742560064b9610a93b42c0fd3, type: 3}

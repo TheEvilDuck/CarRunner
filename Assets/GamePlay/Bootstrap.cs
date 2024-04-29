@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Common;
+using Common.Sound;
 using Common.States;
 using Gameplay.Cars;
 using Gameplay.Garages;
@@ -20,7 +21,7 @@ namespace Gameplay
         [SerializeField]private Car _car;
         [SerializeField]private CarConfig _startConfig;
         [SerializeField]private GameObject _wheelPrefab;
-        //[SerializeField]private SoundController _soundController;
+        [SerializeField]private SoundController _soundController;
         private Timer _timer;
         private List<IPausable>_pausableControls;
         private TimerMediator _timerMediator;
@@ -29,7 +30,7 @@ namespace Gameplay
         private StateMachine _gameplayStateMachine;
         private IPlayerInput _playerInput;
         private CarSwitcher _carSwitcher;
-        //private SoundMediator _soundMediator;
+        private SoundMediator _soundMediator;
 
         private void Awake() 
         {
@@ -67,7 +68,7 @@ namespace Gameplay
 
             _car.InitCar(_startConfig, _wheelPrefab);
 
-            //_soundMediator = new SoundMediator(_soundController, _timerGates, _garages);
+            _soundMediator = new SoundMediator(_soundController, _timerGates, _garages);
         }
 
         private void Update() 
@@ -82,6 +83,7 @@ namespace Gameplay
             _timerAndGatesMediator.Dispose();
             _carControllerMediator.Dispose();
             _carSwitcher.Dispose();
+            _soundMediator.Dispose();
         }
     }
 }
