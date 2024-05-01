@@ -13,22 +13,21 @@ namespace Gameplay.States
             _car = carBehaviour;
         }
 
-        public override void Enter()
+        public override void Update()
+        {
+            _timer.Update();
+        }
+
+        protected override void OnEnter()
         {
             _timer.Restart();
             _car.enabled = true;
 
             _timer.end+=OnTimerEnd;
         }
-
-        public override void Exit()
+        protected override void OnExit()
         {
             _timer.end-=OnTimerEnd;
-        }
-
-        public override void Update()
-        {
-            _timer.Update();
         }
 
         private void OnTimerEnd()
