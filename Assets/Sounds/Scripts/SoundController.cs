@@ -15,6 +15,11 @@ namespace Common.Sound
             _backgroundAudioSource.Play();
         }
 
+        public void StopBackgroundMusic()
+        {
+            _backgroundAudioSource.Stop();
+        }
+
         public void PlaySFXGarage()
         {
             _sfxAudioSource.clip = _sound.GetAudio(SoundID.SFXGarage);

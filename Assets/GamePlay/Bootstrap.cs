@@ -68,7 +68,7 @@ namespace Gameplay
 
             _car.InitCar(_startConfig, _wheelPrefab);
 
-            _soundMediator = new SoundMediator(_soundController, _timerGates, _garages);
+            _soundMediator = new SoundMediator(_soundController, _timerGates, _garages, raceGameState);
         }
 
         private void Update() 
