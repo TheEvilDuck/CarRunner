@@ -12,7 +12,7 @@ namespace Gameplay.States
             _car = carBehaviour;
         }
 
-        public override void Enter()
+        protected override void OnEnter()
         {
             Debug.Log("GAME OVER");
 

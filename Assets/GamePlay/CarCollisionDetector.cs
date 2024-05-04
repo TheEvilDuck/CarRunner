@@ -11,7 +11,7 @@ namespace Gameplay
         private bool _passed;
         private void OnTriggerEnter(Collider other) 
         {
-            if (!other.gameObject.TryGetComponent<Car>(out Car testCar))
+            if (!other.gameObject.TryGetComponent<CarCollider>(out CarCollider carCollider))
                 return;
 
             if (_passed)
