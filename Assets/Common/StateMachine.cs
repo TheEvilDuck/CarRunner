@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Common.States
 {
-    public class StateMachine
+    public class StateMachine: IDisposable
     {
         private Dictionary<Type,State> _states;
         private State _currentState;
@@ -35,6 +35,7 @@ namespace Common.States
             _currentState?.Enter();
         }
 
+        public void Dispose() => _currentState?.Exit();
         public void Update()
         {
             _currentState?.Update();
