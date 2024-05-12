@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Gameplay.States
 {
-    public class GameoverState : State
+    public class LoseState : State
     {
         private readonly CarBehaviour _car;
-        public GameoverState(StateMachine stateMachine, CarBehaviour carBehaviour) : base(stateMachine)
+        public LoseState(StateMachine stateMachine, CarBehaviour carBehaviour) : base(stateMachine)
         {
             _car = carBehaviour;
         }
@@ -16,7 +16,7 @@ namespace Gameplay.States
         {
             Debug.Log("GAME OVER");
 
-            _car.enabled = false;
+            _car.Stop();
         }
     }
 }

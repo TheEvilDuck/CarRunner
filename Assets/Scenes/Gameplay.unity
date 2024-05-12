@@ -694,6 +694,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1390158560}
     - target: {fileID: 8117531253039395286, guid: aa758e60310365f4bb0203c7cdc61ec5, type: 3}
+      propertyPath: _testLevelPRefab
+      value: 
+      objectReference: {fileID: 6622349014937471038, guid: 8c3ca1a830ca67c41b552a3d640ac682, type: 3}
+    - target: {fileID: 8117531253039395286, guid: aa758e60310365f4bb0203c7cdc61ec5, type: 3}
       propertyPath: _garages.Array.size
       value: 1
       objectReference: {fileID: 0}

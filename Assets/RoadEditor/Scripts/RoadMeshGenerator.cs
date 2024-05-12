@@ -28,23 +28,32 @@ public class RoadMeshGenerator: MonoBehaviour
 
     private void OnEnable() 
     {
-        if (Application.isPlaying)
-            this.enabled = false;
-
         _splineContainer = GetComponent<SplineContainer>();
         _meshFilter = GetComponent<MeshFilter>();
         _collider = GetComponent<MeshCollider>();
 
         transform.position = Vector3.zero;
+
+        BuildRoad();
+
+        if (Application.isPlaying)
+            this.enabled = false;
     }
 
     private void Update() 
     {
+        if (Application.isPlaying)
+            return;
+
+        BuildRoad();
+    }
+
+    private void BuildRoad()
+    {
         _verticiesLeft.Clear();
         _verticiesRight.Clear();
 
-        if (Application.isPlaying)
-            return;
+        
 
         if (_splineContainer.Splines.Count == 0)
             return;

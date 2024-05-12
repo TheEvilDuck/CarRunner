@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using Common;
 using Common.States;
 using Gameplay.Cars;
 using Gameplay.Garages;
+using Gameplay.Levels;
 using Gameplay.States;
 using Gameplay.TimerGates;
 using Gameplay.UI;
@@ -15,8 +17,7 @@ namespace Gameplay
     {
         [SerializeField]private float _startTime = 20f;
         [SerializeField]private TimerView _timerView;
-        [SerializeField]private TimerGate[] _timerGates;
-        [SerializeField]private Garage[] _garages;
+        [SerializeField]private LevelData _testLevelPRefab;
         [SerializeField]private Car _car;
         [SerializeField]private CarConfig _startConfig;
         [SerializeField]private GameObject _wheelPrefab;
@@ -36,34 +37,44 @@ namespace Gameplay
             else if (SystemInfo.deviceType == DeviceType.Handheld)
                 _playerInput = new MobileInput();
 
+            LevelData testLevel = Instantiate(_testLevelPRefab);
+            testLevel.transform.position = Vector3.zero;
+
             _timer = new Timer(_startTime);
-            _pausableControls = new List<IPausable>();
-            _pausableControls.Add(_timer);
+            _pausableControls = new List<IPausable>
+            {
+                _timer
+            };
 
             _timerMediator = new TimerMediator(_timer, _timerView);
 
             _gameplayStateMachine = new StateMachine();
 
             PreStartState preStartState = new PreStartState(_gameplayStateMachine);
-            RaceGameState raceGameState = new RaceGameState(_gameplayStateMachine, _timer, _car.CarBehavior);
-            GameoverState gameoverState = new GameoverState(_gameplayStateMachine, _car.CarBehavior);
+            RaceGameState raceGameState = new RaceGameState(_gameplayStateMachine, _timer, _car.CarBehavior, testLevel.Finish);
+            WinState winState = new WinState(_gameplayStateMachine, _car.CarBehavior);
+            LoseState loseState = new LoseState(_gameplayStateMachine, _car.CarBehavior);
+
 
             _gameplayStateMachine.AddState(preStartState);
             _gameplayStateMachine.AddState(raceGameState);
-            _gameplayStateMachine.AddState(gameoverState);
+            _gameplayStateMachine.AddState(winState);
+            _gameplayStateMachine.AddState(loseState);
 
-            _timerAndGatesMediator = new TimerAndGatesMediator(_timerGates, _timer);
+            _timerAndGatesMediator = new TimerAndGatesMediator(testLevel.TimerGates.ToArray(), _timer);
 
             _carControllerMediator = new CarControllerMediator(_car.CarBehavior, _playerInput);
 
-            foreach(Garage garage in _garages)
+            foreach(Garage garage in testLevel.Garages.ToArray())
             {
                 garage.Init(_timer);
             }
 
-            _carSwitcher = new CarSwitcher(_car,_garages,_timer, _wheelPrefab);
+            _carSwitcher = new CarSwitcher(_car,testLevel.Garages.ToArray(),_timer, _wheelPrefab);
 
             _car.InitCar(_startConfig, _wheelPrefab);
+
+            _car.transform.position = testLevel.CarStartPosition;
         }
 
         private void Update() 
@@ -78,6 +89,7 @@ namespace Gameplay
             _timerAndGatesMediator.Dispose();
             _carControllerMediator.Dispose();
             _carSwitcher.Dispose();
+            _gameplayStateMachine.Dispose();
         }
     }
 }
