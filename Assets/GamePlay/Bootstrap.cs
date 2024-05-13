@@ -15,8 +15,8 @@ namespace Gameplay
     {
         [SerializeField]private float _startTime = 20f;
         [SerializeField]private TimerView _timerView;
-        [SerializeField]private TimerGate[] _timerGates;
-        [SerializeField]private Garage[] _garages;
+        [SerializeField]private List<TimerGate> _timerGates;
+        [SerializeField]private List<Garage> _garages;
         [SerializeField]private Car _car;
         [SerializeField]private CarConfig _startConfig;
         [SerializeField]private GameObject _wheelPrefab;
@@ -52,7 +52,7 @@ namespace Gameplay
             _gameplayStateMachine.AddState(raceGameState);
             _gameplayStateMachine.AddState(gameoverState);
 
-            _timerAndGatesMediator = new TimerAndGatesMediator(_timerGates, _timer);
+            _timerAndGatesMediator = new TimerAndGatesMediator(_timerGates.ToArray(), _timer);
 
             _carControllerMediator = new CarControllerMediator(_car.CarBehavior, _playerInput);
 
@@ -61,7 +61,7 @@ namespace Gameplay
                 garage.Init(_timer);
             }
 
-            _carSwitcher = new CarSwitcher(_car,_garages,_timer, _wheelPrefab);
+            _carSwitcher = new CarSwitcher(_car,_garages.ToArray(),_timer, _wheelPrefab);
 
             _car.InitCar(_startConfig, _wheelPrefab);
         }
