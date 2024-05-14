@@ -20,8 +20,8 @@ namespace Gameplay
             _garages = garages;
             _raceGameState = raceGameState;
 
-            _raceGameState.entered += StartBackgroundMusic;
-            _raceGameState.exited += StopBackgroundAudio;
+            _raceGameState.entered += onRaceGameStateEntered;
+            _raceGameState.exited += onRaceGameStateExited;
 
             foreach (TimerGate gate in _gates)
             {
@@ -35,8 +35,8 @@ namespace Gameplay
 
         public void Dispose()
         {
-            _raceGameState.entered -= StartBackgroundMusic;
-            _raceGameState.exited -= StopBackgroundAudio;
+            _raceGameState.entered -= onRaceGameStateEntered;
+            _raceGameState.exited -= onRaceGameStateExited;
 
             foreach (TimerGate gate in _gates)
             {
@@ -51,22 +51,22 @@ namespace Gameplay
 
         private void OnGatePassed(float time)
         {
-            _soundController.PlaySFXGate();
+            _soundController.Play(SoundID.SFXGate);
         }
 
         private void OnGaregePassed(bool passed)
         {
-            _soundController.PlaySFXGarage();
+            _soundController.Play(SoundID.SFXGarage);
         }
 
-        private void StartBackgroundMusic()
+        private void onRaceGameStateEntered()
         {
-            _soundController.PlayBackgroundMusic();
+            _soundController.Play(SoundID.BacgrondMusic);
         }
 
-        private void StopBackgroundAudio()
+        private void onRaceGameStateExited()
         {
-            _soundController.StopBackgroundMusic();
+            _soundController.Stop(SoundID.BacgrondMusic);
         }
     }
 }

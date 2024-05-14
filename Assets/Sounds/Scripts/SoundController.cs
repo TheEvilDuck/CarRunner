@@ -34,40 +34,24 @@ namespace Common.Sound
             _audioSourcePool = new ObjectPool<AudioSource>(CreatePooledObject, TakeFromPool, ReturnToPool, DestroyObject, _collectionCheck, _poolDefaultCapacity, _poolMaxSize);
         }
 
-        public void PlayBackgroundMusic()
+        public void Play(SoundID soundID)
         {
             AudioSource audioSource = _audioSourcePool.Get();
-            audioSource.clip = _sound.GetAudio(SoundID.BacgrondMusic);
+            audioSource.clip = _sound.GetAudio(soundID);
             audioSource.Play();
             _usedObjects.Add(audioSource);
         }
 
-        public void StopBackgroundMusic()
+        public void Stop(SoundID soundID)
         {
             if (_usedObjects.Count > 0)
             {
                 for (int i = _usedObjects.Count - 1; i > -1; i--)
                 {
-                    if (_usedObjects[i].clip == _sound.GetAudio(SoundID.BacgrondMusic))
+                    if (_usedObjects[i].clip == _sound.GetAudio(soundID))
                         _usedObjects[i].Stop();
                 }
             }
-        }
-
-        public void PlaySFXGarage()
-        {
-            AudioSource audioSource = _audioSourcePool.Get();
-            audioSource.clip = _sound.GetAudio(SoundID.SFXGarage);
-            audioSource.Play();
-            _usedObjects.Add(audioSource);
-        }
-
-        public void PlaySFXGate()
-        {
-            AudioSource audioSource = _audioSourcePool.Get();
-            audioSource.clip = _sound.GetAudio(SoundID.SFXGate);
-            audioSource.Play();
-            _usedObjects.Add(audioSource);
         }
 
         private AudioSource CreatePooledObject()
