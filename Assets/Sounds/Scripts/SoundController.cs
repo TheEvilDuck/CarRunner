@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Pool;
 
 namespace Common.Sound
@@ -8,6 +9,7 @@ namespace Common.Sound
     {
         [SerializeField] private Sounds _sound;
         [SerializeField] private GameObject _objectToPool;
+        [SerializeField] private AudioMixer _audioMixer;
         private ObjectPool<AudioSource> _audioSourcePool;
         private List<AudioSource> _usedObjects = new List<AudioSource>();
         private bool _collectionCheck = false;
@@ -36,6 +38,9 @@ namespace Common.Sound
 
         public void Play(SoundID soundID)
         {
+            //если вешать группу AudioMixer'а тут, то нужно же soundID сравнивать
+            //на пренадлежность к каждой группе, а если групп будет много? UI, sfx, backround
+            //а если вешать не тут, то я даже хз где?
             AudioSource audioSource = _audioSourcePool.Get();
             audioSource.clip = _sound.GetAudio(soundID);
             audioSource.Play();
