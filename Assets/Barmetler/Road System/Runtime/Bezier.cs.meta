@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5cba9cee025b1b940a69ddfda257e24b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192818
+  packageName: Road System
+  packageVersion: 1.0.2
+  assetPath: Assets/Barmetler/Road System/Runtime/Bezier.cs
+  uploadId: 647522
