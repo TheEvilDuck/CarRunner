@@ -9,8 +9,7 @@ namespace Common.Components
     [SerializeField]private float _speed = 10f;
     [SerializeField]private float _angle = 10f;
     [SerializeField]private float _minDistance = 10f;
-
-    private float _currentSpeed;
+    
 
     public void SetTarget(Transform target)
     {
@@ -19,6 +18,11 @@ namespace Common.Components
 
     private void FixedUpdate() 
     {
+        if (_target == null)
+        {
+            return;
+        }
+
         Vector3 targetPosition = _target.position+transform.rotation*_offset;
 
         Vector3 directionVector = targetPosition-transform.position;
