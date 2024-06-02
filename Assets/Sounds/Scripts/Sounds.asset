@@ -15,7 +15,10 @@ MonoBehaviour:
   AudioClips:
   - <SoundID>k__BackingField: 0
     <AudioClip>k__BackingField: {fileID: 8300000, guid: 26364aaf1f64b40c1a047b0bacfbd10e, type: 3}
+    <AudioMixerGroup>k__BackingField: {fileID: 4998207502586117421, guid: 4604e844800f807428a373b9ac1d785b, type: 2}
   - <SoundID>k__BackingField: 1
     <AudioClip>k__BackingField: {fileID: 8300000, guid: dd532fdb2a61e4cc5bc727f3b32a69a8, type: 3}
+    <AudioMixerGroup>k__BackingField: {fileID: -2146279365521001395, guid: 4604e844800f807428a373b9ac1d785b, type: 2}
   - <SoundID>k__BackingField: 2
     <AudioClip>k__BackingField: {fileID: 8300000, guid: 9ee2bbf3911a4448bbcbb25e6e57c892, type: 3}
+    <AudioMixerGroup>k__BackingField: {fileID: -2146279365521001395, guid: 4604e844800f807428a373b9ac1d785b, type: 2}
