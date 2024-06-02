@@ -44,10 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d874760ab10342478ce56b4e21689b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startTime: 50
+  _startTime: 100
   _timerView: {fileID: 0}
-  _timerGates: []
-  _garages: []
-  _car: {fileID: 0}
+  _levels: {fileID: 11400000, guid: 0070abab5c4e74d4990289e1248eb4cc, type: 2}
+  _carPrefab: {fileID: 5007645459269680481, guid: 4b2f8ac742560064b9610a93b42c0fd3, type: 3}
   _startConfig: {fileID: 11400000, guid: 6ec3e89559be18d419f7e1e6a7dec812, type: 2}
   _wheelPrefab: {fileID: 8081287674897411264, guid: 49e02334eab26ed4282e087f3b39bc85, type: 3}
+  _testLevelId: test
+  _cameraFollow: {fileID: 0}
