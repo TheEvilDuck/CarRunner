@@ -50,5 +50,5 @@ MonoBehaviour:
   _carPrefab: {fileID: 5007645459269680481, guid: 4b2f8ac742560064b9610a93b42c0fd3, type: 3}
   _startConfig: {fileID: 11400000, guid: 6ec3e89559be18d419f7e1e6a7dec812, type: 2}
   _wheelPrefab: {fileID: 8081287674897411264, guid: 49e02334eab26ed4282e087f3b39bc85, type: 3}
-  _testLevelId: test
+  _defaultLevelId: test
   _cameraFollow: {fileID: 0}
