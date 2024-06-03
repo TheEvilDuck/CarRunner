@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common;
+using Common.Sound;
 using Common.States;
 using Gameplay.Cars;
 using Gameplay.Garages;
@@ -24,6 +25,7 @@ namespace Gameplay
         [SerializeField]private GameObject _wheelPrefab;
         [SerializeField] private string _defaultLevelId;
         [SerializeField] private CameraFollow _cameraFollow;
+        [SerializeField]private SoundController _soundController;
         private Timer _timer;
         private List<IPausable>_pausableControls;
         private TimerMediator _timerMediator;
@@ -35,6 +37,7 @@ namespace Gameplay
         private PlayerData _playerData;
         private Level _level;
         private Car _car;
+        private SoundMediator _soundMediator;
 
         private void Awake() 
         {
@@ -93,6 +96,9 @@ namespace Gameplay
             _cameraFollow.SetTarget(_car.transform);
             _car.transform.position = _level.CarStartPosition;
 
+
+            _soundController.Init();
+            _soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), raceGameState);
         }
 
         private void Update() 
@@ -108,6 +114,7 @@ namespace Gameplay
             _carControllerMediator.Dispose();
             _carSwitcher.Dispose();
             _gameplayStateMachine.Dispose();
+            _soundMediator.Dispose();
         }
     }
 }
