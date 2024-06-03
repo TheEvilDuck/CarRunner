@@ -41,10 +41,7 @@ namespace Gameplay.Cars
 
             foreach (var transformAndWheel in _currentWheels)
             {
-                foreach (Transform child in transformAndWheel.Key)
-                {
-                    Destroy(child.gameObject);
-                }
+                Destroy(transformAndWheel.Key.gameObject);
             }
 
             _currentWheels.Clear();

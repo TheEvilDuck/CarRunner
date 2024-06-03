@@ -31,7 +31,7 @@ namespace Common.Sound
             {
                 for (int i = _usedObjects.Count - 1; i > -1; i--)
                 {
-                    if (!_usedObjects[i].isPlaying)
+                    if (_usedObjects[i] == null || !_usedObjects[i].isPlaying)
                     {
                         _audioSourcePool.Release(_usedObjects[i]);
                         _usedObjects.RemoveAt(i);
