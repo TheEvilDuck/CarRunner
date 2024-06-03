@@ -22,6 +22,18 @@ namespace Levels
             throw new ArgumentException($"There is no level with id: {id}");
         }
 
+        public string[] GetAllLevels()
+        {
+            List<string> result = new List<string>();
+
+            foreach (LevelData levelData in _levels)
+            {
+                result.Add(levelData.LevelId);
+            }
+
+            return result.ToArray();
+        }
+
         [Serializable]
         private class LevelData
         {
