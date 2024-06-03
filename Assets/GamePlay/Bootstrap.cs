@@ -98,7 +98,7 @@ namespace Gameplay
 
 
             _soundController.Init();
-            _soundMediator = new SoundMediator(_soundController, _timerGates, _garages, raceGameState);
+            _soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), raceGameState);
         }
 
         private void Update() 
