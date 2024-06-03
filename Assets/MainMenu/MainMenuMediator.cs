@@ -6,26 +6,31 @@ namespace MainMenu
 {
     public class MainMenuMediator : IDisposable
     {
-        private MainMenuView _mainMenuView;
-        private SceneLoader _sceneLoader;
+        private readonly MainMenuView _mainMenuView;
+        private readonly PlayerData _playerData;
+        private readonly SceneLoader _sceneLoader;
 
-        public MainMenuMediator(MainMenuView mainMenuView, SceneLoader sceneLoader)
+        public MainMenuMediator(MainMenuView mainMenuView, PlayerData playerData, SceneLoader sceneLoader)
         {
             _mainMenuView = mainMenuView;
             _sceneLoader = sceneLoader;
+            _playerData = playerData;
 
-            _mainMenuView.ExitClickedEvent.AddListener(OnExitClecked);
-            _mainMenuView.PlayClickedEvent.AddListener(OnPlayClecked); 
+            _mainMenuView.MainButtons.ExitClickedEvent.AddListener(OnExitPressed);
+            _mainMenuView.LevelSelector.levelSelected += OnLevelSelected;
         }
-
         public void Dispose()
         {
-            _mainMenuView.ExitClickedEvent.RemoveListener(OnExitClecked);
-            _mainMenuView.PlayClickedEvent.RemoveListener(OnPlayClecked);
+            _mainMenuView.MainButtons.ExitClickedEvent.RemoveListener(OnExitPressed);
+            _mainMenuView.LevelSelector.levelSelected -= OnLevelSelected;
         }
 
-        private void OnExitClecked() => Application.Quit();
-        private void OnPlayClecked() => _sceneLoader.LoadGameplay();
+        private void OnExitPressed() => Application.Quit();
+        private void OnLevelSelected(string levelId)
+        {
+            _playerData.SaveSelectedLevel(levelId);
+            _sceneLoader.LoadGameplay();
+        }
     }
 }
 

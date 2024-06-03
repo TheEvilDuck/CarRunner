@@ -8,11 +8,13 @@ namespace MainMenu
         [SerializeField]private MainMenuView _mainMenuView;
         private SceneLoader _sceneLoader;
         private MainMenuMediator _mainMenuMediator;
+        private PlayerData _playerData;
 
         private void Awake()
         {
             _sceneLoader = new SceneLoader();
-            _mainMenuMediator = new MainMenuMediator(_mainMenuView, _sceneLoader);
+            _playerData = new PlayerData();
+            _mainMenuMediator = new MainMenuMediator(_mainMenuView, _playerData, _sceneLoader);
         }
 
         private void OnDestroy()
