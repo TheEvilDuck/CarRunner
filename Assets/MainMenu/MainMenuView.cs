@@ -6,11 +6,37 @@ namespace MainMenu
 {
     public class MainMenuView : MonoBehaviour
     {
-        [SerializeField] private Button _play;
-        [SerializeField] private Button _exit;
+        [field: SerializeField] public MainButtons MainButtons {get; private set;}
+        [field: SerializeField] public LevelSelector LevelSelector {get; private set;}
 
-        public UnityEvent PlayClickedEvent => _play.onClick;
-        public UnityEvent ExitClickedEvent => _exit.onClick;
+        private void Awake() 
+        {
+            ShowMainButtons();
+        }
+
+        private void OnEnable() 
+        {
+            MainButtons.PlayClickedEvent.AddListener(ShowLevelSelector);
+            LevelSelector.BackPressed.AddListener(ShowMainButtons);
+        }
+
+        private void OnDisable() 
+        {
+            MainButtons.PlayClickedEvent.RemoveListener(ShowLevelSelector);
+            LevelSelector.BackPressed.RemoveListener(ShowMainButtons);
+        }
+
+        private void ShowMainButtons()
+        {
+            MainButtons.gameObject.SetActive(true);
+            LevelSelector.gameObject.SetActive(false);
+        }
+
+        private void ShowLevelSelector()
+        {
+            MainButtons.gameObject.SetActive(false);
+            LevelSelector.gameObject.SetActive(true);
+        }
 
     }
 }

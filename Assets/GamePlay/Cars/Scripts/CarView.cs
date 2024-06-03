@@ -18,6 +18,8 @@ namespace Gameplay.Cars
 
         public void InitWheels(GameObject _wheelPrefab, IEnumerable<IReadOnlyWheel> wheels)
         {
+            CleanUp();
+
             _currentWheels = new Dictionary<Transform, IReadOnlyWheel>();
 
             foreach (IReadOnlyWheel wheel in wheels)
@@ -30,6 +32,22 @@ namespace Gameplay.Cars
                 _currentWheels.Add(wheelView.transform, wheel);
                 
             }
+        }
+
+        private void CleanUp()
+        {
+            if (_currentWheels == null)
+                return;
+
+            foreach (var transformAndWheel in _currentWheels)
+            {
+                foreach (Transform child in transformAndWheel.Key)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
+            _currentWheels.Clear();
         }
 
         private void Update() 

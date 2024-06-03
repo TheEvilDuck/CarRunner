@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3f5f98769c0a3cc46a0885c50bc0d7cf
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192818
+  packageName: Road System
+  packageVersion: 1.0.2
+  assetPath: Assets/Barmetler/Road System/Editor/Settings/NewIntersectionWizard.cs
+  uploadId: 647522

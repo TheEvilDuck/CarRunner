@@ -16,10 +16,22 @@ namespace Gameplay.Cars
         private float _maxSpeed = 500;
         private float _turnDegree = 0; //in degrees
 
+        private bool _stopped;
+
         public IEnumerable<IReadOnlyWheel> Wheels => _wheels;
 
         private void FixedUpdate()
         {
+            if (_stopped)
+            {
+                _rigidBody.velocity *= 0.9f;
+
+                if (_rigidBody.velocity.magnitude < 0.01f)
+                    _rigidBody.velocity = Vector3.zero;
+
+                return;
+            }
+            
             //Turning and twisting
             foreach (WheelData wheel in _wheels)
             {
@@ -72,6 +84,17 @@ namespace Gameplay.Cars
         {
             _acceleration = Acceleration;
             _maxSpeed = MaxSpeed;
+        }
+
+        public void Stop()
+        {
+            foreach (var wheel in _wheels)
+            {
+                wheel.WheelCollider.motorTorque = 0;
+                wheel.WheelCollider.steerAngle = 0;
+            }
+
+            _stopped = true;
         }
 
         //turnValue - in degrees
