@@ -2,20 +2,19 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace Gameplay.Cars
 {
     public class CarBehaviour : MonoBehaviour
     {
-        //public const float TURN_DEGREE = 30f;
-        private const float _innerTurnDegree = 55f;
-        private float _externalTurnDegree = (float)(Math.Atan2(2.37f, 1.3f + 2.37f / Math.Tan(_innerTurnDegree))*180/Math.PI);
         [SerializeField] private WheelData[] _wheels;
         [SerializeField] private Rigidbody _rigidBody;
+        private const float _maxAngleRotation = 35f;
+        private float _break—oefficient = 10;
         private float _acceleration;
-        private float _maxSpeed = 500;
+        private bool _isBreak;
+        private float _maxSpeed;
         private float _turnDegree = 0; //in degrees
-
+        private float _interpolationMultiplierForRotation = 0.6f;
         private bool _stopped;
 
         public IEnumerable<IReadOnlyWheel> Wheels => _wheels;
@@ -37,46 +36,20 @@ namespace Gameplay.Cars
             {
                 if (wheel.IsTorque)
                 {
-                    
-                    if(_rigidBody.velocity.magnitude < _maxSpeed)
+                    if (_rigidBody.velocity.magnitude < _maxSpeed)
                     {
                         wheel.WheelCollider.motorTorque = _acceleration;
+
+                        if (_isBreak)
+                            wheel.WheelCollider.brakeTorque = _acceleration * _break—oefficient;
+                        else
+                            wheel.WheelCollider.brakeTorque = 0;
                     }
                     else
-                    {
                         wheel.WheelCollider.motorTorque = 0;
-                    }
                 }
                 if (wheel.IsTurnable)
-                {
-                    if(_turnDegree > 0)
-                    {
-                        if (!wheel.IsLeft)
-                        {
-                            wheel.WheelCollider.steerAngle = _turnDegree;
-                        }
-                        if (wheel.IsLeft)
-                        {
-                            wheel.WheelCollider.steerAngle = _externalTurnDegree;
-                        }
-                    }
-                    if (_turnDegree < 0)
-                    {
-                        if (wheel.IsLeft)
-                        {
-                            wheel.WheelCollider.steerAngle = _turnDegree;
-                        }
-                        if (!wheel.IsLeft)
-                        {
-                            wheel.WheelCollider.steerAngle = -_externalTurnDegree;
-                        }
-                    }
-                    if(_turnDegree == 0)
-                    {
-                        wheel.WheelCollider.steerAngle = 0;
-                    }
-                }
-                
+                    wheel.WheelCollider.steerAngle = Mathf.Lerp(wheel.WheelCollider.steerAngle, _turnDegree, _interpolationMultiplierForRotation);  
             }
         }
 
@@ -97,10 +70,15 @@ namespace Gameplay.Cars
             _stopped = true;
         }
 
-        //turnValue - in degrees
+        //_maxAngleRotation - in degrees
         public void SetTurnDegree(float turnValue)
         {
-            _turnDegree = _innerTurnDegree * turnValue;
+            _turnDegree = _maxAngleRotation * turnValue;
+        }
+
+        public void Brake(bool brake)
+        {
+            _isBreak = brake;
         }
 
         [Serializable]
@@ -109,7 +87,6 @@ namespace Gameplay.Cars
             [field: SerializeField] public WheelCollider WheelCollider { get; private set; }
             [field: SerializeField] public bool IsTurnable { get; private set; }
             [field: SerializeField] public bool IsTorque { get; private set; }
-            [field: SerializeField] public bool IsLeft {  get; private set; }
 
             private Vector3 _worldPos;
             private Quaternion _worldRotation;
