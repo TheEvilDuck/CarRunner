@@ -44,7 +44,7 @@ WheelCollider:
   m_Radius: 0.3
   m_SuspensionSpring:
     spring: 8000
-    damper: 4000
+    damper: 8000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
@@ -61,7 +61,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.4
+    m_Stiffness: 5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -124,20 +124,17 @@ MonoBehaviour:
   - <WheelCollider>k__BackingField: {fileID: 7512587553226689586}
     <IsTurnable>k__BackingField: 1
     <IsTorque>k__BackingField: 0
-    <IsLeft>k__BackingField: 1
   - <WheelCollider>k__BackingField: {fileID: 7867962826289230859}
     <IsTurnable>k__BackingField: 1
     <IsTorque>k__BackingField: 0
-    <IsLeft>k__BackingField: 0
   - <WheelCollider>k__BackingField: {fileID: 2237278693218059259}
     <IsTurnable>k__BackingField: 0
     <IsTorque>k__BackingField: 1
-    <IsLeft>k__BackingField: 1
   - <WheelCollider>k__BackingField: {fileID: 476806884518165960}
     <IsTurnable>k__BackingField: 0
     <IsTorque>k__BackingField: 1
-    <IsLeft>k__BackingField: 0
   _rigidBody: {fileID: 3738653615869582802}
+  _interpolationMultiplierForRotation: 0.4
 --- !u!1 &2079838626631304101
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +179,7 @@ WheelCollider:
   m_Radius: 0.3
   m_SuspensionSpring:
     spring: 8000
-    damper: 4000
+    damper: 8000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
@@ -199,7 +196,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.4
+    m_Stiffness: 5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -395,7 +392,7 @@ WheelCollider:
   m_Radius: 0.3
   m_SuspensionSpring:
     spring: 8000
-    damper: 4000
+    damper: 8000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
@@ -412,7 +409,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.4
+    m_Stiffness: 5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -466,7 +463,7 @@ WheelCollider:
   m_Radius: 0.3
   m_SuspensionSpring:
     spring: 8000
-    damper: 4000
+    damper: 8000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
@@ -483,7 +480,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2.4
+    m_Stiffness: 5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
