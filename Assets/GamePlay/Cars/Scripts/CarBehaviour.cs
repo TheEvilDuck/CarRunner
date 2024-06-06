@@ -9,28 +9,17 @@ namespace Gameplay.Cars
         private const float BREAK_COEFFICIENT = 10f;
         [SerializeField] private WheelData[] _wheels;
         [SerializeField] private Rigidbody _rigidBody;
-        private const float _maxAngleRotation = 35f;
+        [SerializeField] private float _interpolationMultiplierForRotation = 0.6f;
+        private const float _maxAngleRotation = 55f;
         private float _acceleration;
         private bool _isBreak;
         private float _maxSpeed;
         private float _turnDegree = 0; //in degrees
-        private float _interpolationMultiplierForRotation = 0.6f;
-        private bool _stopped;
 
         public IEnumerable<IReadOnlyWheel> Wheels => _wheels;
 
         private void FixedUpdate()
         {
-            if (_stopped)
-            {
-                _rigidBody.velocity *= 0.9f;
-
-                if (_rigidBody.velocity.magnitude < 0.01f)
-                    _rigidBody.velocity = Vector3.zero;
-
-                return;
-            }
-            
             //Turning and twisting
             foreach (WheelData wheel in _wheels)
             {
@@ -59,19 +48,8 @@ namespace Gameplay.Cars
             _maxSpeed = MaxSpeed;
         }
 
-        public void Stop()
-        {
-            foreach (var wheel in _wheels)
-            {
-                wheel.WheelCollider.motorTorque = 0;
-                wheel.WheelCollider.steerAngle = 0;
-            }
-
-            _stopped = true;
-        }
-
         //_maxAngleRotation - in degrees
-        public void SetTurnDegree(float turnValue)
+        public void SetTurnDirection(float turnValue)
         {
             _turnDegree = _maxAngleRotation * turnValue;
         }
