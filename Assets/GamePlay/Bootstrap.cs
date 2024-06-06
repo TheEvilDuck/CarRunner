@@ -68,10 +68,12 @@ namespace Gameplay
 
             _car = Instantiate(_carPrefab);
 
+            _carControllerMediator = new CarControllerMediator(_car.CarBehavior, _playerInput);
+
             PreStartState preStartState = new PreStartState(_gameplayStateMachine);
             RaceGameState raceGameState = new RaceGameState(_gameplayStateMachine, _timer, _car.CarBehavior, _level.Finish);
-            WinState winState = new WinState(_gameplayStateMachine, _car.CarBehavior);
-            LoseState loseState = new LoseState(_gameplayStateMachine, _car.CarBehavior);
+            WinState winState = new WinState(_gameplayStateMachine, _car.CarBehavior, _carControllerMediator);
+            LoseState loseState = new LoseState(_gameplayStateMachine, _car.CarBehavior, _carControllerMediator);
 
 
             _gameplayStateMachine.AddState(preStartState);
@@ -81,7 +83,7 @@ namespace Gameplay
 
             _timerAndGatesMediator = new TimerAndGatesMediator(_level.TimerGates.ToArray(), _timer);
 
-            _carControllerMediator = new CarControllerMediator(_car.CarBehavior, _playerInput);
+            
 
             foreach(Garage garage in _level.Garages.ToArray())
             {

@@ -25,7 +25,7 @@ namespace Gameplay.Cars
         //сюда прилетают значения от -1 до 1
         private void OnHorizontalInput(float horizontalInput)
         {
-            _car.SetTurnDegree(horizontalInput);
+            _car.SetTurnDirection(horizontalInput);
         }
 
         private void OnBrakeInput(bool isBraking)
