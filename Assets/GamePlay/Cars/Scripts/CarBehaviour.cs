@@ -6,10 +6,10 @@ namespace Gameplay.Cars
 {
     public class CarBehaviour : MonoBehaviour
     {
+        private const float BREAK_COEFFICIENT = 10f;
         [SerializeField] private WheelData[] _wheels;
         [SerializeField] private Rigidbody _rigidBody;
         private const float _maxAngleRotation = 35f;
-        private float _break—oefficient = 10;
         private float _acceleration;
         private bool _isBreak;
         private float _maxSpeed;
@@ -41,7 +41,7 @@ namespace Gameplay.Cars
                         wheel.WheelCollider.motorTorque = _acceleration;
 
                         if (_isBreak)
-                            wheel.WheelCollider.brakeTorque = _acceleration * _break—oefficient;
+                            wheel.WheelCollider.brakeTorque = _acceleration * BREAK_COEFFICIENT;
                         else
                             wheel.WheelCollider.brakeTorque = 0;
                     }
