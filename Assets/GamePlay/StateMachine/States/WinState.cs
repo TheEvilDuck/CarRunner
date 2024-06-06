@@ -4,19 +4,15 @@ using UnityEngine;
 
 namespace Gameplay.States
 {
-    public class WinState : State
+    public class WinState : GameOverState
     {
-        private readonly CarBehaviour _car;
-        public WinState(StateMachine stateMachine, CarBehaviour carBehaviour) : base(stateMachine)
+        public WinState(StateMachine stateMachine, CarBehaviour car, CarControllerMediator carControllerMediator) : base(stateMachine, car, carControllerMediator)
         {
-            _car = carBehaviour;
         }
 
-        protected override void OnEnter()
+        protected override void OnGameOver()
         {
-            Debug.Log("Win");
-
-            _car.Stop();
+            Debug.Log("WIN COOL WIN GREAT");
         }
     }
 }
