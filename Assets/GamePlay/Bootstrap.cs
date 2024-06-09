@@ -17,7 +17,6 @@ namespace Gameplay
 {
     public class Bootstrap : MonoBehaviour
     {
-        [SerializeField]private float _startTime = 20f;
         [SerializeField]private TimerView _timerView;
         [SerializeField] private LevelsDatabase _levels;
         [SerializeField]private Car _carPrefab;
@@ -26,6 +25,7 @@ namespace Gameplay
         [SerializeField] private string _defaultLevelId;
         [SerializeField] private CameraFollow _cameraFollow;
         [SerializeField]private SoundController _soundController;
+        [SerializeField]private Speedometr _speedometr;
         private Timer _timer;
         private List<IPausable>_pausableControls;
         private TimerMediator _timerMediator;
@@ -56,7 +56,7 @@ namespace Gameplay
             _level.transform.position = Vector3.zero;
             
 
-            _timer = new Timer(_startTime);
+            _timer = new Timer(_level.StartTimer);
             _pausableControls = new List<IPausable>
             {
                 _timer
@@ -68,10 +68,12 @@ namespace Gameplay
 
             _car = Instantiate(_carPrefab);
 
+            _carControllerMediator = new CarControllerMediator(_car.CarBehavior, _playerInput);
+
             PreStartState preStartState = new PreStartState(_gameplayStateMachine);
             RaceGameState raceGameState = new RaceGameState(_gameplayStateMachine, _timer, _car.CarBehavior, _level.Finish);
-            WinState winState = new WinState(_gameplayStateMachine, _car.CarBehavior);
-            LoseState loseState = new LoseState(_gameplayStateMachine, _car.CarBehavior);
+            WinState winState = new WinState(_gameplayStateMachine, _car.CarBehavior, _carControllerMediator);
+            LoseState loseState = new LoseState(_gameplayStateMachine, _car.CarBehavior, _carControllerMediator);
 
 
             _gameplayStateMachine.AddState(preStartState);
@@ -81,7 +83,7 @@ namespace Gameplay
 
             _timerAndGatesMediator = new TimerAndGatesMediator(_level.TimerGates.ToArray(), _timer);
 
-            _carControllerMediator = new CarControllerMediator(_car.CarBehavior, _playerInput);
+            
 
             foreach(Garage garage in _level.Garages.ToArray())
             {
@@ -93,12 +95,17 @@ namespace Gameplay
             _car.InitCar(_startConfig, _wheelPrefab);
 
             _car.transform.position = _level.CarStartPosition;
-            _cameraFollow.SetTarget(_car.transform);
-            _car.transform.position = _level.CarStartPosition;
 
 
             _soundController.Init();
             _soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), raceGameState);
+
+            _speedometr.Init(_car.CarBehavior);
+        }
+
+        private void Start() 
+        {
+            _cameraFollow.SetTarget(_car.transform);
         }
 
         private void Update() 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Slow
   m_EditorClassIdentifier: 
   <Acceleration>k__BackingField: 1000
-  <MaxSpeed>k__BackingField: 5000
+  <MaxSpeed>k__BackingField: 15
   <ModelOfCar>k__BackingField: {fileID: -462981019419857548, guid: 7072075bbe630f84f8a8200350a4713d, type: 3}
   <Materials>k__BackingField:
   - {fileID: 2100000, guid: c263ebdd9d6c17e478cb3c7f69bff663, type: 2}

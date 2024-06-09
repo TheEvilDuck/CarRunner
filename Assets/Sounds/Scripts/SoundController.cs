@@ -60,7 +60,7 @@ namespace Common.Sound
             {
                 for (int i = _usedObjects.Count - 1; i > -1; i--)
                 {
-                    if (_usedObjects[i].clip == _sound.GetAudio(soundID))
+                    if (_usedObjects[i] != null && _usedObjects[i].clip == _sound.GetAudio(soundID))
                         _usedObjects[i].Stop();
                 }
             }

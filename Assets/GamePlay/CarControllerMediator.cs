@@ -13,17 +13,24 @@ namespace Gameplay.Cars
             _car = carBehaviour;
             _playerInput = playerInput;
 
-            _playerInput.horizontalInput+=OnHorizontalInput;
+            _playerInput.horizontalInput += OnHorizontalInput;
+            _playerInput.brakeInput += OnBrakeInput;
         }
         public void Dispose()
         {
-            _playerInput.horizontalInput-=OnHorizontalInput;
+            _playerInput.horizontalInput -= OnHorizontalInput;
+            _playerInput.brakeInput -= OnBrakeInput;
         }
 
         //сюда прилетают значения от -1 до 1
         private void OnHorizontalInput(float horizontalInput)
         {
-            _car.SetTurnDegree(horizontalInput);
+            _car.SetTurnDirection(horizontalInput);
+        }
+
+        private void OnBrakeInput(bool isBraking)
+        {
+            _car.Brake(isBraking);
         }
     }
 }

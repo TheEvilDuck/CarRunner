@@ -4,19 +4,15 @@ using UnityEngine;
 
 namespace Gameplay.States
 {
-    public class LoseState : State
+    public class LoseState : GameOverState
     {
-        private readonly CarBehaviour _car;
-        public LoseState(StateMachine stateMachine, CarBehaviour carBehaviour) : base(stateMachine)
+        public LoseState(StateMachine stateMachine, CarBehaviour car, CarControllerMediator carControllerMediator) : base(stateMachine, car, carControllerMediator)
         {
-            _car = carBehaviour;
         }
 
-        protected override void OnEnter()
+        protected override void OnGameOver()
         {
-            Debug.Log("GAME OVER");
-
-            _car.Stop();
+            Debug.Log("LOSER HAHA SUCK A DICK");
         }
     }
 }

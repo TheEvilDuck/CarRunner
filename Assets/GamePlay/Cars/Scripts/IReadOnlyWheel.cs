@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Cars
@@ -8,5 +6,6 @@ namespace Gameplay.Cars
     {
         public Vector3 WorldPosition {get;}
         public Quaternion WorldRotation {get;}
+        public float Radius {get;}
     }
 }

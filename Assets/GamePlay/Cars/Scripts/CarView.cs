@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,9 +24,11 @@ namespace Gameplay.Cars
             foreach (IReadOnlyWheel wheel in wheels)
             {
                 GameObject wheelView = Instantiate<GameObject>(_wheelPrefab);
+                
                 wheelView.transform.position = wheel.WorldPosition;
                 wheelView.transform.rotation = wheel.WorldRotation;
                 wheelView.transform.SetParent(transform);
+                wheelView.transform.localScale = new Vector3(100f * wheel.Radius, 100f * wheel.Radius, 100f * wheel.Radius);
 
                 _currentWheels.Add(wheelView.transform, wheel);
                 
