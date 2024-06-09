@@ -1,14 +1,16 @@
 using System.Collections.Generic;
+using Common;
 using UnityEngine;
 
 namespace Gameplay.Cars
 {
-    public class CarView : MonoBehaviour
+    public class CarView : MonoBehaviour, IPausable
     {
         [SerializeField] private MeshFilter _meshFilter;
         [SerializeField] private MeshRenderer _meshRenderer;
 
-        Dictionary<Transform,IReadOnlyWheel> _currentWheels;
+        private Dictionary<Transform,IReadOnlyWheel> _currentWheels;
+        private bool _paused = false;
         public void ChangeModel(Mesh mesh, Material[] materials)
         {
             _meshFilter.mesh = mesh;
@@ -35,6 +37,10 @@ namespace Gameplay.Cars
             }
         }
 
+        public void Pause() => _paused = true;
+
+        public void Resume() => _paused = false;
+
         private void CleanUp()
         {
             if (_currentWheels == null)
@@ -50,6 +56,9 @@ namespace Gameplay.Cars
 
         private void Update() 
         {
+            if (_paused)
+                return;
+
             foreach (var keyValuePair in _currentWheels)
             {
                 keyValuePair.Key.position = keyValuePair.Value.WorldPosition;

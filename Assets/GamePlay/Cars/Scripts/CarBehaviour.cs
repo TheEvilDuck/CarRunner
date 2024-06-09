@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Common;
 using UnityEngine;
 
 namespace Gameplay.Cars
 {
-    public class CarBehaviour : MonoBehaviour
+    public class CarBehaviour : MonoBehaviour, IPausable
     {
         [SerializeField] private WheelData[] _wheels;
         [SerializeField] private Rigidbody _rigidBody;
@@ -17,6 +18,7 @@ namespace Gameplay.Cars
         private float _maxSpeed;
         private float _turnDirection;
         private float _startSlip;
+        private bool _paused = false;
 
         public IEnumerable<IReadOnlyWheel> Wheels => _wheels;
         public float CurrentSpeed => CurrentVelocity.magnitude;
@@ -38,6 +40,9 @@ namespace Gameplay.Cars
 
         private void FixedUpdate()
         {
+            if (_paused)
+                return;
+
             foreach (WheelData wheel in _wheels)
             {
                 if (wheel.IsTorque)
@@ -82,6 +87,20 @@ namespace Gameplay.Cars
         public void Brake(bool brake)
         {
             _isBrake = brake;
+        }
+
+        public void Pause()
+        {
+            _paused = true;
+            _rigidBody.freezeRotation = true;
+            _rigidBody.isKinematic = true;
+        }
+
+        public void Resume()
+        {
+            _paused = false;
+            _rigidBody.freezeRotation = false;
+            _rigidBody.isKinematic = false;
         }
 
         [Serializable]
