@@ -16,6 +16,8 @@ namespace Common
         {
             if (pausable == this)
                 throw new ArgumentException("Pause manager must not contain itself");
+
+            _pausables.Add(pausable);
         }
 
         public void Pause()
