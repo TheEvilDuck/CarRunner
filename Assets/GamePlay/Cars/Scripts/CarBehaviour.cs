@@ -6,39 +6,64 @@ namespace Gameplay.Cars
 {
     public class CarBehaviour : MonoBehaviour
     {
-        private const float BREAK_COEFFICIENT = 10f;
         [SerializeField] private WheelData[] _wheels;
         [SerializeField] private Rigidbody _rigidBody;
-        [SerializeField] private float _interpolationMultiplierForRotation = 0.6f;
-        private const float _maxAngleRotation = 55f;
+        [SerializeField, Range(0,90f)] private float _minTurnAngle = 10f;
+        [SerializeField, Range(0,90f)] private float _maxTurnAngle = 55f;
+        [SerializeField, Min(0)] private float _brakeFrictionMultiplier = 2f;
+        [SerializeField, Min(0)] private float _brakePower = 2f;
         private float _acceleration;
-        private bool _isBreak;
+        private bool _isBrake;
         private float _maxSpeed;
-        private float _turnDegree = 0; //in degrees
+        private float _turnDirection;
+        private float _startSlip;
 
         public IEnumerable<IReadOnlyWheel> Wheels => _wheels;
+        public float CurrentSpeed => CurrentVelocity.magnitude;
+        private Vector2 CurrentVelocity => new Vector2(_rigidBody.velocity.x, _rigidBody.velocity.z);
+
+        private void OnValidate() 
+        {
+            _maxTurnAngle = Mathf.Max(_minTurnAngle, _maxTurnAngle);
+        }
+
+        private void Awake() 
+        {
+            foreach (WheelData wheel in _wheels)
+            {
+                _startSlip = wheel.WheelCollider.sidewaysFriction.stiffness;
+            }
+        }
+        
 
         private void FixedUpdate()
         {
-            //Turning and twisting
             foreach (WheelData wheel in _wheels)
             {
                 if (wheel.IsTorque)
-                {
-                    if (_rigidBody.velocity.magnitude < _maxSpeed)
-                    {
-                        wheel.WheelCollider.motorTorque = _acceleration;
+                    wheel.WheelCollider.motorTorque = _acceleration;
 
-                        if (_isBreak)
-                            wheel.WheelCollider.brakeTorque = _acceleration * BREAK_COEFFICIENT;
-                        else
-                            wheel.WheelCollider.brakeTorque = 0;
-                    }
-                    else
-                        wheel.WheelCollider.motorTorque = 0;
-                }
+                var currentVelocity = Vector2.ClampMagnitude(CurrentVelocity, _maxSpeed);
+                _rigidBody.velocity = new Vector3(currentVelocity.x, _rigidBody.velocity.y, currentVelocity.y);
+
                 if (wheel.IsTurnable)
-                    wheel.WheelCollider.steerAngle = Mathf.Lerp(wheel.WheelCollider.steerAngle, _turnDegree, _interpolationMultiplierForRotation);  
+                    wheel.WheelCollider.steerAngle = _turnDirection * Mathf.Lerp(_maxTurnAngle, _minTurnAngle, currentVelocity.magnitude / _maxSpeed);
+
+                
+                float brakeTorque = 0;
+                float slipMultipler = 1f;
+
+                if (_isBrake)
+                {
+                    brakeTorque = _acceleration * _brakePower;
+                    slipMultipler = _brakeFrictionMultiplier;
+                }
+
+                wheel.WheelCollider.brakeTorque = brakeTorque;
+                var friction = wheel.WheelCollider.sidewaysFriction;
+                friction.stiffness = _startSlip * slipMultipler;
+                wheel.WheelCollider.sidewaysFriction = friction;
+                
             }
         }
 
@@ -51,12 +76,12 @@ namespace Gameplay.Cars
         //_maxAngleRotation - in degrees
         public void SetTurnDirection(float turnValue)
         {
-            _turnDegree = _maxAngleRotation * turnValue;
+            _turnDirection = turnValue;
         }
 
         public void Brake(bool brake)
         {
-            _isBreak = brake;
+            _isBrake = brake;
         }
 
         [Serializable]
@@ -65,6 +90,8 @@ namespace Gameplay.Cars
             [field: SerializeField] public WheelCollider WheelCollider { get; private set; }
             [field: SerializeField] public bool IsTurnable { get; private set; }
             [field: SerializeField] public bool IsTorque { get; private set; }
+            public float Radius => WheelCollider.radius;
+
 
             private Vector3 _worldPos;
             private Quaternion _worldRotation;
@@ -87,6 +114,7 @@ namespace Gameplay.Cars
                 }
             }
 
+            
             private void UpdatePosAndRotation() => WheelCollider.GetWorldPose(out _worldPos, out _worldRotation);
         }
     }
