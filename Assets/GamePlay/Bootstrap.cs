@@ -26,8 +26,9 @@ namespace Gameplay
         [SerializeField] private CameraFollow _cameraFollow;
         [SerializeField]private SoundController _soundController;
         [SerializeField]private Speedometr _speedometr;
+        [SerializeField]private PauseButton _pauseButton;
+        private PauseManager _pauseManager;
         private Timer _timer;
-        private List<IPausable>_pausableControls;
         private TimerMediator _timerMediator;
         private TimerAndGatesMediator _timerAndGatesMediator;
         private CarControllerMediator _carControllerMediator;
@@ -38,6 +39,7 @@ namespace Gameplay
         private Level _level;
         private Car _car;
         private SoundMediator _soundMediator;
+        private PauseMediator _pauseMediator;
 
         private void Awake() 
         {
@@ -57,10 +59,6 @@ namespace Gameplay
             
 
             _timer = new Timer(_level.StartTimer);
-            _pausableControls = new List<IPausable>
-            {
-                _timer
-            };
 
             _timerMediator = new TimerMediator(_timer, _timerView);
 
@@ -101,6 +99,12 @@ namespace Gameplay
             _soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), raceGameState);
 
             _speedometr.Init(_car.CarBehavior);
+
+            _pauseManager = new PauseManager();
+            _pauseManager.Register(_timer);
+            _pauseManager.Register(_car);
+
+            _pauseMediator = new PauseMediator(_pauseManager, _pauseButton);
         }
 
         private void Start() 
@@ -122,6 +126,7 @@ namespace Gameplay
             _carSwitcher.Dispose();
             _gameplayStateMachine.Dispose();
             _soundMediator.Dispose();
+            _pauseMediator.Dispose();
         }
     }
 }
