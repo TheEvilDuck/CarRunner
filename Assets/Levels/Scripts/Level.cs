@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Barmetler.RoadSystem;
 using Gameplay;
 using Gameplay.Garages;
 using Gameplay.TimerGates;
@@ -13,7 +12,7 @@ namespace Levels
         [SerializeField] private List<TimerGate> _timerGates;
         [SerializeField] private SimpleCarCollisionTrigger _finish;
         [SerializeField] private Transform _carStartPosition;
-        [SerializeField] private RoadMeshGenerator _roadMeshGenerator;
+        [field: SerializeField, Min(0)] public float StartTimer;
 
         public IEnumerable<Garage> Garages => _garages;
         public IEnumerable<TimerGate> TimerGates => _timerGates;
@@ -22,7 +21,7 @@ namespace Levels
 
         private void Awake() 
         {
-            _roadMeshGenerator.GenerateRoadMesh();
+            
         }
     }
 }
