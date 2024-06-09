@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13ed0a0258ab5b4cbd546fc414a6c87, type: 3}
   m_Name: StartConfig
   m_EditorClassIdentifier: 
-  <Acceleration>k__BackingField: 500
-  <MaxSpeed>k__BackingField: 1000
+  <Acceleration>k__BackingField: 1000
+  <MaxSpeed>k__BackingField: 20
   <ModelOfCar>k__BackingField: {fileID: -462981019419857548, guid: 7072075bbe630f84f8a8200350a4713d, type: 3}
   <Materials>k__BackingField:
   - {fileID: 2100000, guid: 3af8feeef3fad8f45b5595f723c922c5, type: 2}
