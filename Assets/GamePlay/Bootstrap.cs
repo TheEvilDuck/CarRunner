@@ -17,7 +17,6 @@ namespace Gameplay
 {
     public class Bootstrap : MonoBehaviour
     {
-        [SerializeField]private float _startTime = 20f;
         [SerializeField]private TimerView _timerView;
         [SerializeField] private LevelsDatabase _levels;
         [SerializeField]private Car _carPrefab;
@@ -26,6 +25,7 @@ namespace Gameplay
         [SerializeField] private string _defaultLevelId;
         [SerializeField] private CameraFollow _cameraFollow;
         [SerializeField]private SoundController _soundController;
+        [SerializeField]private Speedometr _speedometr;
         private Timer _timer;
         private List<IPausable>_pausableControls;
         private TimerMediator _timerMediator;
@@ -56,7 +56,7 @@ namespace Gameplay
             _level.transform.position = Vector3.zero;
             
 
-            _timer = new Timer(_startTime);
+            _timer = new Timer(_level.StartTimer);
             _pausableControls = new List<IPausable>
             {
                 _timer
@@ -95,12 +95,17 @@ namespace Gameplay
             _car.InitCar(_startConfig, _wheelPrefab);
 
             _car.transform.position = _level.CarStartPosition;
-            _cameraFollow.SetTarget(_car.transform);
-            _car.transform.position = _level.CarStartPosition;
 
 
             _soundController.Init();
             _soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), raceGameState);
+
+            _speedometr.Init(_car.CarBehavior);
+        }
+
+        private void Start() 
+        {
+            _cameraFollow.SetTarget(_car.transform);
         }
 
         private void Update() 
