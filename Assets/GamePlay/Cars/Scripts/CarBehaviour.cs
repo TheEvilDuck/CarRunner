@@ -19,6 +19,7 @@ namespace Gameplay.Cars
         private float _turnDirection;
         private float _startSlip;
         private bool _paused = false;
+        private Vector3 _lastVelocity;
 
         public IEnumerable<IReadOnlyWheel> Wheels => _wheels;
         public float CurrentSpeed => CurrentVelocity.magnitude;
@@ -70,12 +71,15 @@ namespace Gameplay.Cars
                 wheel.WheelCollider.sidewaysFriction = friction;
                 
             }
+
+            _lastVelocity = _rigidBody.velocity;
         }
 
         public void Init(float Acceleration, float MaxSpeed)
         {
             _acceleration = Acceleration;
             _maxSpeed = MaxSpeed;
+            _rigidBody.isKinematic = false;
         }
 
         //_maxAngleRotation - in degrees
@@ -91,6 +95,8 @@ namespace Gameplay.Cars
 
         public void Pause()
         {
+            _lastVelocity = _rigidBody.velocity;
+
             _paused = true;
             _rigidBody.freezeRotation = true;
             _rigidBody.isKinematic = true;
@@ -98,9 +104,12 @@ namespace Gameplay.Cars
 
         public void Resume()
         {
-            _paused = false;
             _rigidBody.freezeRotation = false;
             _rigidBody.isKinematic = false;
+
+            _rigidBody.velocity = _lastVelocity;
+
+            _paused = false;
         }
 
         [Serializable]
