@@ -23,7 +23,10 @@ namespace Gameplay
 
         private void OnPauseButtonPressed()
         {
-            _pauseManager.Pause();
+            if (_pauseManager.Paused)
+                _pauseManager.Resume();
+            else
+                _pauseManager.Pause();
         }
     }
 }

@@ -7,6 +7,8 @@ namespace Common
     {
         private List<IPausable> _pausables;
 
+        public bool Paused {get; private set;}
+
         public PauseManager()
         {
             _pausables = new List<IPausable>();
@@ -26,6 +28,8 @@ namespace Common
             {
                 pausable.Pause();
             }
+
+            Paused = true;
         }
 
         public void Resume()
@@ -34,6 +38,8 @@ namespace Common
             {
                 pausable.Resume();
             }
+
+            Paused = false;
         }
     }
 }
