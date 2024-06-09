@@ -103,6 +103,7 @@ namespace Gameplay
             _pauseManager = new PauseManager();
             _pauseManager.Register(_timer);
             _pauseManager.Register(_car);
+            _pauseManager.Register(_soundController);
 
             _pauseMediator = new PauseMediator(_pauseManager, _pauseButton);
         }

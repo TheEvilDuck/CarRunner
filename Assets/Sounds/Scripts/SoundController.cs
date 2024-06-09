@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 
 namespace Common.Sound
 {
-    public class SoundController : MonoBehaviour
+    public class SoundController : MonoBehaviour, IPausable
     {
         [SerializeField] private Sounds _sound;
         [SerializeField] private GameObject _objectToPool;
@@ -24,6 +24,7 @@ namespace Common.Sound
         private bool _collectionCheck = false;
         private int _poolDefaultCapacity = 5;
         private int _poolMaxSize = 5;
+        private bool _paused;
 
         private void LateUpdate()
         {
@@ -31,7 +32,7 @@ namespace Common.Sound
             {
                 for (int i = _usedObjects.Count - 1; i > -1; i--)
                 {
-                    if (_usedObjects[i] == null || !_usedObjects[i].isPlaying)
+                    if (_usedObjects[i] == null || !_usedObjects[i].isPlaying && !_paused)
                     {
                         _audioSourcePool.Release(_usedObjects[i]);
                         _usedObjects.RemoveAt(i);
@@ -93,6 +94,26 @@ namespace Common.Sound
         private void DestroyObject(AudioSource audioSource)
         {
             Destroy(audioSource.gameObject);
+        }
+
+        public void Pause()
+        {
+            _paused = true;
+
+            foreach (var sound in _usedObjects)
+            {
+                sound.Pause();
+            }
+        }
+
+        public void Resume()
+        {
+            _paused = false;
+
+            foreach (var sound in _usedObjects)
+            {
+                sound.UnPause();
+            }
         }
     }
 }
