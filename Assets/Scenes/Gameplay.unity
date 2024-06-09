@@ -1045,6 +1045,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 965864128}
     - target: {fileID: 8117531253039395286, guid: aa758e60310365f4bb0203c7cdc61ec5, type: 3}
+      propertyPath: _pauseButton
+      value: 
+      objectReference: {fileID: 989827782}
+    - target: {fileID: 8117531253039395286, guid: aa758e60310365f4bb0203c7cdc61ec5, type: 3}
       propertyPath: _cameraFollow
       value: 
       objectReference: {fileID: 76637309}
