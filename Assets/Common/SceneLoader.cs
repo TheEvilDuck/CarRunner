@@ -9,6 +9,7 @@ namespace Common
 
         public void LoadMainMenu() => SceneManager.LoadScene(_mainMenu);
         public void LoadGameplay() => SceneManager.LoadScene(_gameplay);
+        public void RestartScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
 
