@@ -17,15 +17,16 @@ namespace Gameplay
 {
     public class Bootstrap : MonoBehaviour
     {
-        [SerializeField]private TimerView _timerView;
+        [SerializeField] private TimerView _timerView;
         [SerializeField] private LevelsDatabase _levels;
-        [SerializeField]private Car _carPrefab;
-        [SerializeField]private CarConfig _startConfig;
-        [SerializeField]private GameObject _wheelPrefab;
+        [SerializeField] private Car _carPrefab;
+        [SerializeField] private CarConfig _startConfig;
+        [SerializeField] private GameObject _wheelPrefab;
         [SerializeField] private string _defaultLevelId;
         [SerializeField] private CameraFollow _cameraFollow;
-        [SerializeField]private SoundController _soundController;
-        [SerializeField]private Speedometr _speedometr;
+        [SerializeField] private SoundController _soundController;
+        [SerializeField] private Speedometr _speedometr;
+        [SerializeField] private EndOfTheGame _endOfTheGame;
         private Timer _timer;
         private List<IPausable>_pausableControls;
         private TimerMediator _timerMediator;
@@ -38,6 +39,8 @@ namespace Gameplay
         private Level _level;
         private Car _car;
         private SoundMediator _soundMediator;
+        private SceneLoader _sceneLoader;
+        private EndGameMediator _endGameMediator;
 
         private void Awake() 
         {
@@ -51,11 +54,12 @@ namespace Gameplay
 
             if (string.IsNullOrEmpty(levelId))
                 levelId = _defaultLevelId;
-            
+
+            _sceneLoader = new SceneLoader();
+
             _level = Instantiate(_levels.GetLevel(levelId));
             _level.transform.position = Vector3.zero;
             
-
             _timer = new Timer(_level.StartTimer);
             _pausableControls = new List<IPausable>
             {
@@ -75,15 +79,12 @@ namespace Gameplay
             WinState winState = new WinState(_gameplayStateMachine, _car.CarBehavior, _carControllerMediator);
             LoseState loseState = new LoseState(_gameplayStateMachine, _car.CarBehavior, _carControllerMediator);
 
-
             _gameplayStateMachine.AddState(preStartState);
             _gameplayStateMachine.AddState(raceGameState);
             _gameplayStateMachine.AddState(winState);
             _gameplayStateMachine.AddState(loseState);
 
             _timerAndGatesMediator = new TimerAndGatesMediator(_level.TimerGates.ToArray(), _timer);
-
-            
 
             foreach(Garage garage in _level.Garages.ToArray())
             {
@@ -96,9 +97,10 @@ namespace Gameplay
 
             _car.transform.position = _level.CarStartPosition;
 
-
             _soundController.Init();
             _soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), raceGameState);
+
+            _endGameMediator = new EndGameMediator(_endOfTheGame, _sceneLoader, loseState, winState);
 
             _speedometr.Init(_car.CarBehavior);
         }
