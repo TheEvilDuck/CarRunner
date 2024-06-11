@@ -98,7 +98,7 @@ namespace Gameplay
             _soundController.Init();
             _soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), raceGameState);
 
-            _endGameMediator = new EndGameMediator(_endOfTheGame, _sceneLoader, loseState, winState);
+            _endGameMediator = new EndGameMediator(_endOfTheGame, _sceneLoader, loseState, winState, _pauseButton);
 
             _speedometr.Init(_car.CarBehavior);
 

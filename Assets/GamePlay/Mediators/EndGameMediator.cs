@@ -1,46 +1,56 @@
 using Common;
 using Gameplay.States;
+using Gameplay.UI;
 using System;
 
 public class EndGameMediator : IDisposable
 {
-    private EndOfTheGame _endGameUI;
-    private SceneLoader _sceneLoader;
-    private WinState _winState;
-    private GameOverState _gameOverState;
+    private readonly EndOfTheGame _endGameUI;
+    private readonly SceneLoader _sceneLoader;
+    private readonly WinState _winState;
+    private readonly GameOverState _gameOverState;
+    private readonly PauseButton _pauseButton;
 
-    public EndGameMediator(EndOfTheGame endGameUI, SceneLoader sceneLoader, GameOverState gameOverState, WinState winState)
+    public EndGameMediator(EndOfTheGame endGameUI, SceneLoader sceneLoader, GameOverState gameOverState, WinState winState, PauseButton pauseButton)
     {
         _endGameUI = endGameUI;
         _sceneLoader = sceneLoader;
         _winState = winState;
         _gameOverState = gameOverState;
+        _pauseButton = pauseButton;
 
-        _winState.entered += onWinStateEntered;
-        _gameOverState.entered += onGameOverStateEntered;
+        _winState.entered += OnWinStateEntered;
+        _gameOverState.entered += OnGameOverStateEntered;
 
-        _endGameUI.RestartClickedEvent.AddListener(restartLevel);
-        _endGameUI.MainMenuClickedEvent.AddListener(loadMainMenu);
+        _endGameUI.RestartClickedEvent.AddListener(RestartLevel);
+        _endGameUI.MainMenuClickedEvent.AddListener(LoadMainMenu);
     }
 
-    private void onWinStateEntered()
+    private void OnWinStateEntered() => OnGameEnd(true);
+
+    private void OnGameOverStateEntered() => OnGameEnd(false);
+
+    private void OnGameEnd(bool win)
     {
+        if (win)
+            _endGameUI.Win();
+        else
+            _endGameUI.Lose();
+
         _endGameUI.Show();
-        _endGameUI.Win();
+        _pauseButton.Hide();
+        
     }
 
-    private void onGameOverStateEntered()
-    {
-        _endGameUI.Show();
-        _endGameUI.Lose();
-    }
-
-    private void restartLevel() => _sceneLoader.RestartScene();
-    private void loadMainMenu() => _sceneLoader.LoadMainMenu();
+    private void RestartLevel() => _sceneLoader.RestartScene();
+    private void LoadMainMenu() => _sceneLoader.LoadMainMenu();
 
     public void Dispose()
     {
-        _winState.entered -= onWinStateEntered;
-        _gameOverState.entered -= onGameOverStateEntered;
+        _winState.entered -= OnWinStateEntered;
+        _gameOverState.entered -= OnGameOverStateEntered;
+
+        _endGameUI.RestartClickedEvent.RemoveListener(RestartLevel);
+        _endGameUI.MainMenuClickedEvent.RemoveListener(LoadMainMenu);
     }
 }
