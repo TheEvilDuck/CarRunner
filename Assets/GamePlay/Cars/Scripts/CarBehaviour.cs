@@ -14,7 +14,6 @@ namespace Gameplay.Cars
         [SerializeField, Min(0)] private float _brakeFrictionMultiplier = 2f;
         [SerializeField, Min(0)] private float _brakePower = 2f;
         private float _acceleration;
-        private bool _isBrake;
         private float _maxSpeed;
         private float _turnDirection;
         private float _startSlip;
@@ -54,22 +53,6 @@ namespace Gameplay.Cars
 
                 if (wheel.IsTurnable)
                     wheel.WheelCollider.steerAngle = _turnDirection * Mathf.Lerp(_maxTurnAngle, _minTurnAngle, currentVelocity.magnitude / _maxSpeed);
-
-                
-                float brakeTorque = 0;
-                float slipMultipler = 1f;
-
-                if (_isBrake)
-                {
-                    brakeTorque = _acceleration * _brakePower;
-                    slipMultipler = _brakeFrictionMultiplier;
-                }
-
-                wheel.WheelCollider.brakeTorque = brakeTorque;
-                var friction = wheel.WheelCollider.sidewaysFriction;
-                friction.stiffness = _startSlip * slipMultipler;
-                wheel.WheelCollider.sidewaysFriction = friction;
-                
             }
 
             _lastVelocity = _rigidBody.velocity;
@@ -90,7 +73,25 @@ namespace Gameplay.Cars
 
         public void Brake(bool brake)
         {
-            _isBrake = brake;
+            foreach (WheelData wheelData in _wheels)
+                BrakeWheel(wheelData.WheelCollider, brake);
+        }
+
+        private void BrakeWheel(WheelCollider wheel, bool brake)
+        {
+            float brakeTorque = 0;
+            float slipMultipler = 1f;
+
+            if (brake)
+            {
+                brakeTorque = _acceleration * _brakePower;
+                slipMultipler = _brakeFrictionMultiplier;
+            }
+
+            wheel.brakeTorque = brakeTorque;
+            var friction = wheel.sidewaysFriction;  
+            friction.stiffness = _startSlip * slipMultipler;
+            wheel.sidewaysFriction = friction;
         }
 
         public void Pause()

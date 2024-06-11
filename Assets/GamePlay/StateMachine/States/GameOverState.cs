@@ -16,11 +16,6 @@ namespace Gameplay.States
             _car.Brake(true);
         }
 
-        protected override void OnEnter()
-        {
-            
-        }
-
         protected abstract void OnGameOver();
     }
 }
