@@ -1,5 +1,5 @@
 using Common;
-using Gameplay.States;
+using Common.States;
 using Gameplay.UI;
 using System;
 
@@ -7,11 +7,11 @@ public class EndGameMediator : IDisposable
 {
     private readonly EndOfTheGame _endGameUI;
     private readonly SceneLoader _sceneLoader;
-    private readonly WinState _winState;
-    private readonly GameOverState _gameOverState;
+    private readonly State _winState;
+    private readonly State _gameOverState;
     private readonly PauseButton _pauseButton;
 
-    public EndGameMediator(EndOfTheGame endGameUI, SceneLoader sceneLoader, GameOverState gameOverState, WinState winState, PauseButton pauseButton)
+    public EndGameMediator(EndOfTheGame endGameUI, SceneLoader sceneLoader, State gameOverState, State winState, PauseButton pauseButton)
     {
         _endGameUI = endGameUI;
         _sceneLoader = sceneLoader;

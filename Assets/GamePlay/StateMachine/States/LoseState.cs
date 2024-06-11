@@ -6,7 +6,7 @@ namespace Gameplay.States
 {
     public class LoseState : GameOverState
     {
-        public LoseState(StateMachine stateMachine, CarBehaviour car, CarControllerMediator carControllerMediator) : base(stateMachine, car, carControllerMediator)
+        public LoseState(StateMachine stateMachine, CarBehaviour car) : base(stateMachine, car)
         {
         }
 

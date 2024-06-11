@@ -6,7 +6,7 @@ namespace Gameplay.States
 {
     public class WinState : GameOverState
     {
-        public WinState(StateMachine stateMachine, CarBehaviour car, CarControllerMediator carControllerMediator) : base(stateMachine, car, carControllerMediator)
+        public WinState(StateMachine stateMachine, CarBehaviour car) : base(stateMachine, car)
         {
         }
 

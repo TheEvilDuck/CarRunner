@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Common.Sound;
@@ -12,6 +11,8 @@ using Gameplay.UI;
 using Services.PlayerInput;
 using UnityEngine;
 using Common.Components;
+using System.Collections.Generic;
+using System;
 
 namespace Gameplay
 {
@@ -28,86 +29,31 @@ namespace Gameplay
         [SerializeField]private Speedometr _speedometr;
         [SerializeField]private PauseButton _pauseButton;
         [SerializeField] private EndOfTheGame _endOfTheGame;
+        private List<IDisposable> _disposables;
         private PauseManager _pauseManager;
         private Timer _timer;
-        private TimerMediator _timerMediator;
-        private TimerAndGatesMediator _timerAndGatesMediator;
-        private CarControllerMediator _carControllerMediator;
         private StateMachine _gameplayStateMachine;
         private IPlayerInput _playerInput;
         private CarSwitcher _carSwitcher;
         private PlayerData _playerData;
         private Level _level;
         private Car _car;
-        private SoundMediator _soundMediator;
-        private PauseMediator _pauseMediator;
         private SceneLoader _sceneLoader;
-        private EndGameMediator _endGameMediator;
+        private string _levelId;
 
         private void Awake() 
         {
-            if (SystemInfo.deviceType== DeviceType.Desktop)
-                _playerInput = new DesktopInput();
-            else if (SystemInfo.deviceType == DeviceType.Handheld)
-                _playerInput = new MobileInput();
+            _disposables = new List<IDisposable>();
 
-            _playerData = new PlayerData();
-            string levelId = _playerData.SelectedLevel;
-
-            if (string.IsNullOrEmpty(levelId))
-                levelId = _defaultLevelId;
-
-            _sceneLoader = new SceneLoader();
-
-            _level = Instantiate(_levels.GetLevel(levelId));
-            _level.transform.position = Vector3.zero;
-            
-            _timer = new Timer(_level.StartTimer);
-
-            _timerMediator = new TimerMediator(_timer, _timerView);
-
-            _gameplayStateMachine = new StateMachine();
-
-            _car = Instantiate(_carPrefab);
-
-            _carControllerMediator = new CarControllerMediator(_car.CarBehavior, _playerInput);
-
-            PreStartState preStartState = new PreStartState(_gameplayStateMachine);
-            RaceGameState raceGameState = new RaceGameState(_gameplayStateMachine, _timer, _car.CarBehavior, _level.Finish);
-            WinState winState = new WinState(_gameplayStateMachine, _car.CarBehavior, _carControllerMediator);
-            LoseState loseState = new LoseState(_gameplayStateMachine, _car.CarBehavior, _carControllerMediator);
-
-            _gameplayStateMachine.AddState(preStartState);
-            _gameplayStateMachine.AddState(raceGameState);
-            _gameplayStateMachine.AddState(winState);
-            _gameplayStateMachine.AddState(loseState);
-
-            _timerAndGatesMediator = new TimerAndGatesMediator(_level.TimerGates.ToArray(), _timer);
-
-            foreach(Garage garage in _level.Garages.ToArray())
-            {
-                garage.Init(_timer);
-            }
-
-            _carSwitcher = new CarSwitcher(_car,_level.Garages.ToArray(),_timer, _wheelPrefab);
-
-            _car.InitCar(_startConfig, _wheelPrefab);
-
-            _car.transform.position = _level.CarStartPosition;
-
-            _soundController.Init();
-            _soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), raceGameState);
-
-            _endGameMediator = new EndGameMediator(_endOfTheGame, _sceneLoader, loseState, winState, _pauseButton);
-
-            _speedometr.Init(_car.CarBehavior);
-
-            _pauseManager = new PauseManager();
-            _pauseManager.Register(_timer);
-            _pauseManager.Register(_car);
-            _pauseManager.Register(_soundController);
-
-            _pauseMediator = new PauseMediator(_pauseManager, _pauseButton);
+            SetUpInput();
+            SetUpPlayerData();
+            SetUpLevel();
+            SetUpCar();
+            SetUpSubSystems();
+            SetUpUI();
+            SetUpStateMachine();
+            SetUpPause();
+            SetUpMediators();
         }
 
         private void Start() 
@@ -123,13 +69,104 @@ namespace Gameplay
 
         private void OnDestroy() 
         {
-            _timerMediator.Dispose();
-            _timerAndGatesMediator.Dispose();
-            _carControllerMediator.Dispose();
-            _carSwitcher.Dispose();
-            _gameplayStateMachine.Dispose();
-            _soundMediator.Dispose();
-            _pauseMediator.Dispose();
+            foreach (IDisposable disposable in _disposables)
+                disposable.Dispose();
+
+            _disposables.Clear();
+        }
+
+        private void SetUpInput()
+        {
+            if (SystemInfo.deviceType== DeviceType.Desktop)
+                _playerInput = new DesktopInput();
+            else if (SystemInfo.deviceType == DeviceType.Handheld)
+                _playerInput = new MobileInput();
+        }
+
+        private void SetUpPlayerData()
+        {
+            _playerData = new PlayerData();
+            _levelId = _playerData.SelectedLevel;
+
+            if (string.IsNullOrEmpty(_levelId))
+                _levelId = _defaultLevelId;
+        }
+
+        private void SetUpLevel()
+        {
+            _level = Instantiate(_levels.GetLevel(_levelId));
+            _level.transform.position = Vector3.zero;
+            _timer = new Timer(_level.StartTimer);
+
+            foreach(Garage garage in _level.Garages.ToArray())
+            {
+                garage.Init(_timer);
+            }
+        }
+
+        private void SetUpCar()
+        {
+            _car = Instantiate(_carPrefab);
+            _car.InitCar(_startConfig, _wheelPrefab);
+            _car.transform.position = _level.CarStartPosition;
+            _carSwitcher = new CarSwitcher(_car,_level.Garages.ToArray(),_timer, _wheelPrefab);
+
+            _disposables.Add(_carSwitcher);
+        }
+
+        private void SetUpStateMachine()
+        {
+            _gameplayStateMachine = new StateMachine();
+
+            PreStartState preStartState = new PreStartState(_gameplayStateMachine);
+            RaceGameState raceGameState = new RaceGameState(_gameplayStateMachine, _timer, _car.CarBehavior, _level.Finish);
+            WinState winState = new WinState(_gameplayStateMachine, _car.CarBehavior);
+            LoseState loseState = new LoseState(_gameplayStateMachine, _car.CarBehavior);
+
+            _gameplayStateMachine.AddState(preStartState);
+            _gameplayStateMachine.AddState(raceGameState);
+            _gameplayStateMachine.AddState(winState);
+            _gameplayStateMachine.AddState(loseState);
+
+            _disposables.Add(_gameplayStateMachine);
+
+        }
+
+        private void SetUpSubSystems()
+        {
+            _soundController.Init();
+            _sceneLoader = new SceneLoader();
+        }
+
+        private void SetUpPause()
+        {
+            _pauseManager = new PauseManager();
+            _pauseManager.Register(_timer);
+            _pauseManager.Register(_car);
+            _pauseManager.Register(_soundController);
+            _pauseManager.Register(_gameplayStateMachine);
+        }
+
+        private void SetUpUI()
+        {
+            _speedometr.Init(_car.CarBehavior);
+        }
+
+        private void SetUpMediators()
+        {
+            var timerMediator = new TimerMediator(_timer, _timerView);
+            var carControllerMediator = new CarControllerMediator(_car.CarBehavior, _playerInput);
+            var timerAndGatesMediator = new TimerAndGatesMediator(_level.TimerGates.ToArray(), _timer);
+            var soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), _gameplayStateMachine.GetState<RaceGameState>());
+            var endGameMediator = new EndGameMediator(_endOfTheGame, _sceneLoader, _gameplayStateMachine.GetState<LoseState>(), _gameplayStateMachine.GetState<WinState>(), _pauseButton);
+            var pauseMediator = new PauseMediator(_pauseManager, _pauseButton);
+
+            _disposables.Add(timerMediator);
+            _disposables.Add(carControllerMediator);
+            _disposables.Add(timerAndGatesMediator);
+            _disposables.Add(soundMediator);
+            _disposables.Add(endGameMediator);
+            _disposables.Add(pauseMediator);
         }
     }
 }

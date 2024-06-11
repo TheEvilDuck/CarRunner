@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 namespace Common.States
 {
-    public class StateMachine: IDisposable
+    public class StateMachine: IDisposable, IPausable
     {
         private Dictionary<Type,State> _states;
         private State _currentState;
+        private bool _paused;
 
         public StateMachine()
         {
@@ -35,10 +36,25 @@ namespace Common.States
             _currentState?.Enter();
         }
 
+        public State GetState<TypeOfState>() where TypeOfState: State
+        {
+            if (!_states.TryGetValue(typeof(TypeOfState), out State state))
+                throw new ArgumentException($"There is no state of {typeof(TypeOfState)} in state machine");
+
+            return state;
+        }
+
         public void Dispose() => _currentState?.Exit();
         public void Update()
         {
+            if (_paused)
+                return;
+
             _currentState?.Update();
         }
+
+        public void Pause() => _paused = true;
+
+        public void Resume() => _paused = false;
     }
 }

@@ -1,9 +1,8 @@
 using Common.Sound;
+using Common.States;
 using Gameplay.Garages;
-using Gameplay.States;
 using Gameplay.TimerGates;
 using System;
-using System.Collections.Generic;
 
 namespace Gameplay
 {
@@ -12,9 +11,9 @@ namespace Gameplay
         private SoundController _soundController;
         private TimerGate[] _gates;
         private Garage[] _garages;
-        private RaceGameState _raceGameState;
+        private State _raceGameState;
 
-        public SoundMediator(SoundController soundController, TimerGate[] gates, Garage[] garages, RaceGameState raceGameState)
+        public SoundMediator(SoundController soundController, TimerGate[] gates, Garage[] garages, State raceGameState)
         {
             _soundController = soundController;
             _gates = gates;
