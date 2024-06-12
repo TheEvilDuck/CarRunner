@@ -275,7 +275,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1153574037251171803, guid: 8ea74fa5d452c2a4fbf46cb24cbfb6f3, type: 3}
       propertyPath: _speed
-      value: 0.07
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1153574037251171803, guid: 8ea74fa5d452c2a4fbf46cb24cbfb6f3, type: 3}
+      propertyPath: _offset.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1153574037251171803, guid: 8ea74fa5d452c2a4fbf46cb24cbfb6f3, type: 3}
+      propertyPath: _lookAtOffset.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1153574037251171803, guid: 8ea74fa5d452c2a4fbf46cb24cbfb6f3, type: 3}
+      propertyPath: _lookAtOffset.z
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1153574037251171803, guid: 8ea74fa5d452c2a4fbf46cb24cbfb6f3, type: 3}
       propertyPath: _minTargetAngleDelta
@@ -1440,7 +1452,7 @@ PrefabInstance:
     - target: {fileID: 8117531253039395286, guid: aa758e60310365f4bb0203c7cdc61ec5, type: 3}
       propertyPath: _startConfig
       value: 
-      objectReference: {fileID: 11400000, guid: 5e85e5b81b5f1564d897cceb46afebd4, type: 2}
+      objectReference: {fileID: 11400000, guid: 6ec3e89559be18d419f7e1e6a7dec812, type: 2}
     - target: {fileID: 8117531253039395286, guid: aa758e60310365f4bb0203c7cdc61ec5, type: 3}
       propertyPath: _cameraFollow
       value: 
