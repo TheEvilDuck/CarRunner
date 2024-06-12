@@ -53,7 +53,8 @@ MonoBehaviour:
   _timerGates: []
   _finish: {fileID: 4941656208711087552}
   _carStartPosition: {fileID: 7746428908696399863}
-  StartTimer: 5
+  _roadSystem: {fileID: 0}
+  StartTimer: 999
 --- !u!1 &5433319096030995763
 GameObject:
   m_ObjectHideFlags: 0
