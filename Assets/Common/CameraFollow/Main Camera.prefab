@@ -106,9 +106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
-  _offset: {x: 0, y: 5, z: -10}
-  _speed: 3
-  _angle: 10
-  _minDistance: 1
-  _minTargetDistanceDelta: 0.5
-  _minTargetAngleDelta: 1
+  _offset: {x: 0, y: 5, z: -5}
+  _lookAtOffset: {x: 0, y: 0, z: 0}
+  _speed: 0.952

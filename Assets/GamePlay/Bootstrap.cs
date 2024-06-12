@@ -102,6 +102,8 @@ namespace Gameplay
             {
                 garage.Init(_timer);
             }
+
+            _level.Init();
         }
 
         private void SetUpCar()
