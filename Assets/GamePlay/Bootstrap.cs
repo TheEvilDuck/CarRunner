@@ -158,7 +158,7 @@ namespace Gameplay
             var carControllerMediator = new CarControllerMediator(_car.CarBehavior, _playerInput);
             var timerAndGatesMediator = new TimerAndGatesMediator(_level.TimerGates.ToArray(), _timer);
             var soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), _gameplayStateMachine.GetState<RaceGameState>());
-            var endGameMediator = new EndGameMediator(_endOfTheGame, _sceneLoader, _gameplayStateMachine.GetState<LoseState>(), _gameplayStateMachine.GetState<WinState>(), _pauseButton);
+            var endGameMediator = new EndGameMediator(_endOfTheGame, _sceneLoader, _gameplayStateMachine.GetState<LoseState>(), _gameplayStateMachine.GetState<WinState>(), _pauseButton, carControllerMediator);
             var pauseMediator = new PauseMediator(_pauseManager, _pauseButton);
 
             _disposables.Add(timerMediator);

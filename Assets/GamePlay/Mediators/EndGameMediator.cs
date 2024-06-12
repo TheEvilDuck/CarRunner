@@ -1,5 +1,6 @@
 using Common;
 using Common.States;
+using Gameplay.Cars;
 using Gameplay.UI;
 using System;
 
@@ -10,14 +11,16 @@ public class EndGameMediator : IDisposable
     private readonly State _winState;
     private readonly State _gameOverState;
     private readonly PauseButton _pauseButton;
+    private readonly CarControllerMediator _carControllerMediator;
 
-    public EndGameMediator(EndOfTheGame endGameUI, SceneLoader sceneLoader, State gameOverState, State winState, PauseButton pauseButton)
+    public EndGameMediator(EndOfTheGame endGameUI, SceneLoader sceneLoader, State gameOverState, State winState, PauseButton pauseButton, CarControllerMediator carControllerMediator)
     {
         _endGameUI = endGameUI;
         _sceneLoader = sceneLoader;
         _winState = winState;
         _gameOverState = gameOverState;
         _pauseButton = pauseButton;
+        _carControllerMediator = carControllerMediator;
 
         _winState.entered += OnWinStateEntered;
         _gameOverState.entered += OnGameOverStateEntered;
@@ -32,6 +35,8 @@ public class EndGameMediator : IDisposable
 
     private void OnGameEnd(bool win)
     {
+        _carControllerMediator.Dispose();
+
         if (win)
             _endGameUI.Win();
         else
