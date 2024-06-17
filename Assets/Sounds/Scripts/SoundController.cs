@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -10,6 +11,7 @@ namespace Common.Sound
         [SerializeField] private Sounds _sound;
         [SerializeField] private GameObject _objectToPool;
         [SerializeField] private AudioMixer _audioMixer;
+        [SerializeField] private RangeOfExposedParameters _rangeOfExposedParameters;
         private Dictionary<AudioMixerExposedParameters, string> _audioMixerExposedParameters = new Dictionary<AudioMixerExposedParameters, string>()
         {
             {AudioMixerExposedParameters.PitchBackgroundMusic, "PitchBackgroundMusic" },
@@ -46,6 +48,12 @@ namespace Common.Sound
             _audioSourcePool = new ObjectPool<AudioSource>(CreatePooledObject, TakeFromPool, ReturnToPool, DestroyObject, _collectionCheck, _poolDefaultCapacity, _poolMaxSize);
         }
 
+        public void SoundOff()
+        {
+            var range = _rangeOfExposedParameters.GetRange(AudioMixerExposedParameters.VolumeMaster);
+            SetValue(AudioMixerExposedParameters.VolumeMaster, 0);
+        }
+
         public void Play(SoundID soundID)
         {
             AudioSource audioSource = _audioSourcePool.Get();
@@ -66,12 +74,22 @@ namespace Common.Sound
                 }
             }
         }
-
+        
         public void SetValue(AudioMixerExposedParameters param, float value)
         {
-            _audioMixer.SetFloat(_audioMixerExposedParameters[param], value);
+            var range = _rangeOfExposedParameters.GetRange(param);
+            if(value >= range.MinValue && value <= range.MaxValue)
+            {
+                float setValue = range.MinValue + value * Mathf.Abs(range.MaxValue - range.MinValue);
+                _audioMixer.SetFloat(_audioMixerExposedParameters[param], setValue);
+                Debug.Log($"Set {param}, setValue {setValue}, Value {value}");
+            }
+            else
+            {
+                throw new ArgumentException($"Invalid value of {param}, value: {value}");
+            }
         }
-
+        
         private AudioSource CreatePooledObject()
         {
             GameObject soundObject = Instantiate(_objectToPool);

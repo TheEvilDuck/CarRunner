@@ -7,7 +7,7 @@ namespace MainMenu
     {
         [SerializeField] private MainMenuView _mainMenuView;
         [SerializeField] private SettingsMenu _settingsMenu;
-        [SerializeField] private GameSettings _gameSettings;
+        private GameSettings _gameSettings;
         private MainMenuMediator _mainMenuMediator;
         private SettingsMediator _settingsMediator;
         private SceneLoader _sceneLoader;
@@ -16,6 +16,7 @@ namespace MainMenu
         private void Awake()
         {
             _sceneLoader = new SceneLoader();
+            _gameSettings = new GameSettings();
             _playerData = new PlayerData();
             _mainMenuMediator = new MainMenuMediator(_mainMenuView, _playerData, _sceneLoader);
             _settingsMediator = new SettingsMediator(_gameSettings, _settingsMenu);

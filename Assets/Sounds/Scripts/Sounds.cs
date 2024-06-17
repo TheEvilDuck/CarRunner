@@ -35,7 +35,6 @@ namespace Common.Sound
             [field: SerializeField] public SoundID SoundID { get; private set; }
             [field: SerializeField] public AudioClip AudioClip { get; private set; }
             [field: SerializeField] public AudioMixerGroup AudioMixerGroup { get; private set; }
-            
         }
     }
 }

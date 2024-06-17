@@ -1,3 +1,5 @@
+using Common;
+using MainMenu;
 using System;
 
 public class SettingsMediator : IDisposable
@@ -10,23 +12,23 @@ public class SettingsMediator : IDisposable
         _settings = settings;
         _menu = menu;
 
-        _menu.IsMusicOnChanged.AddListener(SoundOn);
-        _menu.MasterVolumeChenged.AddListener(SetMasterVolume);
-        _menu.BackgroundMusicVolumeChanged.AddListener(SetBackgroundMusicVolume);
-        _menu.SFXSoundVolumeChanged.AddListener(SetSFXSoundsVolume);
+        _menu.MusicOnChanged.AddListener(onMusicOnChanged);
+        _menu.MasterVolumeChanged.AddListener(onMasterVolumeChanged);
+        _menu.BackgroundMusicVolumeChanged.AddListener(onBackgroundMusicVolumeChanged);
+        _menu.SFXSoundVolumeChanged.AddListener(onSFXSoundVolumeChanged);
     }
 
-    public void SoundOn(bool flag) => _settings.SoundOn(flag);
-    public void SetMasterVolume(float volume) => _settings.SetMasterVolume(volume);
-    public void SetBackgroundMusicVolume(float volume) => _settings.SetBackgroundMusicVolume(volume);
-    public void SetSFXSoundsVolume(float volume) => _settings.SetSFXSoundsVolume(volume);
+    private void onMusicOnChanged(bool flag) => _settings.SoundOn(flag);
+    private void onMasterVolumeChanged(float volume) => _settings.SetMasterVolume(volume);
+    private void onBackgroundMusicVolumeChanged(float volume) => _settings.SetBackgroundMusicVolume(volume);
+    private void onSFXSoundVolumeChanged(float volume) => _settings.SetSFXSoundsVolume(volume);
 
     public void Dispose()
     {
-        _menu.IsMusicOnChanged.RemoveListener(SoundOn);
-        _menu.MasterVolumeChenged.RemoveListener(SetMasterVolume);
-        _menu.BackgroundMusicVolumeChanged.RemoveListener(SetBackgroundMusicVolume);
-        _menu.SFXSoundVolumeChanged.RemoveListener(SetSFXSoundsVolume);
+        _menu.MusicOnChanged.RemoveListener(onMusicOnChanged);
+        _menu.MasterVolumeChanged.RemoveListener(onMasterVolumeChanged);
+        _menu.BackgroundMusicVolumeChanged.RemoveListener(onBackgroundMusicVolumeChanged);
+        _menu.SFXSoundVolumeChanged.RemoveListener(onSFXSoundVolumeChanged);
         _settings.SaveSettings();
     }
 }

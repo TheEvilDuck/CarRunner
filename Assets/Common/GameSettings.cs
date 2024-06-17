@@ -1,39 +1,53 @@
 using System;
 using UnityEngine;
 
-public class GameSettings : MonoBehaviour
+namespace Common
 {
-    [SerializeField]private Settings _settings;
-
-    public void SoundOn(bool flag) => _settings.IsSoundOn = flag;
-    public void SetMasterVolume(float volume) => _settings.MasterVolume = volume;
-    public void SetBackgroundMusicVolume(float volume) => _settings.BackgroundMusicVolume = volume;
-    public void SetSFXSoundsVolume(float volume) => _settings.SFXSoundVolume = volume;
-
-    public void SaveSettings()
+    public class GameSettings
     {
-        string json = JsonUtility.ToJson(_settings);
-        PlayerPrefs.SetString("json", json);
-    }
+        private const string GAME_SETTINGS_KEY = "GameSettingsKey";
+        private Settings _settings;
 
-    public void LoadSettings()
-    {
-        string json;
-        if (PlayerPrefs.HasKey("json"))
+        public bool IsSoundOn => _settings.IsSoundOn;
+        public float MasterVolume => _settings.MasterVolume;
+        public float BackgroundMusicVolume => _settings.BackgroundMusicVolume;
+        public float SFXSoundVolume => _settings.SFXSoundVolume;
+
+        public GameSettings()
         {
-            json = PlayerPrefs.GetString("json");
-            _settings = JsonUtility.FromJson<Settings>(json);
+            _settings = new Settings();
         }
-        else
-            throw new Exception("Settings now found");
-    }
 
-    [Serializable]
-    private class Settings
-    {
-        public bool IsSoundOn;
-        public float MasterVolume;
-        public float BackgroundMusicVolume;
-        public float SFXSoundVolume;
+        public void SoundOn(bool flag) => _settings.IsSoundOn = flag;
+        public void SetMasterVolume(float volume) => _settings.MasterVolume = volume;
+        public void SetBackgroundMusicVolume(float volume) => _settings.BackgroundMusicVolume = volume;
+        public void SetSFXSoundsVolume(float volume) => _settings.SFXSoundVolume = volume;
+
+        public void SaveSettings()
+        {
+            string gameSettings = JsonUtility.ToJson(_settings);
+            PlayerPrefs.SetString(GAME_SETTINGS_KEY, gameSettings);
+        }
+
+        public void LoadSettings()
+        {
+            string gameSettings;
+            if (PlayerPrefs.HasKey(GAME_SETTINGS_KEY))
+            {
+                gameSettings = PlayerPrefs.GetString(GAME_SETTINGS_KEY);
+                _settings = JsonUtility.FromJson<Settings>(gameSettings);
+            }
+            else
+                throw new Exception("Settings not found");
+        }
+
+        [Serializable]
+        private class Settings
+        {
+            public bool IsSoundOn;
+            public float MasterVolume;
+            public float BackgroundMusicVolume;
+            public float SFXSoundVolume;
+        }
     }
 }
