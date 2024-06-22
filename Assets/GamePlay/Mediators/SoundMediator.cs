@@ -24,68 +24,49 @@ namespace Gameplay
             _raceGameState = raceGameState;
 
             _raceGameState.entered += onRaceGameStateEntered;
-            _raceGameState.entered += SetUpSoundSettings;
             _raceGameState.exited += onRaceGameStateExited;
+            _raceGameState.entered += UpdateSoundSettings;
+            _gameSettings.SoundSettingsChanged += UpdateSoundSettings;
 
             foreach (TimerGate gate in _gates)
-            {
                 gate.passed += OnGatePassed;
-            }
+
             foreach (Garage garage in _garages)
-            {
                 garage.passed += OnGaregePassed;
-            }
         }
 
         public void Dispose()
         {
             _raceGameState.entered -= onRaceGameStateEntered;
-            _raceGameState.entered -= SetUpSoundSettings;
             _raceGameState.exited -= onRaceGameStateExited;
+            _raceGameState.entered -= UpdateSoundSettings;
+            _gameSettings.SoundSettingsChanged -= UpdateSoundSettings;
 
             foreach (TimerGate gate in _gates)
-            {
                 gate.passed -= OnGatePassed;
-            }
 
             foreach (Garage garage in _garages)
-            {
                 garage.passed -= OnGaregePassed;
-            }
         }
 
-        private void SetUpSoundSettings()
+        private void UpdateSoundSettings()
         {
             if (_gameSettings.IsSoundOn)
             {
-                _soundController.SetValue(AudioMixerExposedParameters.VolumeMaster, _gameSettings.MasterVolume);
-                _soundController.SetValue(AudioMixerExposedParameters.VolumeBackgroundMusic, _gameSettings.BackgroundMusicVolume);
-                _soundController.SetValue(AudioMixerExposedParameters.VolumeSFX, _gameSettings.SFXSoundVolume);
+                _soundController.SetValueNormalized(AudioMixerExposedParameters.VolumeMaster, _gameSettings.MasterVolume);
+                _soundController.SetValueNormalized(AudioMixerExposedParameters.VolumeBackgroundMusic, _gameSettings.BackgroundMusicVolume);
+                _soundController.SetValueNormalized(AudioMixerExposedParameters.VolumeSFX, _gameSettings.SFXSoundVolume);
             }
             else
-            {
                 _soundController.SoundOff();
-            }
         }
 
-        private void OnGatePassed(float time)
-        {
-            _soundController.Play(SoundID.SFXGate);
-        }
+        private void OnGatePassed(float time) => _soundController.Play(SoundID.SFXGate);
 
-        private void OnGaregePassed(bool passed)
-        {
-            _soundController.Play(SoundID.SFXGarage);
-        }
+        private void OnGaregePassed(bool passed) => _soundController.Play(SoundID.SFXGarage);
 
-        private void onRaceGameStateEntered()
-        {
-            _soundController.Play(SoundID.BacgrondMusic);
-        }
+        private void onRaceGameStateEntered() => _soundController.Play(SoundID.BacgrondMusic);
 
-        private void onRaceGameStateExited()
-        {
-            _soundController.Stop(SoundID.BacgrondMusic);
-        }
+        private void onRaceGameStateExited() => _soundController.Stop(SoundID.BacgrondMusic);
     }
 }

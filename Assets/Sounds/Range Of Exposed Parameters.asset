@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _range:
   - <Parameter>k__BackingField: 2
-    <MinValue>k__BackingField: -80
-    <MaxValue>k__BackingField: 20
+    <MinValue>k__BackingField: -35
+    <MaxValue>k__BackingField: 5
   - <Parameter>k__BackingField: 1
-    <MinValue>k__BackingField: -80
-    <MaxValue>k__BackingField: 20
+    <MinValue>k__BackingField: -35
+    <MaxValue>k__BackingField: 5
   - <Parameter>k__BackingField: 5
-    <MinValue>k__BackingField: -80
-    <MaxValue>k__BackingField: 20
+    <MinValue>k__BackingField: -35
+    <MaxValue>k__BackingField: 5
   - <Parameter>k__BackingField: 3
     <MinValue>k__BackingField: 1
     <MaxValue>k__BackingField: 1000

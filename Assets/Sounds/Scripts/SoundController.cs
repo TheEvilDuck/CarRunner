@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -51,7 +50,7 @@ namespace Common.Sound
         public void SoundOff()
         {
             var range = _rangeOfExposedParameters.GetRange(AudioMixerExposedParameters.VolumeMaster);
-            SetValue(AudioMixerExposedParameters.VolumeMaster, 0);
+            SetValueNormalized(AudioMixerExposedParameters.VolumeMaster, 0);
         }
 
         public void Play(SoundID soundID)
@@ -78,18 +77,17 @@ namespace Common.Sound
         public void SetValue(AudioMixerExposedParameters param, float value)
         {
             var range = _rangeOfExposedParameters.GetRange(param);
-            if(value >= range.MinValue && value <= range.MaxValue)
-            {
-                float setValue = range.MinValue + value * Mathf.Abs(range.MaxValue - range.MinValue);
-                _audioMixer.SetFloat(_audioMixerExposedParameters[param], setValue);
-                Debug.Log($"Set {param}, setValue {setValue}, Value {value}");
-            }
-            else
-            {
-                throw new ArgumentException($"Invalid value of {param}, value: {value}");
-            }
+            float setValue = Mathf.Clamp(value, range.MinValue, range.MaxValue);
+            _audioMixer.SetFloat(_audioMixerExposedParameters[param], setValue);
         }
-        
+
+        public void SetValueNormalized(AudioMixerExposedParameters param, float value)
+        {
+            var range = _rangeOfExposedParameters.GetRange(param);
+            float setValue = range.MinValue + value * Mathf.Abs(range.MaxValue - range.MinValue);
+            _audioMixer.SetFloat(_audioMixerExposedParameters[param], setValue);
+        }
+
         private AudioSource CreatePooledObject()
         {
             GameObject soundObject = Instantiate(_objectToPool);
@@ -99,20 +97,11 @@ namespace Common.Sound
             return audioSource;
         }
 
-        private void TakeFromPool(AudioSource audioSource)
-        {
-            audioSource.gameObject.SetActive(true);
-        }
+        private void TakeFromPool(AudioSource audioSource) => audioSource.gameObject.SetActive(true);
 
-        private void ReturnToPool(AudioSource audioSource)
-        {
-            audioSource.gameObject.SetActive(false);
-        }
+        private void ReturnToPool(AudioSource audioSource) => audioSource.gameObject.SetActive(false);
 
-        private void DestroyObject(AudioSource audioSource)
-        {
-            Destroy(audioSource.gameObject);
-        }
+        private void DestroyObject(AudioSource audioSource) => Destroy(audioSource.gameObject);
 
         public void Pause()
         {

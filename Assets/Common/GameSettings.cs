@@ -6,7 +6,8 @@ namespace Common
     public class GameSettings
     {
         private const string GAME_SETTINGS_KEY = "GameSettingsKey";
-        private Settings _settings;
+        private SoundSettings _settings;
+        public Action SoundSettingsChanged;
 
         public bool IsSoundOn => _settings.IsSoundOn;
         public float MasterVolume => _settings.MasterVolume;
@@ -15,13 +16,29 @@ namespace Common
 
         public GameSettings()
         {
-            _settings = new Settings();
+            _settings = new SoundSettings();
         }
 
-        public void SoundOn(bool flag) => _settings.IsSoundOn = flag;
-        public void SetMasterVolume(float volume) => _settings.MasterVolume = volume;
-        public void SetBackgroundMusicVolume(float volume) => _settings.BackgroundMusicVolume = volume;
-        public void SetSFXSoundsVolume(float volume) => _settings.SFXSoundVolume = volume;
+        public void SoundOn(bool flag)
+        {
+            _settings.IsSoundOn = flag;
+            SoundSettingsChanged?.Invoke();
+        }
+        public void SetMasterVolume(float volume)
+        {
+            _settings.MasterVolume = volume;
+            SoundSettingsChanged?.Invoke();
+        }
+        public void SetBackgroundMusicVolume(float volume)
+        {
+            _settings.BackgroundMusicVolume = volume;
+            SoundSettingsChanged?.Invoke();
+        }
+        public void SetSFXSoundsVolume(float volume)
+        {
+            _settings.SFXSoundVolume = volume;
+            SoundSettingsChanged?.Invoke();
+        }
 
         public void SaveSettings()
         {
@@ -35,14 +52,14 @@ namespace Common
             if (PlayerPrefs.HasKey(GAME_SETTINGS_KEY))
             {
                 gameSettings = PlayerPrefs.GetString(GAME_SETTINGS_KEY);
-                _settings = JsonUtility.FromJson<Settings>(gameSettings);
+                _settings = JsonUtility.FromJson<SoundSettings>(gameSettings);
             }
             else
                 throw new Exception("Settings not found");
         }
 
         [Serializable]
-        private class Settings
+        private class SoundSettings
         {
             public bool IsSoundOn;
             public float MasterVolume;
