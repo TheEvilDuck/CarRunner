@@ -53,9 +53,9 @@ namespace Gameplay
         {
             if (_gameSettings.IsSoundOn)
             {
-                _soundController.SetValueNormalized(AudioMixerExposedParameters.VolumeMaster, _gameSettings.MasterVolume);
-                _soundController.SetValueNormalized(AudioMixerExposedParameters.VolumeBackgroundMusic, _gameSettings.BackgroundMusicVolume);
-                _soundController.SetValueNormalized(AudioMixerExposedParameters.VolumeSFX, _gameSettings.SFXSoundVolume);
+                _soundController.SetValue(AudioMixerExposedParameters.VolumeMaster, _gameSettings.MasterVolume);
+                _soundController.SetValue(AudioMixerExposedParameters.VolumeBackgroundMusic, _gameSettings.BackgroundMusicVolume);
+                _soundController.SetValue(AudioMixerExposedParameters.VolumeSFX, _gameSettings.SFXSoundVolume);
             }
             else
                 _soundController.SoundOff();
