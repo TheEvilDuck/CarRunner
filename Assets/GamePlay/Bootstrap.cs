@@ -25,10 +25,11 @@ namespace Gameplay
         [SerializeField] private GameObject _wheelPrefab;
         [SerializeField] private string _defaultLevelId;
         [SerializeField] private CameraFollow _cameraFollow;
-        [SerializeField]private SoundController _soundController;
-        [SerializeField]private Speedometr _speedometr;
-        [SerializeField]private PauseButton _pauseButton;
+        [SerializeField] private SoundController _soundController;
+        [SerializeField] private Speedometr _speedometr;
+        [SerializeField] private PauseButton _pauseButton;
         [SerializeField] private EndOfTheGame _endOfTheGame;
+        private GameSettings _gameSettings;
         private List<IDisposable> _disposables;
         private PauseManager _pauseManager;
         private Timer _timer;
@@ -138,6 +139,8 @@ namespace Gameplay
         {
             _soundController.Init();
             _sceneLoader = new SceneLoader();
+            _gameSettings = new GameSettings();
+            _gameSettings.LoadSettings();
         }
 
         private void SetUpPause()
@@ -159,7 +162,7 @@ namespace Gameplay
             var timerMediator = new TimerMediator(_timer, _timerView);
             var carControllerMediator = new CarControllerMediator(_car.CarBehavior, _playerInput);
             var timerAndGatesMediator = new TimerAndGatesMediator(_level.TimerGates.ToArray(), _timer);
-            var soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), _gameplayStateMachine.GetState<RaceGameState>());
+            var soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), _gameplayStateMachine.GetState<RaceGameState>(), _gameSettings);
             var endGameMediator = new EndGameMediator(_endOfTheGame, _sceneLoader, _gameplayStateMachine.GetState<LoseState>(), _gameplayStateMachine.GetState<WinState>(), _pauseButton, carControllerMediator);
             var pauseMediator = new PauseMediator(_pauseManager, _pauseButton);
 

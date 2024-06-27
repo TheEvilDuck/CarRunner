@@ -1316,6 +1316,7 @@ MonoBehaviour:
   _sound: {fileID: 11400000, guid: 078496f8149d97e4dbaf2aeee0882cb7, type: 2}
   _objectToPool: {fileID: 8266052440737898821, guid: 814f2917adb138145bd24ad1ffcbc54f, type: 3}
   _audioMixer: {fileID: 24100000, guid: 4604e844800f807428a373b9ac1d785b, type: 2}
+  _rangeOfExposedParameters: {fileID: 11400000, guid: 58170f4e54d9ae44690c5365a51c0c61, type: 2}
 --- !u!4 &1870337258
 Transform:
   m_ObjectHideFlags: 0
