@@ -76,9 +76,9 @@ namespace Common.Sound
 
         public void SetValue(AudioMixerExposedParameters param, float normalizedValue)
         {
-            float setValue = Mathf.Clamp(normalizedValue, 0, 1);
+            normalizedValue = Mathf.Clamp(normalizedValue, 0, 1);
             var range = _rangeOfExposedParameters.GetRange(param);
-            setValue = range.MinValue + normalizedValue * Mathf.Abs(range.MaxValue - range.MinValue);
+            float setValue = range.MinValue + normalizedValue * Mathf.Abs(range.MaxValue - range.MinValue);
             _audioMixer.SetFloat(_audioMixerExposedParameters[param], setValue);
         }
 
