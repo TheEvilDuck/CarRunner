@@ -20,10 +20,11 @@ namespace Levels
         public IEnumerable<TimerGate> TimerGates => _timerGates;
         public SimpleCarCollisionTrigger Finish => _finish;
         public Vector3 CarStartPosition => _carStartPosition.position;
+        public Quaternion CarStartRotation => _carStartPosition.rotation;
 
         public void Init()
         {
-            _roadSystem?.UpdateAllRoads();
+            //_roadSystem.UpdateAllRoadsSavingMeshesOption(true);
         }
     }
 }
