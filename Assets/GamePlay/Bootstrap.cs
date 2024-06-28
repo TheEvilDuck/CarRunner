@@ -119,7 +119,7 @@ namespace Gameplay
         {
             _gameplayStateMachine = new StateMachine();
 
-            PreStartState preStartState = new PreStartState(_gameplayStateMachine);
+            PreStartState preStartState = new PreStartState(_gameplayStateMachine, _car.CarBehavior);
             RaceGameState raceGameState = new RaceGameState(_gameplayStateMachine, _timer, _car.CarBehavior, _level.Finish);
             WinState winState = new WinState(_gameplayStateMachine, _car.CarBehavior);
             LoseState loseState = new LoseState(_gameplayStateMachine, _car.CarBehavior);
