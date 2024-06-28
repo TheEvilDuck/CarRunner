@@ -55,11 +55,7 @@ namespace Gameplay
             SetUpStateMachine();
             SetUpPause();
             SetUpMediators();
-        }
-
-        private void Start() 
-        {
-            _cameraFollow.SetTarget(_car.transform);
+            SetUpCamera();
         }
 
         private void Update() 
@@ -174,6 +170,12 @@ namespace Gameplay
             _disposables.Add(soundMediator);
             _disposables.Add(endGameMediator);
             _disposables.Add(pauseMediator);
+        }
+
+        private void SetUpCamera()
+        {
+            _cameraFollow.transform.position = _car.transform.position;
+            _cameraFollow.SetTarget(_car.transform);
         }
     }
 }

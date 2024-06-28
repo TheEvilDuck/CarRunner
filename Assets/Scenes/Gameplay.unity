@@ -275,27 +275,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1153574037251171803, guid: 8ea74fa5d452c2a4fbf46cb24cbfb6f3, type: 3}
       propertyPath: _speed
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 1153574037251171803, guid: 8ea74fa5d452c2a4fbf46cb24cbfb6f3, type: 3}
-      propertyPath: _offset.z
-      value: -8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1153574037251171803, guid: 8ea74fa5d452c2a4fbf46cb24cbfb6f3, type: 3}
-      propertyPath: _lookAtOffset.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1153574037251171803, guid: 8ea74fa5d452c2a4fbf46cb24cbfb6f3, type: 3}
-      propertyPath: _lookAtOffset.z
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1153574037251171803, guid: 8ea74fa5d452c2a4fbf46cb24cbfb6f3, type: 3}
-      propertyPath: _minTargetAngleDelta
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1153574037251171803, guid: 8ea74fa5d452c2a4fbf46cb24cbfb6f3, type: 3}
-      propertyPath: _minTargetDistanceDelta
-      value: 0.01
+      value: 0.173
       objectReference: {fileID: 0}
     - target: {fileID: 2737099453978033767, guid: 8ea74fa5d452c2a4fbf46cb24cbfb6f3, type: 3}
       propertyPath: m_LocalPosition.x
