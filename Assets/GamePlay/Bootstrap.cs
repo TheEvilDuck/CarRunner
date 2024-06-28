@@ -111,10 +111,12 @@ namespace Gameplay
         {
             _car = Instantiate(_carPrefab);
             _car.InitCar(_startConfig, _wheelPrefab);
-            _car.transform.position = _level.CarStartPosition;
             _carSwitcher = new CarSwitcher(_car,_level.Garages.ToArray(),_timer, _wheelPrefab);
 
             _disposables.Add(_carSwitcher);
+
+            _car.transform.position = _level.CarStartPosition;
+            _car.transform.rotation = _level.CarStartRotation;
         }
 
         private void SetUpStateMachine()
