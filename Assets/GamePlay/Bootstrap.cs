@@ -13,6 +13,7 @@ using UnityEngine;
 using Common.Components;
 using System.Collections.Generic;
 using System;
+using MainMenu;
 
 namespace Gameplay
 {
@@ -29,6 +30,9 @@ namespace Gameplay
         [SerializeField] private Speedometr _speedometr;
         [SerializeField] private PauseButton _pauseButton;
         [SerializeField] private EndOfTheGame _endOfTheGame;
+        [SerializeField] private SceneChangingButtons _pauseMenuButtons;
+        [SerializeField] private PauseMenu _pauseMenu;
+        [SerializeField] private SettingsMenu _settingsMenu;
         private GameSettings _gameSettings;
         private List<IDisposable> _disposables;
         private PauseManager _pauseManager;
@@ -159,7 +163,9 @@ namespace Gameplay
             var timerAndGatesMediator = new TimerAndGatesMediator(_level.TimerGates.ToArray(), _timer);
             var soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), _gameplayStateMachine.GetState<RaceGameState>(), _gameSettings);
             var endGameMediator = new EndGameMediator(_endOfTheGame, _sceneLoader, _gameplayStateMachine.GetState<LoseState>(), _gameplayStateMachine.GetState<WinState>(), _pauseButton, carControllerMediator);
-            var pauseMediator = new PauseMediator(_pauseManager, _pauseButton);
+            var pauseMediator = new PauseMediator(_pauseManager, _pauseButton, _pauseMenu);
+            var pauseMenuMediator = new PauseMenuMediator(_pauseMenuButtons, _sceneLoader);
+            var settingMediator = new SettingsMediator(_gameSettings, _settingsMenu);
 
             _disposables.Add(timerMediator);
             _disposables.Add(carControllerMediator);
@@ -167,6 +173,8 @@ namespace Gameplay
             _disposables.Add(soundMediator);
             _disposables.Add(endGameMediator);
             _disposables.Add(pauseMediator);
+            _disposables.Add(pauseMenuMediator);
+            _disposables.Add(settingMediator);
         }
 
         private void SetUpCamera()

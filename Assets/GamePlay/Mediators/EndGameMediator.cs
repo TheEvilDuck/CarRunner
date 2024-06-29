@@ -25,8 +25,8 @@ public class EndGameMediator : IDisposable
         _winState.entered += OnWinStateEntered;
         _gameOverState.entered += OnGameOverStateEntered;
 
-        _endGameUI.RestartClickedEvent.AddListener(RestartLevel);
-        _endGameUI.MainMenuClickedEvent.AddListener(LoadMainMenu);
+        _endGameUI.SceneChangingButtons.RestartButtonPressed.AddListener(RestartLevel);
+        _endGameUI.SceneChangingButtons.GoToMainMenuButtonPressed.AddListener(LoadMainMenu);
     }
 
     private void OnWinStateEntered() => OnGameEnd(true);
@@ -55,7 +55,7 @@ public class EndGameMediator : IDisposable
         _winState.entered -= OnWinStateEntered;
         _gameOverState.entered -= OnGameOverStateEntered;
 
-        _endGameUI.RestartClickedEvent.RemoveListener(RestartLevel);
-        _endGameUI.MainMenuClickedEvent.RemoveListener(LoadMainMenu);
+        _endGameUI.SceneChangingButtons.RestartButtonPressed.RemoveListener(RestartLevel);
+        _endGameUI.SceneChangingButtons.GoToMainMenuButtonPressed.RemoveListener(LoadMainMenu);
     }
 }
