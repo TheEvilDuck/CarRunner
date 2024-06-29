@@ -54,6 +54,7 @@ MonoBehaviour:
   _finish: {fileID: 4941656208711087552}
   _carStartPosition: {fileID: 7746428908696399863}
   _roadSystem: {fileID: 0}
+  _startCar: {fileID: 11400000, guid: 6cd4fdd6a5f055d4d97507ef7187e17c, type: 2}
   StartTimer: 999
 --- !u!1 &5433319096030995763
 GameObject:

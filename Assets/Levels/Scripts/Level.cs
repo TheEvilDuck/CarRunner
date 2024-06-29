@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Gameplay;
+using Gameplay.Cars;
 using Gameplay.Garages;
 using Gameplay.TimerGates;
 using RoadArchitect;
@@ -14,6 +15,7 @@ namespace Levels
         [SerializeField] private SimpleCarCollisionTrigger _finish;
         [SerializeField] private Transform _carStartPosition;
         [SerializeField] private RoadSystem _roadSystem;
+        [SerializeField] private CarConfig _startCar;
         [field: SerializeField, Min(0)] public float StartTimer;
 
         public IEnumerable<Garage> Garages => _garages;
@@ -21,6 +23,7 @@ namespace Levels
         public SimpleCarCollisionTrigger Finish => _finish;
         public Vector3 CarStartPosition => _carStartPosition.position;
         public Quaternion CarStartRotation => _carStartPosition.rotation;
+        public CarConfig StartCar => _startCar;
 
         public void Init()
         {

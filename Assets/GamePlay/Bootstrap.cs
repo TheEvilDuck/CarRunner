@@ -22,7 +22,6 @@ namespace Gameplay
         [SerializeField] private TimerView _timerView;
         [SerializeField] private LevelsDatabase _levels;
         [SerializeField] private Car _carPrefab;
-        [SerializeField] private CarConfig _startConfig;
         [SerializeField] private GameObject _wheelPrefab;
         [SerializeField] private string _defaultLevelId;
         [SerializeField] private CameraFollow _cameraFollow;
@@ -110,7 +109,7 @@ namespace Gameplay
         private void SetUpCar()
         {
             _car = Instantiate(_carPrefab, _level.CarStartPosition, _level.CarStartRotation, null);
-            _car.InitCar(_startConfig, _wheelPrefab);
+            _car.InitCar(_level.StartCar, _wheelPrefab);
             _carSwitcher = new CarSwitcher(_car,_level.Garages.ToArray(),_timer, _wheelPrefab);
 
             _disposables.Add(_carSwitcher);
