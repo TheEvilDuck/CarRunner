@@ -11,14 +11,16 @@ namespace Gameplay.Cars
         [SerializeField] private Rigidbody _rigidBody;
         [SerializeField, Range(0,90f)] private float _minTurnAngle = 10f;
         [SerializeField, Range(0,90f)] private float _maxTurnAngle = 55f;
+        [SerializeField, Range(0,1f)] private float _turnSpeed = 0.2f;
         [SerializeField, Min(0)] private float _brakeFrictionMultiplier = 2f;
         [SerializeField, Min(0)] private float _brakePower = 2f;
         private float _acceleration;
         private float _maxSpeed;
-        private float _turnDirection;
+        private float _turnDirection = 0;
         private float _startSlip;
         private bool _paused = false;
         private Vector3 _lastVelocity;
+        private float _currentTurnDegree;
 
         public IEnumerable<IReadOnlyWheel> Wheels => _wheels;
         public float CurrentSpeed => CurrentVelocity.magnitude;
@@ -43,18 +45,35 @@ namespace Gameplay.Cars
             if (_paused)
                 return;
 
+            float turnSpeed = Mathf.Lerp(_maxTurnAngle, _minTurnAngle, _rigidBody.velocity.magnitude / _maxSpeed) * _turnSpeed;
+
+            if (_turnDirection == 0 && _currentTurnDegree != 0)
+            {
+                float angleDelta = -Mathf.Sign(_currentTurnDegree) * turnSpeed;
+
+                if (Mathf.Sign(_currentTurnDegree + angleDelta) != MathF.Sign(_currentTurnDegree))
+                    _currentTurnDegree = 0;
+                else
+                    _currentTurnDegree += angleDelta;
+            }
+            else
+            {
+                _currentTurnDegree += _turnDirection * turnSpeed;
+            }
+
+            _currentTurnDegree = Mathf.Clamp(_currentTurnDegree, -_maxTurnAngle, _maxTurnAngle);
+
             foreach (WheelData wheel in _wheels)
             {
                 if (wheel.IsTorque)
                     wheel.WheelCollider.motorTorque = _acceleration;
 
-                var currentVelocity = Vector2.ClampMagnitude(CurrentVelocity, _maxSpeed);
-                _rigidBody.velocity = new Vector3(currentVelocity.x, _rigidBody.velocity.y, currentVelocity.y);
-
                 if (wheel.IsTurnable)
-                    wheel.WheelCollider.steerAngle = _turnDirection * Mathf.Lerp(_maxTurnAngle, _minTurnAngle, currentVelocity.magnitude / _maxSpeed);
+                    wheel.WheelCollider.steerAngle = _currentTurnDegree;
             }
 
+            Vector2 currentVelocity = Vector2.ClampMagnitude(CurrentVelocity, _maxSpeed);
+            _rigidBody.velocity = new Vector3(currentVelocity.x, _rigidBody.velocity.y, currentVelocity.y);
             _lastVelocity = _rigidBody.velocity;
         }
 
@@ -65,7 +84,6 @@ namespace Gameplay.Cars
             _rigidBody.isKinematic = false;
         }
 
-        //_maxAngleRotation - in degrees
         public void SetTurnDirection(float turnValue)
         {
             _turnDirection = turnValue;

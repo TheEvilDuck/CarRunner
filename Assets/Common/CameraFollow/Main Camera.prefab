@@ -108,6 +108,6 @@ MonoBehaviour:
   _target: {fileID: 0}
   _offset: {x: 0, y: 5, z: -8}
   _lookAtOffset: {x: 0, y: 5, z: 20}
-  _minTargetVelocity: 0.03
-  _minVelocityAngle: 15
+  _minTargetVelocity: 0.02
+  _minVelocityAngle: 7
   _speed: 0.907
