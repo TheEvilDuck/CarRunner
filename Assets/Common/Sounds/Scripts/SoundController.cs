@@ -7,6 +7,7 @@ namespace Common.Sound
 {
     public class SoundController : MonoBehaviour, IPausable
     {
+        private const float MUTE_VOLUME = -80f;
         [SerializeField] private Sounds _sound;
         [SerializeField] private GameObject _objectToPool;
         [SerializeField] private AudioMixer _audioMixer;
@@ -49,8 +50,7 @@ namespace Common.Sound
 
         public void SoundOff()
         {
-            var range = _rangeOfExposedParameters.GetRange(AudioMixerExposedParameters.VolumeMaster);
-            SetValue(AudioMixerExposedParameters.VolumeMaster, 0);
+            _audioMixer.SetFloat(_audioMixerExposedParameters[AudioMixerExposedParameters.VolumeMaster], MUTE_VOLUME);
         }
 
         public void Play(SoundID soundID)
