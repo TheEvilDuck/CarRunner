@@ -149,6 +149,8 @@ namespace Gameplay
             _pauseManager.Register(_car);
             _pauseManager.Register(_soundController);
             _pauseManager.Register(_gameplayStateMachine);
+
+            _settingsMenu.Init(_gameSettings);
         }
 
         private void SetUpUI()

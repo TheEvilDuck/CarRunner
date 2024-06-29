@@ -54,8 +54,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _backButton: {fileID: 7953718339868324789}
-  _MasterVolume: {fileID: 7359438881654130818}
-  _BackgroundMusicVolume: {fileID: 8547341974914249104}
+  _masterVolume: {fileID: 7359438881654130818}
+  _backgroundMusicVolume: {fileID: 8547341974914249104}
   _SFXSoundsVolume: {fileID: 4043750343035074986}
   _toggleIsMusicOn: {fileID: 4778500016390861604}
 --- !u!1001 &3240302044737672659

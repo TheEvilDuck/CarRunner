@@ -17,6 +17,8 @@ namespace MainMenu
         {
             _sceneLoader = new SceneLoader();
             _gameSettings = new GameSettings();
+            _gameSettings.LoadSettings();
+            _settingsMenu.Init(_gameSettings);
             _playerData = new PlayerData();
             _mainMenuMediator = new MainMenuMediator(_mainMenuView, _playerData, _sceneLoader);
             _settingsMediator = new SettingsMediator(_gameSettings, _settingsMenu);

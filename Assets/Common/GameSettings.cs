@@ -54,17 +54,20 @@ namespace Common
                 gameSettings = PlayerPrefs.GetString(GAME_SETTINGS_KEY);
                 _settings = JsonUtility.FromJson<SoundSettings>(gameSettings);
             }
-            else
-                throw new Exception("Settings not found");
+            else 
+            {
+                _settings = new SoundSettings();
+                SaveSettings();
+            }
         }
 
         [Serializable]
         private class SoundSettings
         {
-            public bool IsSoundOn;
-            public float MasterVolume;
-            public float BackgroundMusicVolume;
-            public float SFXSoundVolume;
+            public bool IsSoundOn = true;
+            public float MasterVolume = 0.5f;
+            public float BackgroundMusicVolume = 0.5f;
+            public float SFXSoundVolume = 0.5f;
         }
     }
 }
