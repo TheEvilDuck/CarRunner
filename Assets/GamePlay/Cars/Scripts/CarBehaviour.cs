@@ -26,7 +26,7 @@ namespace Gameplay.Cars
         public IEnumerable<IReadOnlyWheel> Wheels => _wheels;
         public float CurrentSpeed => CurrentVelocity.magnitude;
         public CarCollider CarCollider => _carCollider;
-        private Vector2 CurrentVelocity => new Vector2(_rigidBody.velocity.x, _rigidBody.velocity.z);
+        public Vector2 CurrentVelocity => new Vector2(_rigidBody.velocity.x, _rigidBody.velocity.z);
 
         private void OnValidate() 
         {

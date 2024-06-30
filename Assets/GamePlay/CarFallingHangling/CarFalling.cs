@@ -40,7 +40,7 @@ namespace Gameplay.CarFallingHandling
 
                 if (grounded)
                 {
-                    _lastRoadPosition = _car.Position;
+                    _lastRoadPosition = _car.Position - new Vector3(_car.CarBehavior.CurrentVelocity.x, 0, _car.CarBehavior.CurrentVelocity.y) * Time.deltaTime;
                     _lastCarRotation = _car.Rotation;
                 }      
 
