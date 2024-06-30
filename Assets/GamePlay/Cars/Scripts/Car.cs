@@ -7,11 +7,22 @@ namespace Gameplay.Cars
     {
         [field: SerializeField]public CarBehaviour CarBehavior {get; private set;}
         [field: SerializeField]public CarView CarView {get; private set;}
+
+        public Vector3 Position => transform.position;
+        public Quaternion Rotation => transform.rotation;
         public void InitCar(CarConfig config, GameObject wheelPrefab)
         {
             CarBehavior.Init(config.Acceleration, config.MaxSpeed);
             CarView.InitWheels(wheelPrefab, CarBehavior.Wheels);
             CarView.ChangeModel(config.ModelOfCar, config.Materials);
+        }
+
+        public void TeleportCar(Vector3 toPosition, Quaternion rotation)
+        {
+            transform.position = toPosition;
+            transform.rotation = rotation;
+
+            CarBehavior.RemoveVelocity();
         }
 
         public void Pause()
