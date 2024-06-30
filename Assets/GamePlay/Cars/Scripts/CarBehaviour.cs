@@ -90,6 +90,15 @@ namespace Gameplay.Cars
         {
             _rigidBody.velocity = Vector3.zero;
             _rigidBody.angularVelocity = Vector3.zero;
+
+            foreach (WheelData wheel in _wheels)
+            {
+                if (wheel.IsTorque)
+                    wheel.WheelCollider.motorTorque = 0;
+
+                if (wheel.IsTurnable)
+                    wheel.WheelCollider.steerAngle = 0;
+            }
         }
 
         public void SetTurnDirection(float turnValue)

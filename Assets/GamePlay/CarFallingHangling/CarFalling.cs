@@ -1,12 +1,13 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using Gameplay.Cars;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.CarFallingHandling
 {
     public class CarFalling
     {
+        public event Action<Vector3, Quaternion> carFallen;
         private const float Y_POSITION_TO_TELEPORT = -30F;
         private const float MAX_GROUND_CHECK_LENGTH = 4F;
         private const float GROUND_CHECK_RATE = 1f;
@@ -47,7 +48,7 @@ namespace Gameplay
             }
 
             if (CheckCarPosition())
-                _car.TeleportCar(_lastRoadPosition, _lastCarRotation);
+                carFallen?.Invoke(_lastRoadPosition, _lastCarRotation);
         }
 
         private bool CheckGroundFrom(Vector3 position)
