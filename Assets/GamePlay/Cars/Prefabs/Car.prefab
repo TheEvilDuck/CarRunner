@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7689266926323432956}
   - component: {fileID: 7512587553226689586}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FL wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   m_Component:
   - component: {fileID: 486819696018833605}
   - component: {fileID: 3585164275021191267}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,8 +134,10 @@ MonoBehaviour:
     <IsTurnable>k__BackingField: 0
     <IsTorque>k__BackingField: 1
   _rigidBody: {fileID: 3738653615869582802}
+  _carCollider: {fileID: 6377576827378597144}
   _minTurnAngle: 15
   _maxTurnAngle: 30
+  _turnSpeed: 0.2
   _brakeFrictionMultiplier: 2
   _brakePower: 3
 --- !u!1 &2079838626631304101
@@ -148,7 +150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6793146147451241861}
   - component: {fileID: 476806884518165960}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BR wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +222,7 @@ GameObject:
   - component: {fileID: 7473445529605700499}
   - component: {fileID: 3738653615869582802}
   - component: {fileID: 5007645459269680481}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +298,7 @@ GameObject:
   - component: {fileID: 1143023048343502182}
   - component: {fileID: 4502747743383507691}
   - component: {fileID: 6377576827378597144}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body of car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,7 +363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4892691787372607888}
   - component: {fileID: 7867962826289230859}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FR wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -432,7 +434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 501827543773968199}
   - component: {fileID: 2237278693218059259}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BL wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,9 +563,17 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 3af8feeef3fad8f45b5595f723c922c5, type: 2}
+    - target: {fileID: -7029948723529949830, guid: 7072075bbe630f84f8a8200350a4713d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7072075bbe630f84f8a8200350a4713d, type: 3}
       propertyPath: m_Name
       value: hatchback 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7072075bbe630f84f8a8200350a4713d, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

@@ -9,6 +9,7 @@ namespace Gameplay.Cars
     {
         [SerializeField] private WheelData[] _wheels;
         [SerializeField] private Rigidbody _rigidBody;
+        [SerializeField] private CarCollider _carCollider;
         [SerializeField, Range(0,90f)] private float _minTurnAngle = 10f;
         [SerializeField, Range(0,90f)] private float _maxTurnAngle = 55f;
         [SerializeField, Range(0,1f)] private float _turnSpeed = 0.2f;
@@ -24,6 +25,7 @@ namespace Gameplay.Cars
 
         public IEnumerable<IReadOnlyWheel> Wheels => _wheels;
         public float CurrentSpeed => CurrentVelocity.magnitude;
+        public CarCollider CarCollider => _carCollider;
         private Vector2 CurrentVelocity => new Vector2(_rigidBody.velocity.x, _rigidBody.velocity.z);
 
         private void OnValidate() 
