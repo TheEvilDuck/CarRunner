@@ -84,6 +84,12 @@ namespace Gameplay.Cars
             _rigidBody.isKinematic = false;
         }
 
+        public void RemoveVelocity()
+        {
+            _rigidBody.velocity = Vector3.zero;
+            _rigidBody.angularVelocity = Vector3.zero;
+        }
+
         public void SetTurnDirection(float turnValue)
         {
             _turnDirection = turnValue;
