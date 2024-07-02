@@ -17,11 +17,11 @@ namespace MainMenu
         public void Init(string name)
         {
             _nameText.text = name;
-        }
-
-        private void Awake() 
-        {
             _button = GetComponent<Button>();
         }
+
+        public void Lock() => _button.image.color = Color.red;
+
+        public void MarkAsCompleted() => _button.image.color = Color.green;
     }
 }
