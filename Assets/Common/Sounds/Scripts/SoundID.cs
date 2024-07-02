@@ -4,7 +4,8 @@ namespace Common.Sound
     {
         BacgrondMusic = 0,
         SFXGate = 1,
-        SFXGarage = 2
+        SFXGarage = 2,
+        MainMenuMusic = 3
     }
 }
 
