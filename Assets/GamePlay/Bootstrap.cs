@@ -14,6 +14,7 @@ using Common.Components;
 using System.Collections.Generic;
 using System;
 using MainMenu;
+using Gameplay.CarFallingHandling;
 
 namespace Gameplay
 {
@@ -32,6 +33,7 @@ namespace Gameplay
         [SerializeField] private SceneChangingButtons _pauseMenuButtons;
         [SerializeField] private PauseMenu _pauseMenu;
         [SerializeField] private SettingsMenu _settingsMenu;
+        [SerializeField] private LayerMask _groundCheckLayer;
         private GameSettings _gameSettings;
         private List<IDisposable> _disposables;
         private PauseManager _pauseManager;
@@ -43,6 +45,9 @@ namespace Gameplay
         private Level _level;
         private Car _car;
         private SceneLoader _sceneLoader;
+        private CarFalling _carFalling;
+        private FallingBehaviourSwitcher _fallingBehaviourSwitcher;
+        private FallTries _fallTries;
         private string _levelId;
 
         private void Awake() 
@@ -53,6 +58,7 @@ namespace Gameplay
             SetUpPlayerData();
             SetUpLevel();
             SetUpCar();
+            SetUpFallingHandling();
             SetUpSubSystems();
             SetUpUI();
             SetUpStateMachine();
@@ -65,6 +71,7 @@ namespace Gameplay
         {
             _gameplayStateMachine.Update();
             _playerInput.Update();
+            _carFalling.Update();
         }
 
         private void OnDestroy() 
@@ -113,6 +120,18 @@ namespace Gameplay
             _carSwitcher = new CarSwitcher(_car,_level.Garages.ToArray(),_timer, _wheelPrefab);
 
             _disposables.Add(_carSwitcher);
+        }
+
+        private void SetUpFallingHandling()
+        {
+            _carFalling = new CarFalling(_car, _groundCheckLayer);
+            
+            _fallingBehaviourSwitcher = new FallingBehaviourSwitcher(_carFalling);
+            _fallingBehaviourSwitcher.AttachBehaviour(new FallingTeleport(_car));
+
+            _disposables.Add(_fallingBehaviourSwitcher);
+
+            _fallTries = new FallTries(3);
         }
 
         private void SetUpStateMachine()
@@ -167,6 +186,7 @@ namespace Gameplay
             var pauseMediator = new PauseMediator(_pauseManager, _pauseButton, _pauseMenu);
             var pauseMenuMediator = new PauseMenuMediator(_pauseMenuButtons, _sceneLoader);
             var settingMediator = new SettingsMediator(_gameSettings, _settingsMenu);
+            var carFallingMediator = new CarFallingMediator(_fallTries, new FallingEndGame(_gameplayStateMachine), _fallingBehaviourSwitcher, _carFalling);
 
             _disposables.Add(timerMediator);
             _disposables.Add(carControllerMediator);
@@ -176,6 +196,7 @@ namespace Gameplay
             _disposables.Add(pauseMediator);
             _disposables.Add(pauseMenuMediator);
             _disposables.Add(settingMediator);
+            _disposables.Add(carFallingMediator);
         }
 
         private void SetUpCamera()

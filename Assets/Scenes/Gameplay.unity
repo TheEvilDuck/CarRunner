@@ -1728,6 +1728,10 @@ PrefabInstance:
       propertyPath: _pauseMenuButtons
       value: 
       objectReference: {fileID: 1398958075}
+    - target: {fileID: 8117531253039395286, guid: aa758e60310365f4bb0203c7cdc61ec5, type: 3}
+      propertyPath: _groundCheckLayer.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
