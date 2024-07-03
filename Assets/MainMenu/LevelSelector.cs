@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Levels;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,36 +21,22 @@ namespace MainMenu
 
         public UnityEvent BackPressed => _backButton.onClick;
 
-        public void Init(List<string> passedLevels, List<string> availableLevels)
+        public void Init(IEnumerable<string> passedLevels, IEnumerable<string> availableLevels)
         {
             _buttons = new Dictionary<LevelButton, string>();
 
             foreach (string levelId in _levels.GetAllLevels())
             {
+                LevelButton button = Instantiate(_levelButtonPrefab, _buttonsParent);
+                button.Init(levelId);
+                _buttons.Add(button, levelId);
+                button.Clicked.AddListener(() => levelSelected.Invoke(levelId));
+
                 if (passedLevels.Contains(levelId))
-                {
-                    LevelButton button = Instantiate(_levelButtonPrefab, _buttonsParent);
-                    button.Init(levelId);
                     button.MarkAsCompleted();
-                    _buttons.Add(button, levelId);
-
-                    button.Clicked.AddListener(() => levelSelected.Invoke(levelId));
-                }
-                else if (availableLevels.Contains(levelId))
-                {
-                    LevelButton button = Instantiate(_levelButtonPrefab, _buttonsParent);
-                    button.Init(levelId);
-                    _buttons.Add(button, levelId);
-
-                    button.Clicked.AddListener(() => levelSelected.Invoke(levelId));
-                }
-                else
-                {
-                    LevelButton button = Instantiate(_levelButtonPrefab, _buttonsParent);
-                    button.Init(levelId);
+                else if(!availableLevels.Contains(levelId))
                     button.Lock();
-                    _buttons.Add(button, levelId);
-                }
+
             }
         }
     }

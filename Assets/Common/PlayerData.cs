@@ -6,7 +6,9 @@ namespace Common
 {
     public class PlayerData
     {
-        public ProgressOfLevels ProgressOfLvls = new ProgressOfLevels();
+        private ProgressOfLevels _progressOfLvls;
+        public IEnumerable<string> AvailableLevels => _progressOfLvls.AvailableLevels;
+        public IEnumerable<string> PassedLevels => _progressOfLvls.PassedLevels;
 
         private const string PREFS_SELECTED_LEVEL = "PLAYERPREFS_SELECTED_LEVEL";
         private const string PREFS_PROGRESS_OF_LEVELS = "PLAYERPREFS_PROGRESS_OF_LEVELS";
@@ -15,44 +17,50 @@ namespace Common
 
         public void AddPassedLevel(string levelId)
         {
-            if (ProgressOfLvls.PassedLevels.Contains(levelId))
+            if (_progressOfLvls.PassedLevels.Contains(levelId))
                 return;
             else
             {
-                ProgressOfLvls.PassedLevels.Add(levelId);
+                _progressOfLvls.PassedLevels.Add(levelId);
                 SaveProgressOfLevels();
             }
         }
 
         public void AddAvailableLevel(string levelId)
         {
-            if (ProgressOfLvls.AvailableLevels.Contains(levelId))
+            if (_progressOfLvls.AvailableLevels.Contains(levelId))
                 return;
             else
             {
-                ProgressOfLvls.AvailableLevels.Add(levelId);
+                _progressOfLvls.AvailableLevels.Add(levelId);
                 SaveProgressOfLevels();
             }
         }
 
         private void SaveProgressOfLevels()
         {
-            string progressOfLevels = JsonUtility.ToJson(ProgressOfLvls);
+            string progressOfLevels = JsonUtility.ToJson(_progressOfLvls);
             PlayerPrefs.SetString(PREFS_PROGRESS_OF_LEVELS, progressOfLevels);
         }
 
-        public void LoadProgressOfLevels()
+        public bool LoadProgressOfLevels()
         {
             string progressOfLevels;
             if (PlayerPrefs.HasKey(PREFS_PROGRESS_OF_LEVELS))
             {
                 progressOfLevels = PlayerPrefs.GetString(PREFS_PROGRESS_OF_LEVELS);
-                ProgressOfLvls = JsonUtility.FromJson<ProgressOfLevels>(progressOfLevels);
+                _progressOfLvls = JsonUtility.FromJson<ProgressOfLevels>(progressOfLevels);
+                return true;
+            }
+            else
+            {
+                _progressOfLvls = new ProgressOfLevels();
+                return false;
             }
         }
 
         [Serializable]
-        public class ProgressOfLevels
+        private class ProgressOfLevels
         {
             public List<string> PassedLevels;
             public List<string> AvailableLevels;

@@ -47,8 +47,7 @@ public class EndGameMediator : IDisposable
             _endGameUI.Win();
 
             string nextLevelId = _levelDatabase.GetNextLevelId(_playerData.SelectedLevel);
-            if (nextLevelId != _playerData.SelectedLevel)
-                _playerData.AddAvailableLevel(nextLevelId);
+            _playerData.AddAvailableLevel(nextLevelId);
             _playerData.AddPassedLevel(_playerData.SelectedLevel);
         }
         else

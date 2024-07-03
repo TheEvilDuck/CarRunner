@@ -20,7 +20,11 @@ namespace MainMenu
             _button = GetComponent<Button>();
         }
 
-        public void Lock() => _button.image.color = Color.red;
+        public void Lock() 
+        {
+            _button.interactable = false;
+            _button.image.color = Color.red;
+        } 
 
         public void MarkAsCompleted() => _button.image.color = Color.green;
     }

@@ -452,8 +452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainMenuView: {fileID: 736221725}
   _settingsMenu: {fileID: 1258688277}
-  _levelSelector: {fileID: 500198842}
-  _defaultLevelId: test plane
+  _LevelSelector: {fileID: 500198842}
 --- !u!4 &299233233
 Transform:
   m_ObjectHideFlags: 0

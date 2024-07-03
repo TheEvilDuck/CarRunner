@@ -49,6 +49,8 @@ namespace Levels
             return result.ToArray();
         }
 
+        public string GetFirstLevel() => _levels[0].LevelId;
+
         [Serializable]
         private class LevelData
         {
