@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-guid: 26364aaf1f64b40c1a047b0bacfbd10e
-AssetOrigin:
-  serializedVersion: 1
-  productId: 156413
-  packageName: Free Music Tracks For Games
-  packageVersion: 1.0
-  assetPath: Assets/Music Tracks/StreetLove.wav
-  uploadId: 335451
+guid: 16497774ddfbb3c4b9968180d49e9d46
 AudioImporter:
   externalObjects: {}
   serializedVersion: 7
@@ -18,7 +11,7 @@ AudioImporter:
     compressionFormat: 1
     quality: 1
     conversionMode: 0
-    preloadAudioData: 1
+    preloadAudioData: 0
   platformSettingOverrides: {}
   forceToMono: 1
   normalize: 1

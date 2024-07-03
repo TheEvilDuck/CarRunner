@@ -9,19 +9,14 @@ namespace Common
         private SoundSettings _settings;
         public Action SoundSettingsChanged;
 
-        public bool IsSoundOn => _settings.IsSoundOn;
+        public bool Muted => _settings.Mute;
         public float MasterVolume => _settings.MasterVolume;
         public float BackgroundMusicVolume => _settings.BackgroundMusicVolume;
         public float SFXSoundVolume => _settings.SFXSoundVolume;
 
-        public GameSettings()
-        {
-            _settings = new SoundSettings();
-        }
-
         public void SoundOn(bool flag)
         {
-            _settings.IsSoundOn = flag;
+            _settings.Mute = flag;
             SoundSettingsChanged?.Invoke();
         }
         public void SetMasterVolume(float volume)
@@ -48,23 +43,24 @@ namespace Common
 
         public void LoadSettings()
         {
-            string gameSettings;
             if (PlayerPrefs.HasKey(GAME_SETTINGS_KEY))
             {
-                gameSettings = PlayerPrefs.GetString(GAME_SETTINGS_KEY);
-                _settings = JsonUtility.FromJson<SoundSettings>(gameSettings);
+                string settingJson = PlayerPrefs.GetString(GAME_SETTINGS_KEY);
+                _settings = JsonUtility.FromJson<SoundSettings>(settingJson);
             }
             else 
             {
                 _settings = new SoundSettings();
                 SaveSettings();
             }
+
+            SoundSettingsChanged?.Invoke();
         }
 
         [Serializable]
         private class SoundSettings
         {
-            public bool IsSoundOn = true;
+            public bool Mute = true;
             public float MasterVolume = 0.5f;
             public float BackgroundMusicVolume = 0.5f;
             public float SFXSoundVolume = 0.5f;
