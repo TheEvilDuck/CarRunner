@@ -1,23 +1,17 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Common.UI.UIAnimations
 {
     public class UIAnimatorSequence: MonoBehaviour
     {
-        [SerializeField] private SequenseData[] _animations;
+        [SerializeField] private List<SequenseData> _animations;
         private int _currentAnimation = 0;
-
-        private void OnEnable() 
-        {
-            _currentAnimation = 0;
-            StartSequence();
-        }
-
         private void OnDisable() 
         {
-            if (_currentAnimation < _animations.Length)
+            if (_currentAnimation < _animations.Count)
             {
                 _animations[_currentAnimation].animator.animationEnd -= PlayNext;
                 _animations[_currentAnimation].animator.StopAnimation();
@@ -25,7 +19,20 @@ namespace Common.UI.UIAnimations
         }
         public void StartSequence()
         {
+            _currentAnimation = 0;
             StartCoroutine(PlayAnimation());
+        }
+
+        public void AddAnimation(UIAnimator uIAnimator, float delay, bool nextAnimationWait)
+        {
+            SequenseData sequenseData = new SequenseData
+            {
+                animator = uIAnimator,
+                delay = delay,
+                nextAnimationWait = nextAnimationWait
+            };
+
+            _animations.Add(sequenseData);
         }
 
         private IEnumerator PlayAnimation()
@@ -49,7 +56,7 @@ namespace Common.UI.UIAnimations
 
             _currentAnimation ++;
 
-            if (_currentAnimation < _animations.Length)
+            if (_currentAnimation < _animations.Count)
                 StartCoroutine(PlayAnimation());
         }
 

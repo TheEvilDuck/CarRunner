@@ -21,6 +21,11 @@ namespace Common.UI.UIAnimations
                 StartAnimation();
         }
 
+        private void OnEnable() 
+        {
+            SetupAnimation();
+        }
+
         public void StartAnimation()
         {
             StopAnimation();

@@ -1,4 +1,5 @@
 using Common;
+using Common.UI.UIAnimations;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ namespace MainMenu
         [SerializeField] private Slider _backgroundMusicVolume;
         [SerializeField] private Slider _SFXSoundsVolume;
         [SerializeField] private Toggle _toggleMute;
+        [SerializeField] private UIAnimatorSequence _uIAnimatorSequence;
 
         public UnityEvent BackPressed => _backButton.onClick;
         public UnityEvent<float> MasterVolumeChanged => _masterVolume.onValueChanged;
@@ -19,10 +21,13 @@ namespace MainMenu
         public UnityEvent<float> SFXSoundVolumeChanged => _SFXSoundsVolume.onValueChanged;
         public UnityEvent<bool> MuteChanged => _toggleMute.onValueChanged;
 
+        private void OnEnable() 
+        {
+            _uIAnimatorSequence.StartSequence();
+        }
+
         public void Init(GameSettings gameSettings)
         {
-            Debug.Log(gameSettings == null);
-            Debug.Log(_toggleMute == null);
             _toggleMute.isOn = gameSettings.Muted;
             _masterVolume.value = gameSettings.MasterVolume;
             _backgroundMusicVolume.value = gameSettings.BackgroundMusicVolume;

@@ -10,8 +10,16 @@ namespace Common.UI.UIAnimations
 
         private void Awake() 
         {
-            _startPosition = _target.localPosition;
+            _startPosition = _target.anchoredPosition;
 
+            if (_inverse)
+            {
+                EvaluateAnimation(1f);
+            }
+        }
+
+        protected override void SetupAnimation()
+        {
             if (_inverse)
             {
                 EvaluateAnimation(1f);
@@ -19,7 +27,7 @@ namespace Common.UI.UIAnimations
         }
         protected override void EvaluateAnimation(float strength)
         {
-            _target.localPosition =  Vector2.Lerp(_startPosition, _startPosition + _goal, strength);
+            _target.anchoredPosition =  Vector2.Lerp(_startPosition, _startPosition + _goal, strength);
         }
     }
 
