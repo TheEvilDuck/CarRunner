@@ -6,12 +6,14 @@ namespace Common
 {
     public class PlayerData
     {
+        private const string PREFS_SELECTED_LEVEL = "PLAYERPREFS_SELECTED_LEVEL";
+        private const string PREFS_PROGRESS_OF_LEVELS = "PLAYERPREFS_PROGRESS_OF_LEVELS";
+
         private ProgressOfLevels _progressOfLvls;
+        
         public IEnumerable<string> AvailableLevels => _progressOfLvls.AvailableLevels;
         public IEnumerable<string> PassedLevels => _progressOfLvls.PassedLevels;
 
-        private const string PREFS_SELECTED_LEVEL = "PLAYERPREFS_SELECTED_LEVEL";
-        private const string PREFS_PROGRESS_OF_LEVELS = "PLAYERPREFS_PROGRESS_OF_LEVELS";
         public string SelectedLevel => PlayerPrefs.GetString(PREFS_SELECTED_LEVEL);
         public void SaveSelectedLevel(string levelId) => PlayerPrefs.SetString(PREFS_SELECTED_LEVEL, levelId);
 
