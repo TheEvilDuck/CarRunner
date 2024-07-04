@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Cars
@@ -9,6 +7,14 @@ namespace Gameplay.Cars
     public class CarCollider : MonoBehaviour
     {
         public Action collided;
+        private Collider _collider;
+
+        public Bounds Bounds => _collider.bounds;
+
+        private void Awake()
+        {
+            _collider = GetComponent<Collider>();
+        }
         private void OnCollisionEnter(Collision other) 
         {
             collided?.Invoke();

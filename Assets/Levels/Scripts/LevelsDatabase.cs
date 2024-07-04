@@ -22,6 +22,21 @@ namespace Levels
             throw new ArgumentException($"There is no level with id: {id}");
         }
 
+        public string GetNextLevelId(string levelId)
+        {
+            for (int i = 0; i < _levels.Count; i++)
+            {
+                if(string.Equals(levelId, _levels[i].LevelId))
+                {
+                    if(i == _levels.Count - 1)
+                        return _levels[i].LevelId;
+                    else 
+                        return _levels[i + 1].LevelId;
+                }
+            }
+            throw new ArgumentException($"There is no level with id: {levelId}");
+        }
+
         public string[] GetAllLevels()
         {
             List<string> result = new List<string>();
@@ -33,6 +48,8 @@ namespace Levels
 
             return result.ToArray();
         }
+
+        public string GetFirstLevel() => _levels[0].LevelId;
 
         [Serializable]
         private class LevelData

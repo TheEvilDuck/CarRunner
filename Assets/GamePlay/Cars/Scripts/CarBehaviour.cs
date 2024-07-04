@@ -9,6 +9,7 @@ namespace Gameplay.Cars
     {
         [SerializeField] private WheelData[] _wheels;
         [SerializeField] private Rigidbody _rigidBody;
+        [SerializeField] private CarCollider _carCollider;
         [SerializeField, Range(0,90f)] private float _minTurnAngle = 10f;
         [SerializeField, Range(0,90f)] private float _maxTurnAngle = 55f;
         [SerializeField, Range(0,1f)] private float _turnSpeed = 0.2f;
@@ -24,7 +25,8 @@ namespace Gameplay.Cars
 
         public IEnumerable<IReadOnlyWheel> Wheels => _wheels;
         public float CurrentSpeed => CurrentVelocity.magnitude;
-        private Vector2 CurrentVelocity => new Vector2(_rigidBody.velocity.x, _rigidBody.velocity.z);
+        public CarCollider CarCollider => _carCollider;
+        public Vector2 CurrentVelocity => new Vector2(_rigidBody.velocity.x, _rigidBody.velocity.z);
 
         private void OnValidate() 
         {
@@ -82,6 +84,21 @@ namespace Gameplay.Cars
             _acceleration = Acceleration;
             _maxSpeed = MaxSpeed;
             _rigidBody.isKinematic = false;
+        }
+
+        public void RemoveVelocity()
+        {
+            _rigidBody.velocity = Vector3.zero;
+            _rigidBody.angularVelocity = Vector3.zero;
+
+            foreach (WheelData wheel in _wheels)
+            {
+                if (wheel.IsTorque)
+                    wheel.WheelCollider.motorTorque = 0;
+
+                if (wheel.IsTurnable)
+                    wheel.WheelCollider.steerAngle = 0;
+            }
         }
 
         public void SetTurnDirection(float turnValue)
