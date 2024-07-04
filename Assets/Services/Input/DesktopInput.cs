@@ -8,6 +8,16 @@ namespace Services.PlayerInput
         public event Action<float> horizontalInput;
         public event Action<bool> brakeInput;
 
+        public void Disable()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Enable()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update() 
         {
             horizontalInput?.Invoke(Input.GetAxisRaw("Horizontal"));

@@ -7,22 +7,48 @@ namespace Services.PlayerInput
     {
         public event Action<float> horizontalInput;
         public event Action<bool> brakeInput;
+        private RectTransform _brake;
+
+        public MobileInput(RectTransform brake) 
+        {
+            _brake = brake;
+        }
 
         public void Update()
         {
+            bool isBrake = false;
+            float horizontalDirection = 0f;
+
             if (Input.touchCount>0)
             {
-                Touch touch = Input.GetTouch(Input.touchCount-1);
+                foreach(Touch touch in Input.touches)
+                {
+                    if (RectTransformUtility.RectangleContainsScreenPoint(_brake, touch.position))
+                    {
+                        isBrake = true;
+                    }
+                    else
+                    {
+                        if (touch.position.x <= Screen.width / 2f)
+                            horizontalDirection = -1;
+                        else
+                            horizontalDirection = 1;
+                    }
+                }
+            }
 
-                if (touch.position.x<=Screen.width/2f)
-                    horizontalInput?.Invoke(-1f);
-                else
-                    horizontalInput?.Invoke(1f);
-            }
-            else
-            {
-                horizontalInput?.Invoke(0);
-            }
+            horizontalInput?.Invoke(horizontalDirection);
+            brakeInput?.Invoke(isBrake);
+        }
+
+        public void Enable()
+        {
+            _brake.gameObject.SetActive(true);
+        }
+
+        public void Disable()
+        {
+            _brake.gameObject.SetActive(false);
         }
     }
 }

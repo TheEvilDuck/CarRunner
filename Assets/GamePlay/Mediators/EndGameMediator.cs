@@ -2,6 +2,7 @@ using Common;
 using Common.States;
 using Gameplay.Cars;
 using Gameplay.UI;
+using Services.PlayerInput;
 using System;
 
 public class EndGameMediator : IDisposable
@@ -12,8 +13,9 @@ public class EndGameMediator : IDisposable
     private readonly State _gameOverState;
     private readonly PauseButton _pauseButton;
     private readonly CarControllerMediator _carControllerMediator;
+    private readonly IPlayerInput _playerInput;
 
-    public EndGameMediator(EndOfTheGame endGameUI, SceneLoader sceneLoader, State gameOverState, State winState, PauseButton pauseButton, CarControllerMediator carControllerMediator)
+    public EndGameMediator(EndOfTheGame endGameUI, SceneLoader sceneLoader, State gameOverState, State winState, PauseButton pauseButton, CarControllerMediator carControllerMediator, IPlayerInput playerInput)
     {
         _endGameUI = endGameUI;
         _sceneLoader = sceneLoader;
@@ -21,6 +23,7 @@ public class EndGameMediator : IDisposable
         _gameOverState = gameOverState;
         _pauseButton = pauseButton;
         _carControllerMediator = carControllerMediator;
+        _playerInput = playerInput;
 
         _winState.entered += OnWinStateEntered;
         _gameOverState.entered += OnGameOverStateEntered;
@@ -44,7 +47,7 @@ public class EndGameMediator : IDisposable
 
         _endGameUI.Show();
         _pauseButton.Hide();
-        
+        _playerInput.Disable();
     }
 
     private void RestartLevel() => _sceneLoader.RestartScene();
