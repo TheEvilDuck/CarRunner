@@ -1,6 +1,7 @@
 using Common;
 using Common.Mediators;
 using Common.Sound;
+using Levels;
 using UnityEngine;
 
 namespace MainMenu
@@ -10,6 +11,8 @@ namespace MainMenu
         [SerializeField] private MainMenuView _mainMenuView;
         [SerializeField] private SettingsMenu _settingsMenu;
         [SerializeField] private SoundController _soundController;
+        [SerializeField] private LevelsDatabase _levelsDatabase;
+        [SerializeField] private LevelSelector _levelSelector;
         private GameSettings _gameSettings;
         private MainMenuMediator _mainMenuMediator;
         private SettingsMediator _settingsMediator;
@@ -26,6 +29,10 @@ namespace MainMenu
             _playerData = new PlayerData();
             _mainMenuMediator = new MainMenuMediator(_mainMenuView, _playerData, _sceneLoader);
             _settingsMediator = new SettingsMediator(_gameSettings, _settingsMenu);
+            if (!_playerData.LoadProgressOfLevels())
+                _playerData.AddAvailableLevel(_levelsDatabase.GetFirstLevel());
+
+            _levelSelector.Init(_playerData.PassedLevels, _playerData.AvailableLevels);
         }
 
         private void Start() 

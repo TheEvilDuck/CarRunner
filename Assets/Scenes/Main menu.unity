@@ -550,6 +550,8 @@ MonoBehaviour:
   _mainMenuView: {fileID: 736221725}
   _settingsMenu: {fileID: 2127041310}
   _soundController: {fileID: 1784562797}
+  _levelsDatabase: {fileID: 11400000, guid: 0070abab5c4e74d4990289e1248eb4cc, type: 2}
+  _levelSelector: {fileID: 500198842}
 --- !u!4 &299233233
 Transform:
   m_ObjectHideFlags: 0

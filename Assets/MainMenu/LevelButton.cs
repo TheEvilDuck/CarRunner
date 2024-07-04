@@ -30,6 +30,5 @@ namespace MainMenu
         } 
 
         public void MarkAsCompleted() => _button.image.color = Color.green;
-        }
     }
 }

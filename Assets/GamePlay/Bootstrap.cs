@@ -34,6 +34,7 @@ namespace Gameplay
         [SerializeField] private PauseMenu _pauseMenu;
         [SerializeField] private SettingsMenu _settingsMenu;
         [SerializeField] private LayerMask _groundCheckLayer;
+        [SerializeField] private RectTransform _brake;
         private GameSettings _gameSettings;
         private List<IDisposable> _disposables;
         private PauseManager _pauseManager;
@@ -84,10 +85,17 @@ namespace Gameplay
 
         private void SetUpInput()
         {
+#if !UNITY_EDITOR
             if (SystemInfo.deviceType== DeviceType.Desktop)
                 _playerInput = new DesktopInput();
             else if (SystemInfo.deviceType == DeviceType.Handheld)
-                _playerInput = new MobileInput();
+                _playerInput = new MobileInput(_brake);
+#endif
+
+#if UNITY_EDITOR
+            _playerInput = new MobileInput(_brake);
+#endif
+            _playerInput.Enable();
         }
 
         private void SetUpPlayerData()
@@ -97,6 +105,8 @@ namespace Gameplay
 
             if (string.IsNullOrEmpty(_levelId))
                 _levelId = _defaultLevelId;
+
+            _playerData.LoadProgressOfLevels();
         }
 
         private void SetUpLevel()
@@ -182,8 +192,8 @@ namespace Gameplay
             var carControllerMediator = new CarControllerMediator(_car.CarBehavior, _playerInput);
             var timerAndGatesMediator = new TimerAndGatesMediator(_level.TimerGates.ToArray(), _timer);
             var soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), _gameplayStateMachine.GetState<RaceGameState>(), _gameSettings);
-            var endGameMediator = new EndGameMediator(_endOfTheGame, _sceneLoader, _gameplayStateMachine.GetState<LoseState>(), _gameplayStateMachine.GetState<WinState>(), _pauseButton, carControllerMediator);
-            var pauseMediator = new PauseMediator(_pauseManager, _pauseButton, _pauseMenu);
+            var endGameMediator = new EndGameMediator(_endOfTheGame, _sceneLoader, _gameplayStateMachine.GetState<LoseState>(), _gameplayStateMachine.GetState<WinState>(), _pauseButton, carControllerMediator, _levels, _playerData, _playerInput);
+            var pauseMediator = new PauseMediator(_pauseManager, _pauseButton, _pauseMenu, _playerInput);
             var pauseMenuMediator = new PauseMenuMediator(_pauseMenuButtons, _sceneLoader);
             var settingMediator = new SettingsMediator(_gameSettings, _settingsMenu);
             var carFallingMediator = new CarFallingMediator(_fallTries, new FallingEndGame(_gameplayStateMachine), _fallingBehaviourSwitcher, _carFalling);
