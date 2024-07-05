@@ -53,11 +53,12 @@ namespace Common.Sound
             _audioMixer.SetFloat(_audioMixerExposedParameters[AudioMixerExposedParameters.VolumeMaster], MUTE_VOLUME);
         }
 
-        public void Play(SoundID soundID)
+        public void Play(SoundID soundID, bool loop = false)
         {
             AudioSource audioSource = _audioSourcePool.Get();
             audioSource.outputAudioMixerGroup = _sound.GetAudioMixerGroup(soundID);
             audioSource.clip = _sound.GetAudio(soundID);
+            audioSource.loop = loop;
             audioSource.Play();
             _usedObjects.Add(audioSource);
         }

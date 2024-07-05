@@ -40,7 +40,7 @@ namespace MainMenu
             _soundController.Init();
             _settingsMenu.Init(_gameSettings);
             _settingsAndSoundMediator = new SettingsAndSoundMediator(_gameSettings, _soundController);
-            _soundController.Play(SoundID.MainMenuMusic);
+            _soundController.Play(SoundID.MainMenuMusic, true);
         }
 
         private void OnDestroy()

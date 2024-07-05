@@ -50,7 +50,7 @@ namespace Gameplay
 
         private void OnGaregePassed(bool passed) => _soundController.Play(SoundID.SFXGarage);
 
-        private void onRaceGameStateEntered() => _soundController.Play(SoundID.BacgrondMusic);
+        private void onRaceGameStateEntered() => _soundController.Play(SoundID.BacgrondMusic, true);
 
         private void onRaceGameStateExited() => _soundController.Stop(SoundID.BacgrondMusic);
     }
