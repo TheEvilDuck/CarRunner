@@ -13821,6 +13821,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <TimeCost>k__BackingField
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 80d06fd6e9ca2924d8baf1de8e637246, type: 2}
@@ -15267,6 +15271,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <TimeCost>k__BackingField
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 5e85e5b81b5f1564d897cceb46afebd4, type: 2}
@@ -16081,6 +16089,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <TimeCost>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 6ec3e89559be18d419f7e1e6a7dec812, type: 2}
@@ -16334,6 +16346,10 @@ PrefabInstance:
     - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <TimeCost>k__BackingField
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
@@ -17867,6 +17883,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <TimeCost>k__BackingField
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 5e85e5b81b5f1564d897cceb46afebd4, type: 2}
@@ -19062,6 +19082,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <TimeCost>k__BackingField
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 6ec3e89559be18d419f7e1e6a7dec812, type: 2}
@@ -19977,6 +20001,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <TimeCost>k__BackingField
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 5e85e5b81b5f1564d897cceb46afebd4, type: 2}
@@ -20230,6 +20258,10 @@ PrefabInstance:
     - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <TimeCost>k__BackingField
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField

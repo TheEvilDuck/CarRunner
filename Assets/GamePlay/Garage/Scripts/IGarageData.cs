@@ -4,9 +4,8 @@ namespace Gameplay.Garages
 {
     public interface IGarageData
     {
-        public float AdditionalTime {get;}
+        public float TimeCost {get;}
         public CarConfig CarConfig {get;}
-        public float ComparsionTime {get;}
         
     }
 }

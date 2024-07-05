@@ -7,12 +7,11 @@ namespace Gameplay.Garages
     [RequireComponent(typeof(Collider))]
     public class Garage : CarCollisionDetector, IGarageData
     {
-        [field: SerializeField] public float AdditionalTime {get; private set;}
+        [field: SerializeField] public float TimeCost {get; private set;}
         [field: SerializeField] public CarConfig CarConfig {get; private set;}
-        [field: SerializeField] public float ComparsionTime {get; private set;}
         [SerializeField] private GarageView _garageView;
         private Timer _timer; 
-        public event Action<bool> passed;
+        public event Action passed;
 
         public void Init(Timer timer)
         {
@@ -23,7 +22,7 @@ namespace Gameplay.Garages
 
         protected override void OnPassed()
         {
-            passed?.Invoke(_timer.CurrentTime >= ComparsionTime);
+            passed?.Invoke();
         }
     }
 }

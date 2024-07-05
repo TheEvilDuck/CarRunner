@@ -7,13 +7,11 @@ namespace Gameplay.Garages
     {
         [SerializeField] private MeshFilter _meshFilter;
         [SerializeField] private MeshRenderer _meshRenderer;
-        [SerializeField] private TextMeshProUGUI _badConditionText;
-        [SerializeField] private TextMeshProUGUI _goodConditionText;
+        [SerializeField] private TextMeshProUGUI _timeCostText;
 
         public void Init(IGarageData garageData)
         {
-            _badConditionText.text = $"Time < {garageData.ComparsionTime} = {garageData.AdditionalTime}";
-            _goodConditionText.text = $"Time >= {garageData.ComparsionTime} = ";
+            _timeCostText.text = $"Time cost:\n{garageData.TimeCost}";
 
             _meshFilter.mesh = garageData.CarConfig.ModelOfCar;
             _meshRenderer.materials = garageData.CarConfig.Materials;

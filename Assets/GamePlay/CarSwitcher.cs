@@ -12,7 +12,7 @@ namespace Gameplay
         private Garage[] _garages;
         private Timer _timer;
 
-        private Dictionary<Garage, Action<bool>> _delegates;
+        private Dictionary<Garage, Action> _delegates;
 
         public CarSwitcher(Car car, Garage[] garages, Timer timer, GameObject wheelPrefab)
         {
@@ -20,25 +20,20 @@ namespace Gameplay
             _garages = garages;
             _timer = timer;
 
-            _delegates = new Dictionary<Garage, Action<bool>>();
+            _delegates = new Dictionary<Garage, Action>();
 
             foreach (Garage garage in _garages)
             {
-                Action<bool> OnPassed = (bool isPassed) =>
+                Action OnPassed = () =>
                 {
-                    Debug.Log(garage.CarConfig.name);
-
-                    if (isPassed)
+                    if (_timer.CurrentTime >= garage.TimeCost)
                     {
                         _car.InitCar(garage.CarConfig,wheelPrefab);
-                    }
-                    else
-                    {
-                        _timer.OffsetTime(garage.AdditionalTime);
+                        _timer.OffsetTime(-garage.TimeCost);
                     }
                 };
 
-                garage.passed+= OnPassed;
+                garage.passed += OnPassed;
 
                 _delegates.Add(garage,OnPassed);
             }
