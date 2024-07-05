@@ -93,7 +93,7 @@ namespace Gameplay
 #endif
 
 #if UNITY_EDITOR
-            _playerInput = new MobileInput(_brake);
+            _playerInput = new DesktopInput();
 #endif
             _playerInput.Enable();
         }

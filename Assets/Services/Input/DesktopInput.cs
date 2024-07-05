@@ -8,18 +8,25 @@ namespace Services.PlayerInput
         public event Action<float> horizontalInput;
         public event Action<bool> brakeInput;
 
+        private bool _enabled;
+
         public void Disable()
         {
-            throw new NotImplementedException();
+            horizontalInput?.Invoke(0);
+            brakeInput?.Invoke(false);
+            _enabled = false;
         }
 
         public void Enable()
         {
-            throw new NotImplementedException();
+            _enabled = true;
         }
 
         public void Update() 
         {
+            if (!_enabled)
+                return;
+
             horizontalInput?.Invoke(Input.GetAxisRaw("Horizontal"));
             brakeInput?.Invoke(Input.GetKey(KeyCode.Space));
         }
