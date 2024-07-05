@@ -4,7 +4,7 @@ namespace Common.Components
 {
     public class CameraFollow : MonoBehaviour
     {
-        private const float MIN_FOLLOW_SPEED = 0.001f;
+        private const float MIN_FOLLOW_SPEED = 0.0001f;
 
         [SerializeField] private Transform _target;
         [SerializeField] private Vector3 _offset;
@@ -33,13 +33,16 @@ namespace Common.Components
                 return;
 
             Vector3 moveVector = _target.position - _targetLastPosition;
+            moveVector.y = 0;
             float angle = Vector3.SignedAngle(moveVector.normalized, Vector3.forward, Vector3.up);
 
             Vector3 offset = Quaternion.AngleAxis(-angle, Vector3.up) * _offset;
 
-            if (moveVector.sqrMagnitude < Mathf.Pow(_minTargetVelocity, 2) || Mathf.Abs(angle) < _minVelocityAngle)
+            if (moveVector.sqrMagnitude < Mathf.Pow(_minTargetVelocity, 2) 
+                && _lastVelocity.sqrMagnitude < Mathf.Pow(_minTargetVelocity, 2) 
+                || Mathf.Abs(angle) < _minVelocityAngle)
             {
-                angle = Vector3.SignedAngle(_lastVelocity.normalized, Vector3.forward, Vector3.up);
+                angle = Vector3.SignedAngle(_target.forward, Vector3.forward, Vector3.up);
                 offset = Quaternion.AngleAxis(-angle, Vector3.up) * _offset;
             }
             else
