@@ -11,6 +11,7 @@ namespace Gameplay.CarFallingHandling
         private const float Y_POSITION_TO_TELEPORT = -30F;
         private const float MAX_GROUND_CHECK_LENGTH = 4F;
         private const float GROUND_CHECK_RATE = 1f;
+        private const float GROUND_CHECK_OFFSET = 6f;
         private readonly Car _car;
         private readonly LayerMask _groundCheckLayer;
         private Quaternion _lastCarRotation;
@@ -68,12 +69,19 @@ namespace Gameplay.CarFallingHandling
             Vector3 center = _car.CarBehavior.CarCollider.Bounds.center;
             Vector3 extents =  _car.CarBehavior.CarCollider.Bounds.extents;
 
-            positions.Add(center + new Vector3(extents.x, 0, extents.z));
-            positions.Add(center + new Vector3(-extents.x, 0, extents.z));
-            positions.Add(center + new Vector3(extents.x, 0, -extents.z));
-            positions.Add(center + new Vector3(-extents.x, 0, -extents.z));
+            positions.Add(GetOffsetedColliderPosition(center, new Vector3(extents.x, 0, extents.z)));
+            positions.Add(GetOffsetedColliderPosition(center, new Vector3(-extents.x, 0, extents.z)));
+            positions.Add(GetOffsetedColliderPosition(center, new Vector3(extents.x, 0, -extents.z)));
+            positions.Add(GetOffsetedColliderPosition(center, new Vector3(-extents.x, 0, -extents.z)));
 
             return positions.ToArray();
+        }
+
+        private Vector3 GetOffsetedColliderPosition(Vector3 center, Vector3 extents)
+        {
+            Vector3 corner = center + extents;
+            Vector3 offset = extents.normalized * GROUND_CHECK_OFFSET;
+            return corner + offset;
         }
     }
 }
