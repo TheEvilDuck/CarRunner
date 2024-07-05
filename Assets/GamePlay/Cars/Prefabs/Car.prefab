@@ -61,7 +61,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 4
+    m_Stiffness: 6
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -136,8 +136,8 @@ MonoBehaviour:
   _rigidBody: {fileID: 3738653615869582802}
   _carCollider: {fileID: 6377576827378597144}
   _minTurnAngle: 15
-  _maxTurnAngle: 30
-  _turnSpeed: 0.2
+  _maxTurnAngle: 25
+  _turnSpeed: 0.17
   _brakeFrictionMultiplier: 2
   _brakePower: 3
 --- !u!1 &2079838626631304101
@@ -201,7 +201,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 4
+    m_Stiffness: 6
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -414,7 +414,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 4
+    m_Stiffness: 6
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -485,7 +485,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 4
+    m_Stiffness: 6
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
