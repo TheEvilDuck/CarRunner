@@ -1,4 +1,4 @@
-using MainMenu;
+using Common.UI.UIAnimations;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -12,11 +12,16 @@ namespace Gameplay.UI
         [SerializeField] private Button _backButton;
         [SerializeField] private GameObject _mainButtonsMenu;
         [SerializeField] private GameObject _settingsMenu;
+        [SerializeField] private UIAnimatorSequence _uIanimatorSequenceButtons;
+        [SerializeField] private UIAnimatorSequence _uIanimatorSequenceMenu;
 
         public UnityEvent ResumeButtonPressed => _resumeButton.onClick;
 
         private void OnEnable() 
         {
+            _mainButtonsMenu.SetActive(true);
+            _uIanimatorSequenceMenu.StartSequence();
+            _uIanimatorSequenceButtons.StartSequence();
             _backButton.onClick.AddListener(OnBackButtonPressed);
             _settingsButton.onClick.AddListener(OnSettingsButtonPressed);
         }
@@ -38,8 +43,9 @@ namespace Gameplay.UI
 
         private void OnBackButtonPressed()
         {
-            _mainButtonsMenu.SetActive(true);
             _settingsMenu.SetActive(false);
+            _mainButtonsMenu.SetActive(true);
+            _uIanimatorSequenceButtons.StartSequence();
         }
     }
 }
