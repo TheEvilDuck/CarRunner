@@ -21,6 +21,8 @@ namespace Gameplay
 
             _pauseButton.pressed += OnPauseButtonPressed;
             _pauseMenu.ResumeButtonPressed.AddListener(OnPauseButtonPressed);
+
+            _pauseMenu.Hide();
         }
         public void Dispose()
         {
