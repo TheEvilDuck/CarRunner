@@ -16,6 +16,7 @@ using System;
 using MainMenu;
 using Gameplay.CarFallingHandling;
 using EntryPoint;
+using Common.Mediators;
 
 namespace Gameplay
 {
@@ -33,6 +34,13 @@ namespace Gameplay
         [SerializeField] private SettingsMenu _settingsMenu;
         [SerializeField] private LayerMask _groundCheckLayer;
         private List<IDisposable> _disposables;
+
+        private void Start() 
+        {
+            _settingsMenu.Init(_sceneContext.Get<GameSettings>());
+            var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
+            _disposables.Add(settingsAndSoundMediator);
+        }
 
         protected override void Setup()
         {
@@ -55,7 +63,6 @@ namespace Gameplay
             _sceneContext.Register(_pauseMenu);
             _sceneContext.Register(_pauseMenuButtons);
 
-            _settingsMenu.Init(_sceneContext.Get<GameSettings>());
             SetUpCarSwitcher();
             SetUpMediators();
             SetUpCamera();
