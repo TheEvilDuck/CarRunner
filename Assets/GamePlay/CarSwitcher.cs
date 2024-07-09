@@ -9,12 +9,12 @@ namespace Gameplay
     public class CarSwitcher: IDisposable
     {
         private Car _car;
-        private Garage[] _garages;
+        private IEnumerable<Garage> _garages;
         private Timer _timer;
 
         private Dictionary<Garage, Action> _delegates;
 
-        public CarSwitcher(Car car, Garage[] garages, Timer timer, GameObject wheelPrefab)
+        public CarSwitcher(Car car, IEnumerable<Garage> garages, Timer timer, GameObject wheelPrefab)
         {
             _car = car;
             _garages = garages;

@@ -41,7 +41,6 @@ namespace Gameplay
             _sceneContext.Register(SetUpLevel);
             _sceneContext.Register(() => new Timer(_sceneContext.Get<Level>().StartTimer));
             _sceneContext.Register(SetUpCar);
-            _sceneContext.Register(SetUpCarSwitcher);
             _sceneContext.Register(() => new CarFalling(_sceneContext.Get<Car>(), _groundCheckLayer));
             _sceneContext.Register(() => new FallingTeleport(_sceneContext.Get<Car>()));
             _sceneContext.Register(() => new FallingEndGame(_sceneContext.Get<StateMachine>()));
@@ -57,6 +56,7 @@ namespace Gameplay
             _sceneContext.Register(_pauseMenuButtons);
 
             _settingsMenu.Init(_sceneContext.Get<GameSettings>());
+            SetUpCarSwitcher();
             SetUpMediators();
             SetUpCamera();
             SetUpUI();
@@ -101,11 +101,10 @@ namespace Gameplay
             return car;
         }
 
-        private CarSwitcher SetUpCarSwitcher()
+        private void SetUpCarSwitcher()
         {
-            var carSwitcher = new CarSwitcher(_sceneContext.Get<Car>(),_sceneContext.Get<Level>().Garages.ToArray(),_sceneContext.Get<Timer>(), _wheelPrefab);
+            var carSwitcher = new CarSwitcher(_sceneContext.Get<Car>(),_sceneContext.Get<Level>().Garages,_sceneContext.Get<Timer>(), _wheelPrefab);
             _disposables.Add(carSwitcher);
-            return carSwitcher;
         }
 
         private FallingBehaviourSwitcher SetUpFallingBehaviourSwitcher()
