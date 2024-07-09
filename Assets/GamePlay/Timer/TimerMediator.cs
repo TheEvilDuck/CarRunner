@@ -1,4 +1,5 @@
 using System;
+using DI;
 using Gameplay.UI;
 
 namespace Gameplay
@@ -8,10 +9,10 @@ namespace Gameplay
         private Timer _timer;
         private TimerView _timerView;
 
-        public TimerMediator(Timer timer, TimerView timerView)
+        public TimerMediator(DIContainer sceneContext)
         {
-            _timer = timer;
-            _timerView = timerView;
+            _timer = sceneContext.Get<Timer>();
+            _timerView = sceneContext.Get<TimerView>();
 
             _timer.changed+=OnTimerChanged;
             _timer.started+=OnTimerStarted;

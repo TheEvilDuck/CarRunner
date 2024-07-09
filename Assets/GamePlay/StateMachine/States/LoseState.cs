@@ -1,18 +1,18 @@
 using Common.States;
-using Gameplay.Cars;
-using UnityEngine;
+using DI;
 
 namespace Gameplay.States
 {
     public class LoseState : GameOverState
     {
-        public LoseState(StateMachine stateMachine, CarBehaviour car) : base(stateMachine, car)
+        public LoseState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine, sceneContext)
         {
         }
 
-        protected override void OnGameOver()
+        protected override void OnEnter()
         {
-            Debug.Log("LOSER HAHA SUCK A DICK");
+            base.OnEnter();
+            _sceneContext.Get<EndOfTheGame>().Lose();
         }
     }
 }

@@ -28,6 +28,8 @@ namespace MainMenu
             _mainMenuMediator.Dispose();
             _settingsMediator.Dispose();
             _settingsAndSoundMediator.Dispose();
+
+            _sceneContext.Get<SoundController>().Stop(SoundID.MainMenuMusic);
         }
 
         protected override void Setup()

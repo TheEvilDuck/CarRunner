@@ -11,14 +11,14 @@ namespace EntryPoint
 {
     public class Bootstrap
     {
-        private const string BRAKE_BUTTON_RESOURCES_PATH = "Prefabs/Brake button.prefab";
-        private const string LEVEL_DATABASE_PATH = "Levels database.asset";
-        private const string SOUND_CONTROLLER_PATH = "Prefabs/SoundController.prefab";
+        private const string BRAKE_BUTTON_RESOURCES_PATH = "Prefabs/Brake button";
+        private const string LEVEL_DATABASE_PATH = "Levels database";
+        private const string SOUND_CONTROLLER_PATH = "Prefabs/SoundController";
         private static Bootstrap _gameInstance;
         private DIContainer _projectContext;
         private Coroutines _coroutines;
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         public static void GameEntryPoint()
         {
             _gameInstance = new Bootstrap();
@@ -38,15 +38,16 @@ namespace EntryPoint
             _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
             Object.DontDestroyOnLoad(_coroutines.gameObject);
 
-            SceneManager.activeSceneChanged += OnSceneChanged;
             Application.quitting += OnApplicationQuit;
             
             _coroutines.StartCoroutine(SceneSetup());
+
+            SceneManager.activeSceneChanged += OnSceneChanged;
         }
 
         private void OnSceneChanged(Scene previousScene, Scene nextScene)
         {
-            _coroutines.StartCoroutine(SceneSetup());
+            InitSceneBootstrap();
         }
 
         private void OnApplicationQuit()
@@ -57,15 +58,19 @@ namespace EntryPoint
 
         private IEnumerator SceneSetup()
         {
-            var sceneBootstrap = Object.FindAnyObjectByType<MonoBehaviourBootstrap>();
-
-            if (sceneBootstrap == null)
-            {
+            if (!InitSceneBootstrap())
                 yield return SceneManager.LoadSceneAsync(SceneIDs.MAIN_MENU);
-                sceneBootstrap = Object.FindAnyObjectByType<MonoBehaviourBootstrap>();
-            }
+        }
+
+        private bool InitSceneBootstrap()
+        {   
+            var sceneBootstrap = Object.FindAnyObjectByType<MonoBehaviourBootstrap>();
+            
+            if (sceneBootstrap == null)
+                return false;
 
             sceneBootstrap.Init(_projectContext);
+            return true;
         }
 
         private IPlayerInput SetupInput()

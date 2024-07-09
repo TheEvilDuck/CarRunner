@@ -24,10 +24,5 @@ namespace Levels
         public Vector3 CarStartPosition => _carStartPosition.position;
         public Quaternion CarStartRotation => _carStartPosition.rotation;
         public CarConfig StartCar => _startCar;
-
-        public void Init()
-        {
-            //_roadSystem.UpdateAllRoadsSavingMeshesOption(true);
-        }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using DI;
 using Services.PlayerInput;
 
 namespace Gameplay.Cars
@@ -8,10 +9,10 @@ namespace Gameplay.Cars
         private readonly CarBehaviour _car;
         private readonly IPlayerInput _playerInput;
 
-        public CarControllerMediator(CarBehaviour carBehaviour, IPlayerInput playerInput)
+        public CarControllerMediator(DIContainer sceneContext)
         {
-            _car = carBehaviour;
-            _playerInput = playerInput;
+            _car = sceneContext.Get<Car>().CarBehavior;
+            _playerInput = sceneContext.Get<IPlayerInput>();
 
             _playerInput.horizontalInput += OnHorizontalInput;
             _playerInput.brakeInput += OnBrakeInput;

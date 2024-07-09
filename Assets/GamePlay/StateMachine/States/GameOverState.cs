@@ -1,21 +1,29 @@
 using Common.States;
+using DI;
 using Gameplay.Cars;
+using Gameplay.UI;
+using Services.PlayerInput;
 
 namespace Gameplay.States
 {
     public abstract class GameOverState : State
     {
-        private readonly CarBehaviour _car;
-        public GameOverState(StateMachine stateMachine, CarBehaviour car) : base(stateMachine)
+        protected readonly DIContainer _sceneContext;
+        public GameOverState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine)
         {
-            _car = car;
+            _sceneContext = sceneContext;
         }
 
         public override void Update()
         {
-            _car.Brake(true);
+            _sceneContext.Get<Car>().CarBehavior.Brake(true);
         }
 
-        protected abstract void OnGameOver();
+        protected override void OnEnter()
+        {
+            _sceneContext.Get<IPlayerInput>().Disable();
+            _sceneContext.Get<EndOfTheGame>().Show();
+            _sceneContext.Get<PauseButton>().Hide();
+        }
     }
 }

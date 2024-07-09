@@ -15,18 +15,16 @@ using System.Collections.Generic;
 using System;
 using MainMenu;
 using Gameplay.CarFallingHandling;
+using EntryPoint;
 
 namespace Gameplay
 {
-    public class Bootstrap : MonoBehaviour
+    public class Bootstrap : MonoBehaviourBootstrap
     {
         [SerializeField] private TimerView _timerView;
-        [SerializeField] private LevelsDatabase _levels;
         [SerializeField] private Car _carPrefab;
         [SerializeField] private GameObject _wheelPrefab;
-        [SerializeField] private string _defaultLevelId;
         [SerializeField] private CameraFollow _cameraFollow;
-        [SerializeField] private SoundController _soundController;
         [SerializeField] private Speedometr _speedometr;
         [SerializeField] private PauseButton _pauseButton;
         [SerializeField] private EndOfTheGame _endOfTheGame;
@@ -34,45 +32,41 @@ namespace Gameplay
         [SerializeField] private PauseMenu _pauseMenu;
         [SerializeField] private SettingsMenu _settingsMenu;
         [SerializeField] private LayerMask _groundCheckLayer;
-        [SerializeField] private RectTransform _brake;
-        private GameSettings _gameSettings;
         private List<IDisposable> _disposables;
-        private PauseManager _pauseManager;
-        private Timer _timer;
-        private StateMachine _gameplayStateMachine;
-        private IPlayerInput _playerInput;
-        private CarSwitcher _carSwitcher;
-        private PlayerData _playerData;
-        private Level _level;
-        private Car _car;
-        private SceneLoader _sceneLoader;
-        private CarFalling _carFalling;
-        private FallingBehaviourSwitcher _fallingBehaviourSwitcher;
-        private FallTries _fallTries;
-        private string _levelId;
 
-        private void Awake() 
+        protected override void Setup()
         {
             _disposables = new List<IDisposable>();
 
-            SetUpInput();
-            SetUpPlayerData();
-            SetUpLevel();
-            SetUpCar();
-            SetUpFallingHandling();
-            SetUpSubSystems();
-            SetUpUI();
-            SetUpStateMachine();
-            SetUpPause();
+            _sceneContext.Register(SetUpLevel);
+            _sceneContext.Register(() => new Timer(_sceneContext.Get<Level>().StartTimer));
+            _sceneContext.Register(SetUpCar);
+            _sceneContext.Register(SetUpCarSwitcher);
+            _sceneContext.Register(() => new CarFalling(_sceneContext.Get<Car>(), _groundCheckLayer));
+            _sceneContext.Register(() => new FallingTeleport(_sceneContext.Get<Car>()));
+            _sceneContext.Register(() => new FallingEndGame(_sceneContext.Get<StateMachine>()));
+            _sceneContext.Register(SetUpFallingBehaviourSwitcher);
+            _sceneContext.Register(() => new FallTries(3));
+            _sceneContext.Register(SetUpGameplayStateMachine);
+            _sceneContext.Register(_settingsMenu);
+            _sceneContext.Register(SetUpPause);
+            _sceneContext.Register(_timerView);
+            _sceneContext.Register(_endOfTheGame);
+            _sceneContext.Register(_pauseButton);
+            _sceneContext.Register(_pauseMenu);
+            _sceneContext.Register(_pauseMenuButtons);
+
+            _settingsMenu.Init(_sceneContext.Get<GameSettings>());
             SetUpMediators();
             SetUpCamera();
+            SetUpUI();
         }
 
         private void Update() 
         {
-            _gameplayStateMachine.Update();
-            _playerInput.Update();
-            _carFalling.Update();
+            _sceneContext.Get<StateMachine>().Update();
+            _sceneContext.Get<IPlayerInput>().Update();
+            _sceneContext.Get<CarFalling>().Update();
         }
 
         private void OnDestroy() 
@@ -81,122 +75,96 @@ namespace Gameplay
                 disposable.Dispose();
 
             _disposables.Clear();
+
+            _sceneContext.Get<SoundController>().Stop(SoundID.BacgrondMusic);
         }
 
-        private void SetUpInput()
+        private Level SetUpLevel()
         {
-#if !UNITY_EDITOR
-            if (SystemInfo.deviceType== DeviceType.Desktop)
-                _playerInput = new DesktopInput();
-            else if (SystemInfo.deviceType == DeviceType.Handheld)
-                _playerInput = new MobileInput(_brake);
-#endif
+            var level = Instantiate(_sceneContext.Get<LevelsDatabase>().GetLevel(_sceneContext.Get<PlayerData>().SelectedLevel));
+            level.transform.position = Vector3.zero;
 
-#if UNITY_EDITOR
-            _playerInput = new DesktopInput();
-#endif
-            _playerInput.Enable();
-        }
-
-        private void SetUpPlayerData()
-        {
-            _playerData = new PlayerData();
-            _levelId = _playerData.SelectedLevel;
-
-            if (string.IsNullOrEmpty(_levelId))
-                _levelId = _defaultLevelId;
-
-            _playerData.LoadProgressOfLevels();
-        }
-
-        private void SetUpLevel()
-        {
-            _level = Instantiate(_levels.GetLevel(_levelId));
-            _level.transform.position = Vector3.zero;
-            _timer = new Timer(_level.StartTimer);
-
-            foreach(Garage garage in _level.Garages.ToArray())
+            foreach(Garage garage in level.Garages.ToArray())
             {
-                garage.Init(_timer);
+                garage.Init();
             }
 
-            _level.Init();
+            return level;
         }
 
-        private void SetUpCar()
+        private Car SetUpCar()
         {
-            _car = Instantiate(_carPrefab, _level.CarStartPosition, _level.CarStartRotation, null);
-            _car.InitCar(_level.StartCar, _wheelPrefab);
-            _carSwitcher = new CarSwitcher(_car,_level.Garages.ToArray(),_timer, _wheelPrefab);
+            var level = _sceneContext.Get<Level>();
+            var car = Instantiate(_carPrefab, level.CarStartPosition, level.CarStartRotation, null);
+            car.InitCar(level.StartCar, _wheelPrefab);
 
-            _disposables.Add(_carSwitcher);
+            return car;
         }
 
-        private void SetUpFallingHandling()
+        private CarSwitcher SetUpCarSwitcher()
         {
-            _carFalling = new CarFalling(_car, _groundCheckLayer);
-            
-            _fallingBehaviourSwitcher = new FallingBehaviourSwitcher(_carFalling);
-            _fallingBehaviourSwitcher.AttachBehaviour(new FallingTeleport(_car));
-
-            _disposables.Add(_fallingBehaviourSwitcher);
-
-            _fallTries = new FallTries(3);
+            var carSwitcher = new CarSwitcher(_sceneContext.Get<Car>(),_sceneContext.Get<Level>().Garages.ToArray(),_sceneContext.Get<Timer>(), _wheelPrefab);
+            _disposables.Add(carSwitcher);
+            return carSwitcher;
         }
 
-        private void SetUpStateMachine()
+        private FallingBehaviourSwitcher SetUpFallingBehaviourSwitcher()
         {
-            _gameplayStateMachine = new StateMachine();
+            var fallingBehaviourSwitcher = new FallingBehaviourSwitcher(_sceneContext.Get<CarFalling>());
+            fallingBehaviourSwitcher.AttachBehaviour(_sceneContext.Get<FallingEndGame>());
 
-            PreStartState preStartState = new PreStartState(_gameplayStateMachine, _car.CarBehavior);
-            RaceGameState raceGameState = new RaceGameState(_gameplayStateMachine, _timer, _car.CarBehavior, _level.Finish);
-            WinState winState = new WinState(_gameplayStateMachine, _car.CarBehavior);
-            LoseState loseState = new LoseState(_gameplayStateMachine, _car.CarBehavior);
+            _disposables.Add(fallingBehaviourSwitcher);
 
-            _gameplayStateMachine.AddState(preStartState);
-            _gameplayStateMachine.AddState(raceGameState);
-            _gameplayStateMachine.AddState(winState);
-            _gameplayStateMachine.AddState(loseState);
-
-            _disposables.Add(_gameplayStateMachine);
-
+            return fallingBehaviourSwitcher;
         }
-
-        private void SetUpSubSystems()
-        {
-            _soundController.Init();
-            _sceneLoader = new SceneLoader();
-            _gameSettings = new GameSettings();
-            _gameSettings.LoadSettings();
-        }
-
-        private void SetUpPause()
-        {
-            _pauseManager = new PauseManager();
-            _pauseManager.Register(_timer);
-            _pauseManager.Register(_car);
-            _pauseManager.Register(_soundController);
-            _pauseManager.Register(_gameplayStateMachine);
-
-            _settingsMenu.Init(_gameSettings);
-        }
-
         private void SetUpUI()
         {
-            _speedometr.Init(_car.CarBehavior);
+            _speedometr.Init(_sceneContext.Get<Car>().CarBehavior);
         }
+
+        private StateMachine SetUpGameplayStateMachine()
+        {
+            var gameplayStateMachine = new StateMachine();
+
+            PreStartState preStartState = new PreStartState(gameplayStateMachine, _sceneContext);
+            RaceGameState raceGameState = new RaceGameState(gameplayStateMachine, _sceneContext);
+            WinState winState = new WinState(gameplayStateMachine, _sceneContext);
+            LoseState loseState = new LoseState(gameplayStateMachine, _sceneContext);
+
+            gameplayStateMachine.AddState(preStartState);
+            gameplayStateMachine.AddState(raceGameState);
+            gameplayStateMachine.AddState(winState);
+            gameplayStateMachine.AddState(loseState);
+
+            _disposables.Add(gameplayStateMachine);
+
+            return gameplayStateMachine;
+        }
+
+        private PauseManager SetUpPause()
+        {
+            var pauseManager = new PauseManager();
+            pauseManager.Register(_sceneContext.Get<Timer>());
+            pauseManager.Register(_sceneContext.Get<Car>());
+            pauseManager.Register(_sceneContext.Get<SoundController>());
+            pauseManager.Register(_sceneContext.Get<StateMachine>());
+
+            return pauseManager;
+        }
+
+        
 
         private void SetUpMediators()
         {
-            var timerMediator = new TimerMediator(_timer, _timerView);
-            var carControllerMediator = new CarControllerMediator(_car.CarBehavior, _playerInput);
-            var timerAndGatesMediator = new TimerAndGatesMediator(_level.TimerGates.ToArray(), _timer);
-            var soundMediator = new SoundMediator(_soundController, _level.TimerGates.ToArray(), _level.Garages.ToArray(), _gameplayStateMachine.GetState<RaceGameState>(), _gameSettings);
-            var endGameMediator = new EndGameMediator(_endOfTheGame, _sceneLoader, _gameplayStateMachine.GetState<LoseState>(), _gameplayStateMachine.GetState<WinState>(), _pauseButton, carControllerMediator, _levels, _playerData, _playerInput);
-            var pauseMediator = new PauseMediator(_pauseManager, _pauseButton, _pauseMenu, _playerInput);
-            var pauseMenuMediator = new PauseMenuMediator(_pauseMenuButtons, _sceneLoader);
-            var settingMediator = new SettingsMediator(_gameSettings, _settingsMenu);
-            var carFallingMediator = new CarFallingMediator(_fallTries, new FallingEndGame(_gameplayStateMachine), _fallingBehaviourSwitcher, _carFalling);
+            var timerMediator = new TimerMediator(_sceneContext);
+            var carControllerMediator = new CarControllerMediator(_sceneContext);
+            var timerAndGatesMediator = new TimerAndGatesMediator(_sceneContext);
+            var soundMediator = new SoundMediator(_sceneContext);
+            var endGameMediator = new EndGameMediator(_sceneContext);
+            var pauseMediator = new PauseMediator(_sceneContext);
+            var pauseMenuMediator = new PauseMenuMediator(_sceneContext);
+            var settingMediator = new SettingsMediator(_sceneContext);
+            var carFallingMediator = new CarFallingMediator(_sceneContext);
 
             _disposables.Add(timerMediator);
             _disposables.Add(carControllerMediator);
@@ -211,8 +179,9 @@ namespace Gameplay
 
         private void SetUpCamera()
         {
-            _cameraFollow.transform.position = _car.transform.position;
-            _cameraFollow.SetTarget(_car.transform);
+            var car = _sceneContext.Get<Car>();
+            _cameraFollow.transform.position = car.transform.position;
+            _cameraFollow.SetTarget(car.transform);
         }
     }
 }

@@ -1,31 +1,29 @@
 using Common;
 using Common.Sound;
 using Common.States;
+using DI;
 using Gameplay.Garages;
 using Gameplay.TimerGates;
+using Levels;
 using MainMenu;
 using System;
+using System.Collections.Generic;
 
 namespace Gameplay
 {
     public class SoundMediator : IDisposable
     {
         private SoundController _soundController;
-        private TimerGate[] _gates;
-        private Garage[] _garages;
-        private State _raceGameState;
+        private IEnumerable<TimerGate> _gates;
+        private IEnumerable<Garage> _garages;
         
-
-        public SoundMediator(SoundController soundController, TimerGate[] gates, Garage[] garages, State raceGameState, GameSettings gameSettings)
+        public SoundMediator(DIContainer sceneContext)
         {
             
-            _soundController = soundController;
-            _gates = gates;
-            _garages = garages;
-            _raceGameState = raceGameState;
-
-            _raceGameState.entered += onRaceGameStateEntered;
-            _raceGameState.exited += onRaceGameStateExited;
+            _soundController = sceneContext.Get<SoundController>();
+            var level = sceneContext.Get<Level>();
+            _gates = level.TimerGates;
+            _garages = level.Garages;
 
             foreach (TimerGate gate in _gates)
                 gate.passed += OnGatePassed;
@@ -36,9 +34,6 @@ namespace Gameplay
 
         public void Dispose()
         {
-            _raceGameState.entered -= onRaceGameStateEntered;
-            _raceGameState.exited -= onRaceGameStateExited;
-
             foreach (TimerGate gate in _gates)
                 gate.passed -= OnGatePassed;
 
@@ -49,9 +44,5 @@ namespace Gameplay
         private void OnGatePassed(float time) => _soundController.Play(SoundID.SFXGate);
 
         private void OnGaregePassed() => _soundController.Play(SoundID.SFXGarage);
-
-        private void onRaceGameStateEntered() => _soundController.Play(SoundID.BacgrondMusic, true);
-
-        private void onRaceGameStateExited() => _soundController.Stop(SoundID.BacgrondMusic);
     }
 }

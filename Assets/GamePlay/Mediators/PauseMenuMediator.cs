@@ -1,17 +1,17 @@
 using System;
 using Common;
+using DI;
+using UnityEngine.SceneManagement;
 
 namespace Gameplay
 {
     public class PauseMenuMediator : IDisposable
     {
         private readonly SceneChangingButtons _pauseMenuButtons;
-        private readonly SceneLoader _sceneLoader;
 
-        public PauseMenuMediator(SceneChangingButtons pauseMenuButtons, SceneLoader sceneLoader)
+        public PauseMenuMediator(DIContainer sceneContext)
         {
-            _pauseMenuButtons = pauseMenuButtons;
-            _sceneLoader = sceneLoader;
+            _pauseMenuButtons = sceneContext.Get<SceneChangingButtons>();
 
             _pauseMenuButtons.RestartButtonPressed.AddListener(OnRestartPressed);
             _pauseMenuButtons.GoToMainMenuButtonPressed.AddListener(OnExitPressed);
@@ -24,12 +24,12 @@ namespace Gameplay
 
         private void OnRestartPressed()
         {
-            _sceneLoader.RestartScene();
+            SceneManager.LoadScene(SceneIDs.GAMEPLAY);
         }
 
         private void OnExitPressed()
         {
-            _sceneLoader.LoadMainMenu();
+            SceneManager.LoadScene(SceneIDs.MAIN_MENU);
         }
     }
 }

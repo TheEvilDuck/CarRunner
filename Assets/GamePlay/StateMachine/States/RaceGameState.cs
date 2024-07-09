@@ -1,18 +1,24 @@
+using Common.Sound;
 using Common.States;
+using DI;
 using Gameplay.Cars;
+using Levels;
+using Services.PlayerInput;
 
 namespace Gameplay.States
 {
     public class RaceGameState : State
     {
-        private Timer _timer;
+        private readonly Timer _timer;
         private readonly CarBehaviour _car;
         private readonly SimpleCarCollisionTrigger _finish;
-        public RaceGameState(StateMachine stateMachine, Timer timer, CarBehaviour carBehaviour, SimpleCarCollisionTrigger finish) : base(stateMachine)
+        private readonly SoundController _soundController;
+        public RaceGameState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine)
         {
-            _timer = timer;
-            _car = carBehaviour;
-            _finish = finish;
+            _timer = sceneContext.Get<Timer>();
+            _car = sceneContext.Get<Car>().CarBehavior;
+            _finish = sceneContext.Get<Level>().Finish;
+            _soundController = sceneContext.Get<SoundController>();
         }
 
         public override void Update()
@@ -24,6 +30,7 @@ namespace Gameplay.States
         {
             _timer.Restart();
             _car.enabled = true;
+            _soundController.Play(SoundID.BacgrondMusic);
 
             _timer.end+=OnTimerEnd;
             _finish.passed += OnLevelFinished;

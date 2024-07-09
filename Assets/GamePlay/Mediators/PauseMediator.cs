@@ -1,5 +1,6 @@
 using System;
 using Common;
+using DI;
 using Gameplay.UI;
 using Services.PlayerInput;
 
@@ -12,12 +13,12 @@ namespace Gameplay
         private readonly PauseMenu _pauseMenu;
         private readonly IPlayerInput _playerInput;
 
-        public PauseMediator(PauseManager pauseManager, PauseButton pauseButton, PauseMenu pauseMenu, IPlayerInput playerInput)
+        public PauseMediator(DIContainer sceneContext)
         {
-            _pauseManager = pauseManager;
-            _pauseButton = pauseButton;
-            _pauseMenu = pauseMenu;
-            _playerInput = playerInput;
+            _pauseManager = sceneContext.Get<PauseManager>();
+            _pauseButton = sceneContext.Get<PauseButton>();
+            _pauseMenu = sceneContext.Get<PauseMenu>();
+            _playerInput = sceneContext.Get<IPlayerInput>();
 
             _pauseButton.pressed += OnPauseButtonPressed;
             _pauseMenu.ResumeButtonPressed.AddListener(OnPauseButtonPressed);

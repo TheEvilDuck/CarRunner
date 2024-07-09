@@ -10,13 +10,10 @@ namespace Gameplay.Garages
         [field: SerializeField] public float TimeCost {get; private set;}
         [field: SerializeField] public CarConfig CarConfig {get; private set;}
         [SerializeField] private GarageView _garageView;
-        private Timer _timer; 
         public event Action passed;
 
-        public void Init(Timer timer)
-        {
-            _timer = timer;     
-
+        public void Init()
+        { 
             _garageView.Init(this);
         }
 

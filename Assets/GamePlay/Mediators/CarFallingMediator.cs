@@ -1,4 +1,5 @@
 using System;
+using DI;
 using Gameplay.CarFallingHandling;
 using UnityEngine;
 
@@ -11,12 +12,12 @@ namespace Gameplay
         private readonly CarFalling _carFalling;
         private readonly FallingBehaviourSwitcher _fallingBehaviourSwitcher;
 
-        public CarFallingMediator(FallTries fallTries, FallingEndGame fallingEndGame, FallingBehaviourSwitcher fallingBehaviourSwitcher, CarFalling carFalling)
+        public CarFallingMediator(DIContainer sceneContext)
         {
-            _fallTries = fallTries;
-            _fallingEndGame = fallingEndGame;
-            _fallingBehaviourSwitcher = fallingBehaviourSwitcher;
-            _carFalling = carFalling;
+            _fallTries = sceneContext.Get<FallTries>();
+            _fallingEndGame = sceneContext.Get<FallingEndGame>();
+            _fallingBehaviourSwitcher = sceneContext.Get<FallingBehaviourSwitcher>();
+            _carFalling = sceneContext.Get<CarFalling>();
 
             _fallTries.triesEnd += OnFallTriesEnd;
             _carFalling.carFallen += OnCarFallen;

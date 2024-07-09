@@ -1,18 +1,25 @@
+using Common;
 using Common.States;
-using Gameplay.Cars;
-using UnityEngine;
+using DI;
+using Levels;
 
 namespace Gameplay.States
 {
     public class WinState : GameOverState
     {
-        public WinState(StateMachine stateMachine, CarBehaviour car) : base(stateMachine, car)
+        public WinState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine, sceneContext)
         {
         }
 
-        protected override void OnGameOver()
+        protected override void OnEnter()
         {
-            Debug.Log("WIN COOL WIN GREAT");
+            base.OnEnter();
+            _sceneContext.Get<EndOfTheGame>().Win();
+
+            var playerData = _sceneContext.Get<PlayerData>();
+            string nextLevelId = _sceneContext.Get<LevelsDatabase>().GetNextLevelId(playerData.SelectedLevel);
+            playerData.AddAvailableLevel(nextLevelId);
+            playerData.AddPassedLevel(playerData.SelectedLevel);
         }
     }
 }

@@ -1,5 +1,7 @@
 using Common.States;
+using DI;
 using Gameplay.Cars;
+using Services.PlayerInput;
 using UnityEngine;
 
 namespace Gameplay.States
@@ -7,14 +9,17 @@ namespace Gameplay.States
     public class PreStartState : State
     {
         private readonly CarBehaviour _carBehaviour;
-        public PreStartState(StateMachine stateMachine, CarBehaviour carBehaviour) : base(stateMachine)
+        private readonly IPlayerInput _playerInput;
+        public PreStartState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine)
         {
-            _carBehaviour = carBehaviour;
+            _carBehaviour = sceneContext.Get<Car>().CarBehavior;
+            _playerInput = sceneContext.Get<IPlayerInput>();
         }
 
         protected override void OnEnter()
         {
             _carBehaviour.enabled = false;
+            _playerInput.Enable();
         }
 
         public override void Update()
