@@ -14,6 +14,11 @@ namespace Common
         public float BackgroundMusicVolume => _settings.BackgroundMusicVolume;
         public float SFXSoundVolume => _settings.SFXSoundVolume;
 
+        public GameSettings()
+        {
+            LoadSettings();
+        }
+
         public void SoundOn(bool flag)
         {
             _settings.Mute = flag;

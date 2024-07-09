@@ -1,5 +1,6 @@
 using System;
 using Common.Sound;
+using DI;
 
 namespace Common.Mediators
 {
@@ -8,10 +9,10 @@ namespace Common.Mediators
         private readonly SoundController _soundController;
         private readonly GameSettings _gameSettings;
 
-        public SettingsAndSoundMediator(GameSettings gameSettings, SoundController soundController)
+        public SettingsAndSoundMediator(DIContainer sceneContext)
         {
-            _gameSettings = gameSettings;
-            _soundController = soundController;
+            _gameSettings = sceneContext.Get<GameSettings>();
+            _soundController = sceneContext.Get<SoundController>();
 
             UpdateSoundSettings();
             _gameSettings.SoundSettingsChanged += UpdateSoundSettings;

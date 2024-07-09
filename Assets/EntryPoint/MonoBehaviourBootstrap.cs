@@ -17,7 +17,7 @@ namespace EntryPoint
             _inited = true;
         }
 
-        protected abstract void Setup();
+        protected virtual void Setup() {}
     }
 
 }

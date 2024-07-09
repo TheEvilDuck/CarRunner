@@ -1,16 +1,17 @@
 using Common;
+using DI;
 using MainMenu;
 using System;
 
 public class SettingsMediator : IDisposable
 {
-    private GameSettings _settings;
-    private SettingsMenu _menu;
+    private readonly GameSettings _settings;
+    private readonly SettingsMenu _menu;
 
-    public SettingsMediator(GameSettings settings, SettingsMenu menu)
+    public SettingsMediator(DIContainer sceneContext)
     {
-        _settings = settings;
-        _menu = menu;
+        _settings = sceneContext.Get<GameSettings>();
+        _menu = sceneContext.Get<SettingsMenu>();
 
         _menu.MuteChanged.AddListener(onMuteChanged);
         _menu.MasterVolumeChanged.AddListener(onMasterVolumeChanged);
