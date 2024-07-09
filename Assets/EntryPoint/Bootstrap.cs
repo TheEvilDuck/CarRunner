@@ -12,6 +12,7 @@ namespace EntryPoint
         private const string BRAKE_BUTTON_RESOURCES_PATH = "Prefabs/Brake button.prefab";
         private static Bootstrap _gameInstance;
         private DIContainer _projectContext;
+        private Coroutines _coroutines;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void GameEntryPoint()
@@ -28,10 +29,24 @@ namespace EntryPoint
             _projectContext.Register(() => new PlayerData());
             _projectContext.Register(() => SetupInput());
 
-            var coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
-            Object.DontDestroyOnLoad(coroutines.gameObject);
+            _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
+            Object.DontDestroyOnLoad(_coroutines.gameObject);
+
+            SceneManager.activeSceneChanged += OnSceneChanged;
+            Application.quitting += OnApplicationQuit;
             
-            coroutines.StartCoroutine(SceneSetup());
+            _coroutines.StartCoroutine(SceneSetup());
+        }
+
+        private void OnSceneChanged(Scene previousScene, Scene nextScene)
+        {
+            _coroutines.StartCoroutine(SceneSetup());
+        }
+
+        private void OnApplicationQuit()
+        {
+            SceneManager.activeSceneChanged -= OnSceneChanged;
+            Application.quitting -= OnApplicationQuit;
         }
 
         private IEnumerator SceneSetup()
