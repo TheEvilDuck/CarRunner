@@ -110,7 +110,7 @@ namespace Gameplay
         private FallingBehaviourSwitcher SetUpFallingBehaviourSwitcher()
         {
             var fallingBehaviourSwitcher = new FallingBehaviourSwitcher(_sceneContext.Get<CarFalling>());
-            fallingBehaviourSwitcher.AttachBehaviour(_sceneContext.Get<FallingEndGame>());
+            fallingBehaviourSwitcher.AttachBehaviour(_sceneContext.Get<FallingTeleport>());
 
             _disposables.Add(fallingBehaviourSwitcher);
 
