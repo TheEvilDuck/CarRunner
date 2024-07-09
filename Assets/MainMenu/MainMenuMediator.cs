@@ -1,6 +1,8 @@
 using Common;
+using DI;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace MainMenu
 {
@@ -8,13 +10,11 @@ namespace MainMenu
     {
         private readonly MainMenuView _mainMenuView;
         private readonly PlayerData _playerData;
-        private readonly SceneLoader _sceneLoader;
 
-        public MainMenuMediator(MainMenuView mainMenuView, PlayerData playerData, SceneLoader sceneLoader)
+        public MainMenuMediator(DIContainer sceneContainer)
         {
-            _mainMenuView = mainMenuView;
-            _sceneLoader = sceneLoader;
-            _playerData = playerData;
+            _mainMenuView = sceneContainer.Get<MainMenuView>();
+            _playerData = sceneContainer.Get<PlayerData>();
 
             _mainMenuView.MainButtons.ExitClickedEvent.AddListener(OnExitPressed);
             _mainMenuView.LevelSelector.levelSelected += OnLevelSelected;
@@ -29,7 +29,7 @@ namespace MainMenu
         private void OnLevelSelected(string levelId)
         {
             _playerData.SaveSelectedLevel(levelId);
-            _sceneLoader.LoadGameplay();
+            SceneManager.LoadScene(SceneIDs.GAMEPLAY);
         }
     }
 }
