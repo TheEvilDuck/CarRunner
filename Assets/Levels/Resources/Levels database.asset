@@ -15,9 +15,13 @@ MonoBehaviour:
   _levels:
   - <LevelId>k__BackingField: test plane
     <Level>k__BackingField: {fileID: 1124888723410279649, guid: 78413e528c6831948b4d92b0f126248a, type: 3}
-  - <LevelId>k__BackingField: new road test
-    <Level>k__BackingField: {fileID: 6974146277452110916, guid: 95b8b906fdf67bf4a8c4639829a8ff17, type: 3}
+    <Cost>k__BackingField: 0
   - <LevelId>k__BackingField: Lvl3
     <Level>k__BackingField: {fileID: 1124888723410279649, guid: efa057b71575c7f408c75f2f807b06e0, type: 3}
+    <Cost>k__BackingField: 1000
   - <LevelId>k__BackingField: Lvl4
     <Level>k__BackingField: {fileID: 1124888723410279649, guid: c205303ebffdf454f91fe9ffefda5064, type: 3}
+    <Cost>k__BackingField: 2000
+  - <LevelId>k__BackingField: new road test
+    <Level>k__BackingField: {fileID: 6974146277452110916, guid: 95b8b906fdf67bf4a8c4639829a8ff17, type: 3}
+    <Cost>k__BackingField: 5000

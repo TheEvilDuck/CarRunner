@@ -1,6 +1,7 @@
 using Common;
 using Common.Data;
 using DI;
+using Levels;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,19 +12,23 @@ namespace MainMenu
     {
         private readonly MainMenuView _mainMenuView;
         private readonly IPlayerData _playerData;
+        private readonly LevelsDatabase _levelsDatabase;
 
         public MainMenuMediator(DIContainer sceneContainer)
         {
             _mainMenuView = sceneContainer.Get<MainMenuView>();
             _playerData = sceneContainer.Get<IPlayerData>();
+            _levelsDatabase = sceneContainer.Get<LevelsDatabase>();
 
             _mainMenuView.MainButtons.ExitClickedEvent.AddListener(OnExitPressed);
             _mainMenuView.LevelSelector.levelSelected += OnLevelSelected;
+            _mainMenuView.LevelSelector.buyLevelPressed += OnBuyLevelButtonPressed;
         }
         public void Dispose()
         {
             _mainMenuView.MainButtons.ExitClickedEvent.RemoveListener(OnExitPressed);
             _mainMenuView.LevelSelector.levelSelected -= OnLevelSelected;
+            _mainMenuView.LevelSelector.buyLevelPressed -= OnBuyLevelButtonPressed;
         }
 
         private void OnExitPressed() => Application.Quit();
@@ -31,6 +36,17 @@ namespace MainMenu
         {
             _playerData.SaveSelectedLevel(levelId);
             SceneManager.LoadScene(SceneIDs.GAMEPLAY);
+        }
+
+        private bool OnBuyLevelButtonPressed(string levelId)
+        {
+            if (_playerData.SpendCoins(_levelsDatabase.GetLevelCost(levelId)))
+            {
+                _playerData.AddAvailableLevel(levelId);
+                _mainMenuView.LevelSelector.UpdateButtons(_playerData.PassedLevels, _playerData.AvailableLevels);
+            }
+
+            return false;
         }
     }
 }

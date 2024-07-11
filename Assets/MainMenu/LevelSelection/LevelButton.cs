@@ -1,11 +1,10 @@
-using System;
 using Common.UI.UIAnimations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace MainMenu
+namespace MainMenu.LevelSelection
 {
     public class LevelButton : MonoBehaviour
     {
@@ -14,6 +13,8 @@ namespace MainMenu
         [SerializeField] private UITransparancyAnimator _uITransparancyAnimator;
         [SerializeField] private Button _button;
 
+        private Color _unlockColor;
+
         public UnityEvent Clicked => _button.onClick;
         public UIAnimator PosittionAnimator => _uIPositionAnimator;
         public UIAnimator TransparencyAnimation => _uITransparancyAnimator;
@@ -21,11 +22,16 @@ namespace MainMenu
         public void Init(string name)
         {
             _nameText.text = name;
+            _unlockColor = _button.image.color;
+        }
+
+        public void Unlock()
+        {
+            _button.image.color = _unlockColor;
         }
 
         public void Lock() 
         {
-            _button.interactable = false;
             _button.image.color = Color.red;
         } 
 
