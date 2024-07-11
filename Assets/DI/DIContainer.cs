@@ -21,7 +21,7 @@ namespace DI
             if (_objects.ContainsKey(typeof(T)))
                 throw new ArgumentException($"There is already registered object with type of {typeof(T)}");
 
-            var objectData = new ObjectData<T>(this, createFunc);
+            var objectData = new ObjectData<T>(createFunc);
             _objects.Add(typeof(T), objectData);
         }
 
@@ -30,7 +30,7 @@ namespace DI
             if (_objects.ContainsKey(typeof(T)))
                 throw new ArgumentException($"There is already registered object with type of {typeof(T)}");
 
-            var objectData = new ObjectData<T>(this, value);
+            var objectData = new ObjectData<T>(value);
             _objects.Add(typeof(T), objectData);
         }
 
