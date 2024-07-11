@@ -64,7 +64,8 @@ namespace MainMenu.LevelSelection
                 }
                 else if (buyLevelPressed.Invoke(_currentLevelId))
                 {
-                    levelSelected?.Invoke(_currentLevelId);
+                    _levelPlayButton.ShowPlayText();
+                    _isReadyToPlay = true;
                 }
 
             });
@@ -80,6 +81,8 @@ namespace MainMenu.LevelSelection
                     buttonAndLevelId.Key.MarkAsCompleted();
                 else if(!availableLevels.Contains(buttonAndLevelId.Value))
                     buttonAndLevelId.Key.Lock();
+                else
+                    buttonAndLevelId.Key.Unlock();
             }
         }
 

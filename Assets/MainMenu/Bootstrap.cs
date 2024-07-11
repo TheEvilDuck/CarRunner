@@ -13,6 +13,7 @@ namespace MainMenu
         [SerializeField] private MainMenuView _mainMenuView;
         [SerializeField] private SettingsMenu _settingsMenu;
         [SerializeField] private LevelSelector _levelSelector;
+        [SerializeField] private NotEnoughMoneyPopup _notEnoughMoneyPopup;
         private GameSettings _gameSettings;
         private MainMenuMediator _mainMenuMediator;
         private SettingsMediator _settingsMediator;
@@ -39,6 +40,7 @@ namespace MainMenu
             _sceneContext.Register(_mainMenuView);
             _sceneContext.Register(_settingsMenu);
             _sceneContext.Register(_levelSelector);
+            _sceneContext.Register(_notEnoughMoneyPopup);
 
             _gameSettings = _sceneContext.Get<GameSettings>();
 
