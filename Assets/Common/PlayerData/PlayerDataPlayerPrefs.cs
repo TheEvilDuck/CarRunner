@@ -9,6 +9,7 @@ namespace Common.Data
         private const string PREFS_SELECTED_LEVEL = "PLAYERPREFS_SELECTED_LEVEL";
         private const string PREFS_PROGRESS_OF_LEVELS = "PLAYERPREFS_PROGRESS_OF_LEVELS";
         private const string PREFS_COINS = "PLAYEPREFS_COINS";
+        private const int COINS_DEFAULT_VALUE = 1000;
 
         public event Action<int> coinsChanged;
 
@@ -19,7 +20,7 @@ namespace Common.Data
 
         public string SelectedLevel => PlayerPrefs.GetString(PREFS_SELECTED_LEVEL);
 
-        public int Coins => PlayerPrefs.GetInt(PREFS_COINS);
+        public int Coins => PlayerPrefs.GetInt(PREFS_COINS, COINS_DEFAULT_VALUE);
 
         public void SaveSelectedLevel(string levelId) => PlayerPrefs.SetString(PREFS_SELECTED_LEVEL, levelId);
 

@@ -17,6 +17,7 @@ using MainMenu;
 using Gameplay.CarFallingHandling;
 using EntryPoint;
 using Common.Mediators;
+using Common.Data;
 
 namespace Gameplay
 {
@@ -88,7 +89,7 @@ namespace Gameplay
 
         private Level SetUpLevel()
         {
-            var level = Instantiate(_sceneContext.Get<LevelsDatabase>().GetLevel(_sceneContext.Get<PlayerData>().SelectedLevel));
+            var level = Instantiate(_sceneContext.Get<LevelsDatabase>().GetLevel(_sceneContext.Get<IPlayerData>().SelectedLevel));
             level.transform.position = Vector3.zero;
 
             foreach(Garage garage in level.Garages.ToArray())
