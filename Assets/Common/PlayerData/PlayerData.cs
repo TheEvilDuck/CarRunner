@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Common
+namespace Common.Data
 {
-    public class PlayerData
+    public class PlayerData: IPlayerData
     {
         private const string PREFS_SELECTED_LEVEL = "PLAYERPREFS_SELECTED_LEVEL";
         private const string PREFS_PROGRESS_OF_LEVELS = "PLAYERPREFS_PROGRESS_OF_LEVELS";
