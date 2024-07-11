@@ -9,18 +9,9 @@ namespace Levels
     {
         [SerializeField] private List<LevelData> _levels;
 
-        public Level GetLevel(string id)
-        {
-            foreach (LevelData levelData in _levels)
-            {
-                if (string.Equals(id, levelData.LevelId))
-                {
-                    return levelData.Level;
-                }
-            }
+        public Level GetLevel(string id) => FindLevel(id).Level;
 
-            throw new ArgumentException($"There is no level with id: {id}");
-        }
+        public int GetLevelCost(string id) => FindLevel(id).Cost;
 
         public string GetNextLevelId(string levelId)
         {
@@ -51,11 +42,25 @@ namespace Levels
 
         public string GetFirstLevel() => _levels[0].LevelId;
 
+        private LevelData FindLevel(string id)
+        {
+            foreach (LevelData levelData in _levels)
+            {
+                if (string.Equals(id, levelData.LevelId))
+                {
+                    return levelData;
+                }
+            }
+
+            throw new ArgumentException($"There is no level with id: {id}");
+        }
+
         [Serializable]
         private class LevelData
         {
             [field: SerializeField] public string LevelId {get; private set;}
             [field: SerializeField] public Level Level {get; private set;}
+            [field: SerializeField] public int Cost {get; private set;}
         } 
     }
 
