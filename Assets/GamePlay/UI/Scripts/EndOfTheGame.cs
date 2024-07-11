@@ -12,6 +12,6 @@ public class EndOfTheGame : MonoBehaviour
 
     public void Show() => gameObject.SetActive(true);
     public void Hide() => gameObject.SetActive(false);
-    public void Win() => _endGameText.text = "Win";
+    public void Win(int reward) => _endGameText.text = $"Win! You earned: {reward}";
     public void Lose() => _endGameText.text = "Lose";
 }
