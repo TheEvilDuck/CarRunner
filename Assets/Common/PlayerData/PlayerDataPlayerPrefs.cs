@@ -4,17 +4,23 @@ using UnityEngine;
 
 namespace Common.Data
 {
-    public class PlayerData: IPlayerData
+    public class PlayerDataPlayerPrefs: IPlayerData
     {
         private const string PREFS_SELECTED_LEVEL = "PLAYERPREFS_SELECTED_LEVEL";
         private const string PREFS_PROGRESS_OF_LEVELS = "PLAYERPREFS_PROGRESS_OF_LEVELS";
+        private const string PREFS_COINS = "PLAYEPREFS_COINS";
+
+        public event Action<int> coinsChanged;
+
 
         private ProgressOfLevels _progressOfLvls;
-        
         public IEnumerable<string> AvailableLevels => _progressOfLvls.AvailableLevels;
         public IEnumerable<string> PassedLevels => _progressOfLvls.PassedLevels;
 
         public string SelectedLevel => PlayerPrefs.GetString(PREFS_SELECTED_LEVEL);
+
+        public int Coins => PlayerPrefs.GetInt(PREFS_COINS);
+
         public void SaveSelectedLevel(string levelId) => PlayerPrefs.SetString(PREFS_SELECTED_LEVEL, levelId);
 
         public void AddPassedLevel(string levelId)
@@ -59,6 +65,28 @@ namespace Common.Data
                 _progressOfLvls = new ProgressOfLevels();
                 return false;
             }
+        }
+
+        public void AddCoins(int coins)
+        {
+            if (coins <= 0)
+                throw new ArgumentOutOfRangeException($"Coins count must be positive, you passed {coins}");
+
+            PlayerPrefs.SetInt(PREFS_COINS, Coins + coins);
+            coinsChanged?.Invoke(Coins);
+        }
+
+        public bool SpendCoins(int coins)
+        {
+            if (coins <= 0)
+                throw new ArgumentOutOfRangeException($"Coins count must be positive, you passed {coins}");
+
+            if (coins > Coins)
+                return false;
+
+            PlayerPrefs.SetInt(PREFS_COINS, Coins - coins);
+            coinsChanged?.Invoke(Coins);
+            return true;
         }
 
         [Serializable]

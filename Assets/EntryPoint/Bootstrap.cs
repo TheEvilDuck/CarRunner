@@ -1,5 +1,6 @@
 using System.Collections;
 using Common;
+using Common.Data;
 using Common.Sound;
 using DI;
 using Levels;
@@ -93,9 +94,9 @@ namespace EntryPoint
                     
         }
 
-        private PlayerData SetupPlayerData()
+        private IPlayerData SetupPlayerData()
         {
-            PlayerData playerData = new PlayerData();
+            IPlayerData playerData = new PlayerDataPlayerPrefs();
 
             if (!playerData.LoadProgressOfLevels())
                 playerData.AddAvailableLevel(_projectContext.Get<LevelsDatabase>().GetFirstLevel());
