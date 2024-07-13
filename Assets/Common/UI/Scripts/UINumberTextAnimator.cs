@@ -11,8 +11,9 @@ namespace Common.UI.UIAnimations
         [SerializeField] private string postText;
         [SerializeField] private TextMeshProUGUI _targetText;
 
-        public void ChangeTargetValue(int targetValue)
+        public void ChangeTargetValue(int startValue, int targetValue)
         {
+            _startValue = startValue;
             _targetValue = targetValue;
         }
         protected override void EvaluateAnimation(float strength)

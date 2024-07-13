@@ -18,7 +18,7 @@ public class EndOfTheGame : MonoBehaviour
     public void Win(int reward)
     {
         winTextAnimation.enabled = true;
-        winTextAnimation.ChangeTargetValue(reward);
+        winTextAnimation.ChangeTargetValue(0, reward);
         AdButton.Show();
     }
     public void Lose()

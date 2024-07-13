@@ -3550,6 +3550,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8339246618823499579, guid: 99a5604339f60b045b418c067c04ead0, type: 3}
+      propertyPath: AdButton
+      value: 
+      objectReference: {fileID: 494347961}
+    - target: {fileID: 8339246618823499579, guid: 99a5604339f60b045b418c067c04ead0, type: 3}
       propertyPath: _adButton
       value: 
       objectReference: {fileID: 494347961}
