@@ -89,7 +89,12 @@ namespace Gameplay
 
         private Level SetUpLevel()
         {
-            var level = Instantiate(_sceneContext.Get<LevelsDatabase>().GetLevel(_sceneContext.Get<IPlayerData>().SelectedLevel));
+            string selectedLevelId = _sceneContext.Get<IPlayerData>().SelectedLevel;
+
+            if (string.Equals(selectedLevelId, string.Empty))
+                selectedLevelId = _sceneContext.Get<LevelsDatabase>().GetFirstLevel();
+
+            var level = Instantiate(_sceneContext.Get<LevelsDatabase>().GetLevel(selectedLevelId));
             level.transform.position = Vector3.zero;
 
             foreach(Garage garage in level.Garages.ToArray())
