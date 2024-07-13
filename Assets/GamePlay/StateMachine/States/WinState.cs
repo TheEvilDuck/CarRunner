@@ -1,9 +1,8 @@
-using Common;
 using Common.Data;
+using Common.Data.Rewards;
 using Common.States;
 using DI;
 using Levels;
-using UnityEngine;
 
 namespace Gameplay.States
 {
@@ -18,25 +17,14 @@ namespace Gameplay.States
             base.OnEnter();
 
             var playerData = _sceneContext.Get<IPlayerData>();
-            var levelDatabase = _sceneContext.Get<LevelsDatabase>();
             var timer = _sceneContext.Get<Timer>();
+            var rewardProvider = _sceneContext.Get<RewardProvider>();
+
             playerData.AddPassedLevel(playerData.SelectedLevel);
 
-            var nextLevelId = levelDatabase.GetNextLevelId(playerData.SelectedLevel);
-            int nextLevelCost = levelDatabase.GetLevelCost(nextLevelId);
-            var level = levelDatabase.GetLevel(playerData.SelectedLevel);
-            float startTime = level.StartTimer;
-            float sumOfTimerGates = 0;
-            float rewardDivider = levelDatabase.GetLevelRewardDivider(playerData.SelectedLevel);
-
-            foreach (var timerGate in level.TimerGates)
-                if (timerGate.Time > 0)
-                    sumOfTimerGates += timerGate.Time;
-            
-            int coins = Mathf.CeilToInt(nextLevelCost * (timer.CurrentTime / (startTime + sumOfTimerGates)) * rewardDivider);
-            playerData.AddCoins(coins);
-
-            _sceneContext.Get<EndOfTheGame>().Win(coins);
+            int coinsReward = rewardProvider.GetLevelCompletionReward(timer.CurrentTime, playerData, _sceneContext.Get<LevelsDatabase>());
+            playerData.AddCoins(coinsReward);
+            _sceneContext.Get<EndOfTheGame>().Win(coinsReward);
         }
     }
 }

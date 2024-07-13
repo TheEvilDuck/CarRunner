@@ -1,6 +1,7 @@
 using System.Collections;
 using Common;
 using Common.Data;
+using Common.Data.Rewards;
 using Common.Sound;
 using DI;
 using Levels;
@@ -35,6 +36,7 @@ namespace EntryPoint
             _projectContext.Register(() => SetupPlayerData());
             _projectContext.Register(() => SetupInput());
             _projectContext.Register(() => SetupSoundController());
+            _projectContext.Register(() => new RewardProvider());
             
             _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
             Object.DontDestroyOnLoad(_coroutines.gameObject);
