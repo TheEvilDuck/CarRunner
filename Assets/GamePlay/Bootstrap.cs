@@ -177,6 +177,7 @@ namespace Gameplay
             var pauseMenuMediator = new PauseMenuMediator(_sceneContext);
             var settingMediator = new SettingsMediator(_sceneContext);
             var carFallingMediator = new CarFallingMediator(_sceneContext);
+            var adButtonMediator = new AdButtonMediator(_sceneContext);
 
             _disposables.Add(timerMediator);
             _disposables.Add(carControllerMediator);
@@ -187,6 +188,7 @@ namespace Gameplay
             _disposables.Add(pauseMenuMediator);
             _disposables.Add(settingMediator);
             _disposables.Add(carFallingMediator);
+            _disposables.Add(adButtonMediator);
         }
 
         private void SetUpCamera()
