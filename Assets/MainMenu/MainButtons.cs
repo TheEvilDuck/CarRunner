@@ -11,11 +11,13 @@ namespace MainMenu
         [SerializeField] private Button _play;
         [SerializeField] private Button _exit;
         [SerializeField] private Button _settings;
+        [SerializeField] private Button _shop;
         [SerializeField] private UIAnimatorSequence _uIAnimatorSequence;
 
         public UnityEvent PlayClickedEvent => _play.onClick;
         public UnityEvent ExitClickedEvent => _exit.onClick;
         public UnityEvent SettingsClickedEvent => _settings.onClick;
+        public UnityEvent ShopClicked => _shop.onClick;
 
         public void Hide() => gameObject.SetActive(false);
 

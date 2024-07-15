@@ -25,12 +25,14 @@ namespace MainMenu
             _mainMenuView.MainButtons.ExitClickedEvent.AddListener(OnExitPressed);
             _mainMenuView.LevelSelector.levelSelected += OnLevelSelected;
             _mainMenuView.LevelSelector.buyLevelPressed += OnBuyLevelButtonPressed;
+            _notEnoughMoneyPopup.yesClicked += OnYesNotEnoughMoneyPopupPressed;
         }
         public void Dispose()
         {
             _mainMenuView.MainButtons.ExitClickedEvent.RemoveListener(OnExitPressed);
             _mainMenuView.LevelSelector.levelSelected -= OnLevelSelected;
             _mainMenuView.LevelSelector.buyLevelPressed -= OnBuyLevelButtonPressed;
+            _notEnoughMoneyPopup.yesClicked -= OnYesNotEnoughMoneyPopupPressed;
         }
 
         private void OnExitPressed() => Application.Quit();
@@ -52,6 +54,8 @@ namespace MainMenu
             _notEnoughMoneyPopup.Show();
             return false;
         }
+
+        private void OnYesNotEnoughMoneyPopupPressed() => _mainMenuView.ShowShopMenu();
     }
 }
 
