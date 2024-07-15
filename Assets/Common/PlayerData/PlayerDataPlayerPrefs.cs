@@ -9,6 +9,8 @@ namespace Common.Data
         private const string PREFS_SELECTED_LEVEL = "PLAYERPREFS_SELECTED_LEVEL";
         private const string PREFS_PROGRESS_OF_LEVELS = "PLAYERPREFS_PROGRESS_OF_LEVELS";
         private const string PREFS_COINS = "PLAYEPREFS_COINS";
+        private const string PREFS_WATCH_AD_LAST_DAY = "PLAYERPREFS_WATCH_AD_LAST_DAY";
+        private const string PREFS_WATCH_AD_LAST_TIME = "PLAYERPREFS_WATCH_AD_LAST_TIME";
         private const int COINS_DEFAULT_VALUE = 1000;
 
         public event Action<int> coinsChanged;
@@ -21,6 +23,22 @@ namespace Common.Data
         public string SelectedLevel => PlayerPrefs.GetString(PREFS_SELECTED_LEVEL);
 
         public int Coins => PlayerPrefs.GetInt(PREFS_COINS, COINS_DEFAULT_VALUE);
+        public DateTime WatchShopAdLastTime
+        {
+            get
+            {
+                int day = DateTime.Now.Day;
+                TimeSpan timeSpan = DateTime.Now.TimeOfDay;
+
+                if (DateTime.TryParse(PlayerPrefs.GetString(PREFS_WATCH_AD_LAST_DAY), out DateTime resultDay))
+                    day = resultDay.Day;
+
+                if (DateTime.TryParse(PlayerPrefs.GetString(PREFS_WATCH_AD_LAST_TIME), out DateTime resultTime))
+                    timeSpan = resultDay.TimeOfDay;
+
+                return new DateTime(DateTime.Now.Year, DateTime.Now.Month, day, timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+            }
+        }
 
         public void SaveSelectedLevel(string levelId) => PlayerPrefs.SetString(PREFS_SELECTED_LEVEL, levelId);
 
@@ -88,6 +106,12 @@ namespace Common.Data
             PlayerPrefs.SetInt(PREFS_COINS, Coins - coins);
             coinsChanged?.Invoke(Coins);
             return true;
+        }
+
+        public void SaveWatchAdLastTime()
+        {
+            PlayerPrefs.SetString(PREFS_WATCH_AD_LAST_TIME, DateTime.Now.ToLongTimeString());
+            PlayerPrefs.SetString(PREFS_WATCH_AD_LAST_DAY, DateTime.Now.ToLongDateString());
         }
 
         [Serializable]

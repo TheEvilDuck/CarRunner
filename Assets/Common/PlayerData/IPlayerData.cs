@@ -9,6 +9,7 @@ namespace Common.Data
         public IEnumerable<string> PassedLevels {get;}
         public string SelectedLevel {get;}
         public int Coins {get;}
+        public DateTime WatchShopAdLastTime {get;}
         public event Action<int> coinsChanged;
         public void SaveSelectedLevel(string levelId);
         public void AddPassedLevel(string levelId);

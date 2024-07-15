@@ -1,6 +1,6 @@
 using Common.MenuParent;
 using MainMenu.LevelSelection;
-using MainMenu.Shop;
+using MainMenu.Shop.View;
 using UnityEngine;
 
 namespace MainMenu

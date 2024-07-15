@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace MainMenu.Shop
+namespace MainMenu.Shop.View
 {
     public class ShopView : MonoBehaviour, IMenuParent
     {
