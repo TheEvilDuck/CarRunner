@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.MenuParent;
 using Common.UI.UIAnimations;
 using Levels;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 
 namespace MainMenu.LevelSelection
 {
-    public class LevelSelector: MonoBehaviour
+    public class LevelSelector: MonoBehaviour, IMenuParent
     {
         [SerializeField] private LevelsDatabase _levels;
         [SerializeField] private LevelButton _levelButtonPrefab;
@@ -85,13 +86,17 @@ namespace MainMenu.LevelSelection
                     buttonAndLevelId.Key.Unlock();
             }
         }
-
-        private void OnEnable() 
+        public void Show()
         {
+            gameObject.SetActive(true);
             _uIAnimatorSequence.StartSequence();
             _levelPlayButton.Hide();
         }
 
-        private void OnDisable() => _levelPlayButton.Hide();
+        public void Hide()
+        {
+            _levelPlayButton.Hide();
+            gameObject.SetActive(false);
+        }
     }
 }

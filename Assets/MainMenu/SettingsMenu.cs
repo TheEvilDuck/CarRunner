@@ -1,4 +1,5 @@
 using Common;
+using Common.MenuParent;
 using Common.UI.UIAnimations;
 using UnityEngine;
 using UnityEngine.Events;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 
 namespace MainMenu
 {
-    public class SettingsMenu : MonoBehaviour
+    public class SettingsMenu : MonoBehaviour, IMenuParent
     {
         [SerializeField] private Button _backButton;
         [SerializeField] private Slider _masterVolume;
@@ -21,11 +22,6 @@ namespace MainMenu
         public UnityEvent<float> SFXSoundVolumeChanged => _SFXSoundsVolume.onValueChanged;
         public UnityEvent<bool> MuteChanged => _toggleMute.onValueChanged;
 
-        private void OnEnable() 
-        {
-            _uIAnimatorSequence.StartSequence();
-        }
-
         public void Init(GameSettings gameSettings)
         {
             _toggleMute.isOn = gameSettings.Muted;
@@ -33,5 +29,13 @@ namespace MainMenu
             _backgroundMusicVolume.value = gameSettings.BackgroundMusicVolume;
             _SFXSoundsVolume.value = gameSettings.SFXSoundVolume;
         }
+
+        public void Show()
+        {
+            gameObject.SetActive(true);
+            _uIAnimatorSequence.StartSequence();
+        }
+
+        public void Hide() => gameObject.SetActive(false);
     }
 }

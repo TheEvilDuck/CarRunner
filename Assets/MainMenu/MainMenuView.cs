@@ -1,3 +1,4 @@
+using Common.MenuParent;
 using MainMenu.LevelSelection;
 using UnityEngine;
 
@@ -9,8 +10,14 @@ namespace MainMenu
         [field: SerializeField] public LevelSelector LevelSelector {get; private set;}
         [field: SerializeField] public SettingsMenu SettingsMenu { get; private set;}
 
+        private MenuParentsManager _menuParentsManager;
+
         private void Awake() 
         {
+            _menuParentsManager = new MenuParentsManager();
+            _menuParentsManager.Add(MainButtons);
+            _menuParentsManager.Add(LevelSelector);
+            _menuParentsManager.Add(SettingsMenu);
             ShowMainButtons();
         }
 
@@ -30,24 +37,11 @@ namespace MainMenu
             SettingsMenu.BackPressed.RemoveListener(ShowMainButtons);
         }
 
-        private void ShowMainButtons()
-        {
-            MainButtons.gameObject.SetActive(true);
-            LevelSelector.gameObject.SetActive(false);
-            SettingsMenu.gameObject.SetActive(false);
-        }
+        private void ShowMainButtons() => _menuParentsManager.Show(MainButtons);
 
-        private void ShowLevelSelector()
-        {
-            MainButtons.gameObject.SetActive(false);
-            LevelSelector.gameObject.SetActive(true);
-        }
+        private void ShowLevelSelector() => _menuParentsManager.Show(LevelSelector);
 
-        private void ShowSettingsMenu()
-        {
-            MainButtons.gameObject.SetActive(false);
-            SettingsMenu.gameObject.SetActive(true);
-        }
+        private void ShowSettingsMenu() => _menuParentsManager.Show(SettingsMenu);
     }
 }
 

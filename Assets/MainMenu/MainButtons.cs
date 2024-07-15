@@ -1,3 +1,4 @@
+using Common.MenuParent;
 using Common.UI.UIAnimations;
 using UnityEngine;
 using UnityEngine.Events;
@@ -5,7 +6,7 @@ using UnityEngine.UI;
 
 namespace MainMenu
 {
-    public class MainButtons : MonoBehaviour
+    public class MainButtons : MonoBehaviour, IMenuParent
     {
         [SerializeField] private Button _play;
         [SerializeField] private Button _exit;
@@ -16,8 +17,11 @@ namespace MainMenu
         public UnityEvent ExitClickedEvent => _exit.onClick;
         public UnityEvent SettingsClickedEvent => _settings.onClick;
 
-        private void OnEnable() 
+        public void Hide() => gameObject.SetActive(false);
+
+        public void Show()
         {
+            gameObject.SetActive(true);
             _uIAnimatorSequence.StartSequence();
         }
     }
