@@ -1,4 +1,5 @@
 using System;
+using DI;
 using MainMenu.Shop.Logic;
 using TMPro;
 using UnityEngine;

@@ -710,10 +710,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainMenuView: {fileID: 736221725}
-  _settingsMenu: {fileID: 2127041310}
-  _levelSelector: {fileID: 500198842}
   _notEnoughMoneyPopup: {fileID: 973797853}
   _coinsView: {fileID: 2043815410}
+  _shopItemFactory: {fileID: 11400000, guid: 134b9b58be4fe1e45929a412baa0a458, type: 2}
 --- !u!4 &299233233
 Transform:
   m_ObjectHideFlags: 0
@@ -3776,6 +3775,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _backButton: {fileID: 505017575}
   _animations: {fileID: 1857840229}
+  _shopItemViewContent: {fileID: 1133199126}
 --- !u!114 &1857840229
 MonoBehaviour:
   m_ObjectHideFlags: 0

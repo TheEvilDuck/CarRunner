@@ -14,7 +14,7 @@ namespace MainMenu
 
         private MenuParentsManager _menuParentsManager;
 
-        private void Awake() 
+        public void Init()
         {
             _menuParentsManager = new MenuParentsManager();
             _menuParentsManager.Add(MainButtons);

@@ -12,6 +12,7 @@ namespace Common.Data
         public DateTime WatchShopAdLastTime {get;}
         public event Action<int> coinsChanged;
         public void SaveSelectedLevel(string levelId);
+        public void SaveWatchAdLastTime();
         public void AddPassedLevel(string levelId);
         public void AddAvailableLevel(string levelId);
         public bool LoadProgressOfLevels();

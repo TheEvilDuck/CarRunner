@@ -1,3 +1,4 @@
+using DI;
 using MainMenu.Shop.Logic;
 using UnityEngine;
 using UnityEngine.Events;

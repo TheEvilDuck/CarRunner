@@ -9,8 +9,7 @@ namespace Common.Data
         private const string PREFS_SELECTED_LEVEL = "PLAYERPREFS_SELECTED_LEVEL";
         private const string PREFS_PROGRESS_OF_LEVELS = "PLAYERPREFS_PROGRESS_OF_LEVELS";
         private const string PREFS_COINS = "PLAYEPREFS_COINS";
-        private const string PREFS_WATCH_AD_LAST_DAY = "PLAYERPREFS_WATCH_AD_LAST_DAY";
-        private const string PREFS_WATCH_AD_LAST_TIME = "PLAYERPREFS_WATCH_AD_LAST_TIME";
+        private const string PREFS_WATCH_AD_LAST_DATE= "PLAYERPREFS_WATCH_AD_LAST_DATE";
         private const int COINS_DEFAULT_VALUE = 1000;
 
         public event Action<int> coinsChanged;
@@ -27,16 +26,9 @@ namespace Common.Data
         {
             get
             {
-                int day = DateTime.Now.Day;
-                TimeSpan timeSpan = DateTime.Now.TimeOfDay;
-
-                if (DateTime.TryParse(PlayerPrefs.GetString(PREFS_WATCH_AD_LAST_DAY), out DateTime resultDay))
-                    day = resultDay.Day;
-
-                if (DateTime.TryParse(PlayerPrefs.GetString(PREFS_WATCH_AD_LAST_TIME), out DateTime resultTime))
-                    timeSpan = resultDay.TimeOfDay;
-
-                return new DateTime(DateTime.Now.Year, DateTime.Now.Month, day, timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+                var dateTimeString = PlayerPrefs.GetString(PREFS_WATCH_AD_LAST_DATE, DateTime.MinValue.ToString());
+                var dateTime = DateTime.Parse(dateTimeString);
+                return dateTime;
             }
         }
 
@@ -110,8 +102,7 @@ namespace Common.Data
 
         public void SaveWatchAdLastTime()
         {
-            PlayerPrefs.SetString(PREFS_WATCH_AD_LAST_TIME, DateTime.Now.ToLongTimeString());
-            PlayerPrefs.SetString(PREFS_WATCH_AD_LAST_DAY, DateTime.Now.ToLongDateString());
+            PlayerPrefs.SetString(PREFS_WATCH_AD_LAST_DATE, DateTime.Now.ToString());
         }
 
         [Serializable]
