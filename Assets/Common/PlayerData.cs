@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Common
 {
-    public class PlayerData
+    public class PlayerData : IPlayerData
     {
         private const string PREFS_SELECTED_LEVEL = "PLAYERPREFS_SELECTED_LEVEL";
         private const string PREFS_PROGRESS_OF_LEVELS = "PLAYERPREFS_PROGRESS_OF_LEVELS";
@@ -14,7 +14,14 @@ namespace Common
         public IEnumerable<string> AvailableLevels => _progressOfLvls.AvailableLevels;
         public IEnumerable<string> PassedLevels => _progressOfLvls.PassedLevels;
 
+        private void SaveProgressOfLevels()
+        {
+            string progressOfLevels = JsonUtility.ToJson(_progressOfLvls);
+            PlayerPrefs.SetString(PREFS_PROGRESS_OF_LEVELS, progressOfLevels);
+        }
+
         public string SelectedLevel => PlayerPrefs.GetString(PREFS_SELECTED_LEVEL);
+
         public void SaveSelectedLevel(string levelId) => PlayerPrefs.SetString(PREFS_SELECTED_LEVEL, levelId);
 
         public void AddPassedLevel(string levelId)
@@ -37,12 +44,6 @@ namespace Common
                 _progressOfLvls.AvailableLevels.Add(levelId);
                 SaveProgressOfLevels();
             }
-        }
-
-        private void SaveProgressOfLevels()
-        {
-            string progressOfLevels = JsonUtility.ToJson(_progressOfLvls);
-            PlayerPrefs.SetString(PREFS_PROGRESS_OF_LEVELS, progressOfLevels);
         }
 
         public bool LoadProgressOfLevels()

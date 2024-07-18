@@ -43,7 +43,7 @@ namespace MainMenu
             _mainMenuMediator = new MainMenuMediator(_sceneContext);
             _settingsMediator = new SettingsMediator(_sceneContext);
 
-            PlayerData playerData = _sceneContext.Get<PlayerData>();
+            IPlayerData playerData = _sceneContext.Get<IPlayerData>();
 
             _levelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels);
         }

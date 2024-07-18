@@ -6,6 +6,7 @@ using Levels;
 using Services.PlayerInput;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using YG;
 
 namespace EntryPoint
 {
@@ -31,18 +32,25 @@ namespace EntryPoint
 
             _projectContext.Register(() => Resources.Load<LevelsDatabase>(LEVEL_DATABASE_PATH));
             _projectContext.Register(() => new GameSettings());
-            _projectContext.Register(() => SetupPlayerData());
-            _projectContext.Register(() => SetupInput());
             _projectContext.Register(() => SetupSoundController());
-            
+
             _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
             Object.DontDestroyOnLoad(_coroutines.gameObject);
 
             Application.quitting += OnApplicationQuit;
-            
-            _coroutines.StartCoroutine(SceneSetup());
 
             SceneManager.activeSceneChanged += OnSceneChanged;
+
+            YandexGame.GetDataEvent += PluginYGInit;
+        }
+
+        private void PluginYGInit()
+        {
+            _projectContext.Register(() => SetupPlayerData());
+            _projectContext.Register(() => SetupInput());
+            _coroutines.StartCoroutine(SceneSetup());
+            YandexGame.GameReadyAPI();
+            YandexGame.GetDataEvent -= PluginYGInit;
         }
 
         private void OnSceneChanged(Scene previousScene, Scene nextScene)
@@ -77,28 +85,38 @@ namespace EntryPoint
         {
             IPlayerInput playerInput;
 
-            #if !UNITY_EDITOR
-                if (SystemInfo.deviceType== DeviceType.Desktop)
-                    playerInput = new DesktopInput();
-                else if (SystemInfo.deviceType == DeviceType.Handheld)
-                    playerInput = new MobileInput(Resources.Load<RectTransform>(BRAKE_BUTTON_RESOURCES_PATH));
-            #endif
-
-            #if UNITY_EDITOR
+#if UNITY_WEBGL
+            if (YandexGame.EnvironmentData.isDesktop)
                 playerInput = new DesktopInput();
-            #endif
+            else if (YandexGame.EnvironmentData.isMobile)
+                playerInput = new MobileInput(Resources.Load<RectTransform>(BRAKE_BUTTON_RESOURCES_PATH));
+#endif
+
+#if UNITY_STANDALONE_WIN
+            if (SystemInfo.deviceType == DeviceType.Desktop)
+                playerInput = new DesktopInput();
+            else if (SystemInfo.deviceType == DeviceType.Handheld)
+                playerInput = new MobileInput(Resources.Load<RectTransform>(BRAKE_BUTTON_RESOURCES_PATH));
+#endif
+
+#if UNITY_EDITOR
+            playerInput = new DesktopInput();
+#endif
 
             playerInput.Enable();
-            return playerInput;
-                    
+            return playerInput;  
         }
 
-        private PlayerData SetupPlayerData()
+        private IPlayerData SetupPlayerData()
         {
-            PlayerData playerData = new PlayerData();
+            IPlayerData playerData;
+            
+            if (YandexGame.SDKEnabled)
+                playerData = new YandexCloudPlayerData();
+            else
+                playerData = new PlayerData();
 
-            if (!playerData.LoadProgressOfLevels())
-                playerData.AddAvailableLevel(_projectContext.Get<LevelsDatabase>().GetFirstLevel());
+            playerData.AddAvailableLevel(_projectContext.Get<LevelsDatabase>().GetFirstLevel());
 
             return playerData;
         }

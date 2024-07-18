@@ -1,0 +1,14 @@
+{
+    "idSave": 6,
+    "isFirstSession": false,
+    "language": "en",
+    "promptDone": false,
+    "AvailableLevels": [
+        "test plane",
+        "new road test"
+    ],
+    "PassedLevels": [
+        "test plane"
+    ],
+    "SelectedLevel": "new road test"
+}

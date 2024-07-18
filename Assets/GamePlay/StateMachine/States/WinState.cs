@@ -16,7 +16,7 @@ namespace Gameplay.States
             base.OnEnter();
             _sceneContext.Get<EndOfTheGame>().Win();
 
-            var playerData = _sceneContext.Get<PlayerData>();
+            var playerData = _sceneContext.Get<IPlayerData>();
             string nextLevelId = _sceneContext.Get<LevelsDatabase>().GetNextLevelId(playerData.SelectedLevel);
             playerData.AddAvailableLevel(nextLevelId);
             playerData.AddPassedLevel(playerData.SelectedLevel);

@@ -67,6 +67,8 @@ namespace Gameplay
             SetUpMediators();
             SetUpCamera();
             SetUpUI();
+
+            //ShowAd()
         }
 
         private void Update() 
@@ -88,7 +90,7 @@ namespace Gameplay
 
         private Level SetUpLevel()
         {
-            var level = Instantiate(_sceneContext.Get<LevelsDatabase>().GetLevel(_sceneContext.Get<PlayerData>().SelectedLevel));
+            var level = Instantiate(_sceneContext.Get<LevelsDatabase>().GetLevel(_sceneContext.Get<IPlayerData>().SelectedLevel));
             level.transform.position = Vector3.zero;
 
             foreach(Garage garage in level.Garages.ToArray())
