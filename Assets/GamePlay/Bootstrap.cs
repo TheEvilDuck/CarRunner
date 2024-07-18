@@ -18,6 +18,8 @@ using Gameplay.CarFallingHandling;
 using EntryPoint;
 using Common.Mediators;
 using Common.Data;
+using YG;
+using UnityEngine.UI;
 
 namespace Gameplay
 {
@@ -34,6 +36,7 @@ namespace Gameplay
         [SerializeField] private PauseMenu _pauseMenu;
         [SerializeField] private SettingsMenu _settingsMenu;
         [SerializeField] private LayerMask _groundCheckLayer;
+        [SerializeField] private Image _anticlicker;
         private List<IDisposable> _disposables;
 
         private void Start() 
@@ -63,13 +66,14 @@ namespace Gameplay
             _sceneContext.Register(_pauseButton);
             _sceneContext.Register(_pauseMenu);
             _sceneContext.Register(_pauseMenuButtons);
+            _sceneContext.Register(_anticlicker);
 
             SetUpCarSwitcher();
             SetUpMediators();
             SetUpCamera();
             SetUpUI();
 
-            //ShowAd()
+            ShowAd();
         }
 
         private void Update() 
@@ -166,8 +170,6 @@ namespace Gameplay
             return pauseManager;
         }
 
-        
-
         private void SetUpMediators()
         {
             var timerMediator = new TimerMediator(_sceneContext);
@@ -180,6 +182,7 @@ namespace Gameplay
             var settingMediator = new SettingsMediator(_sceneContext);
             var carFallingMediator = new CarFallingMediator(_sceneContext);
             var adButtonMediator = new AdButtonMediator(_sceneContext);
+            var fullscreenAdMediator = new FullscreenAdMediator(_sceneContext);
 
             _disposables.Add(timerMediator);
             _disposables.Add(carControllerMediator);
@@ -191,6 +194,7 @@ namespace Gameplay
             _disposables.Add(settingMediator);
             _disposables.Add(carFallingMediator);
             _disposables.Add(adButtonMediator);
+            _disposables.Add(fullscreenAdMediator);
         }
 
         private void SetUpCamera()
@@ -199,5 +203,7 @@ namespace Gameplay
             _cameraFollow.transform.position = car.transform.position;
             _cameraFollow.SetTarget(car.transform);
         }
+        
+        private void ShowAd() => YandexGame.FullscreenShow();
     }
 }

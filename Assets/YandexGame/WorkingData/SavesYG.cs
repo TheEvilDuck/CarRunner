@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace YG
@@ -22,6 +23,8 @@ namespace YG
         public List<string> AvailableLevels = new List<string>();
         public List<string> PassedLevels = new List<string>();
         public string SelectedLevel;
+        public int Coins = 1000;
+        public DateTime WatchShopAdLastTime = DateTime.Now;
         // ...
 
         // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны

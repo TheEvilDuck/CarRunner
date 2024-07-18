@@ -1,14 +1,18 @@
 {
-    "idSave": 6,
+    "idSave": 23,
     "isFirstSession": false,
     "language": "en",
     "promptDone": false,
     "AvailableLevels": [
         "test plane",
-        "new road test"
+        "new road test",
+        "Lvl3",
+        "Lvl4"
     ],
     "PassedLevels": [
-        "test plane"
+        "test plane",
+        "Lvl3"
     ],
-    "SelectedLevel": "new road test"
+    "SelectedLevel": "Lvl3",
+    "Coins": 25143
 }

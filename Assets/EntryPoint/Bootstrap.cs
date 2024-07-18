@@ -111,14 +111,13 @@ namespace EntryPoint
         }
 
         private IPlayerData SetupPlayerData()
-        private IPlayerData SetupPlayerData()
         {
             IPlayerData playerData;
             
             if (YandexGame.SDKEnabled)
                 playerData = new YandexCloudPlayerData();
             else
-                playerData = new PlayerData();
+                playerData = new PlayerDataPlayerPrefs();
 
             playerData.AddAvailableLevel(_projectContext.Get<LevelsDatabase>().GetFirstLevel());
 

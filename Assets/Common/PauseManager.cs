@@ -24,9 +24,12 @@ namespace Common
 
         public void Pause()
         {
-            foreach (IPausable pausable in _pausables)
+            if (Paused == false)
             {
-                pausable.Pause();
+                foreach (IPausable pausable in _pausables)
+                {
+                    pausable.Pause();
+                }
             }
 
             Paused = true;
@@ -34,9 +37,12 @@ namespace Common
 
         public void Resume()
         {
-            foreach (IPausable pausable in _pausables)
+            if(Paused == true)
             {
-                pausable.Resume();
+                foreach (IPausable pausable in _pausables)
+                {
+                    pausable.Resume();
+                }
             }
 
             Paused = false;
