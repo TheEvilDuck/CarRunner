@@ -2,15 +2,20 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Common
+namespace Common.Data
 {
-    public class PlayerData : IPlayerData
+    public class PlayerDataPlayerPrefs: IPlayerData
     {
         private const string PREFS_SELECTED_LEVEL = "PLAYERPREFS_SELECTED_LEVEL";
         private const string PREFS_PROGRESS_OF_LEVELS = "PLAYERPREFS_PROGRESS_OF_LEVELS";
+        private const string PREFS_COINS = "PLAYEPREFS_COINS";
+        private const string PREFS_WATCH_AD_LAST_DATE= "PLAYERPREFS_WATCH_AD_LAST_DATE";
+        private const int COINS_DEFAULT_VALUE = 1000;
+
+        public event Action<int> coinsChanged;
+
 
         private ProgressOfLevels _progressOfLvls;
-        
         public IEnumerable<string> AvailableLevels => _progressOfLvls.AvailableLevels;
         public IEnumerable<string> PassedLevels => _progressOfLvls.PassedLevels;
 
@@ -21,6 +26,17 @@ namespace Common
         }
 
         public string SelectedLevel => PlayerPrefs.GetString(PREFS_SELECTED_LEVEL);
+
+        public int Coins => PlayerPrefs.GetInt(PREFS_COINS, COINS_DEFAULT_VALUE);
+        public DateTime WatchShopAdLastTime
+        {
+            get
+            {
+                var dateTimeString = PlayerPrefs.GetString(PREFS_WATCH_AD_LAST_DATE, DateTime.MinValue.ToString());
+                var dateTime = DateTime.Parse(dateTimeString);
+                return dateTime;
+            }
+        }
 
         public void SaveSelectedLevel(string levelId) => PlayerPrefs.SetString(PREFS_SELECTED_LEVEL, levelId);
 
@@ -60,6 +76,33 @@ namespace Common
                 _progressOfLvls = new ProgressOfLevels();
                 return false;
             }
+        }
+
+        public void AddCoins(int coins)
+        {
+            if (coins <= 0)
+                throw new ArgumentOutOfRangeException($"Coins count must be positive, you passed {coins}");
+
+            PlayerPrefs.SetInt(PREFS_COINS, Coins + coins);
+            coinsChanged?.Invoke(Coins);
+        }
+
+        public bool SpendCoins(int coins)
+        {
+            if (coins <= 0)
+                throw new ArgumentOutOfRangeException($"Coins count must be positive, you passed {coins}");
+
+            if (coins > Coins)
+                return false;
+
+            PlayerPrefs.SetInt(PREFS_COINS, Coins - coins);
+            coinsChanged?.Invoke(Coins);
+            return true;
+        }
+
+        public void SaveWatchAdLastTime()
+        {
+            PlayerPrefs.SetString(PREFS_WATCH_AD_LAST_DATE, DateTime.Now.ToString());
         }
 
         [Serializable]

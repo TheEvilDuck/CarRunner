@@ -1,5 +1,7 @@
 using System.Collections;
 using Common;
+using Common.Data;
+using Common.Data.Rewards;
 using Common.Sound;
 using DI;
 using Levels;
@@ -33,7 +35,8 @@ namespace EntryPoint
             _projectContext.Register(() => Resources.Load<LevelsDatabase>(LEVEL_DATABASE_PATH));
             _projectContext.Register(() => new GameSettings());
             _projectContext.Register(() => SetupSoundController());
-
+            _projectContext.Register(() => new RewardProvider());
+            
             _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
             Object.DontDestroyOnLoad(_coroutines.gameObject);
 
@@ -107,6 +110,7 @@ namespace EntryPoint
             return playerInput;  
         }
 
+        private IPlayerData SetupPlayerData()
         private IPlayerData SetupPlayerData()
         {
             IPlayerData playerData;

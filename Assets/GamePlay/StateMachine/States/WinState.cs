@@ -1,4 +1,5 @@
-using Common;
+using Common.Data;
+using Common.Data.Rewards;
 using Common.States;
 using DI;
 using Levels;
@@ -14,12 +15,16 @@ namespace Gameplay.States
         protected override void OnEnter()
         {
             base.OnEnter();
-            _sceneContext.Get<EndOfTheGame>().Win();
 
             var playerData = _sceneContext.Get<IPlayerData>();
-            string nextLevelId = _sceneContext.Get<LevelsDatabase>().GetNextLevelId(playerData.SelectedLevel);
-            playerData.AddAvailableLevel(nextLevelId);
+            var timer = _sceneContext.Get<Timer>();
+            var rewardProvider = _sceneContext.Get<RewardProvider>();
+
             playerData.AddPassedLevel(playerData.SelectedLevel);
+
+            int coinsReward = rewardProvider.GetLevelCompletionReward(timer.CurrentTime, playerData, _sceneContext.Get<LevelsDatabase>());
+            playerData.AddCoins(coinsReward);
+            _sceneContext.Get<EndOfTheGame>().Win(coinsReward);
         }
     }
 }

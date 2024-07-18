@@ -1,5 +1,4 @@
 using System;
-using Gameplay.UI;
 using UnityEngine;
 
 namespace Gameplay.TimerGates
@@ -9,6 +8,8 @@ namespace Gameplay.TimerGates
     {
         [SerializeField]private float _time;
         [SerializeField]private TimerGateView _view;
+
+        public float Time => _time;
         public event Action<float> passed;
 
         private void Awake() 
