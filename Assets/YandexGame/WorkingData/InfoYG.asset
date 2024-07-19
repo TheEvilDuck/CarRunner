@@ -26,8 +26,8 @@ MonoBehaviour:
   showFirstAd: 0
   rewardedAfterClosing: 0
   adDisplayCalls: 0
-  fullscreenAdInterval: 60
-  durationOfAdSimulation: 0.5
+  fullscreenAdInterval: 5
+  durationOfAdSimulation: 2
   loadAdWithDelaySimulation: 0
   testErrorOfRewardedAdsInEditor: 0
   saveCloud: 1
@@ -181,8 +181,8 @@ MonoBehaviour:
       rank: 2
       score: 10
   LocalizationEnable: 1
-  callingLanguageCheck: 1
-  translateMethod: 0
+  callingLanguageCheck: 0
+  translateMethod: 1
   domainAutoLocalization: com
   CSVFileTranslate:
     format: 0

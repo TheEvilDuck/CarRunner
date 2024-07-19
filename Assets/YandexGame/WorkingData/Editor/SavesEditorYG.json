@@ -1,7 +1,7 @@
 {
-    "idSave": 23,
+    "idSave": 48,
     "isFirstSession": false,
-    "language": "en",
+    "language": "ru",
     "promptDone": false,
     "AvailableLevels": [
         "test plane",
@@ -13,6 +13,6 @@
         "test plane",
         "Lvl3"
     ],
-    "SelectedLevel": "Lvl3",
-    "Coins": 25143
+    "SelectedLevel": "new road test",
+    "Coins": 25393
 }

@@ -9,6 +9,7 @@ using Services.PlayerInput;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
+using YG.Utils.LB;
 
 namespace EntryPoint
 {
@@ -51,8 +52,10 @@ namespace EntryPoint
         {
             _projectContext.Register(() => SetupPlayerData());
             _projectContext.Register(() => SetupInput());
+            _projectContext.Register(new YandexGameLocalization());
             _coroutines.StartCoroutine(SceneSetup());
             YandexGame.GameReadyAPI();
+            _projectContext.Get<YandexGameLocalization>().SetupYGLocalization();
             YandexGame.GetDataEvent -= PluginYGInit;
         }
 
