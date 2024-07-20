@@ -477,11 +477,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7eff409e612f8b419acb74f7a08da02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &251118865 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6014306361714842569, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
-  m_PrefabInstance: {fileID: 361995265}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &251118866 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 864748434025415863, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
@@ -492,7 +487,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1543487297009740851, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
   m_PrefabInstance: {fileID: 361995265}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 251118865}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47504bc4cd5607b4f89d1eee5a9de9a1, type: 3}
@@ -759,7 +754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6014306361714842569, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6200195981524763410, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
       propertyPath: _animations.Array.data[2].delay
@@ -795,11 +790,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7997209041635103983, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8014487263261707320, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8487646057270194554, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
       propertyPath: _animationTime
@@ -811,7 +806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9193778654459091133, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2290,13 +2285,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1708280403}
   - component: {fileID: 1708280404}
+  - component: {fileID: 1708280405}
   m_Layer: 5
   m_Name: MainButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1708280403
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2356,17 +2352,21 @@ MonoBehaviour:
   - animator: {fileID: 83496582586551457}
     delay: 0
     nextAnimationWait: 0
---- !u!114 &1716540088 stripped
+--- !u!114 &1708280405
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5375586714014027533, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
-  m_PrefabInstance: {fileID: 361995265}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1708280402}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e72ff3f53d836e48b363747567a350f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _resumeButton: {fileID: 1457493165}
+  _settingsButton: {fileID: 1424877530}
+  _uIAnimatorSequence: {fileID: 1708280404}
 --- !u!1 &1728166208
 GameObject:
   m_ObjectHideFlags: 0
@@ -2597,7 +2597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1921629912
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2630,13 +2630,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79a3b49ddf6bc24ab1324dca0c39d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resumeButton: {fileID: 1457493165}
-  _settingsButton: {fileID: 1424877530}
-  _backButton: {fileID: 1716540088}
-  _mainButtonsMenu: {fileID: 1708280402}
-  _settingsMenu: {fileID: 251118865}
-  _uIanimatorSequenceButtons: {fileID: 1708280404}
-  _uIanimatorSequenceMenu: {fileID: 1921629914}
+  _mainButtonsMenu: {fileID: 1708280405}
+  _settingsMenu: {fileID: 251118867}
+  _uIAnimatorSequence: {fileID: 1921629914}
 --- !u!114 &1921629914
 MonoBehaviour:
   m_ObjectHideFlags: 0
