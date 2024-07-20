@@ -4,8 +4,7 @@ namespace Common
 {
     public class YandexGameLocalization
     {
-        //public string RequiredLanguage() => YandexGame.EnvironmentData.language;
-        public string RequiredLanguage() => "ru";
+        public string RequiredLanguage() => YandexGame.EnvironmentData.language;
 
         public void SwitchLanguage(string language) => YandexGame.SwitchLanguage(language);
 

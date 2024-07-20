@@ -24,6 +24,7 @@ namespace YG
         public List<string> PassedLevels = new List<string>();
         public string SelectedLevel;
         public int Coins = 1000;
+        public float RecordTime = 0;
         public DateTime WatchShopAdLastTime = DateTime.Now;
         // ...
 

@@ -7,6 +7,7 @@ using Levels;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using YG;
 
 namespace MainMenu.LevelSelection
 {
@@ -18,6 +19,7 @@ namespace MainMenu.LevelSelection
         [SerializeField] private Button _backButton;
         [SerializeField] private UIAnimatorSequence _uIAnimatorSequence;
         [SerializeField] private LevelPlayButton _levelPlayButton;
+        [SerializeField] private LeaderboardYG _leaderboardYG;
 
         public event Action<string> levelSelected;
         public event Func<string, bool> buyLevelPressed;
@@ -28,8 +30,11 @@ namespace MainMenu.LevelSelection
 
         public UnityEvent BackPressed => _backButton.onClick;
 
-        public void Init(IEnumerable<string> passedLevels, IEnumerable<string> availableLevels)
+        public void Init(IEnumerable<string> passedLevels, IEnumerable<string> availableLevels, string selectedLevelId, float recordTime)
         {
+            if(recordTime > 0)
+                YandexGame.NewLBScoreTimeConvert(selectedLevelId, recordTime);
+
             _buttons = new Dictionary<LevelButton, string>();
             _levelPlayButton.Hide();
 
@@ -42,6 +47,7 @@ namespace MainMenu.LevelSelection
                 button.Clicked.AddListener(() => 
                 {
                     _levelPlayButton.Show();
+                    _leaderboardYG.gameObject.SetActive(true);
 
                     _isReadyToPlay = availableLevels.Contains(levelId);
 
@@ -51,6 +57,9 @@ namespace MainMenu.LevelSelection
                         _levelPlayButton.ShowLocked(_levels.GetLevelCost(levelId));
 
                     _currentLevelId = levelId;
+
+                    _leaderboardYG.SetNameLB(_currentLevelId);
+                    _leaderboardYG.UpdateLB();
                 });
 
                 _uIAnimatorSequence.AddAnimation(button.PosittionAnimator, 0.1f, false);
@@ -91,11 +100,13 @@ namespace MainMenu.LevelSelection
             gameObject.SetActive(true);
             _uIAnimatorSequence.StartSequence();
             _levelPlayButton.Hide();
+            _leaderboardYG.gameObject.SetActive(false);
         }
 
         public void Hide()
         {
             _levelPlayButton.Hide();
+            _leaderboardYG.gameObject.SetActive(false);
             gameObject.SetActive(false);
         }
     }

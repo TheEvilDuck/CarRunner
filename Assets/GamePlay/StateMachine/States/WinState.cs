@@ -25,6 +25,8 @@ namespace Gameplay.States
             int coinsReward = rewardProvider.GetLevelCompletionReward(timer.CurrentTime, playerData, _sceneContext.Get<LevelsDatabase>());
             playerData.AddCoins(coinsReward);
             _sceneContext.Get<EndOfTheGame>().Win(coinsReward);
+
+            playerData.SaveRecordTime(timer.CurrentTime);
         }
     }
 }

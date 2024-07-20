@@ -1,6 +1,8 @@
 using Common;
 using System;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
+using UnityEngine;
 using YG;
 
 namespace Common.Data
@@ -10,15 +12,14 @@ namespace Common.Data
         private List<string> _availableLevels = YandexGame.savesData.AvailableLevels;
         private List<string> _passedLevels = YandexGame.savesData.PassedLevels;
 
+        public event Action<int> coinsChanged;
+
         public IEnumerable<string> AvailableLevels => _availableLevels;
         public IEnumerable<string> PassedLevels => _passedLevels;
         public string SelectedLevel => YandexGame.savesData.SelectedLevel;
-
         public int Coins => YandexGame.savesData.Coins;
-
         public DateTime WatchShopAdLastTime => YandexGame.savesData.WatchShopAdLastTime;
-
-        public event Action<int> coinsChanged;
+        public float RecordTime => YandexGame.savesData.RecordTime;
 
         public void AddAvailableLevel(string levelId)
         {
@@ -57,6 +58,13 @@ namespace Common.Data
         {
             YandexGame.savesData.SelectedLevel = levelId;
             YandexGame.SaveProgress();
+        }
+
+        public void SaveRecordTime(float time)
+        {
+            float currentRecord = YandexGame.savesData.RecordTime;
+            if (time > currentRecord)
+                YandexGame.savesData.RecordTime = time;
         }
 
         public void SaveWatchAdLastTime()
