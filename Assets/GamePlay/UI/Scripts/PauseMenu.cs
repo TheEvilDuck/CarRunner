@@ -1,51 +1,53 @@
+using Common.MenuParent;
 using Common.UI.UIAnimations;
+using MainMenu;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace Gameplay.UI
 {
     public class PauseMenu : MonoBehaviour
     {
-        [SerializeField] private Button _resumeButton;
-        [SerializeField] private Button _settingsButton;
-        [SerializeField] private Button _backButton;
-        [SerializeField] private GameObject _mainButtonsMenu;
-        [SerializeField] private GameObject _settingsMenu;
-        [SerializeField] private UIAnimatorSequence _uIanimatorSequenceButtons;
-        [SerializeField] private UIAnimatorSequence _uIanimatorSequenceMenu;
+        
+        [SerializeField] private PauseMainButtons _mainButtonsMenu;
+        [SerializeField] private SettingsMenu _settingsMenu;
+        [SerializeField] private UIAnimatorSequence _uIAnimatorSequence;
 
-        public UnityEvent ResumeButtonPressed => _resumeButton.onClick;
+        private MenuParentsManager _menuParentsManager;
+
+        public UnityEvent ResumeButtonPressed => _mainButtonsMenu.ResumeClicked;
+
+        private void Awake() 
+        {
+            _menuParentsManager = new MenuParentsManager();
+
+            _menuParentsManager.Add(_settingsMenu);
+            _menuParentsManager.Add(_mainButtonsMenu);
+            
+        }
 
         private void OnEnable() 
         {
-            _mainButtonsMenu.SetActive(true);
-            _uIanimatorSequenceMenu.StartSequence();
-            _uIanimatorSequenceButtons.StartSequence();
-            _backButton.onClick.AddListener(OnBackButtonPressed);
-            _settingsButton.onClick.AddListener(OnSettingsButtonPressed);
+            _settingsMenu.BackPressed.AddListener(OnBackButtonPressed);
+            _mainButtonsMenu.SettingsClicked.AddListener(OnSettingsButtonPressed);
         }
 
         private void OnDisable() 
         {
-            _backButton.onClick.RemoveListener(OnBackButtonPressed);
-            _settingsButton.onClick.RemoveListener(OnSettingsButtonPressed);
+            _settingsMenu.BackPressed.RemoveListener(OnBackButtonPressed);
+            _mainButtonsMenu.SettingsClicked.RemoveListener(OnSettingsButtonPressed);
         }
 
         public void Hide() => gameObject.SetActive(false);
-        public void Show() => gameObject.SetActive(true);
-
-        private void OnSettingsButtonPressed()
+        public void Show()
         {
-            _mainButtonsMenu.SetActive(false);
-            _settingsMenu.SetActive(true);
+            gameObject.SetActive(true);
+            _menuParentsManager.Show(_mainButtonsMenu);
+            _uIAnimatorSequence.StartSequence();
         }
 
-        private void OnBackButtonPressed()
-        {
-            _settingsMenu.SetActive(false);
-            _mainButtonsMenu.SetActive(true);
-            _uIanimatorSequenceButtons.StartSequence();
-        }
+        private void OnSettingsButtonPressed() => _menuParentsManager.Show(_settingsMenu);
+
+        private void OnBackButtonPressed() => _menuParentsManager.Show(_mainButtonsMenu);
     }
 }

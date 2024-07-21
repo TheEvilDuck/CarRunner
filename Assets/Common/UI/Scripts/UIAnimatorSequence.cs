@@ -57,7 +57,12 @@ namespace Common.UI.UIAnimations
             _currentAnimation ++;
 
             if (_currentAnimation < _animations.Count)
-                StartCoroutine(PlayAnimation());
+            {
+                if (_animations[_currentAnimation].animator.enabled)
+                    StartCoroutine(PlayAnimation());
+                else
+                    PlayNext();
+            }
         }
 
         [Serializable]
