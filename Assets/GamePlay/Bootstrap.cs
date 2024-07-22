@@ -39,13 +39,6 @@ namespace Gameplay
         [SerializeField] private Image _anticlicker;
         private List<IDisposable> _disposables;
 
-        private void Start() 
-        {
-            _settingsMenu.Init(_sceneContext.Get<GameSettings>());
-            var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
-            _disposables.Add(settingsAndSoundMediator);
-        }
-
         protected override void Setup()
         {
             _disposables = new List<IDisposable>();
@@ -74,10 +67,15 @@ namespace Gameplay
             SetUpUI();
 
             ShowAd();
+
+            _delayedStart += OnDelayedStart;
         }
 
         private void Update() 
         {
+            if (!_inited)
+                return;
+
             _sceneContext.Get<StateMachine>().Update();
             _sceneContext.Get<IPlayerInput>().Update();
             _sceneContext.Get<CarFalling>().Update();
@@ -91,6 +89,14 @@ namespace Gameplay
             _disposables.Clear();
 
             _sceneContext.Get<SoundController>().Stop(SoundID.BacgrondMusic);
+        }
+
+        private void OnDelayedStart()
+        {
+            _delayedStart -= OnDelayedStart;
+            _settingsMenu.Init(_sceneContext.Get<GameSettings>());
+            var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
+            _disposables.Add(settingsAndSoundMediator);
         }
 
         private Level SetUpLevel()
