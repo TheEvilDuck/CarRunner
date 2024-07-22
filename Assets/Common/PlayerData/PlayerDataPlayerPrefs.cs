@@ -13,9 +13,10 @@ namespace Common.Data
         private const string PREFS_WATCH_AD_LAST_DATE= "PLAYERPREFS_WATCH_AD_LAST_DATE";
         private const int COINS_DEFAULT_VALUE = 1000;
 
-        private ProgressOfLevels _progressOfLvls;
-
         public event Action<int> coinsChanged;
+
+        private ProgressOfLevels _progressOfLvls;
+        private List<LevelRecord> _levelRecords;
 
         public IEnumerable<string> AvailableLevels => _progressOfLvls.AvailableLevels;
         public IEnumerable<string> PassedLevels => _progressOfLvls.PassedLevels;
@@ -40,12 +41,6 @@ namespace Common.Data
                 var dateTime = DateTime.Parse(dateTimeString);
                 return dateTime;
             }
-        }
-
-        private void SaveProgressOfLevels()
-        {
-            string progressOfLevels = JsonUtility.ToJson(_progressOfLvls);
-            PlayerPrefs.SetString(PREFS_PROGRESS_OF_LEVELS, progressOfLevels);
         }
 
         public void SaveSelectedLevel(string levelId) => PlayerPrefs.SetString(PREFS_SELECTED_LEVEL, levelId);
@@ -75,6 +70,7 @@ namespace Common.Data
         public bool LoadProgressOfLevels()
         {
             string progressOfLevels;
+
             if (PlayerPrefs.HasKey(PREFS_PROGRESS_OF_LEVELS))
             {
                 progressOfLevels = PlayerPrefs.GetString(PREFS_PROGRESS_OF_LEVELS);
@@ -115,18 +111,70 @@ namespace Common.Data
             PlayerPrefs.SetString(PREFS_WATCH_AD_LAST_DATE, DateTime.Now.ToString());
         }
 
-        public void SaveRecordTime(float time)
+        public async Awaitable SaveLevelRecord(string levelId, float recordTime)
         {
+            string recordsJson;
+            
             if (PlayerPrefs.HasKey(PREFS_TIME_RECORD))
             {
-                float currentRecord = RecordTime;
-                if(time > currentRecord)
-                    PlayerPrefs.SetFloat(PREFS_TIME_RECORD, time);
+                recordsJson = PlayerPrefs.GetString(PREFS_PROGRESS_OF_LEVELS);
+                _levelRecords = JsonUtility.FromJson<List<LevelRecord>>(recordsJson);
             }
             else
             {
-                PlayerPrefs.SetFloat(PREFS_TIME_RECORD, time);
+                _levelRecords = new List<LevelRecord>();
             }
+
+            LevelRecord currentLevelRecord = new LevelRecord
+            {
+                levelId = levelId,
+                time = recordTime
+            };
+
+            bool found = false;
+
+            foreach (LevelRecord levelRecord in _levelRecords)
+            {
+                if (string.Equals(levelId, levelRecord.levelId))
+                {
+                    currentLevelRecord.time = Mathf.Max(levelRecord.time, recordTime);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+                _levelRecords.Add(currentLevelRecord);
+
+            recordsJson = JsonUtility.ToJson(_levelRecords);
+            PlayerPrefs.SetString(PREFS_PROGRESS_OF_LEVELS, recordsJson);
+        }
+
+        public async Awaitable<float> GetLevelRecord(string levelId)
+        {
+            string recordsJson;
+
+            if (PlayerPrefs.HasKey(PREFS_TIME_RECORD))
+            {
+                recordsJson = PlayerPrefs.GetString(PREFS_PROGRESS_OF_LEVELS);
+                _levelRecords = JsonUtility.FromJson<List<LevelRecord>>(recordsJson);
+
+                foreach (LevelRecord levelRecord in _levelRecords)
+                {
+                    if (string.Equals(levelId, levelRecord.levelId))
+                    {
+                        return levelRecord.time;
+                    }
+                }
+            }
+
+            return 0;
+        }
+
+        private void SaveProgressOfLevels()
+        {
+            string progressOfLevels = JsonUtility.ToJson(_progressOfLvls);
+            PlayerPrefs.SetString(PREFS_PROGRESS_OF_LEVELS, progressOfLevels);
         }
 
         [Serializable]
@@ -140,6 +188,13 @@ namespace Common.Data
                 PassedLevels = new List<string>();
                 AvailableLevels = new List<string>();
             }
+        }
+
+        [Serializable]
+        private class LevelRecord
+        {
+            public string levelId;
+            public float time;
         }
     }
 }

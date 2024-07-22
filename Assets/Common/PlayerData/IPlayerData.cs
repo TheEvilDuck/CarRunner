@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Common.Data
 {
@@ -9,7 +10,6 @@ namespace Common.Data
         public IEnumerable<string> PassedLevels {get;}
         public string SelectedLevel {get;}
         public int Coins {get;}
-        public float RecordTime { get;}
         public DateTime WatchShopAdLastTime {get;}
         public event Action<int> coinsChanged;
         public void SaveSelectedLevel(string levelId);
@@ -19,7 +19,8 @@ namespace Common.Data
         public bool LoadProgressOfLevels();
         public void AddCoins(int coins);
         public bool SpendCoins(int coins);
-        public void SaveRecordTime(float time);
+        public Awaitable SaveLevelRecord(string levelId, float recordTime);
+        public Awaitable<float> GetLevelRecord(string levelId);
     }
 
 }

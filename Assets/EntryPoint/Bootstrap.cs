@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using Common;
 using Common.Data;
 using Common.Data.Rewards;
@@ -9,7 +11,6 @@ using Services.PlayerInput;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
-using YG.Utils.LB;
 
 namespace EntryPoint
 {
@@ -21,6 +22,7 @@ namespace EntryPoint
         private static Bootstrap _gameInstance;
         private DIContainer _projectContext;
         private Coroutines _coroutines;
+        private List<IDisposable> _disposables;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         public static void GameEntryPoint()
@@ -29,9 +31,16 @@ namespace EntryPoint
             _gameInstance.RunGame();
         }
 
+        ~Bootstrap()
+        {
+            foreach (IDisposable disposable in _disposables)
+                disposable.Dispose();
+        }
+
         private void RunGame()
         {
             _projectContext = new DIContainer();
+            _disposables = new List<IDisposable>();
 
             _projectContext.Register(() => Resources.Load<LevelsDatabase>(LEVEL_DATABASE_PATH));
             _projectContext.Register(() => new GameSettings());
@@ -39,7 +48,7 @@ namespace EntryPoint
             _projectContext.Register(() => new RewardProvider());
             
             _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
-            Object.DontDestroyOnLoad(_coroutines.gameObject);
+            UnityEngine.Object.DontDestroyOnLoad(_coroutines.gameObject);
 
             Application.quitting += OnApplicationQuit;
 
@@ -78,7 +87,7 @@ namespace EntryPoint
 
         private bool InitSceneBootstrap()
         {   
-            var sceneBootstrap = Object.FindAnyObjectByType<MonoBehaviourBootstrap>();
+            var sceneBootstrap = UnityEngine.Object.FindAnyObjectByType<MonoBehaviourBootstrap>();
             
             if (sceneBootstrap == null)
                 return false;
@@ -118,7 +127,10 @@ namespace EntryPoint
             IPlayerData playerData;
             
             if (YandexGame.SDKEnabled)
+            {
                 playerData = new YandexCloudPlayerData();
+                _disposables.Add(playerData as IDisposable);
+            }
             else
                 playerData = new PlayerDataPlayerPrefs();
 
@@ -130,8 +142,8 @@ namespace EntryPoint
         private SoundController SetupSoundController()
         {
             SoundController prefab = Resources.Load<SoundController>(SOUND_CONTROLLER_PATH);
-            SoundController soundController = Object.Instantiate(prefab);
-            Object.DontDestroyOnLoad(soundController.gameObject);
+            SoundController soundController = UnityEngine.Object.Instantiate(prefab);
+            UnityEngine.Object.DontDestroyOnLoad(soundController.gameObject);
             soundController.Init();
 
             return soundController;

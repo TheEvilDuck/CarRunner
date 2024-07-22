@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Data;
 using Common.MenuParent;
 using Common.UI.UIAnimations;
 using Levels;
@@ -30,11 +31,8 @@ namespace MainMenu.LevelSelection
 
         public UnityEvent BackPressed => _backButton.onClick;
 
-        public void Init(IEnumerable<string> passedLevels, IEnumerable<string> availableLevels, string selectedLevelId, float recordTime)
+        public void Init(IEnumerable<string> passedLevels, IEnumerable<string> availableLevels)
         {
-            if(recordTime > 0)
-                YandexGame.NewLBScoreTimeConvert(selectedLevelId, recordTime);
-
             _buttons = new Dictionary<LevelButton, string>();
             _levelPlayButton.Hide();
 
@@ -58,7 +56,7 @@ namespace MainMenu.LevelSelection
 
                     _currentLevelId = levelId;
 
-                    _leaderboardYG.SetNameLB(_currentLevelId);
+                    _leaderboardYG.SetNameLB(YandexCloudPlayerData.LEADERBOARD_KEY + _currentLevelId);
                     _leaderboardYG.UpdateLB();
                 });
 

@@ -1,5 +1,5 @@
 {
-    "idSave": 58,
+    "idSave": 59,
     "isFirstSession": false,
     "language": "en",
     "promptDone": false,
@@ -14,7 +14,6 @@
         "Lvl3",
         "Lvl4"
     ],
-    "SelectedLevel": "Lvl4",
-    "Coins": 25393,
-    "RecordTime": 0.0
+    "SelectedLevel": "test plane",
+    "Coins": 25393
 }

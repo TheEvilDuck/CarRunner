@@ -63,7 +63,7 @@ namespace MainMenu
             IPlayerData playerData = _sceneContext.Get<IPlayerData>();
 
             _mainMenuView.Init();
-            _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels, playerData.SelectedLevel, playerData.RecordTime);
+            _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels);
             _mainMenuView.ShopView.Init(_shopItemFactory, _sceneContext);
         }
     }
