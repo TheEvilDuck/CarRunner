@@ -16,6 +16,7 @@ namespace Levels
         [SerializeField] private Transform _carStartPosition;
         [SerializeField] private RoadSystem _roadSystem;
         [SerializeField] private CarConfig _startCar;
+        [SerializeField] private Material _skybox;
         [field: SerializeField, Min(0)] public float StartTimer;
 
         public IEnumerable<Garage> Garages => _garages;
@@ -24,5 +25,6 @@ namespace Levels
         public Vector3 CarStartPosition => _carStartPosition.position;
         public Quaternion CarStartRotation => _carStartPosition.rotation;
         public CarConfig StartCar => _startCar;
+        public Material Skybox => _skybox;
     }
 }

@@ -98,25 +98,10 @@ namespace EntryPoint
 
         private IPlayerInput SetupInput()
         {
-            IPlayerInput playerInput;
+            IPlayerInput playerInput = new DesktopInput();
 
-#if UNITY_WEBGL
-            if (YandexGame.EnvironmentData.isDesktop)
-                playerInput = new DesktopInput();
-            else if (YandexGame.EnvironmentData.isMobile)
+            if (YandexGame.EnvironmentData.isMobile)
                 playerInput = new MobileInput(Resources.Load<RectTransform>(BRAKE_BUTTON_RESOURCES_PATH));
-#endif
-
-#if UNITY_STANDALONE_WIN
-            if (SystemInfo.deviceType == DeviceType.Desktop)
-                playerInput = new DesktopInput();
-            else if (SystemInfo.deviceType == DeviceType.Handheld)
-                playerInput = new MobileInput(Resources.Load<RectTransform>(BRAKE_BUTTON_RESOURCES_PATH));
-#endif
-
-#if UNITY_EDITOR
-            playerInput = new DesktopInput();
-#endif
 
             playerInput.Enable();
             return playerInput;  

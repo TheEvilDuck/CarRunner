@@ -114,6 +114,8 @@ namespace Gameplay
                 garage.Init();
             }
 
+            RenderSettings.skybox = level.Skybox;
+
             return level;
         }
 

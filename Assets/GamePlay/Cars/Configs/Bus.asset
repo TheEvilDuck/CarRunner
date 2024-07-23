@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a13ed0a0258ab5b4cbd546fc414a6c87, type: 3}
+  m_Name: Bus
+  m_EditorClassIdentifier: 
+  <Acceleration>k__BackingField: 150
+  <MaxSpeed>k__BackingField: 60
+  <Materials>k__BackingField:
+  - {fileID: -876546973899608171, guid: 80ec9d4b1fe521f4d92830bd743a27d5, type: 3}
+  <CarViewPrefab>k__BackingField: {fileID: 7791317916947039077, guid: 5078fce33d79385438e77a66de430e13, type: 3}
