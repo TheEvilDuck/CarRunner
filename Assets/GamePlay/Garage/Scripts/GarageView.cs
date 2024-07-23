@@ -13,8 +13,8 @@ namespace Gameplay.Garages
         {
             _timeCostText.text = $"Time cost:\n{garageData.TimeCost}";
 
-            _meshFilter.mesh = garageData.CarConfig.ModelOfCar;
-            _meshRenderer.materials = garageData.CarConfig.Materials;
+            //_meshFilter.mesh = garageData.CarConfig.ModelOfCar;
+            //_meshRenderer.materials = garageData.CarConfig.Materials;
         }
 
     }

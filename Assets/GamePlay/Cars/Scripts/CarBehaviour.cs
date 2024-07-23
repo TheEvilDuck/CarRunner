@@ -28,6 +28,42 @@ namespace Gameplay.Cars
         public CarCollider CarCollider => _carCollider;
         public Vector2 CurrentVelocity => new Vector2(_rigidBody.velocity.x, _rigidBody.velocity.z);
 
+        public void Init(float Acceleration, float MaxSpeed)
+        {
+            _acceleration = Acceleration;
+            _maxSpeed = MaxSpeed;
+            _rigidBody.isKinematic = false;
+        }
+
+        public void ChangeWheelsOffsets(Vector3 RFWheelPosition, Vector3 LFWheelPosition,Vector3 RBWheelPosition,Vector3 LBWheelPosition)
+        {
+            foreach (WheelData wheelData in _wheels)
+            {
+                if (wheelData.IsTurnable)
+                {
+                    if (wheelData.IsLeft)
+                    {
+                        wheelData.WheelCollider.transform.position = LFWheelPosition;
+                    }
+                    else
+                    {
+                        wheelData.WheelCollider.transform.position = RFWheelPosition;
+                    }
+                }
+                else
+                {
+                    if (wheelData.IsLeft)
+                    {
+                        wheelData.WheelCollider.transform.position = LBWheelPosition;
+                    }
+                    else
+                    {   
+                        wheelData.WheelCollider.transform.position = RBWheelPosition;
+                    }
+                }
+            }
+        }
+
         private void OnValidate() 
         {
             _maxTurnAngle = Mathf.Max(_minTurnAngle, _maxTurnAngle);
@@ -77,13 +113,6 @@ namespace Gameplay.Cars
             Vector2 currentVelocity = Vector2.ClampMagnitude(CurrentVelocity, _maxSpeed);
             _rigidBody.velocity = new Vector3(currentVelocity.x, _rigidBody.velocity.y, currentVelocity.y);
             _lastVelocity = _rigidBody.velocity;
-        }
-
-        public void Init(float Acceleration, float MaxSpeed)
-        {
-            _acceleration = Acceleration;
-            _maxSpeed = MaxSpeed;
-            _rigidBody.isKinematic = false;
         }
 
         public void RemoveVelocity()
@@ -154,6 +183,7 @@ namespace Gameplay.Cars
             [field: SerializeField] public WheelCollider WheelCollider { get; private set; }
             [field: SerializeField] public bool IsTurnable { get; private set; }
             [field: SerializeField] public bool IsTorque { get; private set; }
+            [field: SerializeField] public bool IsLeft{ get; private set;}
             public float Radius => WheelCollider.radius;
 
 

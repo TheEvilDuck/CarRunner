@@ -6,14 +6,21 @@ namespace Gameplay.Cars
 {
     public class CarView : MonoBehaviour, IPausable
     {
-        [SerializeField] private MeshFilter _meshFilter;
         [SerializeField] private MeshRenderer _meshRenderer;
+        [SerializeField] private Transform _rFWheelPlace;
+        [SerializeField] private Transform _lFWheelPlace;
+        [SerializeField] private Transform _rBWheelPlace;
+        [SerializeField] private Transform _lBWheelPlace;
+
+        public Vector3 RFWheelPosition => _rFWheelPlace.position;
+        public Vector3 LFWheelPosition => _lFWheelPlace.position;
+        public Vector3 RBWheelPosition => _rBWheelPlace.position;
+        public Vector3 LBWheelPosition => _lBWheelPlace.position;
 
         private Dictionary<Transform,IReadOnlyWheel> _currentWheels;
         private bool _paused = false;
-        public void ChangeModel(Mesh mesh, Material[] materials)
+        public void ChangeMaterial(Material[] materials)
         {
-            _meshFilter.mesh = mesh;
             _meshRenderer.materials = materials;
         }
 

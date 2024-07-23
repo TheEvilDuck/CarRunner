@@ -59,7 +59,7 @@ namespace Gameplay
             _sceneContext.Register(_pauseButton);
             _sceneContext.Register(_pauseMenu);
             _sceneContext.Register(_pauseMenuButtons);
-            _sceneContext.Register(_anticlicker);
+            _sceneContext.Register(_anticlicker, "anticlicker");
 
             SetUpCarSwitcher();
             SetUpMediators();
