@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a13ed0a0258ab5b4cbd546fc414a6c87, type: 3}
-  m_Name: Fast soviet car
+  m_Name: Hard
   m_EditorClassIdentifier: 
-  <Acceleration>k__BackingField: 4000
-  <MaxSpeed>k__BackingField: 80
+  <Acceleration>k__BackingField: 600
+  <MaxSpeed>k__BackingField: 50
   <Materials>k__BackingField:
   - {fileID: 2100000, guid: cf880c28d21663b46a699ca685023f0f, type: 2}
-  <CarViewPrefab>k__BackingField: {fileID: 1051617792523844598, guid: fd3da98a500722b44a55144e2ee03a6b, type: 3}
+  <CarViewPrefab>k__BackingField: {fileID: 9168616186770935425, guid: bfeb101ed70b4fc479c1e0c5f7fd3b12, type: 3}

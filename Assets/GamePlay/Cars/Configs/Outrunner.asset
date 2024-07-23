@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a13ed0a0258ab5b4cbd546fc414a6c87, type: 3}
-  m_Name: Slow soviet car
+  m_Name: Outrunner
   m_EditorClassIdentifier: 
-  <Acceleration>k__BackingField: 1000
-  <MaxSpeed>k__BackingField: 20
+  <Acceleration>k__BackingField: 3000
+  <MaxSpeed>k__BackingField: 60
   <Materials>k__BackingField:
   - {fileID: 2100000, guid: cf880c28d21663b46a699ca685023f0f, type: 2}
-  <CarViewPrefab>k__BackingField: {fileID: 9168616186770935425, guid: 4eccafa8a11dc784a95409a62e9df639, type: 3}
+  <CarViewPrefab>k__BackingField: {fileID: 3948573794704428062, guid: 55586afb839efec4a98f1f0eba3d4678, type: 3}

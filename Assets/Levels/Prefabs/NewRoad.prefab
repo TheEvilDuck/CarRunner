@@ -3785,11 +3785,14 @@ MonoBehaviour:
   _garages:
   - {fileID: 4552397128193959224}
   - {fileID: 4856809410156266147}
+  - {fileID: 3530224577319944142}
   - {fileID: 26906867263263323}
   - {fileID: 4362034002791233295}
+  - {fileID: 5777150775933757026}
   - {fileID: 9163512330036510165}
   - {fileID: 3490090734898561495}
   - {fileID: 1248685510815147547}
+  - {fileID: 6919254169474101791}
   _timerGates:
   - {fileID: 1964733168403475923}
   - {fileID: 3283446875570532123}
@@ -3876,7 +3879,7 @@ MonoBehaviour:
   _finish: {fileID: 3062772007043063701}
   _carStartPosition: {fileID: 5200457523791533662}
   _roadSystem: {fileID: 24242008169080334}
-  _startCar: {fileID: 11400000, guid: d2f6da5826860c54484ee1af924a8d4e, type: 2}
+  _startCar: {fileID: 11400000, guid: f04cf13f6ecc8e44aa763aca81cbc9ff, type: 2}
   StartTimer: 20
 --- !u!1 &3943269822423813622
 GameObject:
@@ -11718,11 +11721,14 @@ Transform:
   m_Children:
   - {fileID: 7488367537292600691}
   - {fileID: 1992704180871332584}
+  - {fileID: 7511083906781953925}
   - {fileID: 6385765824436163088}
   - {fileID: 7226119441177507652}
+  - {fileID: 643394131388884521}
   - {fileID: 2876127125962423710}
   - {fileID: 7542984568620761500}
   - {fileID: 5302253345190602320}
+  - {fileID: 4091373519533961812}
   m_Father: {fileID: 5379207237547118137}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7738927374638030758
@@ -13821,7 +13827,7 @@ PrefabInstance:
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
       value: 
-      objectReference: {fileID: 11400000, guid: 07b3505293efc964094246112c86aa09, type: 2}
+      objectReference: {fileID: 11400000, guid: 190e974d368186e49869431fd718af0d, type: 2}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <AdditionalTime>k__BackingField
       value: 10
@@ -14734,6 +14740,103 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf22355fc0b05946baba5c8feb67a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1996741081795399873
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2667039804682767081}
+    m_Modifications:
+    - target: {fileID: 248608730525418605, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Name
+      value: Garage (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.1844997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.17545323
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 346.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.3842707
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 499.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9076136
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.41980672
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -49.645
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <TimeCost>k__BackingField
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <CarConfig>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: eae589ea2b6ca4246a462ca0ee906e9d, type: 2}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <AdditionalTime>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <ComparsionTime>k__BackingField
+      value: 30
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+--- !u!4 &643394131388884521 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+  m_PrefabInstance: {fileID: 1996741081795399873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5777150775933757026 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+  m_PrefabInstance: {fileID: 1996741081795399873}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e71228311ae76f049bae87f41124bd1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2151043251723373572
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15520,6 +15623,103 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf22355fc0b05946baba5c8feb67a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &3143345873960535228
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2667039804682767081}
+    m_Modifications:
+    - target: {fileID: 248608730525418605, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Name
+      value: Garage (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.1845005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.17545323
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 582
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.3842707
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 176.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.25277483
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9675252
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 150.716
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <TimeCost>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <CarConfig>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: b0ac4df726dda7d4eb6664faf83c47e8, type: 2}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <AdditionalTime>k__BackingField
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <ComparsionTime>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+--- !u!4 &4091373519533961812 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+  m_PrefabInstance: {fileID: 3143345873960535228}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6919254169474101791 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+  m_PrefabInstance: {fileID: 3143345873960535228}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e71228311ae76f049bae87f41124bd1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3202949010401146934
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16154,7 +16354,7 @@ PrefabInstance:
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
       value: 
-      objectReference: {fileID: 11400000, guid: 6cd4fdd6a5f055d4d97507ef7187e17c, type: 2}
+      objectReference: {fileID: 11400000, guid: 815c4bc44aeb1c746b794f3fd79239f0, type: 2}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <AdditionalTime>k__BackingField
       value: 10
@@ -17684,12 +17884,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <TimeCost>k__BackingField
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
       value: 
-      objectReference: {fileID: 11400000, guid: 3de14bb45e8d22343a683b763f3cb5a0, type: 2}
+      objectReference: {fileID: 11400000, guid: fb5ffced9c9788249ab0f20af4ae46ca, type: 2}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <AdditionalTime>k__BackingField
       value: 10
@@ -18883,12 +19083,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <TimeCost>k__BackingField
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
       value: 
-      objectReference: {fileID: 11400000, guid: 3de14bb45e8d22343a683b763f3cb5a0, type: 2}
+      objectReference: {fileID: 11400000, guid: 6152caa714501d9418cb3c3c6ff6beb0, type: 2}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <AdditionalTime>k__BackingField
       value: 5
@@ -19633,7 +19833,7 @@ PrefabInstance:
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
       value: 
-      objectReference: {fileID: 11400000, guid: 07b3505293efc964094246112c86aa09, type: 2}
+      objectReference: {fileID: 11400000, guid: 94890103c0fc9fa45b1eecb85f7cd19c, type: 2}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <AdditionalTime>k__BackingField
       value: 10
@@ -19730,7 +19930,7 @@ PrefabInstance:
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
       value: 
-      objectReference: {fileID: 11400000, guid: 07b3505293efc964094246112c86aa09, type: 2}
+      objectReference: {fileID: 11400000, guid: eae589ea2b6ca4246a462ca0ee906e9d, type: 2}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <AdditionalTime>k__BackingField
       value: 10
@@ -19840,6 +20040,103 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1393884850650969832, guid: e01c657a595b33d488717f0828e8e9d2, type: 3}
   m_PrefabInstance: {fileID: 8611432639746660347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8891418371677833581
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2667039804682767081}
+    m_Modifications:
+    - target: {fileID: 248608730525418605, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Name
+      value: Garage (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.1845005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.17545325
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 671
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.3842707
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 346.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.12852913
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9917058
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 194.769
+      objectReference: {fileID: 0}
+    - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <TimeCost>k__BackingField
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <CarConfig>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: fbe0619cb068c0a4589bde07f44cc122, type: 2}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <AdditionalTime>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: <ComparsionTime>k__BackingField
+      value: 60
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+--- !u!114 &3530224577319944142 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+  m_PrefabInstance: {fileID: 8891418371677833581}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e71228311ae76f049bae87f41124bd1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &7511083906781953925 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+  m_PrefabInstance: {fileID: 8891418371677833581}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8925334203991329539
 PrefabInstance:
@@ -19989,7 +20286,7 @@ PrefabInstance:
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <CarConfig>k__BackingField
       value: 
-      objectReference: {fileID: 11400000, guid: 3de14bb45e8d22343a683b763f3cb5a0, type: 2}
+      objectReference: {fileID: 11400000, guid: 94890103c0fc9fa45b1eecb85f7cd19c, type: 2}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <AdditionalTime>k__BackingField
       value: 10

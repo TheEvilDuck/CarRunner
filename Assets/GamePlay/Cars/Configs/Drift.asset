@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a13ed0a0258ab5b4cbd546fc414a6c87, type: 3}
-  m_Name: Mid soviet car
+  m_Name: Drift
   m_EditorClassIdentifier: 
-  <Acceleration>k__BackingField: 2000
-  <MaxSpeed>k__BackingField: 50
+  <Acceleration>k__BackingField: 3500
+  <MaxSpeed>k__BackingField: 70
   <Materials>k__BackingField:
   - {fileID: 2100000, guid: cf880c28d21663b46a699ca685023f0f, type: 2}
-  <CarViewPrefab>k__BackingField: {fileID: 7939263981391308580, guid: f8f3eafea93fe2d4cbef48da6c4363bf, type: 3}
+  <CarViewPrefab>k__BackingField: {fileID: 1428846315472972465, guid: 1071919218b732942886f72dada33003, type: 3}
