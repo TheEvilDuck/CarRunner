@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Common.Data.Rewards;
 using DI;
 using MainMenu.Shop.Logic;
 using MainMenu.Shop.View;
