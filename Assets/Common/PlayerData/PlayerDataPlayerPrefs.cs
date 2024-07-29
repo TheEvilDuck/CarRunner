@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Common.Data
@@ -10,7 +11,8 @@ namespace Common.Data
         private const string PREFS_PROGRESS_OF_LEVELS = "PLAYERPREFS_PROGRESS_OF_LEVELS";
         private const string PREFS_COINS = "PLAYEPREFS_COINS";
         private const string PREFS_TIME_RECORD = "PLAYEPREFS_TIME_RECORD";
-        private const string PREFS_WATCH_AD_LAST_DATE= "PLAYERPREFS_WATCH_AD_LAST_DATE";
+        private const string PREFS_WATCH_AD_LAST_DATE = "PLAYERPREFS_WATCH_AD_LAST_DATE";
+        private const string PREFS_IS_TUTOR_COMPLETE = "PLAYERPREFS_IS_TUTOR_COMPLETE";
         private const int COINS_DEFAULT_VALUE = 1000;
 
         public event Action<int> coinsChanged;
@@ -32,7 +34,6 @@ namespace Common.Data
                     return 0;
             }
         }
-
         public DateTime WatchShopAdLastTime
         {
             get
@@ -40,6 +41,25 @@ namespace Common.Data
                 var dateTimeString = PlayerPrefs.GetString(PREFS_WATCH_AD_LAST_DATE, DateTime.MinValue.ToString());
                 var dateTime = DateTime.Parse(dateTimeString);
                 return dateTime;
+            }
+        }
+        public bool IsTutorialComplete
+        {
+            get
+            {
+                if (PlayerPrefs.HasKey(PREFS_IS_TUTOR_COMPLETE))
+                    return true;
+                else 
+                    return false;
+            }
+        }
+
+        public void TutorialCmplete()
+        {
+            if (!PlayerPrefs.HasKey(PREFS_IS_TUTOR_COMPLETE))
+            {
+                int convertBool = Convert.ToInt32(true);
+                PlayerPrefs.SetInt(PREFS_IS_TUTOR_COMPLETE, convertBool);
             }
         }
 
