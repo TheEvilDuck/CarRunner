@@ -3017,10 +3017,14 @@ MonoBehaviour:
   _previousButton: {fileID: 439184943}
   _understandableButton: {fileID: 778962041}
   _presentationSlide: {fileID: 1444734022}
-  _tutorialImages:
+  _desktopSlides:
   - {fileID: 21300000, guid: d60431e249c5c1148b106031d412ecc7, type: 3}
   - {fileID: 21300000, guid: ab1452f461d4f9045889e8741b87b8fc, type: 3}
   - {fileID: 21300000, guid: 10c61c102ce4f0647a6c7cbf26ec56d0, type: 3}
+  _mobileSlides:
+  - {fileID: 21300000, guid: c5be5a06a6169da438989f63b70b2193, type: 3}
+  - {fileID: 21300000, guid: 1c2a6e95be98400418fbd77b36c59c6e, type: 3}
+  - {fileID: 21300000, guid: 2c58e64a320cfe44899c1b9113fafd07, type: 3}
 --- !u!114 &1122860129 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5616128863734887312, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
@@ -4196,8 +4200,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 250, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 500.008, y: -32.831}
+  m_SizeDelta: {x: 600.015, y: 599.64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1444734020
 MonoBehaviour:

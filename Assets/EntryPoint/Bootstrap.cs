@@ -116,6 +116,7 @@ namespace EntryPoint
 
 #if UNITY_EDITOR
             playerInput = new DesktopInput();
+            //playerInput = new MobileInput(Resources.Load<RectTransform>(BRAKE_BUTTON_RESOURCES_PATH));
 #endif
 
             playerInput.Enable();

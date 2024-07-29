@@ -1,5 +1,7 @@
 using Common.MenuParent;
 using Common.UI.UIAnimations;
+using Services.PlayerInput;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,12 +16,22 @@ namespace MainMenu
         [SerializeField] private Button _previousButton;
         [SerializeField] private Button _understandableButton;
         [SerializeField] private Image _presentationSlide;
-        [SerializeField] private List<Sprite> _tutorialImages;
+        [SerializeField] private List<Sprite> _desktopSlides;
+        [SerializeField] private List<Sprite> _mobileSlides;
+        private List<Sprite> _tutorialImages;
         //[SerializeField] private UIAnimatorSequence _animations;
         private int _currentPresentationSlide = 0;
 
         public UnityEvent BackPressed => _backButton.onClick;
         public UnityEvent UnderstandablePressed => _understandableButton.onClick;
+
+        public void Init(Type inputType)
+        {
+            if (inputType == typeof(DesktopInput))
+                _tutorialImages = _desktopSlides;
+            else if (inputType == typeof(MobileInput))
+                _tutorialImages = _mobileSlides;
+        }
 
         private void OnEnable()
         {
@@ -37,6 +49,14 @@ namespace MainMenu
             _nextButton.onClick.RemoveListener(OnNextButtonPressed);
             _previousButton.onClick.RemoveListener(OnPreviousButtonPressed);
             _understandableButton.onClick.RemoveListener(OnUnderstandableButtonPressed);
+        }
+
+        public void Hide() => gameObject.SetActive(false);
+
+        public void Show()
+        {
+            gameObject.SetActive(true);
+            //тут был старт анимации
         }
 
         private void OnNextButtonPressed()
@@ -72,14 +92,6 @@ namespace MainMenu
         private void OnUnderstandableButtonPressed()
         {
 
-        }
-
-        public void Hide() => gameObject.SetActive(false);
-
-        public void Show()
-        {
-            gameObject.SetActive(true);
-            //тут был старт анимации
         }
     }
 }

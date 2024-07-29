@@ -6,7 +6,9 @@ using Common.Mediators;
 using Common.Sound;
 using EntryPoint;
 using MainMenu.Shop;
+using Services.PlayerInput;
 using UnityEngine;
+using YG;
 
 namespace MainMenu
 {
@@ -61,10 +63,12 @@ namespace MainMenu
             _disposables.Add(coinsMediator);
 
             IPlayerData playerData = _sceneContext.Get<IPlayerData>();
+            Type inputType = _sceneContext.Get<IPlayerInput>().GetType();
 
             _mainMenuView.Init();
             _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels);
             _mainMenuView.ShopView.Init(_shopItemFactory, _sceneContext);
+            _mainMenuView.TutorialView.Init(inputType);
         }
     }
 }
