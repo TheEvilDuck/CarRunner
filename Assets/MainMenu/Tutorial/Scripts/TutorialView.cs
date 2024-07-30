@@ -39,7 +39,6 @@ namespace MainMenu
 
             _nextButton.onClick.AddListener(OnNextButtonPressed);
             _previousButton.onClick.AddListener(OnPreviousButtonPressed);
-            _understandableButton.onClick.AddListener(OnUnderstandableButtonPressed);
 
             _understandableButton.gameObject.SetActive(false);
         }
@@ -48,7 +47,6 @@ namespace MainMenu
         {
             _nextButton.onClick.RemoveListener(OnNextButtonPressed);
             _previousButton.onClick.RemoveListener(OnPreviousButtonPressed);
-            _understandableButton.onClick.RemoveListener(OnUnderstandableButtonPressed);
         }
 
         public void Hide() => gameObject.SetActive(false);
@@ -87,11 +85,6 @@ namespace MainMenu
                 _currentPresentationSlide--;
                 _presentationSlide.sprite = _tutorialImages[_currentPresentationSlide];
             }
-        }
-
-        private void OnUnderstandableButtonPressed()
-        {
-
         }
     }
 }

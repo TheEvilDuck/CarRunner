@@ -1,5 +1,5 @@
 {
-    "idSave": 63,
+    "idSave": 64,
     "isFirstSession": false,
     "language": "en",
     "promptDone": false,
@@ -16,5 +16,6 @@
         "new road test"
     ],
     "SelectedLevel": "new road test",
-    "Coins": 25643
+    "Coins": 25653,
+    "IsTutorialComplete": true
 }

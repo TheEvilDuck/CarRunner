@@ -8,7 +8,6 @@ using EntryPoint;
 using MainMenu.Shop;
 using Services.PlayerInput;
 using UnityEngine;
-using YG;
 
 namespace MainMenu
 {
@@ -18,6 +17,7 @@ namespace MainMenu
         [SerializeField] private NotEnoughMoneyPopup _notEnoughMoneyPopup;
         [SerializeField] private CoinsView _coinsView;
         [SerializeField] private ShopItemFactory _shopItemFactory;
+        [SerializeField] private RewardForTutorial _rewardForTutorial;
         private GameSettings _gameSettings;
         List<IDisposable> _disposables;
         private void Start() 
@@ -48,19 +48,23 @@ namespace MainMenu
             _sceneContext.Register(_mainMenuView.SettingsMenu);
             _sceneContext.Register(_mainMenuView.LevelSelector);
             _sceneContext.Register(_mainMenuView.ShopView);
+            _sceneContext.Register(_mainMenuView.TutorialView);
             _sceneContext.Register(_notEnoughMoneyPopup);
             _sceneContext.Register(_coinsView);
             _sceneContext.Register(_shopItemFactory);
+            _sceneContext.Register(_rewardForTutorial);
 
             _gameSettings = _sceneContext.Get<GameSettings>();
 
             var mainMenuMediator = new MainMenuMediator(_sceneContext);
             var settingsMediator = new SettingsMediator(_sceneContext);
             var coinsMediator = new CoinsMediator(_sceneContext);
+            var tutorialMediator = new TutorialMediator(_sceneContext);
 
             _disposables.Add(mainMenuMediator);
             _disposables.Add(settingsMediator);
             _disposables.Add(coinsMediator);
+            _disposables.Add(tutorialMediator);
 
             IPlayerData playerData = _sceneContext.Get<IPlayerData>();
             Type inputType = _sceneContext.Get<IPlayerInput>().GetType();
@@ -72,5 +76,3 @@ namespace MainMenu
         }
     }
 }
-
-

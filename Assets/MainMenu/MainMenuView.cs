@@ -36,6 +36,7 @@ namespace MainMenu
             SettingsMenu.BackPressed.AddListener(ShowMainButtons);
             ShopView.BackPressed.AddListener(ShowMainButtons);
             TutorialView.BackPressed.AddListener(ShowMainButtons);
+            TutorialView.UnderstandablePressed.AddListener(ShowMainButtons);
         }
 
         private void OnDisable() 
@@ -48,6 +49,7 @@ namespace MainMenu
             SettingsMenu.BackPressed.RemoveListener(ShowMainButtons);
             ShopView.BackPressed.RemoveListener(ShowMainButtons);
             TutorialView.BackPressed.RemoveListener(ShowMainButtons);
+            TutorialView.UnderstandablePressed.RemoveListener(ShowMainButtons);
         }
 
         private void ShowMainButtons() => _menuParentsManager.Show(MainButtons);

@@ -906,6 +906,7 @@ MonoBehaviour:
   _notEnoughMoneyPopup: {fileID: 973797853}
   _coinsView: {fileID: 2043815410}
   _shopItemFactory: {fileID: 11400000, guid: 134b9b58be4fe1e45929a412baa0a458, type: 2}
+  _rewardForTutorial: {fileID: 11400000, guid: 40aed0511d42f2c4eaac73172188b23e, type: 2}
 --- !u!4 &299233233
 Transform:
   m_ObjectHideFlags: 0
