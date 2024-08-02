@@ -7,7 +7,7 @@ namespace Gameplay.Cars
     {
         [field:SerializeField]public float Acceleration { get; private set; }
         [field: SerializeField] public float MaxSpeed { get; private set; }
-        [field: SerializeField] public Mesh ModelOfCar { get; private set; }
         [field: SerializeField] public Material[] Materials {get; private set;}
+        [field: SerializeField] public CarView CarViewPrefab {get; private set;}
     }
 }

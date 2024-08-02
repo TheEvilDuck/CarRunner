@@ -16,7 +16,7 @@ namespace Gameplay
         {
             _sceneContext = sceneContext;
             _pauseManager = _sceneContext.Get<PauseManager>();
-            _anticlicker = _sceneContext.Get<Image>();
+            _anticlicker = _sceneContext.Get<Image>("anticlicker");
 
             YandexGame.OpenFullAdEvent += OnOpenFullAdEvent;
             YandexGame.CloseFullAdEvent += OnCloseFullAdEvent;

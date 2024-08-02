@@ -106,8 +106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
-  _offset: {x: 0, y: 5, z: -8}
+  _offset: {x: 0, y: 7, z: -11}
   _lookAtOffset: {x: 0, y: 5, z: 20}
   _minTargetVelocity: 0.001
   _minVelocityAngle: 3
-  _speed: 0.907
+  _speed: 1.34

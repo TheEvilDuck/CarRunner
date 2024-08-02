@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a13ed0a0258ab5b4cbd546fc414a6c87, type: 3}
+  m_Name: Outrunner
+  m_EditorClassIdentifier: 
+  <Acceleration>k__BackingField: 3000
+  <MaxSpeed>k__BackingField: 60
+  <Materials>k__BackingField:
+  - {fileID: 2100000, guid: cf880c28d21663b46a699ca685023f0f, type: 2}
+  <CarViewPrefab>k__BackingField: {fileID: 3948573794704428062, guid: 55586afb839efec4a98f1f0eba3d4678, type: 3}

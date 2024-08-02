@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 224a1630199134ee8803117f4ce4fdc0
+timeCreated: 1461429769
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 185471
+  packageName: Mini Low Poly Pack
+  packageVersion: 1.0
+  assetPath: Assets/LowPoly Assets/Demo/low-poly-water/Scripts/Water.cs
+  uploadId: 409730

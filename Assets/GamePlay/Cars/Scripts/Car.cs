@@ -6,15 +6,22 @@ namespace Gameplay.Cars
     public class Car : MonoBehaviour, IPausable
     {
         [field: SerializeField]public CarBehaviour CarBehavior {get; private set;}
-        [field: SerializeField]public CarView CarView {get; private set;}
+
+        private CarView _carView;
 
         public Vector3 Position => transform.position;
         public Quaternion Rotation => transform.rotation;
         public void InitCar(CarConfig config, GameObject wheelPrefab)
         {
+            if (_carView != null)
+                Destroy(_carView.gameObject);
+            
+            _carView = Instantiate(config.CarViewPrefab, transform);
+            _carView.transform.localPosition = Vector3.zero;
+            CarBehavior.ChangeWheelsOffsets(_carView.RFWheelPosition, _carView.LFWheelPosition, _carView.RBWheelPosition, _carView.LBWheelPosition);
             CarBehavior.Init(config.Acceleration, config.MaxSpeed);
-            CarView.InitWheels(wheelPrefab, CarBehavior.Wheels);
-            CarView.ChangeModel(config.ModelOfCar, config.Materials);
+            _carView.InitWheels(wheelPrefab, CarBehavior.Wheels);
+            _carView.ChangeMaterial(config.Materials);
         }
 
         public void TeleportCar(Vector3 toPosition, Quaternion rotation)
@@ -28,13 +35,13 @@ namespace Gameplay.Cars
         public void Pause()
         {
             CarBehavior.Pause();
-            CarView.Pause();
+            _carView.Pause();
         }
 
         public void Resume()
         {
             CarBehavior.Resume();
-            CarView.Resume();
+            _carView.Resume();
         }
     }
 }
