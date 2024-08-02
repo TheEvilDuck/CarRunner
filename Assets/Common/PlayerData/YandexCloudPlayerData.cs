@@ -54,6 +54,7 @@ namespace Common.Data
                 throw new ArgumentOutOfRangeException($"Coins count must be positive, you passed {coins}");
 
             YandexGame.savesData.Coins += coins;
+            YandexGame.SaveProgress();
             coinsChanged?.Invoke(YandexGame.savesData.Coins);
         }
 
@@ -79,6 +80,7 @@ namespace Common.Data
         public void SaveWatchAdLastTime()
         {
             YandexGame.savesData.WatchShopAdLastTime = DateTime.Now;
+            YandexGame.SaveProgress();
         }
 
         public bool SpendCoins(int coins)
@@ -90,6 +92,7 @@ namespace Common.Data
                 return false;
 
             YandexGame.savesData.Coins -= coins;
+            YandexGame.SaveProgress();
             coinsChanged?.Invoke(YandexGame.savesData.Coins);
             return true;
         }

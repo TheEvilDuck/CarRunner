@@ -17,7 +17,6 @@ namespace MainMenu
         [SerializeField] private NotEnoughMoneyPopup _notEnoughMoneyPopup;
         [SerializeField] private CoinsView _coinsView;
         [SerializeField] private ShopItemFactory _shopItemFactory;
-        [SerializeField] private RewardForTutorial _rewardForTutorial;
         private GameSettings _gameSettings;
         List<IDisposable> _disposables;
         private void Start() 
@@ -52,7 +51,6 @@ namespace MainMenu
             _sceneContext.Register(_notEnoughMoneyPopup);
             _sceneContext.Register(_coinsView);
             _sceneContext.Register(_shopItemFactory);
-            _sceneContext.Register(_rewardForTutorial);
 
             _gameSettings = _sceneContext.Get<GameSettings>();
 
@@ -67,12 +65,12 @@ namespace MainMenu
             _disposables.Add(tutorialMediator);
 
             IPlayerData playerData = _sceneContext.Get<IPlayerData>();
-            Type inputType = _sceneContext.Get<IPlayerInput>().GetType();
+            DeviceType deviceType = _sceneContext.Get<DeviceType>();
 
             _mainMenuView.Init();
             _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels);
             _mainMenuView.ShopView.Init(_shopItemFactory, _sceneContext);
-            _mainMenuView.TutorialView.Init(inputType);
+            _mainMenuView.TutorialView.Init(deviceType);
         }
     }
 }

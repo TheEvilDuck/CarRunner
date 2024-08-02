@@ -15,10 +15,10 @@ namespace Common.Data
         private const string PREFS_IS_TUTOR_COMPLETE = "PLAYERPREFS_IS_TUTOR_COMPLETE";
         private const int COINS_DEFAULT_VALUE = 1000;
 
-        public event Action<int> coinsChanged;
-
         private ProgressOfLevels _progressOfLvls;
         private List<LevelRecord> _levelRecords;
+
+        public event Action<int> coinsChanged;
 
         public IEnumerable<string> AvailableLevels => _progressOfLvls.AvailableLevels;
         public IEnumerable<string> PassedLevels => _progressOfLvls.PassedLevels;

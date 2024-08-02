@@ -5,6 +5,8 @@ namespace Common.Data.Rewards
 {
     public class RewardProvider
     {
+        private const int TUTORIAL_COMPLETION_REWARD = 1000;
+
         public int GetLevelCompletionReward(float remainingTime, IPlayerData playerData, LevelsDatabase levelsDatabase)
         {
             string nextLevelId = levelsDatabase.GetNextLevelId(playerData.SelectedLevel);
@@ -21,6 +23,8 @@ namespace Common.Data.Rewards
             int coins = Mathf.CeilToInt(nextLevelCost * (remainingTime / (startTime + sumOfTimerGates)) * rewardDivider);
             return coins;
         }
+
+        public int GetTutorialCompletionReward() => TUTORIAL_COMPLETION_REWARD;
     }
 
 }

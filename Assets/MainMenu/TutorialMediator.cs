@@ -1,4 +1,5 @@
 using Common.Data;
+using Common.Data.Rewards;
 using DI;
 using System;
 
@@ -8,15 +9,13 @@ namespace MainMenu
     {
         private TutorialView _tutorialView;
         private IPlayerData _playerData;
-        private RewardForTutorial _rewardForTutorial;
-        private DIContainer _sceneContext;
+        private RewardProvider _rewardProvider;
 
         public TutorialMediator(DIContainer sceneContext)
         {
             _tutorialView = sceneContext.Get<TutorialView>();
             _playerData = sceneContext.Get<IPlayerData>();
-            _rewardForTutorial = sceneContext.Get<RewardForTutorial>();
-            _sceneContext = sceneContext;
+            _rewardProvider = sceneContext.Get<RewardProvider>();
 
             _tutorialView.UnderstandablePressed.AddListener(OnUnderstandablePressed);
         }
@@ -27,7 +26,8 @@ namespace MainMenu
         {
             if(_playerData.IsTutorialComplete == false)
             {
-                _rewardForTutorial.TryClaim(_sceneContext);
+                int rewardCoins = _rewardProvider.GetTutorialCompletionReward();
+                _playerData.AddCoins(rewardCoins);
                 _playerData.TutorialCmplete();
             }
         }
