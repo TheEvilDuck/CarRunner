@@ -24,10 +24,17 @@ namespace Common.Data
         public string SelectedLevel => YandexGame.savesData.SelectedLevel;
         public int Coins => YandexGame.savesData.Coins;
         public DateTime WatchShopAdLastTime => YandexGame.savesData.WatchShopAdLastTime;
+        public bool IsTutorialComplete => YandexGame.savesData.IsTutorialComplete;
 
         public YandexCloudPlayerData()
         {
             YandexGame.onGetLeaderboard += OnLeaderboardGot;
+        }
+
+        public void TutorialCmplete()
+        {
+            YandexGame.savesData.IsTutorialComplete = true;
+            YandexGame.SaveProgress();
         }
 
         public void AddAvailableLevel(string levelId)
@@ -47,6 +54,7 @@ namespace Common.Data
                 throw new ArgumentOutOfRangeException($"Coins count must be positive, you passed {coins}");
 
             YandexGame.savesData.Coins += coins;
+            YandexGame.SaveProgress();
             coinsChanged?.Invoke(YandexGame.savesData.Coins);
         }
 
@@ -72,6 +80,7 @@ namespace Common.Data
         public void SaveWatchAdLastTime()
         {
             YandexGame.savesData.WatchShopAdLastTime = DateTime.Now;
+            YandexGame.SaveProgress();
         }
 
         public bool SpendCoins(int coins)
@@ -83,6 +92,7 @@ namespace Common.Data
                 return false;
 
             YandexGame.savesData.Coins -= coins;
+            YandexGame.SaveProgress();
             coinsChanged?.Invoke(YandexGame.savesData.Coins);
             return true;
         }
@@ -120,8 +130,5 @@ namespace Common.Data
             _currentLBData = lBData;
             _newLBLoaded = true;
         }
-
-        
     }
 }
-

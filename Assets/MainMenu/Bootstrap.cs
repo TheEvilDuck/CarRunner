@@ -6,6 +6,7 @@ using Common.Mediators;
 using Common.Sound;
 using EntryPoint;
 using MainMenu.Shop;
+using Services.PlayerInput;
 using UnityEngine;
 
 namespace MainMenu
@@ -46,6 +47,7 @@ namespace MainMenu
             _sceneContext.Register(_mainMenuView.SettingsMenu);
             _sceneContext.Register(_mainMenuView.LevelSelector);
             _sceneContext.Register(_mainMenuView.ShopView);
+            _sceneContext.Register(_mainMenuView.TutorialView);
             _sceneContext.Register(_notEnoughMoneyPopup);
             _sceneContext.Register(_coinsView);
             _sceneContext.Register(_shopItemFactory);
@@ -55,18 +57,20 @@ namespace MainMenu
             var mainMenuMediator = new MainMenuMediator(_sceneContext);
             var settingsMediator = new SettingsMediator(_sceneContext);
             var coinsMediator = new CoinsMediator(_sceneContext);
+            var tutorialMediator = new TutorialMediator(_sceneContext);
 
             _disposables.Add(mainMenuMediator);
             _disposables.Add(settingsMediator);
             _disposables.Add(coinsMediator);
+            _disposables.Add(tutorialMediator);
 
             IPlayerData playerData = _sceneContext.Get<IPlayerData>();
+            DeviceType deviceType = _sceneContext.Get<DeviceType>();
 
             _mainMenuView.Init();
             _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels);
             _mainMenuView.ShopView.Init(_shopItemFactory, _sceneContext);
+            _mainMenuView.TutorialView.Init(deviceType);
         }
     }
 }
-
-

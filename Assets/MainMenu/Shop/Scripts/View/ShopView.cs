@@ -14,6 +14,7 @@ namespace MainMenu.Shop.View
         [SerializeField] private Transform _shopItemViewContent;
 
         public UnityEvent BackPressed => _backButton.onClick;
+
         public void Init(ShopItemFactory shopItemFactory, DIContainer sceneContext)
         {
             var items = shopItemFactory.GetSetUpView(_shopItemViewContent, sceneContext);

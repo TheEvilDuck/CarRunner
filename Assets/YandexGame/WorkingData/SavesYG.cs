@@ -19,6 +19,7 @@ namespace YG
         public List<string> PassedLevels = new List<string>();
         public string SelectedLevel;
         public int Coins = 1000;
+        public bool IsTutorialComplete = false;
         public DateTime WatchShopAdLastTime = DateTime.Now;
         public SavesYG()
         {

@@ -46,6 +46,7 @@ namespace EntryPoint
             _projectContext.Register(() => new GameSettings());
             _projectContext.Register(() => SetupSoundController());
             _projectContext.Register(() => new RewardProvider());
+            _projectContext.Register(SetupDeviceType());
             
             _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
             UnityEngine.Object.DontDestroyOnLoad(_coroutines.gameObject);
@@ -98,10 +99,15 @@ namespace EntryPoint
 
         private IPlayerInput SetupInput()
         {
-            IPlayerInput playerInput = new DesktopInput();
+            IPlayerInput playerInput;
+            DeviceType deviceType = _projectContext.Get<DeviceType>();
 
-            if (YandexGame.EnvironmentData.isMobile)
+            if (deviceType == DeviceType.Desktop)
+                playerInput = new DesktopInput();
+            else if (deviceType == DeviceType.Handheld)
                 playerInput = new MobileInput(Resources.Load<RectTransform>(BRAKE_BUTTON_RESOURCES_PATH));
+            else
+                throw new ArgumentException($"Unknown device type");
 
             playerInput.Enable();
             return playerInput;  
@@ -110,18 +116,48 @@ namespace EntryPoint
         private IPlayerData SetupPlayerData()
         {
             IPlayerData playerData;
-            
+
             if (YandexGame.SDKEnabled)
             {
                 playerData = new YandexCloudPlayerData();
                 _disposables.Add(playerData as IDisposable);
             }
             else
+            {
                 playerData = new PlayerDataPlayerPrefs();
+                playerData.LoadProgressOfLevels();
+            }
 
             playerData.AddAvailableLevel(_projectContext.Get<LevelsDatabase>().GetFirstLevel());
 
             return playerData;
+        }
+
+        private DeviceType SetupDeviceType()
+        {
+            DeviceType deviceType;
+
+#if UNITY_WEBGL
+            if (YandexGame.EnvironmentData.isDesktop)
+                deviceType = DeviceType.Desktop;
+            else if (YandexGame.EnvironmentData.isMobile)
+                deviceType = DeviceType.Handheld;
+#endif
+
+#if UNITY_STANDALONE_WIN
+            deviceType = DeviceType.Desktop;
+#endif
+
+#if UNITY_ANDROID
+            deviceType = DeviceType.Handheld;
+#endif
+
+#if UNITY_EDITOR
+            deviceType = DeviceType.Desktop;
+            //deviceType = DeviceType.Handheld;
+#endif
+
+            return deviceType;
         }
 
         private SoundController SetupSoundController()

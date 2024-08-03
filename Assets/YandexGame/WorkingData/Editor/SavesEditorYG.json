@@ -5,9 +5,9 @@
     "promptDone": false,
     "AvailableLevels": [
         "test plane",
-        "new road test",
         "Lvl3",
-        "Lvl4"
+        "Lvl4",
+        "new road test"
     ],
     "PassedLevels": [
         "test plane",
@@ -16,5 +16,6 @@
         "new road test"
     ],
     "SelectedLevel": "new road test",
-    "Coins": 25643
+    "Coins": 2943,
+    "IsTutorialComplete": true
 }
