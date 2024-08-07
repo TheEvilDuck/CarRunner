@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 21fbf6d96dc23a24fb81d61d7584507c
+timeCreated: 1502428801
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: -1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 97654
+  packageName: Awesome Low Poly Fantasy Clouds
+  packageVersion: 1.0
+  assetPath: Assets/LowPolyFantasyClouds/Materials/SimpleSky.mat
+  uploadId: 195586
