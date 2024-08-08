@@ -13,13 +13,13 @@ using UnityEngine;
 using Common.Components;
 using System.Collections.Generic;
 using System;
-using MainMenu;
 using Gameplay.CarFallingHandling;
 using EntryPoint;
 using Common.Mediators;
 using Common.Data;
 using YG;
 using UnityEngine.UI;
+using Common.UI;
 
 namespace Gameplay
 {
@@ -94,7 +94,8 @@ namespace Gameplay
         private void OnDelayedStart()
         {
             _delayedStart -= OnDelayedStart;
-            _settingsMenu.Init(_sceneContext.Get<GameSettings>());
+            _settingsMenu.SoundSettingsView.Init(_sceneContext.Get<GameSettings>());
+            _settingsMenu.CameraSettingsView.Init(_sceneContext.Get<GameSettings>());
             var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
             _disposables.Add(settingsAndSoundMediator);
         }
@@ -146,6 +147,7 @@ namespace Gameplay
         private void SetUpUI()
         {
             _speedometr.Init(_sceneContext.Get<Car>().CarBehavior);
+            _settingsMenu.Init();
         }
 
         private StateMachine SetUpGameplayStateMachine()

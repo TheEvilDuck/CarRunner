@@ -6,7 +6,6 @@ using Common.Mediators;
 using Common.Sound;
 using EntryPoint;
 using MainMenu.Shop;
-using Services.PlayerInput;
 using UnityEngine;
 
 namespace MainMenu
@@ -21,7 +20,9 @@ namespace MainMenu
         List<IDisposable> _disposables;
         private void Start() 
         {
-            _mainMenuView.SettingsMenu.Init(_gameSettings);
+            _mainMenuView.SettingsMenu.Init();
+            _mainMenuView.SettingsMenu.SoundSettingsView.Init(_gameSettings);
+            _mainMenuView.SettingsMenu.CameraSettingsView.Init(_gameSettings);
             var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
             _disposables.Add(settingsAndSoundMediator);
             _sceneContext.Get<SoundController>().Play(SoundID.MainMenuMusic, true);

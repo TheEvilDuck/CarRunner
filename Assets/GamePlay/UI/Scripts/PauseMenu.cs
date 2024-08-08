@@ -1,6 +1,6 @@
 using Common.MenuParent;
+using Common.UI;
 using Common.UI.UIAnimations;
-using MainMenu;
 using UnityEngine;
 using UnityEngine.Events;
 
