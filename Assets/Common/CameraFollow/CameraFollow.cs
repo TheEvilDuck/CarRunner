@@ -7,6 +7,7 @@ namespace Common.Components
         private const float MIN_FOLLOW_SPEED = 0.0001f;
 
         [SerializeField] private Transform _target;
+        [SerializeField] private Camera _camera;
         [SerializeField] private Vector3 _offset;
         [SerializeField] private Vector3 _lookAtOffset;
         [SerializeField, Min(0)] private float _minTargetVelocity;
@@ -16,6 +17,9 @@ namespace Common.Components
         private Vector3 _targetLastPosition;
         private Vector3 _lastVelocity;
         
+        public void SetAngleOfView(int value) => _camera.fieldOfView = value;
+        
+        public void SetZOffset(float value) => _offset = new Vector3(_offset.x, _offset.y, value);
 
         public void SetTarget(Transform target)
         {

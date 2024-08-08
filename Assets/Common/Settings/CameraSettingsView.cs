@@ -13,11 +13,14 @@ namespace Common.UI
         [SerializeField] private Button _backButton;
         [SerializeField] private UIAnimatorSequence _uIAnimatorSequence;
 
+        public UnityEvent<float> AngleOfViewChanged => _angleOfView.onValueChanged;
+        public UnityEvent<float> ZOffsetChanged => _zOffset.onValueChanged;
         public UnityEvent BackPressed => _backButton.onClick;
 
         public void Init(GameSettings gameSettings)
         {
-
+            _angleOfView.value = gameSettings.AngleOfView;
+            _zOffset.value = gameSettings.ZOffset;
         }
 
         public void Hide() => gameObject.SetActive(false);
