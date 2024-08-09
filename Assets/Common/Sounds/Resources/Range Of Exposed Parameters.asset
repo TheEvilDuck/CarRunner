@@ -14,20 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _range:
   - <Parameter>k__BackingField: 2
-    <MinValue>k__BackingField: -35
-    <MaxValue>k__BackingField: 5
+    Range:
+      <MinValue>k__BackingField: -35
+      <MaxValue>k__BackingField: 5
   - <Parameter>k__BackingField: 1
-    <MinValue>k__BackingField: -35
-    <MaxValue>k__BackingField: 5
+    Range:
+      <MinValue>k__BackingField: -35
+      <MaxValue>k__BackingField: 5
   - <Parameter>k__BackingField: 5
-    <MinValue>k__BackingField: -35
-    <MaxValue>k__BackingField: 5
+    Range:
+      <MinValue>k__BackingField: -35
+      <MaxValue>k__BackingField: 5
   - <Parameter>k__BackingField: 3
-    <MinValue>k__BackingField: 1
-    <MaxValue>k__BackingField: 1000
+    Range:
+      <MinValue>k__BackingField: 1
+      <MaxValue>k__BackingField: 1000
   - <Parameter>k__BackingField: 0
-    <MinValue>k__BackingField: 1
-    <MaxValue>k__BackingField: 1000
+    Range:
+      <MinValue>k__BackingField: 1
+      <MaxValue>k__BackingField: 1000
   - <Parameter>k__BackingField: 4
-    <MinValue>k__BackingField: 1
-    <MaxValue>k__BackingField: 1000
+    Range:
+      <MinValue>k__BackingField: 1
+      <MaxValue>k__BackingField: 1000

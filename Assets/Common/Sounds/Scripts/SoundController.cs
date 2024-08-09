@@ -77,10 +77,8 @@ namespace Common.Sound
 
         public void SetValue(AudioMixerExposedParameters param, float normalizedValue)
         {
-            normalizedValue = Mathf.Clamp(normalizedValue, 0, 1);
-            var range = _rangeOfExposedParameters.GetRange(param);
-            float setValue = range.MinValue + normalizedValue * Mathf.Abs(range.MaxValue - range.MinValue);
-            _audioMixer.SetFloat(_audioMixerExposedParameters[param], setValue);
+            var convertedValue = _rangeOfExposedParameters.GetRange(param, normalizedValue);
+            _audioMixer.SetFloat(_audioMixerExposedParameters[param], convertedValue);
         }
 
         private AudioSource CreatePooledObject()
