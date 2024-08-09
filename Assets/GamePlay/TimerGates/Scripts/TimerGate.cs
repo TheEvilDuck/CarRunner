@@ -14,7 +14,7 @@ namespace Gameplay.TimerGates
 
         private void Awake() 
         {
-            _view.Init(_time);
+            _view.Init(this);
         }
 
         protected override void OnPassed()
