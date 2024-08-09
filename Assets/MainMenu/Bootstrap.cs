@@ -17,7 +17,7 @@ namespace MainMenu
         [SerializeField] private CoinsView _coinsView;
         [SerializeField] private ShopItemFactory _shopItemFactory;
         private GameSettings _gameSettings;
-        List<IDisposable> _disposables;
+        private List<IDisposable> _disposables;
         private void Start() 
         {
             _mainMenuView.SettingsMenu.Init(_gameSettings);
