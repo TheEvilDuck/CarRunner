@@ -20,9 +20,7 @@ namespace MainMenu
         List<IDisposable> _disposables;
         private void Start() 
         {
-            _mainMenuView.SettingsMenu.Init();
-            _mainMenuView.SettingsMenu.SoundSettingsView.Init(_gameSettings);
-            _mainMenuView.SettingsMenu.CameraSettingsView.Init(_gameSettings);
+            _mainMenuView.SettingsMenu.Init(_gameSettings);
             var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
             _disposables.Add(settingsAndSoundMediator);
             _sceneContext.Get<SoundController>().Play(SoundID.MainMenuMusic, true);
@@ -56,7 +54,7 @@ namespace MainMenu
             _gameSettings = _sceneContext.Get<GameSettings>();
 
             var mainMenuMediator = new MainMenuMediator(_sceneContext);
-            var settingsMediator = new SettingsMediator(_sceneContext);
+            var settingsMediator = new SettingsAndUIMediator(_sceneContext);
             var coinsMediator = new CoinsMediator(_sceneContext);
             var tutorialMediator = new TutorialMediator(_sceneContext);
 

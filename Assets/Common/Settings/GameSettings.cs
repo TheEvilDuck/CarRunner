@@ -7,10 +7,10 @@ namespace Common
     {
         private const string GAME_SOUND_SETTINGS_KEY = "GameSoundSettingsKey";
         private const string GAME_CAMERA_SETTINGS_KEY = "GameCameraSettingsKey";
+        public Action SoundSettingsChanged;
+        public Action CameraSettingsChanged;
         private SoundSettings _soundSettings;
         private CameraSettings _cameraSettings;
-        public Action SoundSettingsChanged;
-        public Action CameraSettingsChanged; 
 
         public bool Muted => _soundSettings.Mute;
         public float MasterVolume => _soundSettings.MasterVolume;
@@ -26,16 +26,19 @@ namespace Common
             _soundSettings.Mute = flag;
             SoundSettingsChanged?.Invoke();
         }
+
         public void SetMasterVolume(float volume)
         {
             _soundSettings.MasterVolume = volume;
             SoundSettingsChanged?.Invoke();
         }
+
         public void SetBackgroundMusicVolume(float volume)
         {
             _soundSettings.BackgroundMusicVolume = volume;
             SoundSettingsChanged?.Invoke();
         }
+        
         public void SetSFXSoundsVolume(float volume)
         {
             _soundSettings.SFXSoundVolume = volume;

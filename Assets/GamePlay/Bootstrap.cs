@@ -34,7 +34,7 @@ namespace Gameplay
         [SerializeField] private EndOfTheGame _endOfTheGame;
         [SerializeField] private SceneChangingButtons _pauseMenuButtons;
         [SerializeField] private PauseMenu _pauseMenu;
-        [SerializeField] private SettingsMenu _settingsMenu;
+        [SerializeField] private GameSettingsUI _settingsMenu;
         [SerializeField] private LayerMask _groundCheckLayer;
         [SerializeField] private Image _anticlicker;
         private List<IDisposable> _disposables;
@@ -94,8 +94,6 @@ namespace Gameplay
         private void OnDelayedStart()
         {
             _delayedStart -= OnDelayedStart;
-            _settingsMenu.SoundSettingsView.Init(_sceneContext.Get<GameSettings>());
-            _settingsMenu.CameraSettingsView.Init(_sceneContext.Get<GameSettings>());
             var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
             _disposables.Add(settingsAndSoundMediator);
         }
@@ -147,7 +145,7 @@ namespace Gameplay
         private void SetUpUI()
         {
             _speedometr.Init(_sceneContext.Get<Car>().CarBehavior);
-            _settingsMenu.Init();
+            _settingsMenu.Init(_sceneContext.Get<GameSettings>());
         }
 
         private StateMachine SetUpGameplayStateMachine()
@@ -189,7 +187,7 @@ namespace Gameplay
             var endGameMediator = new EndGameMediator(_sceneContext);
             var pauseMediator = new PauseMediator(_sceneContext);
             var pauseMenuMediator = new PauseMenuMediator(_sceneContext);
-            var settingMediator = new SettingsMediator(_sceneContext);
+            var settingMediator = new SettingsAndUIMediator(_sceneContext);
             var carFallingMediator = new CarFallingMediator(_sceneContext);
             var adButtonMediator = new AdButtonMediator(_sceneContext);
             var fullscreenAdMediator = new FullscreenAdMediator(_sceneContext);

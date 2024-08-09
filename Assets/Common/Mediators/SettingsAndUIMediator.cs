@@ -4,17 +4,17 @@ using System;
 
 namespace Common.Mediators
 {
-    public class SettingsMediator : IDisposable
+    public class SettingsAndUIMediator : IDisposable
     {
         private readonly GameSettings _settings;
         private readonly SoundSettingsView _soundSettingsView;
         private readonly CameraSettingsView _cameraSettingsView;
 
-        public SettingsMediator(DIContainer sceneContext)
+        public SettingsAndUIMediator(DIContainer sceneContext)
         {
             _settings = sceneContext.Get<GameSettings>();
-            _soundSettingsView = sceneContext.Get<SettingsMenu>().SoundSettingsView;
-            _cameraSettingsView = sceneContext.Get<SettingsMenu>().CameraSettingsView;
+            _soundSettingsView = sceneContext.Get<GameSettingsUI>().SoundSettingsView;
+            _cameraSettingsView = sceneContext.Get<GameSettingsUI>().CameraSettingsView;
 
             _soundSettingsView.MuteChanged.AddListener(onMuteChanged);
             _soundSettingsView.MasterVolumeChanged.AddListener(onMasterVolumeChanged);

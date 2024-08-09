@@ -360,13 +360,13 @@ MonoBehaviour:
     delay: 0
     nextAnimationWait: 0
   - animator: {fileID: 6625589999242042358}
-    delay: 0
+    delay: 0.1
     nextAnimationWait: 0
   - animator: {fileID: 6994569323834673931}
     delay: 0
     nextAnimationWait: 0
   - animator: {fileID: 8269902077023135240}
-    delay: 0
+    delay: 0.1
     nextAnimationWait: 0
   - animator: {fileID: 5199397670833878773}
     delay: 0
@@ -447,13 +447,13 @@ MonoBehaviour:
     delay: 0
     nextAnimationWait: 0
   - animator: {fileID: 7281489018881919288}
-    delay: 0
+    delay: 0.1
     nextAnimationWait: 0
   - animator: {fileID: 3158007058319445742}
     delay: 0
     nextAnimationWait: 0
   - animator: {fileID: 4824803219258468672}
-    delay: 0
+    delay: 0.1
     nextAnimationWait: 0
   - animator: {fileID: 8653178822268467645}
     delay: 0
@@ -539,30 +539,30 @@ MonoBehaviour:
     delay: 0
     nextAnimationWait: 0
   - animator: {fileID: 7252830217016458536}
-    delay: 0
+    delay: 0.1
     nextAnimationWait: 0
   - animator: {fileID: 3060565076528331518}
     delay: 0
     nextAnimationWait: 0
   - animator: {fileID: 8487646057270194554}
-    delay: 0
+    delay: 0.1
     nextAnimationWait: 0
   - animator: {fileID: 4257124311602984620}
     delay: 0
     nextAnimationWait: 0
-  - animator: {fileID: 7865045250927560947}
-    delay: 0
+  - animator: {fileID: 2085602483747048560}
+    delay: 0.1
     nextAnimationWait: 0
-  - animator: {fileID: 6324496719549061134}
+  - animator: {fileID: 6881909340604896607}
     delay: 0
     nextAnimationWait: 0
   - animator: {fileID: 9149673592463361383}
     delay: 0
     nextAnimationWait: 0
-  - animator: {fileID: 2085602483747048560}
-    delay: 0
+  - animator: {fileID: 7865045250927560947}
+    delay: 0.1
     nextAnimationWait: 0
-  - animator: {fileID: 6881909340604896607}
+  - animator: {fileID: 6324496719549061134}
     delay: 0
     nextAnimationWait: 0
 --- !u!1 &6014306361714842569

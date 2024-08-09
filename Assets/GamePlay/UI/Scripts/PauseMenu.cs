@@ -10,7 +10,7 @@ namespace Gameplay.UI
     {
         
         [SerializeField] private PauseMainButtons _mainButtonsMenu;
-        [SerializeField] private SettingsMenu _settingsMenu;
+        [SerializeField] private GameSettingsUI _settingsMenu;
         [SerializeField] private UIAnimatorSequence _uIAnimatorSequence;
 
         private MenuParentsManager _menuParentsManager;

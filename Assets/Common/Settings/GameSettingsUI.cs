@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace Common.UI
 {
-    public class SettingsMenu : MonoBehaviour, IMenuParent
+    public class GameSettingsUI : MonoBehaviour, IMenuParent
     {
         private MenuParentsManager _menuParentsManager;
         [SerializeField] private SettingsMenuButtons _settingsMenuButtons;
@@ -13,12 +13,15 @@ namespace Common.UI
 
         public UnityEvent BackPressed => _settingsMenuButtons.BackPressed;
 
-        public void Init()
+        public void Init(GameSettings gameSettings)
         {
             _menuParentsManager = new MenuParentsManager();
             _menuParentsManager.Add(SoundSettingsView);
             _menuParentsManager.Add(CameraSettingsView);
             _menuParentsManager.Add(_settingsMenuButtons);
+
+            SoundSettingsView.Init(gameSettings);
+            CameraSettingsView.Init(gameSettings);
         }
 
         private void OnEnable()
