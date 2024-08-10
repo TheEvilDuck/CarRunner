@@ -25,6 +25,8 @@ namespace Gameplay
 {
     public class Bootstrap : MonoBehaviourBootstrap
     {
+        private const string RANGE_OF_CAMERA_SETTINGS_PATH = "Range Of Camera Settings";
+        [SerializeField] private Camera _camera;
         [SerializeField] private TimerView _timerView;
         [SerializeField] private Car _carPrefab;
         [SerializeField] private GameObject _wheelPrefab;
@@ -60,6 +62,10 @@ namespace Gameplay
             _sceneContext.Register(_pauseMenu);
             _sceneContext.Register(_pauseMenuButtons);
             _sceneContext.Register(_anticlicker, "anticlicker");
+            _sceneContext.Register(Resources.Load<RangeOfCameraSettings>(RANGE_OF_CAMERA_SETTINGS_PATH));
+            _sceneContext.Register(_camera);
+            _sceneContext.Register(_cameraFollow);
+            
 
             SetUpCarSwitcher();
             SetUpMediators();
@@ -191,6 +197,7 @@ namespace Gameplay
             var carFallingMediator = new CarFallingMediator(_sceneContext);
             var adButtonMediator = new AdButtonMediator(_sceneContext);
             var fullscreenAdMediator = new FullscreenAdMediator(_sceneContext);
+            var settingsAndCameraMediator = new SettingsAndCameraMediator(_sceneContext);            
 
             _disposables.Add(timerMediator);
             _disposables.Add(carControllerMediator);
@@ -203,6 +210,7 @@ namespace Gameplay
             _disposables.Add(carFallingMediator);
             _disposables.Add(adButtonMediator);
             _disposables.Add(fullscreenAdMediator);
+            _disposables.Add(settingsAndCameraMediator);
         }
 
         private void SetUpCamera()

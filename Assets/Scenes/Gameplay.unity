@@ -3574,6 +3574,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 510995132}
     - target: {fileID: 8117531253039395286, guid: aa758e60310365f4bb0203c7cdc61ec5, type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 518138972}
+    - target: {fileID: 8117531253039395286, guid: aa758e60310365f4bb0203c7cdc61ec5, type: 3}
       propertyPath: _pauseMenu
       value: 
       objectReference: {fileID: 1921629913}
