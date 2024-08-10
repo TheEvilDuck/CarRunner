@@ -7,5 +7,11 @@ namespace Common
     {
         [field: SerializeField] public Range AngleOfView { get; private set; }
         [field: SerializeField] public Range ZOffset { get; private set; }
+
+        private void OnValidate()
+        {
+            AngleOfView.Validate();
+            ZOffset.Validate();
+        }
     }
 }

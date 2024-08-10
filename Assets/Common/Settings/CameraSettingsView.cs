@@ -17,10 +17,10 @@ namespace Common.UI
         public UnityEvent<float> ZOffsetChanged => _zOffset.onValueChanged;
         public UnityEvent BackPressed => _backButton.onClick;
 
-        public void Init(GameSettings gameSettings)
+        public void Init(ICameraSettings cameraSettings)
         {
-            _angleOfView.value = gameSettings.AngleOfView;
-            _zOffset.value = gameSettings.ZOffset;
+            _angleOfView.value = cameraSettings.AngleOfView;
+            _zOffset.value = cameraSettings.ZOffset;
         }
 
         public void Hide() => gameObject.SetActive(false);

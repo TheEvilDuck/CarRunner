@@ -20,12 +20,12 @@ public class SoundSettingsView : MonoBehaviour, IMenuParent
     public UnityEvent<float> SFXSoundVolumeChanged => _SFXSoundsVolume.onValueChanged;
     public UnityEvent<bool> MuteChanged => _toggleMute.onValueChanged;
 
-    public void Init(GameSettings gameSettings)
+    public void Init(ISoundSettings soundSettings)
     {
-        _toggleMute.isOn = gameSettings.Muted;
-        _masterVolume.value = gameSettings.MasterVolume;
-        _backgroundMusicVolume.value = gameSettings.BackgroundMusicVolume;
-        _SFXSoundsVolume.value = gameSettings.SFXSoundVolume;
+        _toggleMute.isOn = soundSettings.Muted;
+        _masterVolume.value = soundSettings.MasterVolume;
+        _backgroundMusicVolume.value = soundSettings.BackgroundMusicVolume;
+        _SFXSoundsVolume.value = soundSettings.SFXSoundVolume;
     }
 
     public void Show()

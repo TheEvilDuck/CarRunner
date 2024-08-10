@@ -13,15 +13,15 @@ namespace Common.UI
 
         public UnityEvent BackPressed => _settingsMenuButtons.BackPressed;
 
-        public void Init(GameSettings gameSettings)
+        public void Init(ICameraSettings cameraSettings, ISoundSettings soundSettings)
         {
             _menuParentsManager = new MenuParentsManager();
             _menuParentsManager.Add(SoundSettingsView);
             _menuParentsManager.Add(CameraSettingsView);
             _menuParentsManager.Add(_settingsMenuButtons);
 
-            SoundSettingsView.Init(gameSettings);
-            CameraSettingsView.Init(gameSettings);
+            SoundSettingsView.Init(soundSettings);
+            CameraSettingsView.Init(cameraSettings);
         }
 
         private void OnEnable()

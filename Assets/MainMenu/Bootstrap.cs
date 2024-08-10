@@ -21,7 +21,7 @@ namespace MainMenu
         private List<IDisposable> _disposables;
         private void Start() 
         {
-            _mainMenuView.SettingsMenu.Init(_gameSettings);
+            _mainMenuView.SettingsMenu.Init(_sceneContext.Get<ICameraSettings>(), _sceneContext.Get<ISoundSettings>());
             var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
             _disposables.Add(settingsAndSoundMediator);
             _sceneContext.Get<SoundController>().Play(SoundID.MainMenuMusic, true);

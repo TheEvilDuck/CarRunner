@@ -6,13 +6,15 @@ namespace Common.Mediators
 {
     public class SettingsAndUIMediator : IDisposable
     {
-        private readonly GameSettings _settings;
+        private readonly ICameraSettings _cameraSettings;
+        private readonly ISoundSettings _soundSettings;
         private readonly SoundSettingsView _soundSettingsView;
         private readonly CameraSettingsView _cameraSettingsView;
 
         public SettingsAndUIMediator(DIContainer sceneContext)
         {
-            _settings = sceneContext.Get<GameSettings>();
+            _cameraSettings = sceneContext.Get<ICameraSettings>();
+            _soundSettings = sceneContext.Get<ISoundSettings>();
             _soundSettingsView = sceneContext.Get<GameSettingsUI>().SoundSettingsView;
             _cameraSettingsView = sceneContext.Get<GameSettingsUI>().CameraSettingsView;
 
@@ -24,12 +26,12 @@ namespace Common.Mediators
             _cameraSettingsView.ZOffsetChanged.AddListener(onZOffsetChange);
         }
 
-        private void onMuteChanged(bool mute) => _settings.SoundOn(mute);
-        private void onMasterVolumeChanged(float volume) => _settings.SetMasterVolume(volume);
-        private void onBackgroundMusicVolumeChanged(float volume) => _settings.SetBackgroundMusicVolume(volume);
-        private void onSFXSoundVolumeChanged(float volume) => _settings.SetSFXSoundsVolume(volume);
-        private void onAngleOfViewChanged(float value) => _settings.SetAngleOfView(value);
-        private void onZOffsetChange(float value) => _settings.SetZOffset(value);
+        private void onMuteChanged(bool mute) => _soundSettings.SoundOn(mute);
+        private void onMasterVolumeChanged(float volume) => _soundSettings.SetMasterVolume(volume);
+        private void onBackgroundMusicVolumeChanged(float volume) => _soundSettings.SetBackgroundMusicVolume(volume);
+        private void onSFXSoundVolumeChanged(float volume) => _soundSettings.SetSFXSoundsVolume(volume);
+        private void onAngleOfViewChanged(float value) => _cameraSettings.SetAngleOfView(value);
+        private void onZOffsetChange(float value) => _cameraSettings.SetZOffset(value);
 
         public void Dispose()
         {
@@ -39,7 +41,8 @@ namespace Common.Mediators
             _soundSettingsView.SFXSoundVolumeChanged.RemoveListener(onSFXSoundVolumeChanged);
             _cameraSettingsView.AngleOfViewChanged.RemoveListener(onAngleOfViewChanged);
             _cameraSettingsView.ZOffsetChanged.RemoveListener(onZOffsetChange);
-            _settings.SaveSettings();
+            _soundSettings.SaveSettings();
+            _cameraSettings.SaveSettings();
         }
     }
 }

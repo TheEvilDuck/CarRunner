@@ -151,7 +151,7 @@ namespace Gameplay
         private void SetUpUI()
         {
             _speedometr.Init(_sceneContext.Get<Car>().CarBehavior);
-            _settingsMenu.Init(_sceneContext.Get<GameSettings>());
+            _settingsMenu.Init(_sceneContext.Get<ICameraSettings>(), _sceneContext.Get<ISoundSettings>());
         }
 
         private StateMachine SetUpGameplayStateMachine()

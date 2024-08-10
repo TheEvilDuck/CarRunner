@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Common
 {
-    public class GameSettings
+    public class GameSettings : ICameraSettings, ISoundSettings
     {
         private const string GAME_SOUND_SETTINGS_KEY = "GameSoundSettingsKey";
         private const string GAME_CAMERA_SETTINGS_KEY = "GameCameraSettingsKey";
-        public Action SoundSettingsChanged;
-        public Action CameraSettingsChanged;
+        public event Action SoundSettingsChanged;
+        public event Action CameraSettingsChanged; 
         private SoundSettings _soundSettings;
         private CameraSettings _cameraSettings;
 
