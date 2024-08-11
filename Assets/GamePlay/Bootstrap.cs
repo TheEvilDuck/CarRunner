@@ -39,6 +39,7 @@ namespace Gameplay
         [SerializeField] private GameSettingsUI _settingsMenu;
         [SerializeField] private LayerMask _groundCheckLayer;
         [SerializeField] private Image _anticlicker;
+        [SerializeField] private StartMessage _startMessage;
         private List<IDisposable> _disposables;
 
         protected override void Setup()
@@ -65,6 +66,7 @@ namespace Gameplay
             _sceneContext.Register(Resources.Load<RangeOfCameraSettings>(RANGE_OF_CAMERA_SETTINGS_PATH));
             _sceneContext.Register(_camera);
             _sceneContext.Register(_cameraFollow);
+            _sceneContext.Register(_startMessage);
             
 
             SetUpCarSwitcher();

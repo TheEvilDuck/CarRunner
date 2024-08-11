@@ -7,6 +7,7 @@ namespace Services.PlayerInput
     {
         public event Action<float> horizontalInput;
         public event Action<bool> brakeInput;
+        public event Action<Vector2> screenInput;
 
         private bool _enabled;
 
@@ -29,6 +30,9 @@ namespace Services.PlayerInput
 
             horizontalInput?.Invoke(Input.GetAxisRaw("Horizontal"));
             brakeInput?.Invoke(Input.GetKey(KeyCode.Space));
+
+            if (Input.GetMouseButton(0))
+                screenInput?.Invoke(Input.mousePosition);
         }
     }
 }
