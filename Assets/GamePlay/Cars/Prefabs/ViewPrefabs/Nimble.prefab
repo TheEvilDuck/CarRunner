@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nimble
       objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: b10b1c3d2004e334bbd594bed720632f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.6841946
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: b10b1c3d2004e334bbd594bed720632f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.6841946
+      objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: b10b1c3d2004e334bbd594bed720632f, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.57

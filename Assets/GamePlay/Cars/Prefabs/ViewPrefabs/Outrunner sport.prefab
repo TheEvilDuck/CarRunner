@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Outrunner sport
       objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: 8e6bd72a77978f347964574f82683605, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.6527278
+      objectReference: {fileID: 0}
+    - target: {fileID: 400008, guid: 8e6bd72a77978f347964574f82683605, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.6527278
+      objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 8e6bd72a77978f347964574f82683605, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.49
