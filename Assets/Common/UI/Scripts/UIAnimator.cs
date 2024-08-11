@@ -64,6 +64,12 @@ namespace Common.UI.UIAnimations
         }
 
         protected abstract void EvaluateAnimation(float strength);
-        protected virtual void SetupAnimation() {}
+        protected virtual void SetupAnimation() 
+        {
+            if (_inverse)
+            {
+                EvaluateAnimation(1f);
+            }
+        }
     }
 }

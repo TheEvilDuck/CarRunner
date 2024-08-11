@@ -17,7 +17,6 @@ namespace Gameplay.TimerGates
         public void Init(TimerGate timerGate)
         {
             _timerGate = timerGate;
-            MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
 
             if (_timerGate.Time>=0)
             {

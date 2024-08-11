@@ -118,7 +118,7 @@ namespace Gameplay
 
             foreach(Garage garage in level.Garages.ToArray())
             {
-                garage.Init();
+                garage.Init(_wheelPrefab);
             }
 
             RenderSettings.skybox = level.Skybox;

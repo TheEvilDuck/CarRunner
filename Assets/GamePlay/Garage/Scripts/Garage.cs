@@ -12,9 +12,9 @@ namespace Gameplay.Garages
         [SerializeField] private GarageView _garageView;
         public event Action passed;
 
-        public void Init()
+        public void Init(GameObject wheelPrefab)
         { 
-            _garageView.Init(this);
+            _garageView.Init(this, wheelPrefab);
         }
 
         protected override void OnPassed()
