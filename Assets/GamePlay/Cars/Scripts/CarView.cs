@@ -32,12 +32,10 @@ namespace Gameplay.Cars
 
             foreach (IReadOnlyWheel wheel in wheels)
             {
-                GameObject wheelView = Instantiate<GameObject>(_wheelPrefab);
-                
-                wheelView.transform.position = wheel.WorldPosition;
-                wheelView.transform.rotation = wheel.WorldRotation;
-                wheelView.transform.SetParent(transform);
-                wheelView.transform.localScale = new Vector3(100f * wheel.Radius, 100f * wheel.Radius, 100f * wheel.Radius);
+                GameObject wheelView = Instantiate<GameObject>(_wheelPrefab, wheel.WorldPosition, wheel.WorldRotation, transform);
+
+                if (wheel.IsLeft)
+                    wheelView.transform.Rotate(Vector3.up, 180f);
 
                 _currentWheels.Add(wheelView.transform, wheel);
                 
@@ -70,6 +68,9 @@ namespace Gameplay.Cars
             {
                 keyValuePair.Key.position = keyValuePair.Value.WorldPosition;
                 keyValuePair.Key.rotation = keyValuePair.Value.WorldRotation;
+
+                if (keyValuePair.Value.IsLeft)
+                    keyValuePair.Key.Rotate(Vector3.up, 180f);
             }
         }
     }
