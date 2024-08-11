@@ -13,18 +13,20 @@ using UnityEngine;
 using Common.Components;
 using System.Collections.Generic;
 using System;
-using MainMenu;
 using Gameplay.CarFallingHandling;
 using EntryPoint;
 using Common.Mediators;
 using Common.Data;
 using YG;
 using UnityEngine.UI;
+using Common.UI;
 
 namespace Gameplay
 {
     public class Bootstrap : MonoBehaviourBootstrap
     {
+        private const string RANGE_OF_CAMERA_SETTINGS_PATH = "Range Of Camera Settings";
+        [SerializeField] private Camera _camera;
         [SerializeField] private TimerView _timerView;
         [SerializeField] private Car _carPrefab;
         [SerializeField] private GameObject _wheelPrefab;
@@ -34,7 +36,7 @@ namespace Gameplay
         [SerializeField] private EndOfTheGame _endOfTheGame;
         [SerializeField] private SceneChangingButtons _pauseMenuButtons;
         [SerializeField] private PauseMenu _pauseMenu;
-        [SerializeField] private SettingsMenu _settingsMenu;
+        [SerializeField] private GameSettingsUI _settingsMenu;
         [SerializeField] private LayerMask _groundCheckLayer;
         [SerializeField] private Image _anticlicker;
         private List<IDisposable> _disposables;
@@ -60,6 +62,10 @@ namespace Gameplay
             _sceneContext.Register(_pauseMenu);
             _sceneContext.Register(_pauseMenuButtons);
             _sceneContext.Register(_anticlicker, "anticlicker");
+            _sceneContext.Register(Resources.Load<RangeOfCameraSettings>(RANGE_OF_CAMERA_SETTINGS_PATH));
+            _sceneContext.Register(_camera);
+            _sceneContext.Register(_cameraFollow);
+            
 
             SetUpCarSwitcher();
             SetUpMediators();
@@ -94,7 +100,6 @@ namespace Gameplay
         private void OnDelayedStart()
         {
             _delayedStart -= OnDelayedStart;
-            _settingsMenu.Init(_sceneContext.Get<GameSettings>());
             var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
             _disposables.Add(settingsAndSoundMediator);
         }
@@ -146,6 +151,7 @@ namespace Gameplay
         private void SetUpUI()
         {
             _speedometr.Init(_sceneContext.Get<Car>().CarBehavior);
+            _settingsMenu.Init(_sceneContext.Get<ICameraSettings>(), _sceneContext.Get<ISoundSettings>());
         }
 
         private StateMachine SetUpGameplayStateMachine()
@@ -187,10 +193,11 @@ namespace Gameplay
             var endGameMediator = new EndGameMediator(_sceneContext);
             var pauseMediator = new PauseMediator(_sceneContext);
             var pauseMenuMediator = new PauseMenuMediator(_sceneContext);
-            var settingMediator = new SettingsMediator(_sceneContext);
+            var settingMediator = new SettingsAndUIMediator(_sceneContext);
             var carFallingMediator = new CarFallingMediator(_sceneContext);
             var adButtonMediator = new AdButtonMediator(_sceneContext);
             var fullscreenAdMediator = new FullscreenAdMediator(_sceneContext);
+            var settingsAndCameraMediator = new SettingsAndCameraMediator(_sceneContext);            
 
             _disposables.Add(timerMediator);
             _disposables.Add(carControllerMediator);
@@ -203,6 +210,7 @@ namespace Gameplay
             _disposables.Add(carFallingMediator);
             _disposables.Add(adButtonMediator);
             _disposables.Add(fullscreenAdMediator);
+            _disposables.Add(settingsAndCameraMediator);
         }
 
         private void SetUpCamera()

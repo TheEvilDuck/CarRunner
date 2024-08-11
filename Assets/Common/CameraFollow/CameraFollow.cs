@@ -16,6 +16,7 @@ namespace Common.Components
         private Vector3 _targetLastPosition;
         private Vector3 _lastVelocity;
         
+        public void SetZOffset(float value) => _offset = new Vector3(_offset.x, _offset.y, value);
 
         public void SetTarget(Transform target)
         {

@@ -1,4 +1,5 @@
 using Common.MenuParent;
+using Common.UI;
 using MainMenu.LevelSelection;
 using MainMenu.Shop.View;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace MainMenu
 
         [field: SerializeField] public MainButtons MainButtons {get; private set;}
         [field: SerializeField] public LevelSelector LevelSelector {get; private set;}
-        [field: SerializeField] public SettingsMenu SettingsMenu { get; private set;}
+        [field: SerializeField] public GameSettingsUI SettingsMenu { get; private set;}
         [field: SerializeField] public ShopView ShopView {get; private set;}
         [field: SerializeField] public TutorialView TutorialView { get; private set;}
 
