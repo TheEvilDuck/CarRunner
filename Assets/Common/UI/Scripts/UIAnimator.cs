@@ -40,6 +40,7 @@ namespace Common.UI.UIAnimations
 
             StopCoroutine(_currentAnimation);
             _currentAnimation = null;
+            animationEnd?.Invoke();
         }
 
         private IEnumerator Animation()
@@ -58,8 +59,6 @@ namespace Common.UI.UIAnimations
                 EvaluateAnimation(strength);
                 yield return null;
             }
-
-            animationEnd?.Invoke();
 
             StopAnimation();
         }
