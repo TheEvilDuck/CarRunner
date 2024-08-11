@@ -40,6 +40,7 @@ namespace Common.UI.UIAnimations
 
             StopCoroutine(_currentAnimation);
             _currentAnimation = null;
+            animationEnd?.Invoke();
         }
 
         private IEnumerator Animation()
@@ -59,12 +60,16 @@ namespace Common.UI.UIAnimations
                 yield return null;
             }
 
-            animationEnd?.Invoke();
-
             StopAnimation();
         }
 
         protected abstract void EvaluateAnimation(float strength);
-        protected virtual void SetupAnimation() {}
+        protected virtual void SetupAnimation() 
+        {
+            if (_inverse)
+            {
+                EvaluateAnimation(1f);
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 using Common.MenuParent;
+using Common.UI;
 using Common.UI.UIAnimations;
-using MainMenu;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,7 +10,7 @@ namespace Gameplay.UI
     {
         
         [SerializeField] private PauseMainButtons _mainButtonsMenu;
-        [SerializeField] private SettingsMenu _settingsMenu;
+        [SerializeField] private GameSettingsUI _settingsMenu;
         [SerializeField] private UIAnimatorSequence _uIAnimatorSequence;
 
         private MenuParentsManager _menuParentsManager;

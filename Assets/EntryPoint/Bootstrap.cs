@@ -44,6 +44,8 @@ namespace EntryPoint
 
             _projectContext.Register(() => Resources.Load<LevelsDatabase>(LEVEL_DATABASE_PATH));
             _projectContext.Register(() => new GameSettings());
+            _projectContext.Register<ISoundSettings>(() => _projectContext.Get<GameSettings>());
+            _projectContext.Register<ICameraSettings>(() => _projectContext.Get<GameSettings>());
             _projectContext.Register(() => SetupSoundController());
             _projectContext.Register(() => new RewardProvider());
             _projectContext.Register(SetupDeviceType());

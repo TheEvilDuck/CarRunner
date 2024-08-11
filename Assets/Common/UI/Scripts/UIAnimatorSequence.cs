@@ -7,6 +7,7 @@ namespace Common.UI.UIAnimations
 {
     public class UIAnimatorSequence: MonoBehaviour
     {
+        [SerializeField] private bool _loop;
         [SerializeField] private List<SequenseData> _animations;
         private int _currentAnimation = 0;
         private void OnDisable() 
@@ -21,6 +22,13 @@ namespace Common.UI.UIAnimations
         {
             _currentAnimation = 0;
             StartCoroutine(PlayAnimation());
+        }
+
+        public void StopSequence()
+        {
+            _animations[_currentAnimation].animator.animationEnd -= PlayNext;
+            _animations[_currentAnimation].animator.StopAnimation();
+            _currentAnimation = 0;
         }
 
         public void AddAnimation(UIAnimator uIAnimator, float delay, bool nextAnimationWait)
@@ -62,6 +70,11 @@ namespace Common.UI.UIAnimations
                     StartCoroutine(PlayAnimation());
                 else
                     PlayNext();
+            }
+            else if (_loop)
+            {
+                _currentAnimation = 0;
+                StartCoroutine(PlayAnimation());
             }
         }
 

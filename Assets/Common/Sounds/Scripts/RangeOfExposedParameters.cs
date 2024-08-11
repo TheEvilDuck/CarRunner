@@ -6,31 +6,29 @@ namespace Common.Sound
     [CreateAssetMenu(menuName = "RangeOfExposedParameters")]
     public class RangeOfExposedParameters : ScriptableObject
     {
-        [SerializeField] private Range[] _range;
+        [SerializeField] private RangeData[] _range;
 
-        public Range GetRange(AudioMixerExposedParameters parameter)
+        public float GetRange(AudioMixerExposedParameters parameter, float normalizedValue)
         {
-            foreach(Range range in _range)
+            foreach(RangeData rangeData in _range)
             {
-                if(range.Parameter == parameter)
-                    return range;
+                if(rangeData.Parameter == parameter)
+                    return rangeData.Range.GetConvertedValue(normalizedValue);
             }
             throw new ArgumentException($"Can't find Audio Mixer Exposed Parameter: {parameter}");
         }
 
         private void OnValidate()
         {
-            foreach(Range range in _range)
-                if(range.MinValue > range.MaxValue)
-                    throw new ArgumentException($"MinValue > MaxValue: {range.Parameter}");
+            foreach(RangeData rangeData in _range)
+                rangeData.Range.Validate();      
         }
 
         [Serializable]
-        public struct Range
+        private struct RangeData
         {
             [field: SerializeField] public AudioMixerExposedParameters Parameter { get; private set; }
-            [field: SerializeField] public float MinValue { get; private set; }
-            [field: SerializeField] public float MaxValue { get; private set; }
+            [field: SerializeField] public Range Range;
         }
     }
 }

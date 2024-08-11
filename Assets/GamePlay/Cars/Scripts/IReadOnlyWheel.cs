@@ -7,5 +7,6 @@ namespace Gameplay.Cars
         public Vector3 WorldPosition {get;}
         public Quaternion WorldRotation {get;}
         public float Radius {get;}
+        public bool IsLeft {get;}
     }
 }

@@ -7,6 +7,8 @@ namespace Services.PlayerInput
     {
         public event Action<float> horizontalInput;
         public event Action<bool> brakeInput;
+        public event Action<Vector2> screenInput;
+
         private RectTransform _brake;
 
         public MobileInput(RectTransform brake) 
@@ -29,6 +31,8 @@ namespace Services.PlayerInput
                     }
                     else
                     {
+                        screenInput?.Invoke(touch.position);
+
                         if (touch.position.x <= Screen.width / 2f)
                             horizontalDirection = -1;
                         else
