@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Common.Reactive;
 using Gameplay.Cars;
 using Gameplay.Garages;
 using UnityEngine;
@@ -9,25 +10,30 @@ namespace Gameplay
     public class CarSwitcher: IDisposable
     {
         private Car _car;
-        private IEnumerable<Garage> _garages;
+        private IEnumerable<IGarageData> _garages;
         private Timer _timer;
 
-        private Dictionary<Garage, Action> _delegates;
+        private Dictionary<IGarageData, Action> _delegates;
 
-        public CarSwitcher(Car car, IEnumerable<Garage> garages, Timer timer, GameObject wheelPrefab)
+        public CarSwitcher(Car car, IEnumerable<IGarageData> garages, Timer timer, GameObject wheelPrefab, Observable<CarConfig> currentCarConfig)
         {
             _car = car;
             _garages = garages;
             _timer = timer;
 
-            _delegates = new Dictionary<Garage, Action>();
+            _delegates = new Dictionary<IGarageData, Action>();
 
-            foreach (Garage garage in _garages)
+            foreach (IGarageData garage in _garages)
             {
                 Action OnPassed = () =>
                 {
                     if (_timer.CurrentTime >= garage.TimeCost)
                     {
+                        if (currentCarConfig.Value == garage.CarConfig)
+                            return;
+
+                        currentCarConfig.Value = garage.CarConfig;
+                        Debug.Log(currentCarConfig.Value.name);
                         _car.InitCar(garage.CarConfig,wheelPrefab);
                         _timer.OffsetTime(-garage.TimeCost);
                     }

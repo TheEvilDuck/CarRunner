@@ -20,6 +20,7 @@ using Common.Data;
 using YG;
 using UnityEngine.UI;
 using Common.UI;
+using Common.Reactive;
 
 namespace Gameplay
 {
@@ -67,9 +68,10 @@ namespace Gameplay
             _sceneContext.Register(_camera);
             _sceneContext.Register(_cameraFollow);
             _sceneContext.Register(_startMessage);
+            _sceneContext.Register(() => new Observable<CarConfig>());
+            _sceneContext.Register<IReadonlyObservable<CarConfig>>(() => _sceneContext.Get<Observable<CarConfig>>());
+            _sceneContext.Register(SetUpCarSwitcher).NonLazy();
             
-
-            SetUpCarSwitcher();
             SetUpMediators();
             SetUpCamera();
             SetUpUI();
@@ -118,7 +120,7 @@ namespace Gameplay
 
             foreach(Garage garage in level.Garages.ToArray())
             {
-                garage.Init(_wheelPrefab);
+                garage.Init(_wheelPrefab, _sceneContext.Get<IReadonlyObservable<CarConfig>>());
             }
 
             RenderSettings.skybox = level.Skybox;
@@ -131,14 +133,16 @@ namespace Gameplay
             var level = _sceneContext.Get<Level>();
             var car = Instantiate(_carPrefab, level.CarStartPosition, level.CarStartRotation, null);
             car.InitCar(level.StartCar, _wheelPrefab);
+            _sceneContext.Get<Observable<CarConfig>>().Value = level.StartCar;
 
             return car;
         }
 
-        private void SetUpCarSwitcher()
+        private CarSwitcher SetUpCarSwitcher()
         {
-            var carSwitcher = new CarSwitcher(_sceneContext.Get<Car>(),_sceneContext.Get<Level>().Garages,_sceneContext.Get<Timer>(), _wheelPrefab);
+            var carSwitcher = new CarSwitcher(_sceneContext.Get<Car>(),_sceneContext.Get<Level>().Garages,_sceneContext.Get<Timer>(), _wheelPrefab, _sceneContext.Get<Observable<CarConfig>>());
             _disposables.Add(carSwitcher);
+            return carSwitcher;
         }
 
         private FallingBehaviourSwitcher SetUpFallingBehaviourSwitcher()
