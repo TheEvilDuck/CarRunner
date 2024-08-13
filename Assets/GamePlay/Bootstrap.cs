@@ -137,7 +137,7 @@ namespace Gameplay
 
         private void SetUpCarSwitcher()
         {
-            var carSwitcher = new CarSwitcher(_sceneContext.Get<Car>(),_sceneContext.Get<Level>().Garages,_sceneContext.Get<Timer>(), _wheelPrefab);
+            var carSwitcher = new CarSwitcher(_sceneContext.Get<Car>(),_sceneContext.Get<Level>().Garages,_sceneContext.Get<Timer>(), _wheelPrefab);            
             _disposables.Add(carSwitcher);
         }
 

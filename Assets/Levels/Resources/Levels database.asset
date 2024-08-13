@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Levels database
   m_EditorClassIdentifier: 
   _levels:
-  - <LevelId>k__BackingField: TestRoad
-    <Level>k__BackingField: {fileID: 3673910866174486215, guid: 956ef20e65f843d4c81b98c21810a614, type: 3}
+  - <LevelId>k__BackingField: Country 1
+    <Level>k__BackingField: {fileID: 9164497806142845981, guid: 72957c52d30e16c40a05fe2c1608193e, type: 3}
     <Cost>k__BackingField: 100
     <RewardDivider>k__BackingField: 1000
+  - <LevelId>k__BackingField: Country 2
+    <Level>k__BackingField: {fileID: 3673910866174486215, guid: 956ef20e65f843d4c81b98c21810a614, type: 3}
+    <Cost>k__BackingField: 200
+    <RewardDivider>k__BackingField: 2000
