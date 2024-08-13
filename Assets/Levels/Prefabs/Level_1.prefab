@@ -2175,7 +2175,7 @@ MonoBehaviour:
   _finish: {fileID: 160867210181859822}
   _carStartPosition: {fileID: 7866912232853467701}
   _roadSystem: {fileID: 1697096502703916241}
-  _startCar: {fileID: 11400000, guid: f04cf13f6ecc8e44aa763aca81cbc9ff, type: 2}
+  _startCar: {fileID: 11400000, guid: 6152caa714501d9418cb3c3c6ff6beb0, type: 2}
   _skybox: {fileID: 2100000, guid: c5ec218c5c7812b4481375d8377fa47b, type: 2}
   StartTimer: 45
 --- !u!1 &4758809320032783168
@@ -4065,6 +4065,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Garage
       objectReference: {fileID: 0}
+    - target: {fileID: 289346490650440433, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.b
+      value: 0.13950695
+      objectReference: {fileID: 0}
+    - target: {fileID: 289346490650440433, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.g
+      value: 0.3245211
+      objectReference: {fileID: 0}
+    - target: {fileID: 289346490650440433, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8962264
+      objectReference: {fileID: 0}
     - target: {fileID: 1393884850650969832, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: m_LocalScale.x
       value: 4.2315636
@@ -4117,6 +4129,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4725210023055830984, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.b
+      value: 0.31764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725210023055830984, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8980392
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725210023055830984, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8901961
+      objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <TimeCost>k__BackingField
       value: 5
@@ -4125,6 +4149,18 @@ PrefabInstance:
       propertyPath: <CarConfig>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: fb5ffced9c9788249ab0f20af4ae46ca, type: 2}
+    - target: {fileID: 5883211468975283219, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.b
+      value: 0.3176471
+      objectReference: {fileID: 0}
+    - target: {fileID: 5883211468975283219, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.g
+      value: 0.32270646
+      objectReference: {fileID: 0}
+    - target: {fileID: 5883211468975283219, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8980392
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4369,6 +4405,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4725210023055830984, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.b
+      value: 0.31764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725210023055830984, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8980392
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725210023055830984, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8901961
+      objectReference: {fileID: 0}
     - target: {fileID: 5447465947885434531, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
       propertyPath: <TimeCost>k__BackingField
       value: 15
@@ -4377,6 +4425,22 @@ PrefabInstance:
       propertyPath: <CarConfig>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: eae589ea2b6ca4246a462ca0ee906e9d, type: 2}
+    - target: {fileID: 5883211468975283219, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5883211468975283219, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.g
+      value: 0.3490672
+      objectReference: {fileID: 0}
+    - target: {fileID: 5883211468975283219, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_Color.r
+      value: 0.990566
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079412772061482697, guid: b328752c38df5044cb5f89f4e652decf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4671,11 +4735,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1001565594596908337, guid: ee9a553485ff5f543bbdf0037c8f9945, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5.667
+      value: 6.508549
       objectReference: {fileID: 0}
     - target: {fileID: 1001565594596908337, guid: ee9a553485ff5f543bbdf0037c8f9945, type: 3}
       propertyPath: m_LocalScale.y
-      value: 26.738604
+      value: 5.849604
       objectReference: {fileID: 0}
     - target: {fileID: 1001565594596908337, guid: ee9a553485ff5f543bbdf0037c8f9945, type: 3}
       propertyPath: m_LocalScale.z
@@ -4683,7 +4747,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1001565594596908337, guid: ee9a553485ff5f543bbdf0037c8f9945, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 272.4
+      value: 272.24
       objectReference: {fileID: 0}
     - target: {fileID: 1001565594596908337, guid: ee9a553485ff5f543bbdf0037c8f9945, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4691,7 +4755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1001565594596908337, guid: ee9a553485ff5f543bbdf0037c8f9945, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.1
+      value: -13.99
       objectReference: {fileID: 0}
     - target: {fileID: 1001565594596908337, guid: ee9a553485ff5f543bbdf0037c8f9945, type: 3}
       propertyPath: m_LocalRotation.w

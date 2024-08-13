@@ -1,4 +1,5 @@
 using System;
+using Common.Reactive;
 using Gameplay.Cars;
 using UnityEngine;
 
@@ -12,9 +13,9 @@ namespace Gameplay.Garages
         [SerializeField] private GarageView _garageView;
         public event Action passed;
 
-        public void Init(GameObject wheelPrefab)
+        public void Init(GameObject wheelPrefab, IReadonlyObservable<CarConfig> currentCarConfig)
         { 
-            _garageView.Init(this, wheelPrefab);
+            _garageView.Init(this, wheelPrefab, currentCarConfig);
         }
 
         protected override void OnPassed()

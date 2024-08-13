@@ -1,3 +1,4 @@
+using Common.Reactive;
 using Common.UI.UIAnimations;
 using Gameplay.Cars;
 using TMPro;
@@ -13,10 +14,13 @@ namespace Gameplay.Garages
         [SerializeField] private Color32 _color;
         [SerializeField] private UIAnimatorSequence _passedAnimation;
         [SerializeField] private float _carRotationSpeed;
+        [SerializeField] private StatsFiller _speedStatsFiller;
+        [SerializeField] private StatsFiller _accelerationStatsFiller;
         private CarView _carView;
         private IGarageData _garageData;
+        private IReadonlyObservable<CarConfig> _currentCarConfig;
 
-        public void Init(IGarageData garageData, GameObject wheelPrefab)
+        public void Init(IGarageData garageData, GameObject wheelPrefab, IReadonlyObservable<CarConfig> currentCarConfig)
         {
             _garageData = garageData;
 
@@ -41,6 +45,19 @@ namespace Gameplay.Garages
             _gateRenderer.material.SetColor("_TintColor", _color);
 
             _garageData.passed += OnGaragePassed;
+
+            _currentCarConfig = currentCarConfig;
+            _currentCarConfig.changed += OnPlayerCarChanged;
+            OnPlayerCarChanged(_currentCarConfig.Value);
+        }
+
+        private void OnPlayerCarChanged(CarConfig carConfig)
+        {
+            if (carConfig == null)
+                return;
+                
+            _speedStatsFiller.Init(_garageData.CarConfig.MaxSpeed / CarConfig.MAX_SPEED, (_garageData.CarConfig.MaxSpeed - carConfig.MaxSpeed) / CarConfig.MAX_SPEED);
+            _accelerationStatsFiller.Init(_garageData.CarConfig.Acceleration / CarConfig.MAX_ACCELERATION, (_garageData.CarConfig.Acceleration - carConfig.Acceleration) / CarConfig.MAX_ACCELERATION);
         }
 
         private void OnDestroy() 
@@ -48,6 +65,10 @@ namespace Gameplay.Garages
             if (_garageData != null)
             {
                 _garageData.passed -= OnGaragePassed;
+            }
+            if (_currentCarConfig != null)
+            {
+                _currentCarConfig.changed -= OnPlayerCarChanged;
             }
         }
 
@@ -62,7 +83,6 @@ namespace Gameplay.Garages
         private void OnGaragePassed()
         {
             _garageData.passed -= OnGaragePassed;
-            _garageData = null;
             _passedAnimation.StartSequence();
             _gateRenderer.gameObject.SetActive(false);
         }

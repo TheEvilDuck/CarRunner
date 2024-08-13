@@ -16,7 +16,7 @@ namespace DI
             _parent = parent;
         }
 
-        public void Register<T>(Func<T> createFunc, string tag = "")
+        public DIContainerBulder<T> Register<T>(Func<T> createFunc, string tag = "")
         {
             var tupple = (tag, typeof(T));
 
@@ -25,9 +25,10 @@ namespace DI
 
             var objectData = new ObjectData<T>(createFunc);
             _objects.Add(tupple, objectData);
+            return new DIContainerBulder<T>(this);
         }
 
-        public void Register<T>(T value, string tag = "")
+        public DIContainerBulder<T> Register<T>(T value, string tag = "")
         {
             var tupple = (tag, typeof(T));
 
@@ -36,6 +37,7 @@ namespace DI
 
             var objectData = new ObjectData<T>(value);
             _objects.Add(tupple, objectData);
+            return new DIContainerBulder<T>(this);
         }
 
         public T Get<T>(string tag = "")
@@ -61,6 +63,20 @@ namespace DI
             }
 
             throw new Exception($"DI container doesn't know how to create {tupple} and tag {tag}, do you forget to register entity?");
+        }
+
+        public class DIContainerBulder<T>
+        {
+            private readonly DIContainer _dIContainer;
+
+            public DIContainerBulder(DIContainer dIContainer)
+            {
+                _dIContainer = dIContainer;
+            }
+            public void NonLazy()
+            {
+                _dIContainer.Get<T>();
+            }
         }
     }
 }
