@@ -1,5 +1,5 @@
 {
-    "idSave": 170,
+    "idSave": 202,
     "isFirstSession": false,
     "language": "en",
     "promptDone": false,
@@ -22,9 +22,11 @@
         "new road test",
         "plane_1",
         "TestRoad",
-        "Country"
+        "Country",
+        "Country 1",
+        "Country 2"
     ],
-    "SelectedLevel": "Country 2",
-    "Coins": 97261,
+    "SelectedLevel": "Country 1",
+    "Coins": 331302,
     "IsTutorialComplete": true
 }
