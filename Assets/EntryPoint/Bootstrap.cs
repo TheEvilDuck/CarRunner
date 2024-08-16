@@ -8,6 +8,7 @@ using Common.Sound;
 using DI;
 using Levels;
 using Services.PlayerInput;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
@@ -19,6 +20,7 @@ namespace EntryPoint
         private const string BRAKE_BUTTON_RESOURCES_PATH = "Prefabs/Brake button";
         private const string LEVEL_DATABASE_PATH = "Levels database";
         private const string SOUND_CONTROLLER_PATH = "Prefabs/SoundController";
+        private const string LOADING_SCREEN = "Loading screen";
         private static Bootstrap _gameInstance;
         private DIContainer _projectContext;
         private Coroutines _coroutines;
@@ -39,6 +41,8 @@ namespace EntryPoint
 
         private void RunGame()
         {
+            LoadScreen();
+            
             _projectContext = new DIContainer();
             _disposables = new List<IDisposable>();
 
@@ -49,7 +53,7 @@ namespace EntryPoint
             _projectContext.Register(() => SetupSoundController());
             _projectContext.Register(() => new RewardProvider());
             _projectContext.Register(SetupDeviceType());
-            
+
             _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
             UnityEngine.Object.DontDestroyOnLoad(_coroutines.gameObject);
 
@@ -89,14 +93,23 @@ namespace EntryPoint
         }
 
         private bool InitSceneBootstrap()
-        {   
+        {
             var sceneBootstrap = UnityEngine.Object.FindAnyObjectByType<MonoBehaviourBootstrap>();
-            
+
             if (sceneBootstrap == null)
                 return false;
 
             sceneBootstrap.Init(_projectContext);
             return true;
+        }
+
+        private void LoadScreen()
+        {
+            if (SceneManager.GetActiveScene().name == SceneIDs.BOOTSTRAP)
+            {
+                new GameObject("Camera").AddComponent<Camera>();
+                MonoBehaviour.Instantiate(Resources.Load<Canvas>(LOADING_SCREEN));
+            }
         }
 
         private IPlayerInput SetupInput()
@@ -112,7 +125,7 @@ namespace EntryPoint
                 throw new ArgumentException($"Unknown device type");
 
             playerInput.Enable();
-            return playerInput;  
+            return playerInput;
         }
 
         private IPlayerData SetupPlayerData()

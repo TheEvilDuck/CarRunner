@@ -1,5 +1,5 @@
 {
-    "idSave": 96,
+    "idSave": 103,
     "isFirstSession": false,
     "language": "en",
     "promptDone": false,
@@ -8,7 +8,8 @@
         "Lvl3",
         "Lvl4",
         "new road test",
-        "plane_1"
+        "plane_1",
+        "plane_2"
     ],
     "PassedLevels": [
         "test plane",
@@ -18,6 +19,6 @@
         "plane_1"
     ],
     "SelectedLevel": "plane_1",
-    "Coins": 2946,
+    "Coins": 1981,
     "IsTutorialComplete": true
 }
