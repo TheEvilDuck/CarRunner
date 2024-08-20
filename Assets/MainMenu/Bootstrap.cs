@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Common;
-using Common.Components;
 using Common.Data;
 using Common.Mediators;
 using Common.Sound;
 using EntryPoint;
+using MainMenu.LanguageSelection;
 using MainMenu.Shop;
+using Services.Localization;
 using UnityEngine;
 
 namespace MainMenu
@@ -51,6 +52,7 @@ namespace MainMenu
             _sceneContext.Register(_notEnoughMoneyPopup);
             _sceneContext.Register(_coinsView);
             _sceneContext.Register(_shopItemFactory);
+            _sceneContext.Register(SetupLanguageSelectionUI);
 
             _gameSettings = _sceneContext.Get<GameSettings>();
 
@@ -71,6 +73,18 @@ namespace MainMenu
             _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels);
             _mainMenuView.ShopView.Init(_shopItemFactory, _sceneContext);
             _mainMenuView.TutorialView.Init(deviceType);
+            
+        }
+
+        private LanguageSelectorMenu SetupLanguageSelectionUI()
+        {
+            string currentLanguage = _sceneContext.Get<IPlayerData>().SavedPreferedLanguage;
+
+            if (currentLanguage == string.Empty)
+                currentLanguage = _sceneContext.Get<ILocalizationService>().CurrentLanguage;
+
+            _mainMenuView.LanguageSelectorMenu.Init(_sceneContext.Get<LanguageData[]>(), currentLanguage);
+            return _mainMenuView.LanguageSelectorMenu;
         }
     }
 }

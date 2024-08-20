@@ -11,12 +11,12 @@ namespace Services.Localization
         [SerializeField] private List<LocalizationData> _localizationDatas;
         [SerializeField] private LanguageData _defaultLanguage;
 
-        private string _currentLanguage;
+        public string CurrentLanguage {get; private set;}
 
         public string GetText(string textId)
         {
-            if (_currentLanguage == string.Empty)
-                _currentLanguage = _defaultLanguage.LanguageId;
+            if (CurrentLanguage == string.Empty)
+                CurrentLanguage = _defaultLanguage.LanguageId;
 
             int localizationDataIndex = _localizationDatas.FindIndex((x) => x.textId == textId);
 
@@ -25,22 +25,22 @@ namespace Services.Localization
                 throw new ArgumentException($"Localization service {name} has no implementation of localizable: {textId}");
             }
 
-            int localizationDataElementIndex = _localizationDatas.Find((x) => x.textId == textId).localizationDataElements.FindIndex((x) => x.language.LanguageId == _currentLanguage);
+            int localizationDataElementIndex = _localizationDatas.Find((x) => x.textId == textId).localizationDataElements.FindIndex((x) => x.language.LanguageId == CurrentLanguage);
 
             if (localizationDataElementIndex == -1)
             {
-                throw new ArgumentException($"Localization service {name} has no implementation of localizable: {textId} for language: {_currentLanguage}");
+                throw new ArgumentException($"Localization service {name} has no implementation of localizable: {textId} for language: {CurrentLanguage}");
             }
 
-            return _localizationDatas.Find((x) => x.textId == textId).localizationDataElements.Find((x) => x.language.LanguageId == _currentLanguage).tranlation;
+            return _localizationDatas.Find((x) => x.textId == textId).localizationDataElements.Find((x) => x.language.LanguageId == CurrentLanguage).tranlation;
         }
 
         public void SetLanguage(string language)
         {
             if (language == string.Empty)
-                _currentLanguage = _defaultLanguage.LanguageId;
+                CurrentLanguage = _defaultLanguage.LanguageId;
 
-            _currentLanguage = language;
+            CurrentLanguage = language;
             languageChanged?.Invoke();
         }
 

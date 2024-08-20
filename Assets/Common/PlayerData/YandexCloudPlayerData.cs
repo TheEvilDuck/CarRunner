@@ -26,6 +26,8 @@ namespace Common.Data
         public DateTime WatchShopAdLastTime => YandexGame.savesData.WatchShopAdLastTime;
         public bool IsTutorialComplete => YandexGame.savesData.IsTutorialComplete;
 
+        public string SavedPreferedLanguage => YandexGame.savesData.savedLanguage;
+
         public YandexCloudPlayerData()
         {
             YandexGame.onGetLeaderboard += OnLeaderboardGot;
@@ -130,5 +132,7 @@ namespace Common.Data
             _currentLBData = lBData;
             _newLBLoaded = true;
         }
+
+        public void SaveLanguage(string language) => YandexGame.savesData.savedLanguage = language;
     }
 }
