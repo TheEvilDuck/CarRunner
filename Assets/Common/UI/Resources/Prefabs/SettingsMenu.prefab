@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3591850419834754747}
   - component: {fileID: 2085602483747048560}
   - component: {fileID: 6881909340604896607}
-  - component: {fileID: 5025462232128122195}
+  - component: {fileID: 2317187144938471176}
   m_Layer: 5
   m_Name: ToggleText
   m_TagString: Untagged
@@ -234,7 +234,7 @@ MonoBehaviour:
   _playOnStart: 0
   _canvasGroup: {fileID: 3591850419834754747}
   _targetAlpha: 0
---- !u!114 &5025462232128122195
+--- !u!114 &2317187144938471176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,47 +243,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1668072549908344202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 129057ec7218ce74ca920cea8c4ca344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textLComponent: {fileID: 0}
-  infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
-  text: 
-  ru: "\u0412\u044B\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0432\u0443\u043A"
-  en: Mute
-  tr: 
-  az: 
-  be: 
-  he: 
-  hy: 
-  ka: 
-  et: 
-  fr: 
-  kk: 
-  ky: 
-  lt: 
-  lv: 
-  ro: 
-  tg: 
-  tk: 
-  uk: 
-  uz: 
-  es: 
-  pt: 
-  ar: 
-  id: 
-  ja: 
-  it: 
-  de: 
-  hi: 
-  changeOnlyFont: 0
-  fontNumber: 0
-  uniqueFont: {fileID: 0}
-  additionalText: {fileID: 0}
-  textHeight: 20
-  processTranslateLabel: 
-  componentTextField: 0
-  countLang: 0
+  _target: {fileID: 6047747226004650985}
+  _textId: settings_sound_toggle
 --- !u!1 &2942213095931245677
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683d456ab674fdc4ab66652f7e4dd564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loop: 0
   _animations:
   - animator: {fileID: 909535394808992707}
     delay: 0
@@ -439,6 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683d456ab674fdc4ab66652f7e4dd564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loop: 0
   _animations:
   - animator: {fileID: 9120494704874033112}
     delay: 0
@@ -531,6 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683d456ab674fdc4ab66652f7e4dd564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loop: 0
   _animations:
   - animator: {fileID: 7306488220254250495}
     delay: 0
@@ -759,6 +726,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1130715308899628317, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: _textId
+      value: back_button
+      objectReference: {fileID: 0}
     - target: {fileID: 1995610092561803839, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -884,6 +855,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -959,6 +932,10 @@ PrefabInstance:
     - target: {fileID: 376625054571916909, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130715308899628317, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: _textId
+      value: back_button
       objectReference: {fileID: 0}
     - target: {fileID: 1995610092561803839, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_Pivot.x
@@ -1101,6 +1078,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -1172,6 +1151,10 @@ PrefabInstance:
     - target: {fileID: 439625601991974038, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
       propertyPath: m_text
       value: Angle of view
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834198513717113141, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
+      propertyPath: _textId
+      value: settings_camera_fov
       objectReference: {fileID: 0}
     - target: {fileID: 5830393913135333608, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1308,6 +1291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -1377,6 +1362,10 @@ PrefabInstance:
     - target: {fileID: 376625054571916909, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130715308899628317, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: _textId
+      value: settings_camera_button
       objectReference: {fileID: 0}
     - target: {fileID: 1995610092561803839, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_Pivot.x
@@ -1514,6 +1503,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -1574,6 +1565,10 @@ PrefabInstance:
     - target: {fileID: 439625601991974038, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
       propertyPath: m_text
       value: Other sounds
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834198513717113141, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
+      propertyPath: _textId
+      value: settings_other_sounds
       objectReference: {fileID: 0}
     - target: {fileID: 5760122270170066468, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1692,6 +1687,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -1779,6 +1776,10 @@ PrefabInstance:
     - target: {fileID: 376625054571916909, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_Name
       value: Batton (Back)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130715308899628317, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: _textId
+      value: back_button
       objectReference: {fileID: 0}
     - target: {fileID: 1995610092561803839, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_Pivot.x
@@ -1905,6 +1906,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -1976,6 +1979,10 @@ PrefabInstance:
     - target: {fileID: 439625601991974038, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
       propertyPath: m_text
       value: Music
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834198513717113141, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
+      propertyPath: _textId
+      value: settings_music_slider
       objectReference: {fileID: 0}
     - target: {fileID: 5760122270170066468, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2094,6 +2101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -2183,6 +2192,10 @@ PrefabInstance:
       value: 'Camera offset
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834198513717113141, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
+      propertyPath: _textId
+      value: settings_camera_z_offset
       objectReference: {fileID: 0}
     - target: {fileID: 5830393913135333608, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2297,6 +2310,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -2384,6 +2399,10 @@ PrefabInstance:
     - target: {fileID: 439625601991974038, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
       propertyPath: m_text
       value: Main volume
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834198513717113141, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
+      propertyPath: _textId
+      value: settings_main_volume_slider
       objectReference: {fileID: 0}
     - target: {fileID: 5760122270170066468, guid: 26cf63fdd6e68cd4a93109f9e4c2f16a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2502,6 +2521,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -2593,6 +2614,10 @@ PrefabInstance:
     - target: {fileID: 376625054571916909, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130715308899628317, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: _textId
+      value: settings_sound_button
       objectReference: {fileID: 0}
     - target: {fileID: 1995610092561803839, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_Pivot.x
@@ -2727,6 +2752,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 

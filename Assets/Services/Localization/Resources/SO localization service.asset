@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a534fced3094bed478ddc7fb6c603aea, type: 3}
+  m_Name: SO localization service
+  m_EditorClassIdentifier: 
+  _localizationDatas:
+  - textId: back_button
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      tranlation: "\u041D\u0430\u0437\u0430\u0434"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      tranlation: Back
+  - textId: main_menu_play_button
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      tranlation: "\u0418\u0433\u0440\u0430\u0442\u044C"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      tranlation: Play
+  - textId: logo_text
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      tranlation: "\u0413\u043E\u043D\u043E\u0447\u043D\u0430\u044F \u0431\u0440\u0430\u0442\u0432\u0430
+        \u0430\u0445\u0430\u0445\u0430\u0445"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      tranlation: Car runner
+  - textId: main_menu_logo
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      tranlation: "\u0413\u043E\u043D\u043E\u0447\u043D\u0430\u044F \u0431\u0440\u0430\u0442\u0432\u0430
+        \u0430\u0445\u0430\u0445\u0430\u0445"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      tranlation: Car runner
+  - textId: shop_button
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      tranlation: "\u041C\u0430\u0433\u0430\u0437\u0438\u043D"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      tranlation: Shop
+  - textId: exit_button
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      tranlation: "\u0412\u044B\u0445\u043E\u0434"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      tranlation: Exit
+  - textId: level_selection_button
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      tranlation: "\u0412\u044B\u0431\u043E\u0440 \u0443\u0440\u043E\u0432\u043D\u044F"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      tranlation: Level selection
+  - textId: settings_button
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      tranlation: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      tranlation: Settings
+  - textId: tutorial_button
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      tranlation: "\u041A\u0430\u043A \u0438\u0433\u0440\u0430\u0442\u044C"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      tranlation: Tutorial
+  - textId: settings_sound_button
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      tranlation: "\u0417\u0432\u0443\u043A"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      tranlation: Sound
+  - textId: settings_camera_button
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      tranlation: "\u041A\u0430\u043C\u0435\u0440\u0430"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      tranlation: Camera
+  _defaultLanguage: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}

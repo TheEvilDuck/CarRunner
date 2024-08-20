@@ -7,6 +7,7 @@ using Common.Data.Rewards;
 using Common.Sound;
 using DI;
 using Levels;
+using Services.Localization;
 using Services.PlayerInput;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -49,6 +50,10 @@ namespace EntryPoint
             _projectContext.Register(() => SetupSoundController());
             _projectContext.Register(() => new RewardProvider());
             _projectContext.Register(SetupDeviceType());
+            _projectContext.Register(SetupLocalizationService);
+            _projectContext.Register(SetupLocalizator);
+            _projectContext.Register(SetupLocalizationRegistrator).NonLazy();
+            _projectContext.Register(() => Resources.LoadAll<LanguageData>(""));
             
             _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
             UnityEngine.Object.DontDestroyOnLoad(_coroutines.gameObject);
@@ -170,6 +175,26 @@ namespace EntryPoint
             soundController.Init();
 
             return soundController;
+        }
+
+        private ILocalizationService SetupLocalizationService()
+        {
+            var service = Resources.Load<SOLocalizationService>("SO localization service");
+            service.SetLanguage("ru");
+
+            return service;
+        }
+
+        private Localizator SetupLocalizator()
+        {
+            Localizator localizator = new Localizator(_projectContext.Get<ILocalizationService>());
+            return localizator;
+        }
+
+        private LocalizationRegistrator SetupLocalizationRegistrator()
+        {
+            LocalizationRegistrator localizationRegistrator = new LocalizationRegistrator(_projectContext.Get<Localizator>());
+            return localizationRegistrator;
         }
     }
 }
