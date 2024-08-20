@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Common;
-using Common.Components;
 using Common.Data;
 using Common.Mediators;
 using Common.Sound;
 using EntryPoint;
+using MainMenu.LanguageSelection;
 using MainMenu.Shop;
+using Services.Localization;
 using UnityEngine;
 
 namespace MainMenu
@@ -51,6 +52,7 @@ namespace MainMenu
             _sceneContext.Register(_notEnoughMoneyPopup);
             _sceneContext.Register(_coinsView);
             _sceneContext.Register(_shopItemFactory);
+            _sceneContext.Register(SetupLanguageSelectionUI);
 
             _gameSettings = _sceneContext.Get<GameSettings>();
 
@@ -58,11 +60,13 @@ namespace MainMenu
             var settingsMediator = new SettingsAndUIMediator(_sceneContext);
             var coinsMediator = new CoinsMediator(_sceneContext);
             var tutorialMediator = new TutorialMediator(_sceneContext);
+            var languageMediator = new LanguageMediator(_sceneContext);
 
             _disposables.Add(mainMenuMediator);
             _disposables.Add(settingsMediator);
             _disposables.Add(coinsMediator);
             _disposables.Add(tutorialMediator);
+            _disposables.Add(languageMediator);
 
             IPlayerData playerData = _sceneContext.Get<IPlayerData>();
             DeviceType deviceType = _sceneContext.Get<DeviceType>();
@@ -71,6 +75,21 @@ namespace MainMenu
             _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels);
             _mainMenuView.ShopView.Init(_shopItemFactory, _sceneContext);
             _mainMenuView.TutorialView.Init(deviceType);
+            
+        }
+
+        private LanguageSelectorMenu SetupLanguageSelectionUI()
+        {
+            string currentLanguage = _sceneContext.Get<IPlayerData>().SavedPreferedLanguage;
+
+            if (string.IsNullOrEmpty(currentLanguage))
+            {
+                Debug.Log($"No saved language found, trying to get default language");
+                currentLanguage = _sceneContext.Get<ILocalizationService>().CurrentLanguage;
+            }
+
+            _mainMenuView.LanguageSelectorMenu.Init(_sceneContext.Get<LanguageData[]>(), currentLanguage);
+            return _mainMenuView.LanguageSelectorMenu;
         }
     }
 }

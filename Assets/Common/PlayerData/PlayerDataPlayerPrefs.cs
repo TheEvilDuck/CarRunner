@@ -12,6 +12,7 @@ namespace Common.Data
         private const string PREFS_TIME_RECORD = "PLAYEPREFS_TIME_RECORD";
         private const string PREFS_WATCH_AD_LAST_DATE = "PLAYERPREFS_WATCH_AD_LAST_DATE";
         private const string PREFS_IS_TUTOR_COMPLETE = "PLAYERPREFS_IS_TUTOR_COMPLETE";
+        private const string PREFS_LANGUAGE = "PLAYERPREFS_LANGUAGE";
         private const int COINS_DEFAULT_VALUE = 1000;
 
         private ProgressOfLevels _progressOfLvls;
@@ -23,6 +24,7 @@ namespace Common.Data
         public IEnumerable<string> PassedLevels => _progressOfLvls.PassedLevels;
         public string SelectedLevel => PlayerPrefs.GetString(PREFS_SELECTED_LEVEL);
         public int Coins => PlayerPrefs.GetInt(PREFS_COINS, COINS_DEFAULT_VALUE);
+        public string SavedPreferedLanguage => PlayerPrefs.GetString(PREFS_LANGUAGE);
         public float RecordTime
         {
             get
@@ -194,6 +196,11 @@ namespace Common.Data
         {
             string progressOfLevels = JsonUtility.ToJson(_progressOfLvls);
             PlayerPrefs.SetString(PREFS_PROGRESS_OF_LEVELS, progressOfLevels);
+        }
+
+        public void SaveLanguage(string language)
+        {
+            PlayerPrefs.SetString(PREFS_LANGUAGE, language);
         }
 
         [Serializable]

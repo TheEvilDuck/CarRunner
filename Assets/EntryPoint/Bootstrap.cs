@@ -7,6 +7,7 @@ using Common.Data.Rewards;
 using Common.Sound;
 using DI;
 using Levels;
+using Services.Localization;
 using Services.PlayerInput;
 using TMPro;
 using UnityEngine;
@@ -69,6 +70,10 @@ namespace EntryPoint
             _projectContext.Register(() => SetupPlayerData());
             _projectContext.Register(() => SetupInput());
             _projectContext.Register(new YandexGameLocalization());
+            _projectContext.Register(SetupLocalizationService);
+            _projectContext.Register(SetupLocalizator);
+            _projectContext.Register(SetupLocalizationRegistrator).NonLazy();
+            _projectContext.Register(() => Resources.LoadAll<LanguageData>(""));
             _coroutines.StartCoroutine(SceneSetup());
             YandexGame.GameReadyAPI();
             _projectContext.Get<YandexGameLocalization>().SetupYGLocalization();
@@ -183,6 +188,34 @@ namespace EntryPoint
             soundController.Init();
 
             return soundController;
+        }
+
+        private ILocalizationService SetupLocalizationService()
+        {
+            var service = Resources.Load<SOLocalizationService>("SO localization service");
+            
+            string currentLanguage = _projectContext.Get<IPlayerData>().SavedPreferedLanguage;
+
+            if (string.IsNullOrEmpty(currentLanguage))
+            {
+                currentLanguage = service.CurrentLanguage;
+            }
+
+            service.SetLanguage(currentLanguage);
+
+            return service;
+        }
+
+        private Localizator SetupLocalizator()
+        {
+            Localizator localizator = new Localizator(_projectContext.Get<ILocalizationService>());
+            return localizator;
+        }
+
+        private LocalizationRegistrator SetupLocalizationRegistrator()
+        {
+            LocalizationRegistrator localizationRegistrator = new LocalizationRegistrator(_projectContext.Get<Localizator>());
+            return localizationRegistrator;
         }
     }
 }

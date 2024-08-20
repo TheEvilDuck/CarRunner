@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenuButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1130715308899628317, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: _textId
+      value: go_back_to_main_manu_button
+      objectReference: {fileID: 0}
     - target: {fileID: 1995610092561803839, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -188,6 +192,10 @@ PrefabInstance:
     - target: {fileID: 376625054571916909, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_Name
       value: RestartButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130715308899628317, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: _textId
+      value: restart_button
       objectReference: {fileID: 0}
     - target: {fileID: 1995610092561803839, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_Pivot.x
