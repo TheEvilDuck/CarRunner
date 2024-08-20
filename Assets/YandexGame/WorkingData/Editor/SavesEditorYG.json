@@ -1,5 +1,5 @@
 {
-    "idSave": 114,
+    "idSave": 123,
     "isFirstSession": false,
     "language": "en",
     "promptDone": false,
@@ -18,7 +18,7 @@
         "plane_1"
     ],
     "SelectedLevel": "plane_1",
-    "Coins": 26196,
+    "Coins": 1921571276,
     "IsTutorialComplete": true,
     "savedLanguage": "ru"
 }

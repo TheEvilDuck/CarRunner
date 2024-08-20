@@ -9,7 +9,7 @@ public class EndOfTheGame : MonoBehaviour, ILocalizable
 {
     [SerializeField] private TextMeshProUGUI _endGameText;
     [SerializeField] private UIAnimatorSequence _uIAnimatorSequence;
-    [SerializeField] private UINumberTextAnimator winTextAnimation;
+    [SerializeField] private UINumberTextAnimator _winTextAnimation;
     [field: SerializeField] public AdButton AdButton;
     [SerializeField] private string _winTextId;
     [SerializeField] private string _lostTextId;
@@ -31,15 +31,17 @@ public class EndOfTheGame : MonoBehaviour, ILocalizable
     public void Hide() => gameObject.SetActive(false);
     public void Win(int reward)
     {
-        winTextAnimation.enabled = true;
-        winTextAnimation.ChangeTargetValue(0, reward);
+        _winTextAnimation.gameObject.SetActive(true);
+        _winTextAnimation.enabled = true;
+        _winTextAnimation.ChangeTargetValue(0, reward);
         AdButton.Show();
         TextId = _winTextId;
         updateRequested?.Invoke(this);
     }
     public void Lose()
     {
-        winTextAnimation.enabled = false;
+        _winTextAnimation.enabled = false;
+        _winTextAnimation.gameObject.SetActive(false);
         AdButton.Hide();
         TextId = _lostTextId;
         updateRequested?.Invoke(this);
