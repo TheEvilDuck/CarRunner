@@ -133,6 +133,10 @@ namespace Common.Data
             _newLBLoaded = true;
         }
 
-        public void SaveLanguage(string language) => YandexGame.savesData.savedLanguage = language;
+        public void SaveLanguage(string language)
+        {
+            YandexGame.savesData.savedLanguage = language;
+            YandexGame.SaveProgress();
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace MainMenu
         public UnityEvent SettingsClickedEvent => _settings.onClick;
         public UnityEvent ShopClicked => _shop.onClick;
         public UnityEvent TutorialClicked => _tutorial.onClick;
-        public UnityEvent LanguageClicked => _tutorial.onClick;
+        public UnityEvent LanguageClicked => _language.onClick;
 
         public void Hide() => gameObject.SetActive(false);
 

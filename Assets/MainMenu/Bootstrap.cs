@@ -60,11 +60,13 @@ namespace MainMenu
             var settingsMediator = new SettingsAndUIMediator(_sceneContext);
             var coinsMediator = new CoinsMediator(_sceneContext);
             var tutorialMediator = new TutorialMediator(_sceneContext);
+            var languageMediator = new LanguageMediator(_sceneContext);
 
             _disposables.Add(mainMenuMediator);
             _disposables.Add(settingsMediator);
             _disposables.Add(coinsMediator);
             _disposables.Add(tutorialMediator);
+            _disposables.Add(languageMediator);
 
             IPlayerData playerData = _sceneContext.Get<IPlayerData>();
             DeviceType deviceType = _sceneContext.Get<DeviceType>();
@@ -80,8 +82,11 @@ namespace MainMenu
         {
             string currentLanguage = _sceneContext.Get<IPlayerData>().SavedPreferedLanguage;
 
-            if (currentLanguage == string.Empty)
+            if (string.IsNullOrEmpty(currentLanguage))
+            {
+                Debug.Log($"No saved language found, trying to get default language");
                 currentLanguage = _sceneContext.Get<ILocalizationService>().CurrentLanguage;
+            }
 
             _mainMenuView.LanguageSelectorMenu.Init(_sceneContext.Get<LanguageData[]>(), currentLanguage);
             return _mainMenuView.LanguageSelectorMenu;

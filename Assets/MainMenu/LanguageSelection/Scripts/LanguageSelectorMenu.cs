@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Common.MenuParent;
+using Common.UI.UIAnimations;
 using Services.Localization;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,6 +14,7 @@ namespace MainMenu.LanguageSelection
         [SerializeField] private LanguageUI _languageUIPrefab;
         [SerializeField] private Transform _languageUIParent;
         [SerializeField] private Button _backButton;
+        [SerializeField] private UIAnimatorSequence _uIAnimatorSequence;
 
         public event Action<string> languageChanged;
 
@@ -23,6 +25,7 @@ namespace MainMenu.LanguageSelection
         public void Init(IEnumerable<LanguageData> languageData, string currentLanguage)
         {
             _buttons = new Dictionary<LanguageUI, UnityAction>();
+            Debug.Log($"Initializaing language selector menu with {currentLanguage}");
 
             foreach (var data in languageData)
             {
@@ -30,7 +33,10 @@ namespace MainMenu.LanguageSelection
                 ui.Init(data.LanguageNativeName, data.LangiageIcon);
 
                 if (data.LanguageId == currentLanguage)
+                {
                     ui.Select();
+                    _currentSelected = ui;
+                }
                 else
                     ui.Unselect();
 
@@ -42,9 +48,14 @@ namespace MainMenu.LanguageSelection
                         _currentSelected.Unselect();
 
                     _currentSelected = ui;
+                    _currentSelected.Select();
+
+                    Debug.Log($"trying to set language to {data.LanguageId}");
                 });
 
                 ui.Pressed.AddListener(onPressed);
+
+                _uIAnimatorSequence.AddAnimation(ui.UITransparancyAnimator, 0.1f, false);
 
                 _buttons.Add(ui, onPressed);
             }
@@ -64,6 +75,7 @@ namespace MainMenu.LanguageSelection
         public void Show()
         {
             gameObject.SetActive(true);
+            _uIAnimatorSequence.StartSequence();
         }
     }
 }

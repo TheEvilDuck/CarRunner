@@ -1,3 +1,4 @@
+using Common.UI.UIAnimations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,6 +12,8 @@ namespace MainMenu.LanguageSelection
         [SerializeField] private TextMeshProUGUI _languageText;
         [SerializeField] private Button _button;
         [SerializeField] private GameObject _selectionIndicator;
+        
+        [field: SerializeField] public UITransparancyAnimator UITransparancyAnimator {get; private set;}
 
         public UnityEvent Pressed => _button.onClick;
 

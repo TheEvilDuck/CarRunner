@@ -11,7 +11,22 @@ namespace Services.Localization
         [SerializeField] private List<LocalizationData> _localizationDatas;
         [SerializeField] private LanguageData _defaultLanguage;
 
-        public string CurrentLanguage {get; private set;}
+        private string _currentLanguage;
+
+        public string CurrentLanguage
+        {
+            get
+            {
+                if (_currentLanguage == string.Empty)
+                    _currentLanguage = _defaultLanguage.LanguageId;
+
+                return _currentLanguage;
+            }
+            set
+            {
+                _currentLanguage = value;
+            }
+        }
 
         public string GetText(string textId)
         {
@@ -32,7 +47,7 @@ namespace Services.Localization
                 throw new ArgumentException($"Localization service {name} has no implementation of localizable: {textId} for language: {CurrentLanguage}");
             }
 
-            return _localizationDatas.Find((x) => x.textId == textId).localizationDataElements.Find((x) => x.language.LanguageId == CurrentLanguage).tranlation;
+            return _localizationDatas.Find((x) => x.textId == textId).localizationDataElements.Find((x) => x.language.LanguageId == CurrentLanguage).translation;
         }
 
         public void SetLanguage(string language)
@@ -55,7 +70,7 @@ namespace Services.Localization
         private struct LocalizationDataElement
         {
             public LanguageData language;
-            public string tranlation;
+            [TextArea(3,10)] public string translation;
         }
     }
 }

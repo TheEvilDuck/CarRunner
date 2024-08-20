@@ -50,10 +50,6 @@ namespace EntryPoint
             _projectContext.Register(() => SetupSoundController());
             _projectContext.Register(() => new RewardProvider());
             _projectContext.Register(SetupDeviceType());
-            _projectContext.Register(SetupLocalizationService);
-            _projectContext.Register(SetupLocalizator);
-            _projectContext.Register(SetupLocalizationRegistrator).NonLazy();
-            _projectContext.Register(() => Resources.LoadAll<LanguageData>(""));
             
             _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
             UnityEngine.Object.DontDestroyOnLoad(_coroutines.gameObject);
@@ -70,6 +66,10 @@ namespace EntryPoint
             _projectContext.Register(() => SetupPlayerData());
             _projectContext.Register(() => SetupInput());
             _projectContext.Register(new YandexGameLocalization());
+            _projectContext.Register(SetupLocalizationService);
+            _projectContext.Register(SetupLocalizator);
+            _projectContext.Register(SetupLocalizationRegistrator).NonLazy();
+            _projectContext.Register(() => Resources.LoadAll<LanguageData>(""));
             _coroutines.StartCoroutine(SceneSetup());
             YandexGame.GameReadyAPI();
             _projectContext.Get<YandexGameLocalization>().SetupYGLocalization();
@@ -180,7 +180,15 @@ namespace EntryPoint
         private ILocalizationService SetupLocalizationService()
         {
             var service = Resources.Load<SOLocalizationService>("SO localization service");
-            service.SetLanguage("ru");
+            
+            string currentLanguage = _projectContext.Get<IPlayerData>().SavedPreferedLanguage;
+
+            if (string.IsNullOrEmpty(currentLanguage))
+            {
+                currentLanguage = service.CurrentLanguage;
+            }
+
+            service.SetLanguage(currentLanguage);
 
             return service;
         }
