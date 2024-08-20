@@ -2604,8 +2604,8 @@ MonoBehaviour:
   _finish: {fileID: 5389623594942870399}
   _carStartPosition: {fileID: 5113434572456814301}
   _roadSystem: {fileID: 5083941836666618627}
-  _startCar: {fileID: 11400000, guid: 04548fd856e2e17478d64f9f52e5733e, type: 2}
-  _skybox: {fileID: 2100000, guid: c5ec218c5c7812b4481375d8377fa47b, type: 2}
+  _startCar: {fileID: 11400000, guid: b0ac4df726dda7d4eb6664faf83c47e8, type: 2}
+  _skybox: {fileID: 2100000, guid: 2bcf884be47a20745a042c0a24169408, type: 2}
   StartTimer: 30
 --- !u!1 &5415650131725608713
 GameObject:
