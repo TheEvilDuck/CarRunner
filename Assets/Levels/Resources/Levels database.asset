@@ -16,8 +16,12 @@ MonoBehaviour:
   - <LevelId>k__BackingField: plane_1
     <Level>k__BackingField: {fileID: 3173339907991620677, guid: ee09fc0be80c7fd42a1518c2f92a4dea, type: 3}
     <Cost>k__BackingField: 1000
-    <RewardDivider>k__BackingField: 1
+    <RewardDivider>k__BackingField: 1.5
   - <LevelId>k__BackingField: plane_2
     <Level>k__BackingField: {fileID: 845753797899360328, guid: acbeac8c464bc3446978283e325d695b, type: 3}
     <Cost>k__BackingField: 3000
-    <RewardDivider>k__BackingField: 1
+    <RewardDivider>k__BackingField: 1.6
+  - <LevelId>k__BackingField: snake
+    <Level>k__BackingField: {fileID: 1168434427502181582, guid: e71f6db080b89dc4689f8efc9fce497e, type: 3}
+    <Cost>k__BackingField: 5000
+    <RewardDivider>k__BackingField: 1.7
