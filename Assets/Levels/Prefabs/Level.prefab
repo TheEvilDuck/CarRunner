@@ -2607,6 +2607,7 @@ MonoBehaviour:
   _startCar: {fileID: 11400000, guid: b0ac4df726dda7d4eb6664faf83c47e8, type: 2}
   _skybox: {fileID: 2100000, guid: 2bcf884be47a20745a042c0a24169408, type: 2}
   StartTimer: 30
+  BackGroundMusicId: 4
 --- !u!1 &5415650131725608713
 GameObject:
   m_ObjectHideFlags: 0

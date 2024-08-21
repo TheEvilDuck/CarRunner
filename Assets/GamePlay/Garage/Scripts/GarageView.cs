@@ -85,6 +85,8 @@ namespace Gameplay.Garages
             _garageData.passed -= OnGaragePassed;
             _passedAnimation.StartSequence();
             _gateRenderer.gameObject.SetActive(false);
+            _speedStatsFiller.gameObject.SetActive(false);
+            _accelerationStatsFiller.gameObject.SetActive(false);
         }
 
     }

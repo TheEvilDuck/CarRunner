@@ -25,3 +25,6 @@ MonoBehaviour:
   - <SoundID>k__BackingField: 3
     <AudioClip>k__BackingField: {fileID: 8300000, guid: 16497774ddfbb3c4b9968180d49e9d46, type: 3}
     <AudioMixerGroup>k__BackingField: {fileID: 4998207502586117421, guid: 4604e844800f807428a373b9ac1d785b, type: 2}
+  - <SoundID>k__BackingField: 4
+    <AudioClip>k__BackingField: {fileID: 8300000, guid: 5e71573c82406994bb32a6711ccf7ae5, type: 3}
+    <AudioMixerGroup>k__BackingField: {fileID: 4998207502586117421, guid: 4604e844800f807428a373b9ac1d785b, type: 2}
