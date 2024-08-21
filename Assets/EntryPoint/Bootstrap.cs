@@ -155,7 +155,7 @@ namespace EntryPoint
 
         private DeviceType SetupDeviceType()
         {
-            DeviceType deviceType;
+            DeviceType deviceType = DeviceType.Desktop;
 
 #if UNITY_WEBGL
             if (YandexGame.EnvironmentData.isDesktop)
