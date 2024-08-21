@@ -37,8 +37,13 @@ namespace Services.Localization
 
         private void TranslateAll()
         {   
-            foreach (ILocalizable localizable in _localizables)
-                TranslateLocalizable(localizable);
+            for (int i = _localizables.Count - 1; i >= 0; i--)
+            {
+                if (_localizables[i] == null)
+                    _localizables.RemoveAt(i);
+                else
+                    TranslateLocalizable(_localizables[i]);
+            }
         }
 
         private void TranslateLocalizable(ILocalizable localizable) => localizable.UpdateText(_localizationService.GetText(localizable.TextId));
