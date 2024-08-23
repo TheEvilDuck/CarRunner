@@ -5,6 +5,7 @@ using Gameplay.Cars;
 using Gameplay.UI;
 using Levels;
 using Services.PlayerInput;
+using UnityEngine;
 
 namespace Gameplay.States
 {
@@ -26,11 +27,6 @@ namespace Gameplay.States
             _sceneContext.Get<IPlayerInput>().Disable();
             _sceneContext.Get<EndOfTheGame>().Show();
             _sceneContext.Get<PauseButton>().Hide();
-        }
-
-        protected override void OnExit()
-        {
-            _sceneContext.Get<SoundController>().Stop(_sceneContext.Get<Level>().BackGroundMusicId);
         }
     }
 }

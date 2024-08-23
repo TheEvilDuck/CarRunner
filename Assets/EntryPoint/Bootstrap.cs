@@ -82,6 +82,8 @@ namespace EntryPoint
 
         private void OnSceneChanged(Scene previousScene, Scene nextScene)
         {
+            _projectContext.Get<SoundController>().StopAll();
+            
             InitSceneBootstrap();
         }
 

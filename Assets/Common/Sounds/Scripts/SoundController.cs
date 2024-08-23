@@ -37,7 +37,6 @@ namespace Common.Sound
                     if (_usedObjects[i] == null || !_usedObjects[i].isPlaying && !_paused)
                     {
                         _audioSourcePool.Release(_usedObjects[i]);
-                        _usedObjects.RemoveAt(i);
                     }
                 }
             }
@@ -70,7 +69,20 @@ namespace Common.Sound
                 for (int i = _usedObjects.Count - 1; i > -1; i--)
                 {
                     if (_usedObjects[i] != null && _usedObjects[i].clip == _sound.GetAudio(soundID))
-                        _usedObjects[i].Stop();
+                    {
+                        _audioSourcePool.Release(_usedObjects[i]);
+                    }
+                }
+            }
+        }
+
+        public void StopAll()
+        {
+            for (int i = _usedObjects.Count - 1; i > -1; i--)
+            {
+                if (_usedObjects[i] != null)
+                {
+                    _audioSourcePool.Release(_usedObjects[i]);
                 }
             }
         }
@@ -92,7 +104,13 @@ namespace Common.Sound
 
         private void TakeFromPool(AudioSource audioSource) => audioSource.gameObject.SetActive(true);
 
-        private void ReturnToPool(AudioSource audioSource) => audioSource.gameObject.SetActive(false);
+        private void ReturnToPool(AudioSource audioSource)
+        {
+            audioSource.clip = null;
+            audioSource.loop = false;
+            audioSource.gameObject.SetActive(false);
+            _usedObjects.Remove(audioSource);
+        }
 
         private void DestroyObject(AudioSource audioSource) => Destroy(audioSource.gameObject);
 
