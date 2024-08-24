@@ -534,9 +534,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95a2de324735d2b4cba8308fffecb9a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMultithreaded: 1
+  isMultithreaded: 0
   isSavingMeshes: 1
-  isAllowingRoadUpdates: 1
+  isAllowingRoadUpdates: 0
   editorPlayCamera: {fileID: 0}
 --- !u!1 &878163532813137050
 GameObject:
@@ -5683,7 +5683,7 @@ MonoBehaviour:
   isSavingTerrainHistoryOnDisk: 1
   magnitudeThreshold: 300
   isGizmosEnabled: 1
-  isUsingMultithreading: 1
+  isUsingMultithreading: 0
   isSavingMeshes: 0
   isUsingMeshColliders: 1
   isStatic: 0

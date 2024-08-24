@@ -6,6 +6,7 @@ using Common.Data;
 using Common.Data.Rewards;
 using Common.Sound;
 using DI;
+using Gameplay.UI;
 using Levels;
 using Services.Localization;
 using Services.PlayerInput;
@@ -18,7 +19,7 @@ namespace EntryPoint
 {
     public class Bootstrap
     {
-        private const string BRAKE_BUTTON_RESOURCES_PATH = "Prefabs/Brake button";
+        private const string BRAKE_BUTTON_RESOURCES_PATH = "Prefabs/BrakeButton";
         private const string LEVEL_DATABASE_PATH = "Levels database";
         private const string SOUND_CONTROLLER_PATH = "Prefabs/SoundController";
         private const string LOADING_SCREEN = "Loading screen";
@@ -54,6 +55,7 @@ namespace EntryPoint
             _projectContext.Register(() => SetupSoundController());
             _projectContext.Register(() => new RewardProvider());
             _projectContext.Register(SetupDeviceType());
+            _projectContext.Register(SetupBrakeButton);
 
             _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
             UnityEngine.Object.DontDestroyOnLoad(_coroutines.gameObject);
@@ -67,8 +69,8 @@ namespace EntryPoint
 
         private void PluginYGInit()
         {
-            _projectContext.Register(() => SetupPlayerData());
-            _projectContext.Register(() => SetupInput());
+            _projectContext.Register(SetupPlayerData);
+            _projectContext.Register(SetupInput);
             _projectContext.Register(new YandexGameLocalization());
             _projectContext.Register(SetupLocalizationService);
             _projectContext.Register(SetupLocalizator);
@@ -127,7 +129,7 @@ namespace EntryPoint
             if (deviceType == DeviceType.Desktop)
                 playerInput = new DesktopInput();
             else if (deviceType == DeviceType.Handheld)
-                playerInput = new MobileInput(Resources.Load<RectTransform>(BRAKE_BUTTON_RESOURCES_PATH));
+                playerInput = new MobileInput(() => _projectContext.Get<IBrakeButton>());
             else
                 throw new ArgumentException($"Unknown device type");
 
@@ -155,6 +157,11 @@ namespace EntryPoint
             return playerData;
         }
 
+        private IBrakeButton SetupBrakeButton()
+        {
+            return GameObject.Instantiate(Resources.Load<BrakeButton>(BRAKE_BUTTON_RESOURCES_PATH));
+        }
+
         private DeviceType SetupDeviceType()
         {
             DeviceType deviceType = DeviceType.Desktop;
@@ -176,7 +183,7 @@ namespace EntryPoint
 
 #if UNITY_EDITOR
             deviceType = DeviceType.Desktop;
-            //deviceType = DeviceType.Handheld;
+            deviceType = DeviceType.Handheld;
 #endif
 
             return deviceType;
