@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Services.Localization
 {
@@ -49,6 +50,10 @@ namespace Services.Localization
             }
         }
 
-        private void TranslateLocalizable(ILocalizable localizable) => localizable.UpdateText(_localizationService.GetText(localizable.TextId));
+        private void TranslateLocalizable(ILocalizable localizable)
+        {
+            Debug.Log($"Localization requested from: {localizable.TextId}");
+            localizable.UpdateText(_localizationService.GetText(localizable.TextId));
+        }
     }
 }
