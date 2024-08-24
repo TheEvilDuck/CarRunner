@@ -17,13 +17,16 @@ namespace Services.Localization
             TranslateAll();
         }
 
-        public void RegisterLocalizable(ILocalizable localizable)
+        public void RegisterLocalizable(ILocalizable localizable, bool instantTranslate = true)
         {
             if (_localizables.Contains(localizable))
                 throw new ArgumentException($"The localizable you passed is already registered!");
 
             localizable.updateRequested += TranslateLocalizable;
-            TranslateLocalizable(localizable);
+            
+            if (instantTranslate)
+                TranslateLocalizable(localizable);
+
             _localizables.Add(localizable);
         }
 

@@ -23,7 +23,7 @@ namespace MainMenu.LevelSelection
 
         private void Start() 
         {
-            LocalizationRegistrator.Instance.RegisterLocalizable(this);
+            LocalizationRegistrator.Instance.RegisterLocalizable(this, false);
         }
 
         private void OnEnable() => _uIAnimatorSequence.StartSequence();
