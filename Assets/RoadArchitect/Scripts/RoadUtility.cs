@@ -100,13 +100,12 @@ namespace RoadArchitect
 
             if (_road.TerrainHistory.Count > 0)
             {
-                //Delete unnecessary terrain histories:
-                foreach (TerrainHistoryMaker THMaker in _road.TerrainHistory)
+                for (int i = _road.TerrainHistory.Count - 1; i >= 0; i--)
                 {
-                    if (!terrainIDs.Contains(THMaker.terrainID))
+                    if (!terrainIDs.Contains(_road.TerrainHistory[i].terrainID))
                     {
-                        THMaker.Nullify();
-                        _road.TerrainHistory.Remove(THMaker);
+                        _road.TerrainHistory[i].Nullify();
+                        _road.TerrainHistory.RemoveAt(i);
                     }
                 }
             }

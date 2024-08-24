@@ -41,6 +41,7 @@ namespace Gameplay
         [SerializeField] private LayerMask _groundCheckLayer;
         [SerializeField] private Image _anticlicker;
         [SerializeField] private StartMessage _startMessage;
+        [SerializeField] private Transform _brakeButtonParent;
         private List<IDisposable> _disposables;
 
         protected override void Setup()
@@ -158,6 +159,7 @@ namespace Gameplay
         {
             _speedometr.Init(_sceneContext.Get<Car>().CarBehavior);
             _settingsMenu.Init(_sceneContext.Get<ICameraSettings>(), _sceneContext.Get<ISoundSettings>());
+            _sceneContext.Get<IBrakeButton>().SetParent(_brakeButtonParent);
         }
 
         private StateMachine SetUpGameplayStateMachine()

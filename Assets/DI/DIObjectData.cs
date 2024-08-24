@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace DI
 {
@@ -30,7 +31,7 @@ namespace DI
 
         public T Get()
         {
-            if (_value == null)
+            if (_value == null || _value is UnityEngine.Object value && value == null)
                 _value = _createMethod.Invoke();
 
             return _value;

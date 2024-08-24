@@ -241,8 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95a2de324735d2b4cba8308fffecb9a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMultithreaded: 1
-  isSavingMeshes: 1
+  isMultithreaded: 0
+  isSavingMeshes: 0
   isAllowingRoadUpdates: 1
   editorPlayCamera: {fileID: 0}
 --- !u!1 &567485033354609622
@@ -2178,6 +2178,7 @@ MonoBehaviour:
   _startCar: {fileID: 11400000, guid: 6152caa714501d9418cb3c3c6ff6beb0, type: 2}
   _skybox: {fileID: 2100000, guid: c5ec218c5c7812b4481375d8377fa47b, type: 2}
   StartTimer: 45
+  BackGroundMusicId: 0
 --- !u!1 &4758809320032783168
 GameObject:
   m_ObjectHideFlags: 0
@@ -2701,8 +2702,8 @@ MonoBehaviour:
   isSavingTerrainHistoryOnDisk: 1
   magnitudeThreshold: 300
   isGizmosEnabled: 1
-  isUsingMultithreading: 1
-  isSavingMeshes: 1
+  isUsingMultithreading: 0
+  isSavingMeshes: 0
   isUsingMeshColliders: 1
   isStatic: 0
   isLightmapped: 0

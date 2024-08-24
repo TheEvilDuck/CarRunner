@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Common.Sound;
 using Gameplay;
 using Gameplay.Cars;
 using Gameplay.Garages;
@@ -18,6 +19,12 @@ namespace Levels
         [SerializeField] private CarConfig _startCar;
         [SerializeField] private Material _skybox;
         [field: SerializeField, Min(0)] public float StartTimer;
+        [field: SerializeField] public SoundID BackGroundMusicId;
+
+        private void Start() 
+        {
+            _roadSystem.UpdateAllRoads();
+        }
 
         public IEnumerable<Garage> Garages => _garages;
         public IEnumerable<TimerGate> TimerGates => _timerGates;

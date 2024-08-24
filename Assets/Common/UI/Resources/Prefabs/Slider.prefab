@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 6536211491661015343}
   - component: {fileID: 1471336393947229945}
   - component: {fileID: 7443725525442436519}
+  - component: {fileID: 1834198513717113141}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -510,6 +511,20 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1834198513717113141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7583756518681563484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 129057ec7218ce74ca920cea8c4ca344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 439625601991974038}
+  _textId: 
 --- !u!1 &8846790877124012782
 GameObject:
   m_ObjectHideFlags: 0

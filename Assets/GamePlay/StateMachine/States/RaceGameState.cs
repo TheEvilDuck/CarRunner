@@ -3,7 +3,6 @@ using Common.States;
 using DI;
 using Gameplay.Cars;
 using Levels;
-using Services.PlayerInput;
 
 namespace Gameplay.States
 {
@@ -13,11 +12,13 @@ namespace Gameplay.States
         private readonly CarBehaviour _car;
         private readonly SimpleCarCollisionTrigger _finish;
         private readonly SoundController _soundController;
+        private readonly Level _level;
         public RaceGameState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine)
         {
             _timer = sceneContext.Get<Timer>();
             _car = sceneContext.Get<Car>().CarBehavior;
-            _finish = sceneContext.Get<Level>().Finish;
+            _level = sceneContext.Get<Level>();
+            _finish = _level.Finish;
             _soundController = sceneContext.Get<SoundController>();
         }
 
@@ -30,7 +31,7 @@ namespace Gameplay.States
         {
             _timer.Restart();
             _car.enabled = true;
-            _soundController.Play(SoundID.BacgrondMusic);
+            _soundController.Play(_level.BackGroundMusicId);
 
             _timer.end+=OnTimerEnd;
             _finish.passed += OnLevelFinished;

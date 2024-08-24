@@ -9,35 +9,38 @@ namespace Services.PlayerInput
         public event Action<bool> brakeInput;
         public event Action<Vector2> screenInput;
 
-        private RectTransform _brake;
+        private IBrakeButton _brake;
+        private readonly Func<IBrakeButton> _brakeButtonFactory;
+        private bool _enabled;
 
-        public MobileInput(RectTransform brake) 
+        public MobileInput(Func<IBrakeButton> brakeButtonFactory) 
         {
-            _brake = brake;
+            _brakeButtonFactory = brakeButtonFactory;
         }
 
         public void Update()
         {
-            bool isBrake = false;
+            if (!_enabled)
+                return;
+
+            bool isBrake = _brake.IsBraking;
             float horizontalDirection = 0f;
 
             if (Input.touchCount>0)
             {
                 foreach(Touch touch in Input.touches)
                 {
-                    if (RectTransformUtility.RectangleContainsScreenPoint(_brake, touch.position))
-                    {
-                        isBrake = true;
-                    }
-                    else
-                    {
-                        screenInput?.Invoke(touch.position);
+                    screenInput?.Invoke(touch.position);
 
-                        if (touch.position.x <= Screen.width / 2f)
-                            horizontalDirection = -1;
-                        else
-                            horizontalDirection = 1;
+                    if (_brake.IsScreenPositionInside(touch.position))
+                    {
+                        continue;
                     }
+
+                    if (touch.position.x <= Screen.width / 2f)
+                        horizontalDirection = -1;
+                    else
+                        horizontalDirection = 1;
                 }
             }
 
@@ -47,12 +50,17 @@ namespace Services.PlayerInput
 
         public void Enable()
         {
-            _brake.gameObject.SetActive(true);
+            if (_brake == null || _brake is UnityEngine.Object value && value == null)
+                _brake = _brakeButtonFactory.Invoke();
+
+            _enabled = true;
+            _brake.Enable();
         }
 
         public void Disable()
         {
-            _brake.gameObject.SetActive(false);
+            _enabled = false;
+            _brake.Disable();
         }
     }
 }
