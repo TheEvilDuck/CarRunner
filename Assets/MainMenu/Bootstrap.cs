@@ -25,7 +25,7 @@ namespace MainMenu
             _mainMenuView.SettingsMenu.Init(_sceneContext.Get<ICameraSettings>(), _sceneContext.Get<ISoundSettings>());
             var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
             _disposables.Add(settingsAndSoundMediator);
-            _sceneContext.Get<SoundController>().Play(SoundID.MainMenuMusic, true);
+            _sceneContext.Get<SoundController>().Play(SoundID.MainMenuMusic);
         }
 
         private void OnDestroy()
