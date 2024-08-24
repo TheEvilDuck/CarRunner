@@ -36,8 +36,6 @@ namespace MainMenu
                 disposable.Dispose();
 
             _disposables.Clear();
-
-            _sceneContext.Get<SoundController>().Stop(SoundID.MainMenuMusic);
         }
 
         protected override void Setup()
