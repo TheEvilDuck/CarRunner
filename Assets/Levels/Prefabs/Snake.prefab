@@ -672,8 +672,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMultithreaded: 0
-  isSavingMeshes: 1
-  isAllowingRoadUpdates: 0
+  isSavingMeshes: 0
+  isAllowingRoadUpdates: 1
   editorPlayCamera: {fileID: 0}
 --- !u!1 &860490594771631257
 GameObject:
@@ -4789,7 +4789,7 @@ MonoBehaviour:
   magnitudeThreshold: 300
   isGizmosEnabled: 1
   isUsingMultithreading: 0
-  isSavingMeshes: 1
+  isSavingMeshes: 0
   isUsingMeshColliders: 1
   isStatic: 0
   isLightmapped: 0
