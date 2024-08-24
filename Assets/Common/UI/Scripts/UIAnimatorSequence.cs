@@ -66,7 +66,7 @@ namespace Common.UI.UIAnimations
 
             if (_currentAnimation < _animations.Count)
             {
-                if (_animations[_currentAnimation].animator.enabled)
+                if (_animations[_currentAnimation].animator.enabled && _animations[_currentAnimation].animator.isActiveAndEnabled)
                     StartCoroutine(PlayAnimation());
                 else
                     PlayNext();
