@@ -17,14 +17,15 @@ namespace Services.Localization
         {
             get
             {
-                if (_currentLanguage == string.Empty)
+                if (string.IsNullOrEmpty(_currentLanguage))
                     _currentLanguage = _defaultLanguage.LanguageId;
 
                 return _currentLanguage;
             }
             set
             {
-                _currentLanguage = value;
+                if (!string.IsNullOrEmpty(value))
+                    _currentLanguage = value;
             }
         }
 
