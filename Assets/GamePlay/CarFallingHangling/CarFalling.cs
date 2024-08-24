@@ -12,6 +12,7 @@ namespace Gameplay.CarFallingHandling
         private const float MAX_GROUND_CHECK_LENGTH = 4F;
         private const float GROUND_CHECK_RATE = 1f;
         private const float GROUND_CHECK_OFFSET = 6f;
+        private const float Y_POSITION_OFFSET = 3f;
         private readonly Car _car;
         private readonly LayerMask _groundCheckLayer;
         private Quaternion _lastCarRotation;
@@ -49,7 +50,7 @@ namespace Gameplay.CarFallingHandling
             }
 
             if (CheckCarPosition())
-                carFallen?.Invoke(_lastRoadPosition, _lastCarRotation);
+                carFallen?.Invoke(_lastRoadPosition + Vector3.up * Y_POSITION_OFFSET, _lastCarRotation);
         }
 
         private bool CheckGroundFrom(Vector3 position)

@@ -250,4 +250,10 @@ MonoBehaviour:
       translation: "\u0417\u043C\u0435\u0439\u043A\u0430"
     - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
       translation: Snake
+  - textId: super_level
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      translation: "\u0421\u0423\u041F\u0415\u0420 \u0413\u0418\u0413\u0410 \u0423\u0420\u041E\u0412\u0415\u041D\u042C"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      translation: shit
   _defaultLanguage: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}

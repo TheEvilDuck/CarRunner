@@ -53,7 +53,7 @@ namespace Gameplay
             _sceneContext.Register(SetUpCar);
             _sceneContext.Register(() => new CarFalling(_sceneContext.Get<Car>(), _groundCheckLayer));
             _sceneContext.Register(() => new FallingTeleport(_sceneContext.Get<Car>()));
-            _sceneContext.Register(() => new FallingEndGame(_sceneContext.Get<StateMachine>()));
+            _sceneContext.Register(() => new FallingEndGame());
             _sceneContext.Register(SetUpFallingBehaviourSwitcher);
             _sceneContext.Register(() => new FallTries(3));
             _sceneContext.Register(SetUpGameplayStateMachine);

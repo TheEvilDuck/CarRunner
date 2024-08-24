@@ -25,3 +25,7 @@ MonoBehaviour:
     <Level>k__BackingField: {fileID: 1168434427502181582, guid: e71f6db080b89dc4689f8efc9fce497e, type: 3}
     <Cost>k__BackingField: 5000
     <RewardDivider>k__BackingField: 1.7
+  - <LevelId>k__BackingField: super_level
+    <Level>k__BackingField: {fileID: 3572859676719014061, guid: 3186fb880fd96cd4d8e0a3eb791f0254, type: 3}
+    <Cost>k__BackingField: 10000
+    <RewardDivider>k__BackingField: 2
