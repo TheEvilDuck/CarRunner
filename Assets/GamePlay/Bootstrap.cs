@@ -98,8 +98,6 @@ namespace Gameplay
                 disposable.Dispose();
 
             _disposables.Clear();
-
-            _sceneContext.Get<SoundController>().Stop(SoundID.BacgrondMusic);
         }
 
         private void OnDelayedStart()

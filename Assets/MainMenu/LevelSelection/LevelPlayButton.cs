@@ -23,7 +23,17 @@ namespace MainMenu.LevelSelection
 
         private bool _registered;
 
-        private void OnEnable() => _uIAnimatorSequence.StartSequence();
+        private void OnEnable()
+        {
+            _button.enabled = false;
+            _uIAnimatorSequence.end += OnAnimationEnd;
+            _uIAnimatorSequence.StartSequence();
+        }
+
+        private void OnDisable() 
+        {
+            _uIAnimatorSequence.end -= OnAnimationEnd;
+        }
         public void Show() => gameObject.SetActive(true);
         public void Hide() => gameObject.SetActive(false);
         public void ShowPlayText()
@@ -44,6 +54,11 @@ namespace MainMenu.LevelSelection
         {
             Debug.Log(text);
             _buttonText.text = text;
+        }
+
+        private void OnAnimationEnd()
+        {
+            _button.enabled = true;
         }
     }
 }

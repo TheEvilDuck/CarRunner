@@ -27,6 +27,7 @@ namespace EntryPoint
         private DIContainer _projectContext;
         private Coroutines _coroutines;
         private List<IDisposable> _disposables;
+        private List<GameObject> _dontDestroyOnLoadObjects;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         public static void GameEntryPoint()
@@ -35,18 +36,13 @@ namespace EntryPoint
             _gameInstance.RunGame();
         }
 
-        ~Bootstrap()
-        {
-            foreach (IDisposable disposable in _disposables)
-                disposable.Dispose();
-        }
-
         private void RunGame()
         {
             LoadScreen();
             
             _projectContext = new DIContainer();
             _disposables = new List<IDisposable>();
+            _dontDestroyOnLoadObjects = new List<GameObject>();
 
             _projectContext.Register(() => Resources.Load<LevelsDatabase>(LEVEL_DATABASE_PATH));
             _projectContext.Register(() => new GameSettings());
@@ -61,6 +57,7 @@ namespace EntryPoint
 
             _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
             UnityEngine.Object.DontDestroyOnLoad(_coroutines.gameObject);
+            _dontDestroyOnLoadObjects.Add(_coroutines.gameObject);
 
             Application.quitting += OnApplicationQuit;
 
@@ -91,6 +88,20 @@ namespace EntryPoint
 
         private void OnApplicationQuit()
         {
+            Debug.Log("Quitting application...");
+
+            foreach (IDisposable disposable in _disposables)
+            {
+                Debug.Log($"Disposing {disposable.GetType()}");
+                disposable.Dispose();
+            }
+
+            foreach (GameObject gameObject in _dontDestroyOnLoadObjects)
+            {
+                Debug.Log($"Destroying {gameObject.name} from _dontDestroyOnLoadObjects");
+                GameObject.Destroy(gameObject);
+            }
+
             SceneManager.activeSceneChanged -= OnSceneChanged;
             Application.quitting -= OnApplicationQuit;
         }
@@ -195,6 +206,8 @@ namespace EntryPoint
             SoundController soundController = UnityEngine.Object.Instantiate(prefab);
             UnityEngine.Object.DontDestroyOnLoad(soundController.gameObject);
             soundController.Init();
+            _dontDestroyOnLoadObjects.Add(soundController.gameObject);
+            _disposables.Add(soundController);
 
             return soundController;
         }

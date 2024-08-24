@@ -9,6 +9,8 @@ namespace Common.UI.UIAnimations
     {
         [SerializeField] private bool _loop;
         [SerializeField] private List<SequenseData> _animations;
+
+        public event Action end;
         private int _currentAnimation = 0;
         private void OnDisable() 
         {
@@ -75,6 +77,10 @@ namespace Common.UI.UIAnimations
             {
                 _currentAnimation = 0;
                 StartCoroutine(PlayAnimation());
+            }
+            else
+            {
+                end?.Invoke();
             }
         }
 

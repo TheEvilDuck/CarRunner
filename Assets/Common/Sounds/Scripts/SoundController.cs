@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -5,7 +6,7 @@ using UnityEngine.Pool;
 
 namespace Common.Sound
 {
-    public class SoundController : MonoBehaviour, IPausable
+    public class SoundController : MonoBehaviour, IPausable, IDisposable
     {
         private const float MUTE_VOLUME = -80f;
         [SerializeField] private Sounds _sound;
@@ -93,6 +94,31 @@ namespace Common.Sound
             _audioMixer.SetFloat(_audioMixerExposedParameters[param], convertedValue);
         }
 
+        public void Pause()
+        {
+            _paused = true;
+
+            foreach (var sound in _usedObjects)
+            {
+                sound.Pause();
+            }
+        }
+
+        public void Resume()
+        {
+            _paused = false;
+
+            foreach (var sound in _usedObjects)
+            {
+                sound.UnPause();
+            }
+        }
+
+        public void Dispose()
+        {
+            _audioSourcePool.Dispose();
+        }
+
         private AudioSource CreatePooledObject()
         {
             GameObject soundObject = Instantiate(_objectToPool);
@@ -113,26 +139,6 @@ namespace Common.Sound
         }
 
         private void DestroyObject(AudioSource audioSource) => Destroy(audioSource.gameObject);
-
-        public void Pause()
-        {
-            _paused = true;
-
-            foreach (var sound in _usedObjects)
-            {
-                sound.Pause();
-            }
-        }
-
-        public void Resume()
-        {
-            _paused = false;
-
-            foreach (var sound in _usedObjects)
-            {
-                sound.UnPause();
-            }
-        }
     }
 }
 
