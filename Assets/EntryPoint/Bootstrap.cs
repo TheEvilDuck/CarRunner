@@ -55,7 +55,9 @@ namespace EntryPoint
             _projectContext.Register(() => SetupSoundController());
             _projectContext.Register(() => new RewardProvider());
             _projectContext.Register(SetupDeviceType());
-            _projectContext.Register(SetupBrakeButton);
+            
+            if (_projectContext.Get<DeviceType>() == DeviceType.Handheld)
+                _projectContext.Register(SetupBrakeButton);
 
             _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
             UnityEngine.Object.DontDestroyOnLoad(_coroutines.gameObject);
@@ -71,14 +73,12 @@ namespace EntryPoint
         {
             _projectContext.Register(SetupPlayerData);
             _projectContext.Register(SetupInput);
-            _projectContext.Register(new YandexGameLocalization());
             _projectContext.Register(SetupLocalizationService);
             _projectContext.Register(SetupLocalizator);
             _projectContext.Register(SetupLocalizationRegistrator).NonLazy();
             _projectContext.Register(() => Resources.LoadAll<LanguageData>(""));
             _coroutines.StartCoroutine(SceneSetup());
             YandexGame.GameReadyAPI();
-            _projectContext.Get<YandexGameLocalization>().SetupYGLocalization();
             YandexGame.GetDataEvent -= PluginYGInit;
         }
 
@@ -183,7 +183,7 @@ namespace EntryPoint
 
 #if UNITY_EDITOR
             deviceType = DeviceType.Desktop;
-            deviceType = DeviceType.Handheld;
+            //deviceType = DeviceType.Handheld;
 #endif
 
             return deviceType;
