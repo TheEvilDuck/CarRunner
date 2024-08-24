@@ -250,4 +250,16 @@ MonoBehaviour:
       translation: "\u0417\u043C\u0435\u0439\u043A\u0430"
     - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
       translation: Snake
+  - textId: CountryEasy
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      translation: "\u041F\u0440\u0438\u0433\u043E\u0440\u043E\u0434"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      translation: Country
+  - textId: CountryHard
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      translation: "\u041F\u0440\u0438\u0433\u043E\u0440\u043E\u0434 2"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      translation: Country 2
   _defaultLanguage: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}

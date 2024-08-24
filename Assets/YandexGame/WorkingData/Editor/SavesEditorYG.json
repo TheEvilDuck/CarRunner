@@ -1,5 +1,5 @@
 {
-    "idSave": 103,
+    "idSave": 184,
     "isFirstSession": false,
     "language": "en",
     "promptDone": false,
@@ -9,7 +9,12 @@
         "Lvl4",
         "new road test",
         "plane_1",
-        "plane_2"
+        "plane_2",
+        "snake",
+        "CountryEasy",
+        "CountryHard",
+        "CityAutobahn",
+        "Autobahn"
     ],
     "PassedLevels": [
         "test plane",
@@ -20,9 +25,16 @@
         "TestRoad",
         "Country",
         "Country 1",
-        "Country 2"
+        "Country 2",
+        "snake",
+        "CountryEasy",
+        "CountryHard",
+        "CityAutobahn",
+        "plane_2",
+        "Autobahn"
     ],
-    "SelectedLevel": "plane_1",
-    "Coins": 1981,
-    "IsTutorialComplete": true
+    "SelectedLevel": "CountryEasy",
+    "Coins": 8163,
+    "IsTutorialComplete": true,
+    "savedLanguage": "ru"
 }
