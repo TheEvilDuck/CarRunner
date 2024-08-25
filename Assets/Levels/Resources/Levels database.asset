@@ -33,3 +33,7 @@ MonoBehaviour:
     <Level>k__BackingField: {fileID: 3673910866174486215, guid: 956ef20e65f843d4c81b98c21810a614, type: 3}
     <Cost>k__BackingField: 5000
     <RewardDivider>k__BackingField: 1.7
+  - <LevelId>k__BackingField: Autobahn
+    <Level>k__BackingField: {fileID: 5526645067866161188, guid: 47ed97ba361e31347baa203a5d3568b5, type: 3}
+    <Cost>k__BackingField: 5000
+    <RewardDivider>k__BackingField: 1.7

@@ -1,5 +1,5 @@
 {
-    "idSave": 185,
+    "idSave": 199,
     "isFirstSession": false,
     "language": "en",
     "promptDone": false,
@@ -14,7 +14,8 @@
         "CountryEasy",
         "CountryHard",
         "CityAutobahn",
-        "Autobahn"
+        "Autobahn",
+        "City"
     ],
     "PassedLevels": [
         "test plane",
@@ -31,10 +32,11 @@
         "CountryHard",
         "CityAutobahn",
         "plane_2",
-        "Autobahn"
+        "Autobahn",
+        "City"
     ],
-    "SelectedLevel": "CountryEasy",
-    "Coins": 8163,
+    "SelectedLevel": "plane_2",
+    "Coins": 5175,
     "IsTutorialComplete": true,
     "savedLanguage": "ru"
 }
