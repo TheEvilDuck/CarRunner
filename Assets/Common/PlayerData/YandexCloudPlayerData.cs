@@ -43,11 +43,9 @@ namespace Common.Data
         {
             if (_availableLevels.Contains(levelId))
                 return;
-            else
-            {
-                _availableLevels.Add(levelId);
-                YandexGame.SaveProgress();
-            }
+            
+            _availableLevels.Add(levelId);
+            YandexGame.SaveProgress();
         }
 
         public void AddCoins(int coins)
@@ -64,11 +62,9 @@ namespace Common.Data
         {
             if (_passedLevels.Contains(levelId))
                 return;
-            else
-            {
-                _passedLevels.Add(levelId);
-                YandexGame.SaveProgress();
-            }
+            
+            _passedLevels.Add(levelId);
+            YandexGame.SaveProgress();
         }
 
         public bool LoadProgressOfLevels() => YandexGame.SDKEnabled;
