@@ -73,6 +73,9 @@ namespace MainMenu
             _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels);
             _mainMenuView.ShopView.Init(_shopItemFactory, _sceneContext);
             _mainMenuView.TutorialView.Init(deviceType);
+            Debug.Log(_sceneContext.Get<string>(EntryPoint.Bootstrap.PLATFORM_DI_TAG));
+            //TODO заменить на сравнение с нужной платформой, я просто хз, какая стринга, в документации нет
+            _mainMenuView.MainButtons.Init(true);
             
         }
 

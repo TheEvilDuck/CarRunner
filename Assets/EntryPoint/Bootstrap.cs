@@ -19,6 +19,7 @@ namespace EntryPoint
 {
     public class Bootstrap
     {
+        public const string PLATFORM_DI_TAG = "platform";
         private const string BRAKE_BUTTON_RESOURCES_PATH = "Prefabs/BrakeButton";
         private const string LEVEL_DATABASE_PATH = "Levels database";
         private const string SOUND_CONTROLLER_PATH = "Prefabs/SoundController";
@@ -82,6 +83,7 @@ namespace EntryPoint
             _projectContext.Register(SetupLocalizator);
             _projectContext.Register(SetupLocalizationRegistrator).NonLazy();
             _projectContext.Register(() => Resources.LoadAll<LanguageData>(""));
+            _projectContext.Register(SetupPlatform, PLATFORM_DI_TAG);
             _coroutines.StartCoroutine(SceneSetup());
             YandexGame.GameReadyAPI();
             YandexGame.GetDataEvent -= PluginYGInit;
@@ -190,6 +192,11 @@ namespace EntryPoint
         private IBrakeButton SetupBrakeButton()
         {
             return GameObject.Instantiate(Resources.Load<BrakeButton>(BRAKE_BUTTON_RESOURCES_PATH));
+        }
+
+        private string SetupPlatform()
+        {
+            return YandexGame.EnvironmentData.platform;
         }
 
         private DeviceType SetupDeviceType()

@@ -55,7 +55,7 @@ namespace DI
                     return objectData.Get<T>();
 
                 if (_parent != null)
-                    return _parent.Get<T>();
+                    return _parent.Get<T>(tag);
             }
             finally
             {
