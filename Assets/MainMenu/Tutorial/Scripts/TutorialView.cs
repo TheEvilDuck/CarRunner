@@ -1,14 +1,16 @@
 using Common.MenuParent;
 using Common.UI.UIAnimations;
+using Services.Localization;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace MainMenu
 {
-    public class TutorialView : MonoBehaviour, IMenuParent
+    public class TutorialView : MonoBehaviour, IMenuParent, ILocalizable
     {
         [SerializeField] private Button _backButton;
         [SerializeField] private Button _nextButton;
@@ -21,19 +23,27 @@ namespace MainMenu
         [SerializeField] private Image _presentationSlide;
         [SerializeField] private List<TutorialData> _tutorialData;
         [SerializeField] private UIAnimatorSequence _animations;
-        private List<Sprite> _tutorialSprites;
+        [SerializeField] private TextMeshProUGUI _slideText;
+        private List<TutorialDataElement> _tutorialDataElements;
         private int _currentPresentationSlide = 0;
+
+        public event Action<ILocalizable> updateRequested;
 
         public UnityEvent BackPressed => _backButton.onClick;
         public UnityEvent UnderstandablePressed => _understandableButton.onClick;
+
+        public string TextId {get; private set;}
 
         public void Init(DeviceType deviceType)
         {
             foreach(TutorialData tutorialData in _tutorialData)
             {
                 if (tutorialData.DeviceType == deviceType)
-                    _tutorialSprites = tutorialData.Sprites;
+                    _tutorialDataElements = tutorialData.TutorialDataElements;
             }
+
+            TextId = _tutorialDataElements[_currentPresentationSlide].TextId;
+            LocalizationRegistrator.Instance.RegisterLocalizable(this, true);
         }
 
         private void OnEnable()
@@ -41,7 +51,7 @@ namespace MainMenu
             _nextButton.onClick.AddListener(OnNextButtonPressed);
             _previousButton.onClick.AddListener(OnPreviousButtonPressed);
 
-            _presentationSlide.sprite = _tutorialSprites[_currentPresentationSlide];
+            _presentationSlide.sprite = _tutorialDataElements[_currentPresentationSlide].Sprite;
             _understandableButton.gameObject.SetActive(false);
 
             _animations.StartSequence();
@@ -62,18 +72,21 @@ namespace MainMenu
 
         private void OnNextButtonPressed()
         {
-            if(_currentPresentationSlide < _tutorialSprites.Count - 1)
+            if(_currentPresentationSlide < _tutorialDataElements.Count - 1)
             {
                 _currentPresentationSlide++;
-                _presentationSlide.sprite = _tutorialSprites[_currentPresentationSlide];
+                _presentationSlide.sprite = _tutorialDataElements[_currentPresentationSlide].Sprite;
 
-                if(_currentPresentationSlide == _tutorialSprites.Count - 1)
+                if(_currentPresentationSlide == _tutorialDataElements.Count - 1)
                 {
                     _nextButton.gameObject.SetActive(false);
                     _understandableButton.gameObject.SetActive(true);
                     _posAnimUnderstandButton.StartAnimation();
                     _transAnimUnderstandButton.StartAnimation();
                 }
+
+                TextId = _tutorialDataElements[_currentPresentationSlide].TextId;
+                updateRequested?.Invoke(this);
             }
         }
 
@@ -81,7 +94,7 @@ namespace MainMenu
         {
             if (_currentPresentationSlide > 0)
             {
-                if(_currentPresentationSlide == _tutorialSprites.Count - 1)
+                if(_currentPresentationSlide == _tutorialDataElements.Count - 1)
                 {
                     _nextButton.gameObject.SetActive(true);
                     _posAnimNextButton.StartAnimation();
@@ -90,7 +103,10 @@ namespace MainMenu
                 }
 
                 _currentPresentationSlide--;
-                _presentationSlide.sprite = _tutorialSprites[_currentPresentationSlide];
+                _presentationSlide.sprite = _tutorialDataElements[_currentPresentationSlide].Sprite;
+
+                TextId = _tutorialDataElements[_currentPresentationSlide].TextId;
+                updateRequested?.Invoke(this);
             }
         }
 
@@ -109,11 +125,23 @@ namespace MainMenu
             }
         }
 
+        public void UpdateText(string text)
+        {
+            _slideText.text = text;
+        }
+
         [Serializable]
         private class TutorialData
         {
             [field: SerializeField] public DeviceType DeviceType { get; private set; }
-            [field: SerializeField] public List<Sprite> Sprites { get; private set; }
+            [field: SerializeField] public List<TutorialDataElement> TutorialDataElements { get; private set; }
+        }
+
+        [Serializable]
+        private class TutorialDataElement
+        {
+            [field: SerializeField] public Sprite Sprite { get; private set; }
+            [field: SerializeField] public string TextId { get; private set; }
         }
     }
 }
