@@ -15,7 +15,6 @@ namespace Services.Localization
         private void Start() 
         {
             LocalizationRegistrator.Instance.RegisterLocalizable(this);
-            updateRequested?.Invoke(this);
         }
 
         public void UpdateText(string text)

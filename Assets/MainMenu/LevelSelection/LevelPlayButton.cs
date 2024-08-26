@@ -21,24 +21,44 @@ namespace MainMenu.LevelSelection
 
         public string TextId {get; private set;}
 
-        private void Start() 
+        private bool _registered;
+
+        private void OnEnable()
         {
-            LocalizationRegistrator.Instance.RegisterLocalizable(this);
+            _button.enabled = false;
+            _uIAnimatorSequence.end += OnAnimationEnd;
+            _uIAnimatorSequence.StartSequence();
         }
 
-        private void OnEnable() => _uIAnimatorSequence.StartSequence();
+        private void OnDisable() 
+        {
+            _uIAnimatorSequence.end -= OnAnimationEnd;
+        }
         public void Show() => gameObject.SetActive(true);
         public void Hide() => gameObject.SetActive(false);
         public void ShowPlayText()
         {
+            if (!_registered)
+            {
+                LocalizationRegistrator.Instance.RegisterLocalizable(this, false);
+                _registered = true;
+            }
+
             TextId = _playTextId;
+            Debug.Log(_playTextId);
             updateRequested?.Invoke(this);
         }
         public void ShowLocked(int cost) => _buttonText.text = cost.ToString();
 
         public void UpdateText(string text)
         {
+            Debug.Log(text);
             _buttonText.text = text;
+        }
+
+        private void OnAnimationEnd()
+        {
+            _button.enabled = true;
         }
     }
 }

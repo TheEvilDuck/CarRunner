@@ -9,24 +9,20 @@ namespace Common.Sound
     {
         [SerializeField] private SoundData[] AudioClips;
 
-        public AudioClip GetAudio(SoundID id)
-        {
-            foreach (SoundData sound in AudioClips)
-            {
-                if (sound.SoundID == id)
-                    return sound.AudioClip;
-            }
-            throw new ArgumentException($"Can't find sound: {id}");
-        }
+        public AudioClip GetAudio(SoundID id) => Find(id).AudioClip;
 
-        public AudioMixerGroup GetAudioMixerGroup(SoundID id)
+        public AudioMixerGroup GetAudioMixerGroup(SoundID id) => Find(id).AudioMixerGroup;
+
+        public bool IsLooped(SoundID id) => Find(id).Loop;
+
+        private SoundData Find(SoundID soundID)
         {
             foreach (SoundData sound in AudioClips)
             {
-                if(sound.SoundID == id)
-                    return sound.AudioMixerGroup;
+                if(sound.SoundID == soundID)
+                    return sound;
             }
-            throw new ArgumentException($"Can't find AudioMixerGroup: {id}");
+            throw new ArgumentException($"Can't find AudioMixerGroup: {soundID}");
         }
 
         [Serializable]
@@ -35,6 +31,7 @@ namespace Common.Sound
             [field: SerializeField] public SoundID SoundID { get; private set; }
             [field: SerializeField] public AudioClip AudioClip { get; private set; }
             [field: SerializeField] public AudioMixerGroup AudioMixerGroup { get; private set; }
+            [field: SerializeField] public bool Loop {get; private set;}
         }
     }
 }

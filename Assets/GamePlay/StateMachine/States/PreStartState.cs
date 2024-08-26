@@ -32,7 +32,9 @@ namespace Gameplay.States
         protected override void OnExit()
         {
             _playerInput.screenInput -= OnScreenInput;
-            _startMessage?.Hide();
+            
+            if (_startMessage != null)
+                _startMessage.Hide();
         }
 
         private void OnScreenInput(Vector2 position)

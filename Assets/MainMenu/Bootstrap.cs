@@ -25,7 +25,7 @@ namespace MainMenu
             _mainMenuView.SettingsMenu.Init(_sceneContext.Get<ICameraSettings>(), _sceneContext.Get<ISoundSettings>());
             var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
             _disposables.Add(settingsAndSoundMediator);
-            _sceneContext.Get<SoundController>().Play(SoundID.MainMenuMusic, true);
+            _sceneContext.Get<SoundController>().Play(SoundID.MainMenuMusic);
         }
 
         private void OnDestroy()
@@ -36,8 +36,6 @@ namespace MainMenu
                 disposable.Dispose();
 
             _disposables.Clear();
-
-            _sceneContext.Get<SoundController>().Stop(SoundID.MainMenuMusic);
         }
 
         protected override void Setup()
@@ -75,6 +73,9 @@ namespace MainMenu
             _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels);
             _mainMenuView.ShopView.Init(_shopItemFactory, _sceneContext);
             _mainMenuView.TutorialView.Init(deviceType);
+            Debug.Log(_sceneContext.Get<string>(EntryPoint.Bootstrap.PLATFORM_DI_TAG));
+            //TODO заменить на сравнение с нужной платформой, я просто хз, какая стринга, в документации нет
+            _mainMenuView.MainButtons.Init(true);
             
         }
 

@@ -19,6 +19,7 @@ namespace EntryPoint
 {
     public class Bootstrap
     {
+        public const string PLATFORM_DI_TAG = "platform";
         private const string BRAKE_BUTTON_RESOURCES_PATH = "Prefabs/BrakeButton";
         private const string LEVEL_DATABASE_PATH = "Levels database";
         private const string SOUND_CONTROLLER_PATH = "Prefabs/SoundController";
@@ -27,6 +28,7 @@ namespace EntryPoint
         private DIContainer _projectContext;
         private Coroutines _coroutines;
         private List<IDisposable> _disposables;
+        private List<GameObject> _dontDestroyOnLoadObjects;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         public static void GameEntryPoint()
@@ -35,34 +37,38 @@ namespace EntryPoint
             _gameInstance.RunGame();
         }
 
-        ~Bootstrap()
-        {
-            foreach (IDisposable disposable in _disposables)
-                disposable.Dispose();
-        }
-
         private void RunGame()
         {
             LoadScreen();
+
+            Application.runInBackground = true;
+            Application.targetFrameRate = 60;
             
             _projectContext = new DIContainer();
             _disposables = new List<IDisposable>();
+            _dontDestroyOnLoadObjects = new List<GameObject>();
 
             _projectContext.Register(() => Resources.Load<LevelsDatabase>(LEVEL_DATABASE_PATH));
             _projectContext.Register(() => new GameSettings());
             _projectContext.Register<ISoundSettings>(() => _projectContext.Get<GameSettings>());
             _projectContext.Register<ICameraSettings>(() => _projectContext.Get<GameSettings>());
-            _projectContext.Register(() => SetupSoundController());
+            _projectContext.Register(SetupSoundController);
             _projectContext.Register(() => new RewardProvider());
+            // SetupDeviceType() инициализируется как инстанс, поскольку DeviceType это энам и не может быть null
+            // А DI контейнер использует делегат только тогда, когда инстанс объекта null
+            // надо будет предусмотреть инициализацию структур и энамов
             _projectContext.Register(SetupDeviceType());
+            _projectContext.Register(SetupPause);
             
             if (_projectContext.Get<DeviceType>() == DeviceType.Handheld)
                 _projectContext.Register(SetupBrakeButton);
 
             _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
             UnityEngine.Object.DontDestroyOnLoad(_coroutines.gameObject);
+            _dontDestroyOnLoadObjects.Add(_coroutines.gameObject);
 
             Application.quitting += OnApplicationQuit;
+            Application.focusChanged += OnFocusChanged;
 
             SceneManager.activeSceneChanged += OnSceneChanged;
 
@@ -77,6 +83,7 @@ namespace EntryPoint
             _projectContext.Register(SetupLocalizator);
             _projectContext.Register(SetupLocalizationRegistrator).NonLazy();
             _projectContext.Register(() => Resources.LoadAll<LanguageData>(""));
+            _projectContext.Register(SetupPlatform, PLATFORM_DI_TAG);
             _coroutines.StartCoroutine(SceneSetup());
             YandexGame.GameReadyAPI();
             YandexGame.GetDataEvent -= PluginYGInit;
@@ -89,10 +96,33 @@ namespace EntryPoint
             InitSceneBootstrap();
         }
 
+        private void OnFocusChanged(bool isFocused)
+        {
+            if (!isFocused)
+                _projectContext.Get<PauseManager>().Pause();
+            else
+                _projectContext.Get<PauseManager>().Resume();
+        }
+
         private void OnApplicationQuit()
         {
+            Debug.Log("Quitting application...");
+
+            foreach (IDisposable disposable in _disposables)
+            {
+                Debug.Log($"Disposing {disposable.GetType()}");
+                disposable.Dispose();
+            }
+
+            foreach (GameObject gameObject in _dontDestroyOnLoadObjects)
+            {
+                Debug.Log($"Destroying {gameObject.name} from _dontDestroyOnLoadObjects");
+                GameObject.Destroy(gameObject);
+            }
+
             SceneManager.activeSceneChanged -= OnSceneChanged;
             Application.quitting -= OnApplicationQuit;
+            Application.focusChanged -= OnFocusChanged;
         }
 
         private IEnumerator SceneSetup()
@@ -125,6 +155,8 @@ namespace EntryPoint
         {
             IPlayerInput playerInput;
             DeviceType deviceType = _projectContext.Get<DeviceType>();
+
+            Debug.Log($"Setup player input for : {deviceType}");
 
             if (deviceType == DeviceType.Desktop)
                 playerInput = new DesktopInput();
@@ -162,6 +194,11 @@ namespace EntryPoint
             return GameObject.Instantiate(Resources.Load<BrakeButton>(BRAKE_BUTTON_RESOURCES_PATH));
         }
 
+        private string SetupPlatform()
+        {
+            return YandexGame.EnvironmentData.platform;
+        }
+
         private DeviceType SetupDeviceType()
         {
             DeviceType deviceType = DeviceType.Desktop;
@@ -186,6 +223,8 @@ namespace EntryPoint
             //deviceType = DeviceType.Handheld;
 #endif
 
+            Debug.Log($"Device type selected: {deviceType}");
+
             return deviceType;
         }
 
@@ -195,8 +234,17 @@ namespace EntryPoint
             SoundController soundController = UnityEngine.Object.Instantiate(prefab);
             UnityEngine.Object.DontDestroyOnLoad(soundController.gameObject);
             soundController.Init();
+            _dontDestroyOnLoadObjects.Add(soundController.gameObject);
+            _disposables.Add(soundController);
 
             return soundController;
+        }
+
+        private PauseManager SetupPause()
+        {
+            var pauseManager = new PauseManager();
+            pauseManager.Register(_projectContext.Get<SoundController>());
+            return pauseManager;
         }
 
         private ILocalizationService SetupLocalizationService()

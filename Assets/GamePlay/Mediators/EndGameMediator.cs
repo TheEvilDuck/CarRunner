@@ -7,18 +7,27 @@ using UnityEngine.SceneManagement;
 public class EndGameMediator : IDisposable
 {
     private readonly EndOfTheGame _endGameUI;
-    private readonly PauseButton _pauseButton;
+    private readonly PauseManager _pauseManager;
 
     public EndGameMediator(DIContainer sceneContext)
     {
         _endGameUI = sceneContext.Get<EndOfTheGame>();
+        _pauseManager = sceneContext.Get<PauseManager>();
 
         _endGameUI.SceneChangingButtons.RestartButtonPressed.AddListener(RestartLevel);
         _endGameUI.SceneChangingButtons.GoToMainMenuButtonPressed.AddListener(LoadMainMenu);
     }
 
-    private void RestartLevel() => SceneManager.LoadScene(SceneIDs.GAMEPLAY);
-    private void LoadMainMenu() => SceneManager.LoadScene(SceneIDs.MAIN_MENU);
+    private void RestartLevel()
+    {
+        _pauseManager.Unlock();
+        SceneManager.LoadScene(SceneIDs.GAMEPLAY);
+    }
+    private void LoadMainMenu()
+    {
+        _pauseManager.Unlock();
+        SceneManager.LoadScene(SceneIDs.MAIN_MENU);
+    }
 
     public void Dispose()
     {

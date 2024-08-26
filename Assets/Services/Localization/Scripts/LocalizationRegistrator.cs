@@ -22,9 +22,9 @@ namespace Services.Localization
             _localizator = localizator;
         }
 
-        public void RegisterLocalizable(ILocalizable localizable)
+        public void RegisterLocalizable(ILocalizable localizable, bool instantTranslate = true)
         {
-            _localizator.RegisterLocalizable(localizable);
+            _localizator.RegisterLocalizable(localizable, instantTranslate);
         }
     }
 }

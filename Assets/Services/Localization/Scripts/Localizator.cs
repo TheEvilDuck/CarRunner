@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Services.Localization
 {
@@ -17,13 +18,16 @@ namespace Services.Localization
             TranslateAll();
         }
 
-        public void RegisterLocalizable(ILocalizable localizable)
+        public void RegisterLocalizable(ILocalizable localizable, bool instantTranslate = true)
         {
             if (_localizables.Contains(localizable))
                 throw new ArgumentException($"The localizable you passed is already registered!");
 
             localizable.updateRequested += TranslateLocalizable;
-            TranslateLocalizable(localizable);
+            
+            if (instantTranslate)
+                TranslateLocalizable(localizable);
+
             _localizables.Add(localizable);
         }
 
@@ -46,6 +50,10 @@ namespace Services.Localization
             }
         }
 
-        private void TranslateLocalizable(ILocalizable localizable) => localizable.UpdateText(_localizationService.GetText(localizable.TextId));
+        private void TranslateLocalizable(ILocalizable localizable)
+        {
+            Debug.Log($"Localization requested from: {localizable.TextId}");
+            localizable.UpdateText(_localizationService.GetText(localizable.TextId));
+        }
     }
 }

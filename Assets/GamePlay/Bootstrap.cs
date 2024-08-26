@@ -26,6 +26,7 @@ namespace Gameplay
 {
     public class Bootstrap : MonoBehaviourBootstrap
     {
+        public const string GAMEPLAY_PAUSE_MANAGER_TAG = "Gameplay pause";
         private const string RANGE_OF_CAMERA_SETTINGS_PATH = "Range Of Camera Settings";
         [SerializeField] private Camera _camera;
         [SerializeField] private TimerView _timerView;
@@ -53,12 +54,12 @@ namespace Gameplay
             _sceneContext.Register(SetUpCar);
             _sceneContext.Register(() => new CarFalling(_sceneContext.Get<Car>(), _groundCheckLayer));
             _sceneContext.Register(() => new FallingTeleport(_sceneContext.Get<Car>()));
-            _sceneContext.Register(() => new FallingEndGame(_sceneContext.Get<StateMachine>()));
+            _sceneContext.Register(() => new FallingEndGame());
             _sceneContext.Register(SetUpFallingBehaviourSwitcher);
             _sceneContext.Register(() => new FallTries(3));
             _sceneContext.Register(SetUpGameplayStateMachine);
             _sceneContext.Register(_settingsMenu);
-            _sceneContext.Register(SetUpPause);
+            _sceneContext.Register(SetUpPause, GAMEPLAY_PAUSE_MANAGER_TAG);
             _sceneContext.Register(_timerView);
             _sceneContext.Register(_endOfTheGame);
             _sceneContext.Register(_pauseButton);
@@ -99,7 +100,7 @@ namespace Gameplay
 
             _disposables.Clear();
 
-            _sceneContext.Get<SoundController>().Stop(SoundID.BacgrondMusic);
+            _sceneContext.Get<PauseManager>().Unregister(_sceneContext.Get<PauseManager>(GAMEPLAY_PAUSE_MANAGER_TAG));
         }
 
         private void OnDelayedStart()
@@ -107,6 +108,8 @@ namespace Gameplay
             _delayedStart -= OnDelayedStart;
             var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
             _disposables.Add(settingsAndSoundMediator);
+
+            _sceneContext.Get<PauseManager>(GAMEPLAY_PAUSE_MANAGER_TAG);
         }
 
         private Level SetUpLevel()
@@ -190,6 +193,8 @@ namespace Gameplay
             pauseManager.Register(_sceneContext.Get<Car>());
             pauseManager.Register(_sceneContext.Get<SoundController>());
             pauseManager.Register(_sceneContext.Get<StateMachine>());
+
+            _sceneContext.Get<PauseManager>().Register(pauseManager);
 
             return pauseManager;
         }

@@ -14,7 +14,6 @@ namespace EntryPoint
 
         public void Init(DIContainer projectContext)
         {
-            Debug.Log("A");
             _projectContext = projectContext;
             _sceneContext =  new DIContainer(_projectContext);
             Setup();

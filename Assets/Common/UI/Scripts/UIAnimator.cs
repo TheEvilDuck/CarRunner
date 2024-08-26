@@ -26,6 +26,15 @@ namespace Common.UI.UIAnimations
             SetupAnimation();
         }
 
+        private void OnDisable() 
+        {
+            if (_currentAnimation == null)
+                return;
+
+            StopCoroutine(_currentAnimation);
+            _currentAnimation = null;
+        }
+
         public void StartAnimation()
         {
             StopAnimation();

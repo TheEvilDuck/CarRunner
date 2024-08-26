@@ -31,7 +31,7 @@ namespace Common.Mediators
         private void UpdateCameraSettings()
         {
             int angleOfView = (int)_rangeOfCameraSettings.AngleOfView.GetConvertedValue(_cameraSettings.AngleOfView);
-            float zOffset = _rangeOfCameraSettings.ZOffset.GetConvertedValue(_cameraSettings.ZOffset);
+            float zOffset = _rangeOfCameraSettings.ZOffset.GetConvertedValue(1f - _cameraSettings.ZOffset);
 
             _camera.fieldOfView = angleOfView;
             _cameraFollow.SetZOffset(zOffset);

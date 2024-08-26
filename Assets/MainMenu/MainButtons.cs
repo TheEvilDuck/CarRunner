@@ -23,6 +23,12 @@ namespace MainMenu
         public UnityEvent TutorialClicked => _tutorial.onClick;
         public UnityEvent LanguageClicked => _language.onClick;
 
+        public void Init(bool isWeb)
+        {
+            if (isWeb)
+                _exit.gameObject.SetActive(false);
+        }
+
         public void Hide() => gameObject.SetActive(false);
 
         public void Show()

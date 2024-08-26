@@ -2072,6 +2072,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -2313,6 +2315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -2678,7 +2682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1708280403
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2954,17 +2958,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7eff409e612f8b419acb74f7a08da02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1870337257 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6086642524318641325, guid: eab7fcad9d9b3054182425baf249b852, type: 3}
-  m_PrefabInstance: {fileID: 6749124419161203031}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ea805ac7afd0c9418dd78e0cfb45e8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1921629911
 GameObject:
   m_ObjectHideFlags: 0
@@ -2984,7 +2977,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1921629912
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3548,6 +3541,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -3787,6 +3782,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -3837,6 +3834,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -3982,7 +3981,7 @@ PrefabInstance:
     - target: {fileID: 8117531253039395286, guid: aa758e60310365f4bb0203c7cdc61ec5, type: 3}
       propertyPath: _soundController
       value: 
-      objectReference: {fileID: 1870337257}
+      objectReference: {fileID: 0}
     - target: {fileID: 8117531253039395286, guid: aa758e60310365f4bb0203c7cdc61ec5, type: 3}
       propertyPath: _pauseMenuButtons
       value: 
@@ -4138,63 +4137,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1512234741}
   m_SourcePrefab: {fileID: 100100000, guid: ecdd19355d4311c4d8cdf1257c5383c9, type: 3}
---- !u!1001 &6749124419161203031
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3436222956395235181, guid: eab7fcad9d9b3054182425baf249b852, type: 3}
-      propertyPath: m_Name
-      value: SoundController
-      objectReference: {fileID: 0}
-    - target: {fileID: 4352052361394620498, guid: eab7fcad9d9b3054182425baf249b852, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -125.71941
-      objectReference: {fileID: 0}
-    - target: {fileID: 4352052361394620498, guid: eab7fcad9d9b3054182425baf249b852, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 32.657814
-      objectReference: {fileID: 0}
-    - target: {fileID: 4352052361394620498, guid: eab7fcad9d9b3054182425baf249b852, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 20.190477
-      objectReference: {fileID: 0}
-    - target: {fileID: 4352052361394620498, guid: eab7fcad9d9b3054182425baf249b852, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4352052361394620498, guid: eab7fcad9d9b3054182425baf249b852, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4352052361394620498, guid: eab7fcad9d9b3054182425baf249b852, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4352052361394620498, guid: eab7fcad9d9b3054182425baf249b852, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4352052361394620498, guid: eab7fcad9d9b3054182425baf249b852, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4352052361394620498, guid: eab7fcad9d9b3054182425baf249b852, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4352052361394620498, guid: eab7fcad9d9b3054182425baf249b852, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: eab7fcad9d9b3054182425baf249b852, type: 3}
 --- !u!1001 &8616092550441578961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4503,6 +4445,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -4553,6 +4497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 0}
+  uniqueFontTMP: {fileID: 0}
   textLComponent: {fileID: 0}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
@@ -4599,6 +4545,5 @@ SceneRoots:
   - {fileID: 5624112317440077081}
   - {fileID: 1111492076}
   - {fileID: 518138971}
-  - {fileID: 6749124419161203031}
   - {fileID: 981900870}
   - {fileID: 608274366}
