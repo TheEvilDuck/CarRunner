@@ -232,18 +232,12 @@ MonoBehaviour:
       translation: "\u043C\u043E\u043D\u0435\u0442!"
     - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
       translation: coins!
-  - textId: plane_1
+  - textId: Field
     localizationDataElements:
     - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
-      translation: "\u041B\u0443\u0433\u0430 \u0443\u0440. 1"
+      translation: "\u041B\u0443\u0433\u0430"
     - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
-      translation: Plane lvl 1
-  - textId: plane_2
-    localizationDataElements:
-    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
-      translation: "\u041B\u0443\u0433\u0430 \u0443\u0440. 2"
-    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
-      translation: Plane lvl 2
+      translation: Field
   - textId: snake
     localizationDataElements:
     - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
@@ -268,4 +262,10 @@ MonoBehaviour:
       translation: "\u0410\u0432\u0442\u043E\u0431\u0430\u043D"
     - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
       translation: Autobahn
+  - textId: City
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      translation: "\u0413\u043E\u0440\u043E\u0434"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      translation: City
   _defaultLanguage: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}

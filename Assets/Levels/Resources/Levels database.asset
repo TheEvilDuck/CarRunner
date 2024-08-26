@@ -13,27 +13,27 @@ MonoBehaviour:
   m_Name: Levels database
   m_EditorClassIdentifier: 
   _levels:
-  - <LevelId>k__BackingField: plane_1
+  - <LevelId>k__BackingField: Field
     <Level>k__BackingField: {fileID: 3173339907991620677, guid: ee09fc0be80c7fd42a1518c2f92a4dea, type: 3}
     <Cost>k__BackingField: 1000
-    <RewardDivider>k__BackingField: 1.5
-  - <LevelId>k__BackingField: plane_2
-    <Level>k__BackingField: {fileID: 4496839479287835166, guid: f39c68087f67ffb409dca73248634348, type: 3}
-    <Cost>k__BackingField: 3000
-    <RewardDivider>k__BackingField: 1.6
-  - <LevelId>k__BackingField: snake
-    <Level>k__BackingField: {fileID: 1168434427502181582, guid: e71f6db080b89dc4689f8efc9fce497e, type: 3}
-    <Cost>k__BackingField: 5000
-    <RewardDivider>k__BackingField: 1.7
+    <RewardDivider>k__BackingField: 2
   - <LevelId>k__BackingField: CountryEasy
     <Level>k__BackingField: {fileID: 9164497806142845981, guid: 72957c52d30e16c40a05fe2c1608193e, type: 3}
-    <Cost>k__BackingField: 5000
-    <RewardDivider>k__BackingField: 1.7
-  - <LevelId>k__BackingField: CountryHard
-    <Level>k__BackingField: {fileID: 3673910866174486215, guid: 956ef20e65f843d4c81b98c21810a614, type: 3}
-    <Cost>k__BackingField: 5000
-    <RewardDivider>k__BackingField: 1.7
+    <Cost>k__BackingField: 1500
+    <RewardDivider>k__BackingField: 2
+  - <LevelId>k__BackingField: City
+    <Level>k__BackingField: {fileID: 157787325219492284, guid: 646a1f34f721bfd4bb76005b7d9e9703, type: 3}
+    <Cost>k__BackingField: 2000
+    <RewardDivider>k__BackingField: 1.8
+  - <LevelId>k__BackingField: snake
+    <Level>k__BackingField: {fileID: 1168434427502181582, guid: e71f6db080b89dc4689f8efc9fce497e, type: 3}
+    <Cost>k__BackingField: 2500
+    <RewardDivider>k__BackingField: 1.6
   - <LevelId>k__BackingField: Autobahn
     <Level>k__BackingField: {fileID: 5526645067866161188, guid: 47ed97ba361e31347baa203a5d3568b5, type: 3}
-    <Cost>k__BackingField: 5000
-    <RewardDivider>k__BackingField: 1.7
+    <Cost>k__BackingField: 3000
+    <RewardDivider>k__BackingField: 1.5
+  - <LevelId>k__BackingField: CountryHard
+    <Level>k__BackingField: {fileID: 3673910866174486215, guid: 956ef20e65f843d4c81b98c21810a614, type: 3}
+    <Cost>k__BackingField: 3000
+    <RewardDivider>k__BackingField: 1.5
