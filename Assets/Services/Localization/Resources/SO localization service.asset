@@ -232,24 +232,6 @@ MonoBehaviour:
       translation: "\u043C\u043E\u043D\u0435\u0442!"
     - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
       translation: coins!
-  - textId: Field
-    localizationDataElements:
-    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
-      translation: "\u041B\u0443\u0433\u0430"
-    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
-      translation: Field
-  - textId: snake
-    localizationDataElements:
-    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
-      translation: "\u0417\u043C\u0435\u0439\u043A\u0430"
-    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
-      translation: Snake
-  - textId: super_level
-    localizationDataElements:
-    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
-      translation: "\u0421\u0423\u041F\u0415\u0420 \u0413\u0418\u0413\u0410 \u0423\u0420\u041E\u0412\u0415\u041D\u042C"
-    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
-      translation: shit
   - textId: tutorial_input_desktop
     localizationDataElements:
     - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
@@ -388,4 +370,40 @@ MonoBehaviour:
         mostly by itself but you can turn: touch the left half of the screen to turn
         left and the right half of the screen to turn right. In addition, you can
         use brakes by holding the brake button on bottom of the screen.'
+  - textId: Field
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      translation: "\u041B\u0443\u0433\u0430"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      translation: Field
+  - textId: CountryEasy
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      translation: "\u041F\u0440\u0438\u0433\u043E\u0440\u043E\u0434"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      translation: Country
+  - textId: City
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      translation: "\u0413\u043E\u0440\u043E\u0434"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      translation: City
+  - textId: Snake
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      translation: "\u0417\u043C\u0435\u0439\u043A\u0430"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      translation: Snake
+  - textId: Autobahn
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      translation: "\u0410\u0432\u0442\u043E\u0431\u0430\u043D"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      translation: Autobahn
+  - textId: CountryHard
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      translation: "\u041F\u0440\u0438\u0433\u043E\u0440\u043E\u0434 2"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      translation: Country 2
   _defaultLanguage: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
