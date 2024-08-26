@@ -89,7 +89,7 @@ namespace Common
         [Serializable]
         private class SoundSettings
         {
-            public bool Mute = true;
+            public bool Mute = false;
             public float MasterVolume = 0.5f;
             public float BackgroundMusicVolume = 0.5f;
             public float SFXSoundVolume = 0.5f;
@@ -98,8 +98,8 @@ namespace Common
         [Serializable]
         private class CameraSettings
         {
-            public float AngleOfView = 0.5f;
-            public float ZOffset = 0.5f;
+            public float AngleOfView = 0.6f;
+            public float ZOffset = 0.6f;
         }
     }
 }

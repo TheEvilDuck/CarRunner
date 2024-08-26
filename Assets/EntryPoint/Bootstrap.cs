@@ -39,6 +39,9 @@ namespace EntryPoint
         private void RunGame()
         {
             LoadScreen();
+
+            Application.runInBackground = true;
+            Application.targetFrameRate = 60;
             
             _projectContext = new DIContainer();
             _disposables = new List<IDisposable>();
@@ -48,9 +51,13 @@ namespace EntryPoint
             _projectContext.Register(() => new GameSettings());
             _projectContext.Register<ISoundSettings>(() => _projectContext.Get<GameSettings>());
             _projectContext.Register<ICameraSettings>(() => _projectContext.Get<GameSettings>());
-            _projectContext.Register(() => SetupSoundController());
+            _projectContext.Register(SetupSoundController);
             _projectContext.Register(() => new RewardProvider());
+            // SetupDeviceType() инициализируется как инстанс, поскольку DeviceType это энам и не может быть null
+            // А DI контейнер использует делегат только тогда, когда инстанс объекта null
+            // надо будет предусмотреть инициализацию структур и энамов
             _projectContext.Register(SetupDeviceType());
+            _projectContext.Register(SetupPause);
             
             if (_projectContext.Get<DeviceType>() == DeviceType.Handheld)
                 _projectContext.Register(SetupBrakeButton);
@@ -60,6 +67,7 @@ namespace EntryPoint
             _dontDestroyOnLoadObjects.Add(_coroutines.gameObject);
 
             Application.quitting += OnApplicationQuit;
+            Application.focusChanged += OnFocusChanged;
 
             SceneManager.activeSceneChanged += OnSceneChanged;
 
@@ -86,6 +94,14 @@ namespace EntryPoint
             InitSceneBootstrap();
         }
 
+        private void OnFocusChanged(bool isFocused)
+        {
+            if (!isFocused)
+                _projectContext.Get<PauseManager>().Pause();
+            else
+                _projectContext.Get<PauseManager>().Resume();
+        }
+
         private void OnApplicationQuit()
         {
             Debug.Log("Quitting application...");
@@ -104,6 +120,7 @@ namespace EntryPoint
 
             SceneManager.activeSceneChanged -= OnSceneChanged;
             Application.quitting -= OnApplicationQuit;
+            Application.focusChanged -= OnFocusChanged;
         }
 
         private IEnumerator SceneSetup()
@@ -136,6 +153,8 @@ namespace EntryPoint
         {
             IPlayerInput playerInput;
             DeviceType deviceType = _projectContext.Get<DeviceType>();
+
+            Debug.Log($"Setup player input for : {deviceType}");
 
             if (deviceType == DeviceType.Desktop)
                 playerInput = new DesktopInput();
@@ -197,6 +216,8 @@ namespace EntryPoint
             //deviceType = DeviceType.Handheld;
 #endif
 
+            Debug.Log($"Device type selected: {deviceType}");
+
             return deviceType;
         }
 
@@ -210,6 +231,13 @@ namespace EntryPoint
             _disposables.Add(soundController);
 
             return soundController;
+        }
+
+        private PauseManager SetupPause()
+        {
+            var pauseManager = new PauseManager();
+            pauseManager.Register(_projectContext.Get<SoundController>());
+            return pauseManager;
         }
 
         private ILocalizationService SetupLocalizationService()

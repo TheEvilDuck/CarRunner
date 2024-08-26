@@ -21,6 +21,7 @@ namespace Gameplay
             _playerInput = sceneContext.Get<IPlayerInput>();
 
             _pauseButton.pressed += OnPauseButtonPressed;
+            _pauseManager.IsPaused.changed += OnPauseChanged;
             _pauseMenu.ResumeButtonPressed.AddListener(OnPauseButtonPressed);
 
             _pauseMenu.Hide();
@@ -28,24 +29,37 @@ namespace Gameplay
         public void Dispose()
         {
             _pauseButton.pressed -= OnPauseButtonPressed;
+            _pauseManager.IsPaused.changed -= OnPauseChanged;
             _pauseMenu.ResumeButtonPressed.RemoveListener(OnPauseButtonPressed);
         }
 
-        private void OnPauseButtonPressed()
+        private void OnPauseChanged(bool isPaused)
         {
-            if (_pauseManager.Paused)
+            if (!_pauseManager.IsPaused.Value)
             {
-                _pauseManager.Resume();
                 _pauseButton.Show();
                 _pauseMenu.Hide();
                 _playerInput.Enable();
             }
             else
             {
-                _pauseManager.Pause();
+                _pauseManager.Lock();
                 _pauseButton.Hide();
                 _pauseMenu.Show();
                 _playerInput.Disable();
+            }
+        }
+
+        private void OnPauseButtonPressed()
+        {
+            if (_pauseManager.IsPaused.Value)
+            {
+                _pauseManager.Unlock();
+                _pauseManager.Resume();
+            }
+            else
+            {
+                _pauseManager.Pause();
             }
         }
     }
