@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13ed0a0258ab5b4cbd546fc414a6c87, type: 3}
   m_Name: Bus
   m_EditorClassIdentifier: 
-  <Acceleration>k__BackingField: 150
+  <Acceleration>k__BackingField: 350
   <MaxSpeed>k__BackingField: 60
   <Materials>k__BackingField:
   - {fileID: -876546973899608171, guid: 80ec9d4b1fe521f4d92830bd743a27d5, type: 3}
