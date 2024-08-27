@@ -8,6 +8,9 @@ namespace Services.PlayerInput
         public event Action<float> horizontalInput;
         public event Action<bool> brakeInput;
         public event Action<Vector2> screenInput;
+        #if DEBUG
+        public event Action debugConsoleToggled;
+        #endif
 
         private bool _enabled;
 
@@ -33,6 +36,11 @@ namespace Services.PlayerInput
 
             if (Input.GetMouseButton(0))
                 screenInput?.Invoke(Input.mousePosition);
+
+            #if DEBUG
+            if (Input.GetKeyDown(KeyCode.Q))
+                debugConsoleToggled?.Invoke();
+            #endif
         }
     }
 }

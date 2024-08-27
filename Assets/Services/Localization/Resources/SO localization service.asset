@@ -406,4 +406,11 @@ MonoBehaviour:
       translation: "\u041F\u0440\u0438\u0433\u043E\u0440\u043E\u0434 2"
     - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
       translation: Country 2
+  - textId: watch_ad
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      translation: "\u041F\u043E\u0441\u043C\u043E\u0442\u0440\u0438 \u0440\u0435\u043A\u043B\u0430\u043C\u0443
+        \u0438 \u043F\u043E\u043B\u0443\u0447\u0438 \u043C\u043E\u043D\u0435\u0442\u044B!"
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      translation: Watch ad to get coins!
   _defaultLanguage: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}

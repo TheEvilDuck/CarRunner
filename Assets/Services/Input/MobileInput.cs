@@ -8,6 +8,9 @@ namespace Services.PlayerInput
         public event Action<float> horizontalInput;
         public event Action<bool> brakeInput;
         public event Action<Vector2> screenInput;
+        #if DEBUG
+        public event Action debugConsoleToggled;
+        #endif
 
         private IBrakeButton _brake;
         private readonly Func<IBrakeButton> _brakeButtonFactory;
@@ -42,6 +45,11 @@ namespace Services.PlayerInput
                     else
                         horizontalDirection = 1;
                 }
+
+                #if DEBUG
+                if (Input.touchCount == 4)
+                    debugConsoleToggled?.Invoke();
+                #endif
             }
 
             horizontalInput?.Invoke(horizontalDirection);

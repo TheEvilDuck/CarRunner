@@ -166,6 +166,11 @@ namespace EntryPoint
                 throw new ArgumentException($"Unknown device type");
 
             playerInput.Enable();
+
+            #if DEBUG
+                playerInput.debugConsoleToggled += () => Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
+            #endif
+
             return playerInput;
         }
 

@@ -8,7 +8,7 @@ namespace Common.Data
 {
     public class YandexCloudPlayerData : IPlayerData, IDisposable
     {
-        public const string LEADERBOARD_KEY = "YANDEX_LEVEL_RECORDS_";
+        public const string LEADERBOARD_KEY = "yandexLevelRecords";
         private const float LEADERBOARD_CALL_COOLDOWN = 1f;
 
         public event Action<int> coinsChanged;
@@ -127,6 +127,10 @@ namespace Common.Data
         {
             _currentLBData = lBData;
             _newLBLoaded = true;
+
+            #if DEBUG
+            Debug.Log(lBData.entries);
+            #endif
         }
 
         public void SaveLanguage(string language)
