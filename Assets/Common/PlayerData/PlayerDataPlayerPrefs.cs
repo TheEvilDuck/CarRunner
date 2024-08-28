@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Common.Reactive;
 using UnityEngine;
 
 namespace Common.Data
@@ -17,6 +18,7 @@ namespace Common.Data
 
         private ProgressOfLevels _progressOfLvls;
         private List<LevelRecord> _levelRecords;
+        private Observable<string> _savedPreferedLanguage;
 
         public event Action<int> coinsChanged;
 
@@ -53,6 +55,16 @@ namespace Common.Data
                 else 
                     return false;
             }
+        }
+
+        public IReadonlyObservable<string> SavedPreferdLanguage => _savedPreferedLanguage;
+
+        public PlayerDataPlayerPrefs()
+        {
+            LoadProgressOfLevels();
+            _savedPreferedLanguage = new Observable<string>();
+            LoadLanguage();
+            _savedPreferedLanguage.changed += (language) => PlayerPrefs.SetString(PREFS_LANGUAGE, language);
         }
 
         public void TutorialCmplete()
@@ -192,15 +204,30 @@ namespace Common.Data
             return 0;
         }
 
+        public void SaveLanguage(string language)
+        {
+            _savedPreferedLanguage.Value = language;
+        }
+
+        private void LoadLanguage()
+        {
+            if(PlayerPrefs.HasKey(PREFS_LANGUAGE))
+            {
+                string language = PlayerPrefs.GetString(PREFS_LANGUAGE);
+                _savedPreferedLanguage.Value = language;
+            }
+            else
+            {
+                //пусть тут пока будет пусто и 
+                //будет подгружаться дефолтный (английский) язык 
+                //в системе локализации
+            }
+        }
+
         private void SaveProgressOfLevels()
         {
             string progressOfLevels = JsonUtility.ToJson(_progressOfLvls);
             PlayerPrefs.SetString(PREFS_PROGRESS_OF_LEVELS, progressOfLevels);
-        }
-
-        public void SaveLanguage(string language)
-        {
-            PlayerPrefs.SetString(PREFS_LANGUAGE, language);
         }
 
         [Serializable]

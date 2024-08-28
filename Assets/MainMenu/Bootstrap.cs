@@ -81,7 +81,7 @@ namespace MainMenu
 
         private LanguageSelectorMenu SetupLanguageSelectionUI()
         {
-            string currentLanguage = _sceneContext.Get<IPlayerData>().SavedPreferedLanguage;
+            string currentLanguage = _sceneContext.Get<IPlayerData>().SavedPreferdLanguage.Value;
 
             if (string.IsNullOrEmpty(currentLanguage))
             {

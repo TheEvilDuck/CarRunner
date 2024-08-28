@@ -10,7 +10,6 @@ using Gameplay.UI;
 using Levels;
 using Services.Localization;
 using Services.PlayerInput;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
@@ -166,11 +165,6 @@ namespace EntryPoint
                 throw new ArgumentException($"Unknown device type");
 
             playerInput.Enable();
-
-            #if DEBUG
-                playerInput.debugConsoleToggled += () => Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
-            #endif
-
             return playerInput;
         }
 
@@ -186,7 +180,6 @@ namespace EntryPoint
             else
             {
                 playerData = new PlayerDataPlayerPrefs();
-                playerData.LoadProgressOfLevels();
             }
 
             playerData.AddAvailableLevel(_projectContext.Get<LevelsDatabase>().GetFirstLevel());
@@ -256,7 +249,7 @@ namespace EntryPoint
         {
             var service = Resources.Load<SOLocalizationService>("SO localization service");
             
-            string currentLanguage = _projectContext.Get<IPlayerData>().SavedPreferedLanguage;
+            string currentLanguage = _projectContext.Get<IPlayerData>().SavedPreferdLanguage.Value;
 
             if (string.IsNullOrEmpty(currentLanguage))
             {
@@ -264,6 +257,8 @@ namespace EntryPoint
             }
 
             service.SetLanguage(currentLanguage);
+
+            _projectContext.Get<IPlayerData>().SavedPreferdLanguage.changed += service.SetLanguage;
 
             return service;
         }

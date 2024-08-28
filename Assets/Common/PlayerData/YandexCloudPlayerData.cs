@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Common.Reactive;
 using UnityEngine;
 using YG;
 using YG.Utils.LB;
@@ -18,6 +19,7 @@ namespace Common.Data
         private LBData _currentLBData;
         private bool _newLBLoaded;
         private float _lastLeaderBoardCall;
+        private Observable<string> _savedPreferedLanguage;
 
         public IEnumerable<string> AvailableLevels => _availableLevels;
         public IEnumerable<string> PassedLevels => _passedLevels;
@@ -26,10 +28,19 @@ namespace Common.Data
         public DateTime WatchShopAdLastTime => YandexGame.savesData.WatchShopAdLastTime;
         public bool IsTutorialComplete => YandexGame.savesData.IsTutorialComplete;
 
-        public string SavedPreferedLanguage => YandexGame.savesData.savedLanguage;
+        //public string SavedPreferedLanguage => YandexGame.savesData.savedLanguage;
+
+        public IReadonlyObservable<string> SavedPreferdLanguage => _savedPreferedLanguage;
 
         public YandexCloudPlayerData()
         {
+            _savedPreferedLanguage = new Observable<string>();
+            LoadLanguage();
+            _savedPreferedLanguage.changed += (language) => 
+            {
+                YandexGame.savesData.savedLanguage = language;
+                YandexGame.SaveProgress();
+            };
             YandexGame.onGetLeaderboard += OnLeaderboardGot;
         }
 
@@ -135,8 +146,15 @@ namespace Common.Data
 
         public void SaveLanguage(string language)
         {
-            YandexGame.savesData.savedLanguage = language;
-            YandexGame.SaveProgress();
+            _savedPreferedLanguage.Value = language;
+        }
+
+        private void LoadLanguage()
+        {
+            if(string.IsNullOrEmpty(YandexGame.savesData.savedLanguage))
+                _savedPreferedLanguage.Value = YandexGame.EnvironmentData.language;
+            else
+                _savedPreferedLanguage.Value = YandexGame.savesData.savedLanguage;
         }
     }
 }
