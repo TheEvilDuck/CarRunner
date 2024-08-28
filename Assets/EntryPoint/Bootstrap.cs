@@ -254,6 +254,7 @@ namespace EntryPoint
             if (string.IsNullOrEmpty(currentLanguage))
             {
                 currentLanguage = service.CurrentLanguage;
+                _projectContext.Get<IPlayerData>().SaveLanguage(currentLanguage);
             }
 
             service.SetLanguage(currentLanguage);
