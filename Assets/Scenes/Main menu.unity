@@ -3554,7 +3554,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.43656135, y: 1}
-  m_AnchoredPosition: {x: 15.6138, y: 2.999878}
+  m_AnchoredPosition: {x: 15.61377, y: 2.999878}
   m_SizeDelta: {x: -37.22705, y: -104}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &985953861
@@ -3962,6 +3962,8 @@ MonoBehaviour:
       <TextId>k__BackingField: tutorial_timer_gates
     - <Sprite>k__BackingField: {fileID: -1240119025, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
       <TextId>k__BackingField: tutorial_garages
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: 1338c17e7e30f7b498e65020ba7c8363, type: 3}
+      <TextId>k__BackingField: tutorial_falls
     - <Sprite>k__BackingField: {fileID: -1825208571, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
       <TextId>k__BackingField: tutorial_finish
   - <DeviceType>k__BackingField: 1
@@ -3974,6 +3976,8 @@ MonoBehaviour:
       <TextId>k__BackingField: tutorial_timer_gates
     - <Sprite>k__BackingField: {fileID: -1240119025, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
       <TextId>k__BackingField: tutorial_garages
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: 1338c17e7e30f7b498e65020ba7c8363, type: 3}
+      <TextId>k__BackingField: tutorial_falls
     - <Sprite>k__BackingField: {fileID: -1825208571, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
       <TextId>k__BackingField: tutorial_finish
   _animations: {fileID: 1121588841}
