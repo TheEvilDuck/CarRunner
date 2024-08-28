@@ -10,14 +10,17 @@ namespace Gameplay.CarFallingHandling
         public event Action<Vector3, Quaternion> carFallen;
         private const float Y_POSITION_TO_TELEPORT = -30F;
         private const float MAX_GROUND_CHECK_LENGTH = 4F;
-        private const float GROUND_CHECK_RATE = 1f;
+        private const float GROUND_CHECK_RATE = 0.5f;
         private const float GROUND_CHECK_OFFSET = 6f;
         private const float Y_POSITION_OFFSET = 3f;
+        private const float FALL_DEBOUNCE_TIME = 1f;
+        private const float MAX_ANGLE_GROUNDED = 35f;
         private readonly Car _car;
         private readonly LayerMask _groundCheckLayer;
         private Quaternion _lastCarRotation;
         private Vector3 _lastRoadPosition;
         private float _lastTime;
+        private float _returnLastTime;
 
         public CarFalling(Car car, LayerMask groundCheckLayer)
         {
@@ -42,20 +45,36 @@ namespace Gameplay.CarFallingHandling
 
                 if (grounded)
                 {
-                    _lastRoadPosition = _car.Position - new Vector3(_car.CarBehavior.CurrentVelocity.x, 0, _car.CarBehavior.CurrentVelocity.y) * Time.deltaTime;
+                    Debug.Log(_lastRoadPosition);
+                    _lastRoadPosition = _car.Position;
                     _lastCarRotation = _car.Rotation;
                 }      
 
                 _lastTime = Time.time;
+
+                
             }
 
             if (CheckCarPosition())
-                carFallen?.Invoke(_lastRoadPosition + Vector3.up * Y_POSITION_OFFSET, _lastCarRotation);
+            {
+                if (Time.time - _returnLastTime >= FALL_DEBOUNCE_TIME)
+                {
+                    carFallen?.Invoke(_lastRoadPosition + Vector3.up * Y_POSITION_OFFSET, _lastCarRotation);
+                    _returnLastTime = Time.time;
+                } 
+            }
+            
         }
 
         private bool CheckGroundFrom(Vector3 position)
         {
-            return Physics.Raycast(position, Vector3.down, MAX_GROUND_CHECK_LENGTH, _groundCheckLayer);
+            if (Physics.Raycast(position, Vector3.down, out var result, MAX_GROUND_CHECK_LENGTH, _groundCheckLayer))
+            {
+                if (Vector3.Angle(result.normal, Vector3.up) <= MAX_ANGLE_GROUNDED)
+                    return true;
+            }
+
+            return false;
         }
 
         private bool CheckCarPosition()

@@ -26,10 +26,10 @@ namespace Gameplay.Cars
 
         public void TeleportCar(Vector3 toPosition, Quaternion rotation)
         {
-            transform.position = toPosition;
-            transform.rotation = rotation;
-
             CarBehavior.RemoveVelocity();
+
+            CarBehavior.MovePosition(toPosition);
+            CarBehavior.MoveRotation(rotation);
         }
 
         public void Pause()

@@ -35,6 +35,9 @@ namespace Gameplay.Cars
             _rigidBody.isKinematic = false;
         }
 
+        public void MovePosition(Vector3 position) => _rigidBody.MovePosition(position);
+        public void MoveRotation(Quaternion rotation) => _rigidBody.MoveRotation(rotation);
+
         public void ChangeWheelsOffsets(Vector3 RFWheelPosition, Vector3 LFWheelPosition,Vector3 RBWheelPosition,Vector3 LBWheelPosition)
         {
             foreach (WheelData wheelData in _wheels)

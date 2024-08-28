@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7945074410084151003}
   - component: {fileID: 5910943986240984893}
   - component: {fileID: 1225229229810580979}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SCutR2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8207382350827887582}
   - component: {fileID: 1697096502703916241}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RoadArchitectSystem1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6801320810905187034}
   - component: {fileID: 2395181150440612046}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Node1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 3480048809900938420}
   - component: {fileID: 8793449872390448432}
   - component: {fileID: 6215508137760348912}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RoadCut2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 93900757838024110}
   - component: {fileID: 1900470471288950226}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Node4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 5606538107352166131}
   - component: {fileID: 5423514360982706796}
   - component: {fileID: 3931620516002251027}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SCutR0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -659,7 +659,7 @@ GameObject:
   - component: {fileID: 5150660994914812204}
   - component: {fileID: 6639773978139416477}
   - component: {fileID: 1881934828616763727}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SCutL4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -766,7 +766,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7341860596381680376}
   - component: {fileID: 6020410953866582393}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Node0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,7 +871,7 @@ GameObject:
   - component: {fileID: 7465596094220667362}
   - component: {fileID: 6644302276922505750}
   - component: {fileID: 8857983503398812086}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RoadCut4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -981,7 +981,7 @@ GameObject:
   - component: {fileID: 1681807846860303028}
   - component: {fileID: 3409902121921144977}
   - component: {fileID: 8635966056985779738}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1662,7 +1662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3845098787358126476}
   - component: {fileID: 2191405927489414591}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Node2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1767,7 +1767,7 @@ GameObject:
   - component: {fileID: 33803743312445279}
   - component: {fileID: 889449506683098789}
   - component: {fileID: 7170900596812312241}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SCutL0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1873,7 +1873,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 917489379128669622}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MainMeshes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2029,7 +2029,7 @@ GameObject:
   - component: {fileID: 6806314037008348912}
   - component: {fileID: 3264728280363022104}
   - component: {fileID: 2786706594636036209}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SCutL1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2138,7 +2138,7 @@ GameObject:
   - component: {fileID: 8937787840161995028}
   - component: {fileID: 1284093615277854160}
   - component: {fileID: 4859650073907257725}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SCutL3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2247,7 +2247,7 @@ GameObject:
   - component: {fileID: 5901694330268379304}
   - component: {fileID: 2956324000122368091}
   - component: {fileID: 2734384974531235995}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SCutR1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2353,7 +2353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1829247558356343209}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RoadMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2392,7 +2392,7 @@ GameObject:
   - component: {fileID: 6795117833031466743}
   - component: {fileID: 7094200120041403842}
   - component: {fileID: 2215537027977742998}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SCutL2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2501,7 +2501,7 @@ GameObject:
   - component: {fileID: 7952558914501205856}
   - component: {fileID: 3702529422998154076}
   - component: {fileID: 3726459669377784986}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RoadCut0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2609,7 +2609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3295609315858259939}
   - component: {fileID: 3364862477033993025}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Node3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2713,7 +2713,7 @@ GameObject:
   - component: {fileID: 3874369161630605285}
   - component: {fileID: 9063781490386615499}
   - component: {fileID: 5306802441395090706}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Markers1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2798,7 +2798,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1935304093595173975}
   - component: {fileID: 5403503233736051328}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Road1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2935,7 +2935,7 @@ GameObject:
   - component: {fileID: 3567011504467947563}
   - component: {fileID: 8057201298577334397}
   - component: {fileID: 5774088401497347720}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SCutR4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3043,7 +3043,7 @@ GameObject:
   - component: {fileID: 4341069830069880001}
   - component: {fileID: 5642597507948914809}
   - component: {fileID: 8041922629754550840}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Markers3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3130,7 +3130,7 @@ GameObject:
   - component: {fileID: 1702889542220841828}
   - component: {fileID: 7612239286712365518}
   - component: {fileID: 6769475058644811594}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SCutR3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3236,7 +3236,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9037004315242802488}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShoulderL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3274,7 +3274,7 @@ GameObject:
   - component: {fileID: 8223222114061369741}
   - component: {fileID: 8199903135313165056}
   - component: {fileID: 6984720351918214174}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Markers4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3361,7 +3361,7 @@ GameObject:
   - component: {fileID: 7857732177758930347}
   - component: {fileID: 6491924547461707211}
   - component: {fileID: 9167864312073853269}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RoadCut1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3470,7 +3470,7 @@ GameObject:
   - component: {fileID: 5693466582865839227}
   - component: {fileID: 5108696040696018665}
   - component: {fileID: 3925658885678400029}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Markers2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3554,7 +3554,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 520740709044441135}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShoulderR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3593,7 +3593,7 @@ GameObject:
   - component: {fileID: 2273403910447895736}
   - component: {fileID: 5239846156596614945}
   - component: {fileID: 3481331312077791236}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RoadCut3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3702,7 +3702,7 @@ GameObject:
   - component: {fileID: 2752329715971003611}
   - component: {fileID: 3897281584100786526}
   - component: {fileID: 1013427905343202458}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Markers0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3787,7 +3787,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7142471373037671667}
   - component: {fileID: 102990495372316543}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Node5
   m_TagString: Untagged
   m_Icon: {fileID: 0}

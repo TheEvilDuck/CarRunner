@@ -1,6 +1,7 @@
 using System;
 using DI;
 using Gameplay.CarFallingHandling;
+using Gameplay.UI;
 using Levels;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Gameplay
         private readonly FallingTeleport _fallingTeleport;
         private readonly CarFalling _carFalling;
         private readonly FallingBehaviourSwitcher _fallingBehaviourSwitcher;
+        private readonly CarFallingView _carFallingView;
         private readonly Level _level;
 
         public CarFallingMediator(DIContainer sceneContext)
@@ -23,16 +25,21 @@ namespace Gameplay
             _carFalling = sceneContext.Get<CarFalling>();
             _level = sceneContext.Get<Level>();
             _fallingTeleport = sceneContext.Get<FallingTeleport>();
+            _carFallingView = sceneContext.Get<CarFallingView>();
 
             _fallTries.triesEnd += OnFallTriesEnd;
             _carFalling.carFallen += OnCarFallen;
             _level.Finish.passed += OnFinish;
+            _fallTries.triesChanged += OnTriesChanged;
+
+            OnTriesChanged(_fallTries.CurrentTries);
         }
         public void Dispose()
         {
             _fallTries.triesEnd -= OnFallTriesEnd;
             _carFalling.carFallen -= OnCarFallen;
             _level.Finish.passed -= OnFinish;
+            _fallTries.triesChanged -= OnTriesChanged;
         }
 
         private void OnFallTriesEnd()
@@ -50,6 +57,8 @@ namespace Gameplay
             _carFalling.carFallen -= OnCarFallen;
             _fallingBehaviourSwitcher.AttachBehaviour(_fallingTeleport);
         }
+
+        private void OnTriesChanged(int count) => _carFallingView.UpdateCount(count);
     }
 
 }

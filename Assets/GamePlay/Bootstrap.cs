@@ -43,6 +43,7 @@ namespace Gameplay
         [SerializeField] private Image _anticlicker;
         [SerializeField] private StartMessage _startMessage;
         [SerializeField] private Transform _brakeButtonParent;
+        [SerializeField] private CarFallingView _carFallingView;
         private List<IDisposable> _disposables;
 
         protected override void Setup()
@@ -73,6 +74,7 @@ namespace Gameplay
             _sceneContext.Register(() => new Observable<CarConfig>());
             _sceneContext.Register<IReadonlyObservable<CarConfig>>(() => _sceneContext.Get<Observable<CarConfig>>());
             _sceneContext.Register(SetUpCarSwitcher).NonLazy();
+            _sceneContext.Register(_carFallingView);
             
             SetUpMediators();
             SetUpCamera();
@@ -193,6 +195,7 @@ namespace Gameplay
             pauseManager.Register(_sceneContext.Get<Car>());
             pauseManager.Register(_sceneContext.Get<SoundController>());
             pauseManager.Register(_sceneContext.Get<StateMachine>());
+            pauseManager.Register(_sceneContext.Get<StartMessage>());
 
             _sceneContext.Get<PauseManager>().Register(pauseManager);
 

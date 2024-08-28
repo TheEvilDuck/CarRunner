@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2122396075992749295}
   - component: {fileID: 1564700490670904542}
   - component: {fileID: 7027118774553132024}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SCutR0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2998457669242327518}
   - component: {fileID: 962949283838198108}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Node1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8223609808648914953}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShoulderR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 5779475101357626888}
   - component: {fileID: 7337116874707071524}
   - component: {fileID: 8556224494084901521}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RoadMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8600009901755613232}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Intersections
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -395,7 +395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 423266295588426858}
   - component: {fileID: 2047495141617256237}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RoadArchitectSystem1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 291196343515726752}
   - component: {fileID: 374250562967184220}
   - component: {fileID: 2787907154046180732}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pavement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -556,7 +556,7 @@ GameObject:
   - component: {fileID: 4975032862466547106}
   - component: {fileID: 8739196587703797694}
   - component: {fileID: 1985254365534048013}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SCutL0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -663,7 +663,7 @@ GameObject:
   m_Component:
   - component: {fileID: 217352782680381526}
   - component: {fileID: 6532963962907735262}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Road1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -800,7 +800,7 @@ GameObject:
   - component: {fileID: 1095222119955926876}
   - component: {fileID: 8610384452646890547}
   - component: {fileID: 2315403041602988283}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1039,7 +1039,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5000752474784859294}
   - component: {fileID: 3572859676719014061}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Super level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1094,7 +1094,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 29333206670773246}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CarStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1125,7 +1125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8395930045316483319}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShoulderL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1158,7 +1158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7189777299161729519}
   - component: {fileID: 7165871951628256669}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Node0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1260,7 +1260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8213008096941636341}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MainMeshes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1345,9 +1345,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1193147485369150353, guid: ee9a553485ff5f543bbdf0037c8f9945, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5420985953408861998, guid: ee9a553485ff5f543bbdf0037c8f9945, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5711857963613340513, guid: ee9a553485ff5f543bbdf0037c8f9945, type: 3}
       propertyPath: m_Name
       value: Finish
+      objectReference: {fileID: 0}
+    - target: {fileID: 5711857963613340513, guid: ee9a553485ff5f543bbdf0037c8f9945, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390839734752920620, guid: ee9a553485ff5f543bbdf0037c8f9945, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
