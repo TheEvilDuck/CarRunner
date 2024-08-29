@@ -1,10 +1,11 @@
 using System;
+using Common;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Gameplay.UI
 {
-    public class PauseButton : MonoBehaviour
+    public class PauseButton : MonoBehaviour, IPausable
     {
         [SerializeField] private Button _button;
         public event Action pressed;
@@ -23,6 +24,10 @@ namespace Gameplay.UI
         public void Hide() => gameObject.SetActive(false);
 
         private void OnButtonPressed() => pressed?.Invoke();
+
+        public void Pause() => Hide();
+
+        public void Resume() => Show();
     }
 
 }

@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace YG
 {
@@ -21,7 +19,7 @@ namespace YG
         public int Coins = 1000;
         public bool IsTutorialComplete = false;
         public string savedLanguage;
-        public DateTime WatchShopAdLastTime = DateTime.Now;
+        public string WatchShopAdLastTime;
         public SavesYG()
         {
 

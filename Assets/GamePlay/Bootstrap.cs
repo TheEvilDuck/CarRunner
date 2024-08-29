@@ -28,6 +28,7 @@ namespace Gameplay
     {
         public const string GAMEPLAY_PAUSE_MANAGER_TAG = "Gameplay pause";
         private const string RANGE_OF_CAMERA_SETTINGS_PATH = "Range Of Camera Settings";
+        public const int WATCH_AD_REWAD_ID = 2;
         [SerializeField] private Camera _camera;
         [SerializeField] private TimerView _timerView;
         [SerializeField] private Car _carPrefab;
@@ -50,6 +51,7 @@ namespace Gameplay
         {
             _disposables = new List<IDisposable>();
 
+            _sceneContext.Register(() => new PauseLocker(_sceneContext.Get<PauseManager>()));
             _sceneContext.Register(SetUpLevel);
             _sceneContext.Register(() => new Timer(_sceneContext.Get<Level>().StartTimer));
             _sceneContext.Register(SetUpCar);
@@ -60,7 +62,6 @@ namespace Gameplay
             _sceneContext.Register(() => new FallTries(3));
             _sceneContext.Register(SetUpGameplayStateMachine);
             _sceneContext.Register(_settingsMenu);
-            _sceneContext.Register(SetUpPause, GAMEPLAY_PAUSE_MANAGER_TAG);
             _sceneContext.Register(_timerView);
             _sceneContext.Register(_endOfTheGame);
             _sceneContext.Register(_pauseButton);
@@ -72,9 +73,10 @@ namespace Gameplay
             _sceneContext.Register(_cameraFollow);
             _sceneContext.Register(_startMessage);
             _sceneContext.Register(() => new Observable<CarConfig>());
-            _sceneContext.Register<IReadonlyObservable<CarConfig>>(() => _sceneContext.Get<Observable<CarConfig>>());
-            _sceneContext.Register(SetUpCarSwitcher).NonLazy();
             _sceneContext.Register(_carFallingView);
+            _sceneContext.Register<IReadonlyObservable<CarConfig>>(() => _sceneContext.Get<Observable<CarConfig>>()).NonLazy();
+            _sceneContext.Register(SetUpCarSwitcher).NonLazy();
+            _sceneContext.Register(SetUpPause, GAMEPLAY_PAUSE_MANAGER_TAG).NonLazy();
             
             SetUpMediators();
             SetUpCamera();
@@ -110,8 +112,6 @@ namespace Gameplay
             _delayedStart -= OnDelayedStart;
             var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
             _disposables.Add(settingsAndSoundMediator);
-
-            _sceneContext.Get<PauseManager>(GAMEPLAY_PAUSE_MANAGER_TAG);
         }
 
         private Level SetUpLevel()
@@ -196,6 +196,10 @@ namespace Gameplay
             pauseManager.Register(_sceneContext.Get<SoundController>());
             pauseManager.Register(_sceneContext.Get<StateMachine>());
             pauseManager.Register(_sceneContext.Get<StartMessage>());
+            pauseManager.Register(_sceneContext.Get<PauseMenu>());
+            pauseManager.Register(_sceneContext.Get<PauseLocker>());
+            pauseManager.Register(_sceneContext.Get<IPlayerInput>());
+            pauseManager.Register(_sceneContext.Get<PauseButton>());
 
             _sceneContext.Get<PauseManager>().Register(pauseManager);
 

@@ -70,5 +70,9 @@ namespace Services.PlayerInput
             _enabled = false;
             _brake.Disable();
         }
+
+        public void Pause() => Disable();
+
+        public void Resume() => Enable();
     }
 }

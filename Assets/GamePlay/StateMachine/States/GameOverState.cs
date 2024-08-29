@@ -1,3 +1,4 @@
+using Common;
 using Common.Sound;
 using Common.States;
 using DI;
@@ -27,6 +28,11 @@ namespace Gameplay.States
             _sceneContext.Get<IPlayerInput>().Disable();
             _sceneContext.Get<EndOfTheGame>().Show();
             _sceneContext.Get<PauseButton>().Hide();
+
+            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseMenu>());
+            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseLocker>());
+            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<IPlayerInput>());
+            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseButton>());
         }
     }
 }

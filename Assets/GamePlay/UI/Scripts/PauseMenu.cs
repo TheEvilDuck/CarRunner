@@ -1,3 +1,4 @@
+using Common;
 using Common.MenuParent;
 using Common.UI;
 using Common.UI.UIAnimations;
@@ -6,7 +7,7 @@ using UnityEngine.Events;
 
 namespace Gameplay.UI
 {
-    public class PauseMenu : MonoBehaviour
+    public class PauseMenu : MonoBehaviour, IPausable
     {
         
         [SerializeField] private PauseMainButtons _mainButtonsMenu;
@@ -38,16 +39,20 @@ namespace Gameplay.UI
             _mainButtonsMenu.SettingsClicked.RemoveListener(OnSettingsButtonPressed);
         }
 
-        public void Hide() => gameObject.SetActive(false);
-        public void Show()
+        private void OnSettingsButtonPressed() => _menuParentsManager.Show(_settingsMenu);
+
+        private void OnBackButtonPressed() => _menuParentsManager.Show(_mainButtonsMenu);
+
+        public void Pause()
         {
             gameObject.SetActive(true);
             _menuParentsManager.Show(_mainButtonsMenu);
             _uIAnimatorSequence.StartSequence();
         }
 
-        private void OnSettingsButtonPressed() => _menuParentsManager.Show(_settingsMenu);
-
-        private void OnBackButtonPressed() => _menuParentsManager.Show(_mainButtonsMenu);
+        public void Resume()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace DI
 
             var objectData = new ObjectData<T>(createFunc);
             _objects.Add(tupple, objectData);
-            return new DIContainerBulder<T>(this);
+            return new DIContainerBulder<T>(this, tag);
         }
 
         public DIContainerBulder<T> Register<T>(T value, string tag = "")
@@ -37,7 +37,7 @@ namespace DI
 
             var objectData = new ObjectData<T>(value);
             _objects.Add(tupple, objectData);
-            return new DIContainerBulder<T>(this);
+            return new DIContainerBulder<T>(this, tag);
         }
 
         public T Get<T>(string tag = "")
@@ -68,14 +68,16 @@ namespace DI
         public class DIContainerBulder<T>
         {
             private readonly DIContainer _dIContainer;
+            private readonly string _tag;
 
-            public DIContainerBulder(DIContainer dIContainer)
+            public DIContainerBulder(DIContainer dIContainer, string tag = "")
             {
+                _tag = tag;
                 _dIContainer = dIContainer;
             }
             public void NonLazy()
             {
-                _dIContainer.Get<T>();
+                _dIContainer.Get<T>(_tag);
             }
         }
     }

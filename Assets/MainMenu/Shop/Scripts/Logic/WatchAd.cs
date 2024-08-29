@@ -1,13 +1,16 @@
 using System;
+using Common;
 using Common.Data;
 using DI;
 using UnityEngine;
+using YG;
 
 namespace MainMenu.Shop.Logic
 {
     [CreateAssetMenu(menuName = "Shop/Shop items/new watch ad", fileName = "Watch ad")]
     public class WatchAd : ShopItem
     {
+        public const int WATCH_AD_SHOP_ID = 1;
         [field: SerializeField, Min(0)] public int CoinsReward {get; private set;}
         [field: SerializeField, Min(0)] public double AdCooldown {get; private set;}
 
@@ -19,9 +22,23 @@ namespace MainMenu.Shop.Logic
 
             if ((DateTime.Now - playerData.WatchShopAdLastTime).TotalSeconds >= AdCooldown)
             {
-                playerData.SaveWatchAdLastTime();
-                //TODO change it to invoke SDK ad, OnWatchedAd must be subscriber of ad watched event
-                OnAdWatched(sceneContext);
+                Action<int> onRewardVideoEvent = null;
+
+                onRewardVideoEvent = (int id) =>
+                {
+                    if (id != WATCH_AD_SHOP_ID)
+                        return;
+
+                    playerData.SaveWatchAdLastTime();
+                    sceneContext.Get<PauseManager>().Resume();
+
+                    YandexGame.RewardVideoEvent -= onRewardVideoEvent;
+                    OnAdWatched(sceneContext);
+                };
+
+                YandexGame.RewardVideoEvent += onRewardVideoEvent;
+                sceneContext.Get<PauseManager>().Pause();
+                YandexGame.RewVideoShow(WATCH_AD_SHOP_ID);
                 return true;
             }
 
@@ -35,6 +52,8 @@ namespace MainMenu.Shop.Logic
             {
                 return Mathf.Max(0, (float)(AdCooldown - (DateTime.Now - sceneContext.Get<IPlayerData>().WatchShopAdLastTime).TotalSeconds));
             };
+
+            
         }
 
         private void OnAdWatched(DIContainer sceneContext)

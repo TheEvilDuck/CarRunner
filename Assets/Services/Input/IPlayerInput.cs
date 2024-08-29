@@ -1,9 +1,10 @@
 using System;
+using Common;
 using UnityEngine;
 
 namespace Services.PlayerInput
 {
-    public interface IPlayerInput
+    public interface IPlayerInput: IPausable
     {
         public event Action<float> horizontalInput;
         public event Action<bool> brakeInput;

@@ -42,5 +42,9 @@ namespace Services.PlayerInput
                 debugConsoleToggled?.Invoke();
             #endif
         }
+
+        public void Pause() => Disable();
+
+        public void Resume() => Enable();
     }
 }

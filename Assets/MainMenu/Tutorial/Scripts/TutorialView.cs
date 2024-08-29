@@ -44,6 +44,8 @@ namespace MainMenu
 
             TextId = _tutorialDataElements[_currentPresentationSlide].TextId;
             LocalizationRegistrator.Instance.RegisterLocalizable(this, true);
+
+            
         }
 
         private void OnEnable()

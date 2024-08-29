@@ -25,7 +25,18 @@ namespace Common.Data
         public IEnumerable<string> PassedLevels => _passedLevels;
         public string SelectedLevel => YandexGame.savesData.SelectedLevel;
         public int Coins => YandexGame.savesData.Coins;
-        public DateTime WatchShopAdLastTime => YandexGame.savesData.WatchShopAdLastTime;
+        public DateTime WatchShopAdLastTime
+        {
+            get
+            {
+                if (DateTime.TryParse(YandexGame.savesData.WatchShopAdLastTime, out var result))
+                {
+                    return result;
+                }
+
+                return DateTime.MinValue;
+            }
+        }
         public bool IsTutorialComplete => YandexGame.savesData.IsTutorialComplete;
 
         //public string SavedPreferedLanguage => YandexGame.savesData.savedLanguage;
@@ -88,7 +99,7 @@ namespace Common.Data
 
         public void SaveWatchAdLastTime()
         {
-            YandexGame.savesData.WatchShopAdLastTime = DateTime.Now;
+            YandexGame.savesData.WatchShopAdLastTime = DateTime.Now.ToLongTimeString();
             YandexGame.SaveProgress();
         }
 

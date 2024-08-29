@@ -45,7 +45,6 @@ namespace Gameplay.CarFallingHandling
 
                 if (grounded)
                 {
-                    Debug.Log(_lastRoadPosition);
                     _lastRoadPosition = _car.Position;
                     _lastCarRotation = _car.Rotation;
                 }      
