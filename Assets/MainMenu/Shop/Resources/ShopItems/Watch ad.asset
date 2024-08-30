@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Watch ad
   m_EditorClassIdentifier: 
   <CoinsReward>k__BackingField: 250
-  <AdCooldown>k__BackingField: 5
+  <AdCooldown>k__BackingField: 120

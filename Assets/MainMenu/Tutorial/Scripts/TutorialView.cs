@@ -53,7 +53,10 @@ namespace MainMenu
             _nextButton.onClick.AddListener(OnNextButtonPressed);
             _previousButton.onClick.AddListener(OnPreviousButtonPressed);
 
+            _currentPresentationSlide = 0;
             _presentationSlide.sprite = _tutorialDataElements[_currentPresentationSlide].Sprite;
+            TextId = _tutorialDataElements[_currentPresentationSlide].TextId;
+            updateRequested?.Invoke(this);
             _understandableButton.gameObject.SetActive(false);
 
             _animations.StartSequence();

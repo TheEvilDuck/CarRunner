@@ -22,9 +22,7 @@ namespace MainMenu.Shop.Logic
 
             if ((DateTime.Now - playerData.WatchShopAdLastTime).TotalSeconds >= AdCooldown)
             {
-                Action<int> onRewardVideoEvent = null;
-
-                onRewardVideoEvent = (int id) =>
+                void OnRewardVideoEvent(int id)
                 {
                     if (id != WATCH_AD_SHOP_ID)
                         return;
@@ -32,11 +30,11 @@ namespace MainMenu.Shop.Logic
                     playerData.SaveWatchAdLastTime();
                     sceneContext.Get<PauseManager>().Resume();
 
-                    YandexGame.RewardVideoEvent -= onRewardVideoEvent;
+                    YandexGame.RewardVideoEvent -= OnRewardVideoEvent;
                     OnAdWatched(sceneContext);
-                };
+                }
 
-                YandexGame.RewardVideoEvent += onRewardVideoEvent;
+                YandexGame.RewardVideoEvent += OnRewardVideoEvent;
                 sceneContext.Get<PauseManager>().Pause();
                 YandexGame.RewVideoShow(WATCH_AD_SHOP_ID);
                 return true;

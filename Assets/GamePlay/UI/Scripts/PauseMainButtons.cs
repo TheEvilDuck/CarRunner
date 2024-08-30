@@ -15,11 +15,18 @@ namespace Gameplay.UI
         public UnityEvent ResumeClicked => _resumeButton.onClick;
         public UnityEvent SettingsClicked => _settingsButton.onClick;
 
-        public void Hide() => gameObject.SetActive(false);
+        public void Hide()
+        {
+            _resumeButton.interactable = false;
+            _settingsButton.interactable = false;
+            gameObject.SetActive(false);
+        }
 
         public void Show()
         {
             gameObject.SetActive(true);
+            _resumeButton.interactable = true;
+            _settingsButton.interactable = true;
             _uIAnimatorSequence.StartSequence();
         }
     }

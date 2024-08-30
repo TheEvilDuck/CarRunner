@@ -42,8 +42,7 @@ namespace Gameplay
             {
                 if (id != Gameplay.Bootstrap.WATCH_AD_REWAD_ID)
                     return;
-
-                _playerData.SaveWatchAdLastTime();
+                
                 _pauseManager.Resume();
 
                 YandexGame.RewardVideoEvent -= onRewardVideoEvent;

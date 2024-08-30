@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityToolbag;
 using YG.Utils.LB;
 using YG.Utils.Lang;
+using System.Collections.Generic;
 
 namespace YG
 {
@@ -63,6 +64,8 @@ namespace YG
         private string photoSize;
         private LBPlayerDataYG[] players = new LBPlayerDataYG[0];
 
+        private Dictionary<string, LBData> _cashedData = new Dictionary<string, LBData>();
+
         void Start()
         {
             if (playerPhoto == PlayerPhoto.NonePhoto)
@@ -98,6 +101,10 @@ namespace YG
             {
                 UpdateLB();
             }
+            
+            if (!_cashedData.ContainsKey(lb.technoName))
+                _cashedData.Add(lb.technoName, lb);
+
             else if (lb.technoName == nameLB)
             {
                 string noData = "...";
@@ -221,7 +228,14 @@ namespace YG
 
         public void UpdateLB()
         {
-            YandexGame.GetLeaderboard(nameLB, maxQuantityPlayers, quantityTop, quantityAround, photoSize);
+            if (_cashedData.ContainsKey(nameLB))
+            {
+                OnUpdateLB(_cashedData[nameLB]);
+            }
+            else
+            {
+                YandexGame.GetLeaderboard(nameLB, maxQuantityPlayers, quantityTop, quantityAround, photoSize);
+            }
         }
 
         public void NewScore(int score) => YandexGame.NewLeaderboardScores(nameLB, score);

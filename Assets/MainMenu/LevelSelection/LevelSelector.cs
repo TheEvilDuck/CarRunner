@@ -54,10 +54,13 @@ namespace MainMenu.LevelSelection
                     else
                         _levelPlayButton.ShowLocked(_levels.GetLevelCost(levelId));
 
-                    _currentLevelId = levelId;
+                    if (!string.Equals(_currentLevelId, levelId))
+                    {
+                        _leaderboardYG.SetNameLB(YandexCloudPlayerData.LEADERBOARD_KEY + _currentLevelId);
+                        _leaderboardYG.UpdateLB();
+                    }
 
-                    _leaderboardYG.SetNameLB(YandexCloudPlayerData.LEADERBOARD_KEY + _currentLevelId);
-                    _leaderboardYG.UpdateLB();
+                    _currentLevelId = levelId;
                 });
 
                 _uIAnimatorSequence.AddAnimation(button.PosittionAnimator, 0.1f, false);

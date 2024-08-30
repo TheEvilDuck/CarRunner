@@ -65,7 +65,7 @@ namespace Gameplay
             _sceneContext.Register(_timerView);
             _sceneContext.Register(_endOfTheGame);
             _sceneContext.Register(_pauseButton);
-            _sceneContext.Register(_pauseMenu);
+            _sceneContext.Register(SetUpPauseMenu);
             _sceneContext.Register(_pauseMenuButtons);
             _sceneContext.Register(_anticlicker, "anticlicker");
             _sceneContext.Register(Resources.Load<RangeOfCameraSettings>(RANGE_OF_CAMERA_SETTINGS_PATH));
@@ -112,6 +112,12 @@ namespace Gameplay
             _delayedStart -= OnDelayedStart;
             var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
             _disposables.Add(settingsAndSoundMediator);
+        }
+
+        private PauseMenu SetUpPauseMenu()
+        {
+            _pauseMenu.Resume();
+            return _pauseMenu;
         }
 
         private Level SetUpLevel()

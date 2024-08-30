@@ -99,7 +99,7 @@ namespace Common.Data
 
         public void SaveWatchAdLastTime()
         {
-            YandexGame.savesData.WatchShopAdLastTime = DateTime.Now.ToLongTimeString();
+            YandexGame.savesData.WatchShopAdLastTime = DateTime.Now.ToString();
             YandexGame.SaveProgress();
         }
 
@@ -137,10 +137,12 @@ namespace Common.Data
             if (Time.time - _lastLeaderBoardCall < LEADERBOARD_CALL_COOLDOWN)
                 await Awaitable.WaitForSecondsAsync(LEADERBOARD_CALL_COOLDOWN - (Time.time - _lastLeaderBoardCall));
 
+            _lastLeaderBoardCall = Time.time;
+
             YandexGame.GetLeaderboard(LEADERBOARD_KEY + levelId, 10, 3, 3, "small");
 
             while (!_newLBLoaded)
-                await Awaitable.WaitForSecondsAsync(1f);
+                await Awaitable.WaitForSecondsAsync(0.5f);
 
             return _currentLBData.thisPlayer.score;
         }
