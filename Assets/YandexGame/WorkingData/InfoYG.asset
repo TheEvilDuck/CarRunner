@@ -188,23 +188,23 @@ MonoBehaviour:
     de: 
     hi: 
   purshasesSimulation:
-  - id: gun
-    title: Gun
-    description: Product - Gun
+  - id: coins_1
+    title: 1000 coins
+    description: Gives you 1000 coins
     imageURI: https://justplaygames.ru/public/Paymant1.png
-    priceValue: 5
-    consumed: 1
-  - id: armor
-    title: Armor
-    description: Product - Armor
-    imageURI: https://justplaygames.ru/public/Paymant2.png
     priceValue: 10
     consumed: 1
-  - id: grenade
-    title: Grenade
-    description: Product - Grenade
+  - id: coins_2
+    title: 3000 coins
+    description: Gives you 3000 coins
+    imageURI: https://justplaygames.ru/public/Paymant2.png
+    priceValue: 20
+    consumed: 1
+  - id: coins_3
+    title: 10000 coins
+    description: Gives you 10000 coins
     imageURI: https://justplaygames.ru/public/Paymant3.png
-    priceValue: 30
+    priceValue: 50
     consumed: 1
   metricaEnable: 0
   metricaCounterID: 0

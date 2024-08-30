@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 552076f0959e3d948beca712dd1b274c, type: 3}
   m_Name: Donate high
   m_EditorClassIdentifier: 
+  <Id>k__BackingField: coins_3
   <Cost>k__BackingField: 50
   <CoinsReward>k__BackingField: 10000
