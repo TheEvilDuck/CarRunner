@@ -44,7 +44,7 @@ namespace MainMenu
 
         private bool OnBuyLevelButtonPressed(string levelId)
         {
-            if (_playerData.SpendCoins(_levelsDatabase.GetLevelCost(levelId)))
+            if (_levelsDatabase.GetLevelCost(levelId) <= 0 || _playerData.SpendCoins(_levelsDatabase.GetLevelCost(levelId)))
             {
                 _playerData.AddAvailableLevel(levelId);
                 _mainMenuView.LevelSelector.UpdateButtons(_playerData.PassedLevels, _playerData.AvailableLevels);

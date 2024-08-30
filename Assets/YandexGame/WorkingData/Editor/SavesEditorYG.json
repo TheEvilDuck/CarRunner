@@ -1,13 +1,16 @@
 {
-    "idSave": 2933,
+    "idSave": 2939,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
     "AvailableLevels": [
-        "Field"
+        "Field",
+        "Testing"
     ],
-    "PassedLevels": [],
-    "SelectedLevel": "",
+    "PassedLevels": [
+        "Testing"
+    ],
+    "SelectedLevel": "Testing",
     "Coins": 40500,
     "IsTutorialComplete": false,
     "savedLanguage": "ru",

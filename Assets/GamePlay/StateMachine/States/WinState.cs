@@ -26,7 +26,10 @@ namespace Gameplay.States
             playerData.AddCoins(coinsReward);
             _sceneContext.Get<EndOfTheGame>().Win(coinsReward);
 
-            playerData.SaveLevelRecord(playerData.SelectedLevel, timer.CurrentTime);
+            if (timer.CurrentTime > 0)
+            {
+                playerData.SaveLevelRecord(playerData.SelectedLevel, timer.CurrentTime);
+            }
         }
     }
 }

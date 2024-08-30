@@ -38,14 +38,16 @@ namespace Services.Localization
 
             if (localizationDataIndex == -1)
             {
-                throw new ArgumentException($"Localization service {name} has no implementation of localizable: {textId}");
+                Debug.LogError($"Localization service {name} has no implementation of localizable: {textId}");
+                return textId;
             }
 
             int localizationDataElementIndex = _localizationDatas.Find((x) => x.textId == textId).localizationDataElements.FindIndex((x) => x.language.LanguageId == CurrentLanguage);
 
             if (localizationDataElementIndex == -1)
             {
-                throw new ArgumentException($"Localization service {name} has no implementation of localizable: {textId} for language: {CurrentLanguage}");
+                Debug.LogError($"Localization service {name} has no implementation of localizable: {textId} for language: {CurrentLanguage}");
+                return textId;
             }
 
             return _localizationDatas.Find((x) => x.textId == textId).localizationDataElements.Find((x) => x.language.LanguageId == CurrentLanguage).translation;
