@@ -1,5 +1,5 @@
 {
-    "idSave": 2939,
+    "idSave": 2942,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -11,8 +11,8 @@
         "Testing"
     ],
     "SelectedLevel": "Testing",
-    "Coins": 40500,
-    "IsTutorialComplete": false,
-    "savedLanguage": "ru",
+    "Coins": 41500,
+    "IsTutorialComplete": true,
+    "savedLanguage": "en",
     "WatchShopAdLastTime": "20:41:00"
 }

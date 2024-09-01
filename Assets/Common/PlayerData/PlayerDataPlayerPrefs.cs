@@ -10,11 +10,13 @@ namespace Common.Data
         private const string PREFS_SELECTED_LEVEL = "PLAYERPREFS_SELECTED_LEVEL";
         private const string PREFS_PROGRESS_OF_LEVELS = "PLAYERPREFS_PROGRESS_OF_LEVELS";
         private const string PREFS_COINS = "PLAYEPREFS_COINS";
+        private const string PREFS_FALL_TRIES = "PLAYEPREFS_COINS_FALL_TRIES";
         private const string PREFS_TIME_RECORD = "PLAYEPREFS_TIME_RECORD";
         private const string PREFS_WATCH_AD_LAST_DATE = "PLAYERPREFS_WATCH_AD_LAST_DATE";
         private const string PREFS_IS_TUTOR_COMPLETE = "PLAYERPREFS_IS_TUTOR_COMPLETE";
         private const string PREFS_LANGUAGE = "PLAYERPREFS_LANGUAGE";
         private const int COINS_DEFAULT_VALUE = 1000;
+        private const int MAX_FALL_TRIES_DEFAULT_VALUE = 1;
 
         private ProgressOfLevels _progressOfLvls;
         private List<LevelRecord> _levelRecords;
@@ -26,6 +28,7 @@ namespace Common.Data
         public IEnumerable<string> PassedLevels => _progressOfLvls.PassedLevels;
         public string SelectedLevel => PlayerPrefs.GetString(PREFS_SELECTED_LEVEL);
         public int Coins => PlayerPrefs.GetInt(PREFS_COINS, COINS_DEFAULT_VALUE);
+        public int MaxFallTries => PlayerPrefs.GetInt(PREFS_FALL_TRIES, MAX_FALL_TRIES_DEFAULT_VALUE);
         public string SavedPreferedLanguage => PlayerPrefs.GetString(PREFS_LANGUAGE);
         public float RecordTime
         {
@@ -124,6 +127,23 @@ namespace Common.Data
 
             PlayerPrefs.SetInt(PREFS_COINS, Coins + coins);
             coinsChanged?.Invoke(Coins);
+        }
+
+        public void AddOrSubtractFallTries(int fallTries)
+        {
+            if (fallTries == 0)
+                throw new ArgumentOutOfRangeException($"FallTries count must be positive or negative");
+
+            if (fallTries < 0)
+            {
+                if (MaxFallTries - fallTries < 0)
+                    throw new ArgumentOutOfRangeException("You don't have enough FallTries");
+
+                PlayerPrefs.SetInt(PREFS_FALL_TRIES, MaxFallTries + fallTries);
+            }
+
+            if (fallTries > 0)
+                PlayerPrefs.SetInt(PREFS_FALL_TRIES, MaxFallTries + fallTries);
         }
 
         public bool SpendCoins(int coins)
