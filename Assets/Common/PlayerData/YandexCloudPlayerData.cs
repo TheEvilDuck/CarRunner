@@ -25,6 +25,7 @@ namespace Common.Data
         public IEnumerable<string> PassedLevels => _passedLevels;
         public string SelectedLevel => YandexGame.savesData.SelectedLevel;
         public int Coins => YandexGame.savesData.Coins;
+        public int MaxFallTries => YandexGame.savesData.MaxFallTries;
         public DateTime WatchShopAdLastTime
         {
             get
@@ -39,15 +40,13 @@ namespace Common.Data
         }
         public bool IsTutorialComplete => YandexGame.savesData.IsTutorialComplete;
 
-        //public string SavedPreferedLanguage => YandexGame.savesData.savedLanguage;
-
         public IReadonlyObservable<string> SavedPreferdLanguage => _savedPreferedLanguage;
 
         public YandexCloudPlayerData()
         {
             _savedPreferedLanguage = new Observable<string>();
             LoadLanguage();
-            _savedPreferedLanguage.changed += (language) => 
+            _savedPreferedLanguage.changed += (language) =>
             {
                 YandexGame.savesData.savedLanguage = language;
                 YandexGame.SaveProgress();
@@ -65,7 +64,7 @@ namespace Common.Data
         {
             if (_availableLevels.Contains(levelId))
                 return;
-            
+
             _availableLevels.Add(levelId);
             YandexGame.SaveProgress();
         }
@@ -80,11 +79,32 @@ namespace Common.Data
             coinsChanged?.Invoke(YandexGame.savesData.Coins);
         }
 
+        public void AddOrSubtractFallTries(int fallTries)
+        {
+            if (fallTries == 0)
+                throw new ArgumentOutOfRangeException($"FallTries count must be positive or negative");
+
+            if (fallTries < 0)
+            {
+                if (MaxFallTries - fallTries < 0)
+                    throw new ArgumentOutOfRangeException("You don't have enough FallTries");
+
+                YandexGame.savesData.MaxFallTries += fallTries;
+                YandexGame.SaveProgress();
+            }
+
+            if (fallTries > 0)
+            {
+                YandexGame.savesData.MaxFallTries += fallTries;
+                YandexGame.SaveProgress();
+            }
+        }
+
         public void AddPassedLevel(string levelId)
         {
             if (_passedLevels.Contains(levelId))
                 return;
-            
+
             _passedLevels.Add(levelId);
             YandexGame.SaveProgress();
         }
@@ -152,9 +172,9 @@ namespace Common.Data
             _currentLBData = lBData;
             _newLBLoaded = true;
 
-            #if DEBUG
+#if DEBUG
             Debug.Log(lBData.entries);
-            #endif
+#endif
         }
 
         public void SaveLanguage(string language)
@@ -164,7 +184,7 @@ namespace Common.Data
 
         private void LoadLanguage()
         {
-            if(string.IsNullOrEmpty(YandexGame.savesData.savedLanguage))
+            if (string.IsNullOrEmpty(YandexGame.savesData.savedLanguage))
                 _savedPreferedLanguage.Value = YandexGame.EnvironmentData.language;
             else
                 _savedPreferedLanguage.Value = YandexGame.savesData.savedLanguage;
