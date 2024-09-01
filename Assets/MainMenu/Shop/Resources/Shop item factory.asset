@@ -21,3 +21,5 @@ MonoBehaviour:
     ShopItemViewPrefab: {fileID: -4951651707048455072, guid: ed95ace16a2702946bcb63b177401969, type: 3}
   - ShopItem: {fileID: 11400000, guid: a75105bd43bbbc9418489f90608f0b75, type: 2}
     ShopItemViewPrefab: {fileID: -4951651707048455072, guid: ed95ace16a2702946bcb63b177401969, type: 3}
+  - ShopItem: {fileID: 11400000, guid: 2fb2cc4fcb9d5e4418c8c710dd6d1239, type: 2}
+    ShopItemViewPrefab: {fileID: 8846626369136387565, guid: e85455b3d4f9d2d4dbe3536094366c5b, type: 3}

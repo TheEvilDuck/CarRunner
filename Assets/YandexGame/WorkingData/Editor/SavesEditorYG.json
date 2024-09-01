@@ -1,18 +1,30 @@
 {
-    "idSave": 2942,
+    "idSave": 2986,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
     "AvailableLevels": [
         "Field",
-        "Testing"
+        "Testing",
+        "CountryEasy",
+        "CountryHard",
+        "Autobahn",
+        "City",
+        "Snake"
     ],
     "PassedLevels": [
-        "Testing"
+        "Testing",
+        "Field",
+        "CountryEasy",
+        "CountryHard",
+        "Autobahn",
+        "City",
+        "Snake"
     ],
-    "SelectedLevel": "Testing",
-    "Coins": 41500,
+    "SelectedLevel": "Field",
+    "Coins": 29838,
+    "MaxFallTries": 6,
     "IsTutorialComplete": true,
-    "savedLanguage": "en",
+    "savedLanguage": "ru",
     "WatchShopAdLastTime": "20:41:00"
 }
