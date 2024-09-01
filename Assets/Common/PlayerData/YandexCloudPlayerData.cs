@@ -1,17 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Common.Reactive;
-using UnityEngine;
 using YG;
 using YG.Utils.LB;
 
 namespace Common.Data
 {
-    public class YandexCloudPlayerData : IPlayerData, IDisposable
+    public class YandexCloudPlayerData : IPlayerData
     {
-        public const string LEADERBOARD_KEY = "yandexLevelRecords";
-        private const float LEADERBOARD_CALL_COOLDOWN = 1f;
-
         public event Action<int> coinsChanged;
 
         private List<string> _availableLevels = YandexGame.savesData.AvailableLevels;
@@ -51,7 +47,6 @@ namespace Common.Data
                 YandexGame.savesData.savedLanguage = language;
                 YandexGame.SaveProgress();
             };
-            YandexGame.onGetLeaderboard += OnLeaderboardGot;
         }
 
         public void TutorialCmplete()
@@ -135,46 +130,6 @@ namespace Common.Data
             YandexGame.SaveProgress();
             coinsChanged?.Invoke(YandexGame.savesData.Coins);
             return true;
-        }
-
-        public void Dispose()
-        {
-            YandexGame.onGetLeaderboard -= OnLeaderboardGot;
-        }
-
-        public async Awaitable SaveLevelRecord(string levelId, float recordTime)
-        {
-            float previous = await GetLevelRecord(levelId);
-
-            if (recordTime > previous)
-                YandexGame.NewLBScoreTimeConvert(LEADERBOARD_KEY + levelId, recordTime);
-        }
-
-        public async Awaitable<float> GetLevelRecord(string levelId)
-        {
-            _newLBLoaded = false;
-
-            if (Time.time - _lastLeaderBoardCall < LEADERBOARD_CALL_COOLDOWN)
-                await Awaitable.WaitForSecondsAsync(LEADERBOARD_CALL_COOLDOWN - (Time.time - _lastLeaderBoardCall));
-
-            _lastLeaderBoardCall = Time.time;
-
-            YandexGame.GetLeaderboard(LEADERBOARD_KEY + levelId, 10, 3, 3, "small");
-
-            while (!_newLBLoaded)
-                await Awaitable.WaitForSecondsAsync(0.5f);
-
-            return _currentLBData.thisPlayer.score;
-        }
-
-        private void OnLeaderboardGot(LBData lBData)
-        {
-            _currentLBData = lBData;
-            _newLBLoaded = true;
-
-#if DEBUG
-            Debug.Log(lBData.entries);
-#endif
         }
 
         public void SaveLanguage(string language)

@@ -70,7 +70,7 @@ namespace MainMenu
             DeviceType deviceType = _sceneContext.Get<DeviceType>();
 
             _mainMenuView.Init();
-            _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels);
+            _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels, _sceneContext.Get<ILeaderBoardData>());
             _mainMenuView.ShopView.Init(_shopItemFactory, _sceneContext);
             _mainMenuView.TutorialView.Init(deviceType);
             Debug.Log(_sceneContext.Get<string>(EntryPoint.Bootstrap.PLATFORM_DI_TAG));

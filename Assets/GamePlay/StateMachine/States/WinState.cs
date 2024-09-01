@@ -17,6 +17,7 @@ namespace Gameplay.States
             base.OnEnter();
 
             var playerData = _sceneContext.Get<IPlayerData>();
+            var leaderboard = _sceneContext.Get<ILeaderBoardData>();
             var timer = _sceneContext.Get<Timer>();
             var rewardProvider = _sceneContext.Get<RewardProvider>();
 
@@ -28,7 +29,7 @@ namespace Gameplay.States
 
             if (timer.CurrentTime > 0)
             {
-                playerData.SaveLevelRecord(playerData.SelectedLevel, timer.CurrentTime);
+                leaderboard.SaveLevelRecord(playerData.SelectedLevel, timer.CurrentTime);
             }
         }
     }

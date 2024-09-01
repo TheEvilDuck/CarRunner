@@ -8,9 +8,9 @@ namespace YG
     [HelpURL("https://www.notion.so/PluginYG-d457b23eee604b7aa6076116aab647ed#4968547185c2460fb70fd6eceaf101d4")]
     public class DebuggingModeYG : MonoBehaviour
     {
-        [Tooltip("?payload=\nЭто значение, которое Вы будете передавать с помощью Deep Linking. Можете написать слово, например, debug и добавить свой пароль, например, 123. Получится debug123.")]
+        [Tooltip("?payload=\nпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Deep Linking. пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, debug пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, 123. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ debug123.")]
         public string payloadPassword = "debug123";
-        [Tooltip("Отображение панели управления в Unity Editor")]
+        [Tooltip("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ Unity Editor")]
         public bool debuggingInEditor;
 
         [Serializable]
@@ -200,7 +200,6 @@ namespace YG
         public void NewNameLB()
         {
             leaderboard.leaderboardYG.nameLB = leaderboard.nameLbInputField.text;
-            leaderboard.leaderboardYG.UpdateLB();
         }
 
         public void NewScoreLB()

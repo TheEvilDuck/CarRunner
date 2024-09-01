@@ -21,6 +21,8 @@ namespace MainMenu.LevelSelection
         [SerializeField] private UIAnimatorSequence _uIAnimatorSequence;
         [SerializeField] private LevelPlayButton _levelPlayButton;
         [SerializeField] private LeaderboardYG _leaderboardYG;
+        [SerializeField] private UIAnimatorSequence _leaderboardLoadingAnimation;
+        [SerializeField] private GameObject __leaderboardLoadingGameObject;
 
         public event Action<string> levelSelected;
         public event Func<string, bool> buyLevelPressed;
@@ -31,10 +33,11 @@ namespace MainMenu.LevelSelection
 
         public UnityEvent BackPressed => _backButton.onClick;
 
-        public void Init(IEnumerable<string> passedLevels, IEnumerable<string> availableLevels)
+        public void Init(IEnumerable<string> passedLevels, IEnumerable<string> availableLevels, ILeaderBoardData leaderBoardData)
         {
             _buttons = new Dictionary<LevelButton, string>();
             _levelPlayButton.Hide();
+            _leaderboardLoadingAnimation.gameObject.SetActive(false);
 
             foreach (string levelId in _levels.GetAllLevels())
             {
@@ -42,7 +45,7 @@ namespace MainMenu.LevelSelection
                 button.Init(levelId);
                 _buttons.Add(button, levelId);
 
-                button.Clicked.AddListener(() => 
+                button.Clicked.AddListener(async () => 
                 {
                     _levelPlayButton.Show();
                     _leaderboardYG.gameObject.SetActive(true);
@@ -56,8 +59,13 @@ namespace MainMenu.LevelSelection
 
                     if (!string.Equals(_currentLevelId, levelId))
                     {
-                        _leaderboardYG.SetNameLB(YandexCloudPlayerData.LEADERBOARD_KEY + _currentLevelId);
-                        _leaderboardYG.UpdateLB();
+                        _leaderboardYG.SetNameLB(YandexCloudLeaderboard.LEADERBOARD_KEY + _currentLevelId);
+                        __leaderboardLoadingGameObject.SetActive(true);
+                        _leaderboardLoadingAnimation.StartSequence();
+                        var data = await leaderBoardData.GetLeaderBoard(levelId);
+                        _leaderboardLoadingAnimation.StopSequence();
+                        __leaderboardLoadingGameObject.SetActive(false);
+                        _leaderboardYG.UpdateLB(data);
                     }
 
                     _currentLevelId = levelId;

@@ -28,6 +28,7 @@ namespace EntryPoint
         private Coroutines _coroutines;
         private List<IDisposable> _disposables;
         private List<GameObject> _dontDestroyOnLoadObjects;
+        private Coroutine _tickablesCoroutine;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         public static void GameEntryPoint()
@@ -42,10 +43,14 @@ namespace EntryPoint
 
             Application.runInBackground = true;
             Application.targetFrameRate = 60;
-            
+
             _projectContext = new DIContainer();
             _disposables = new List<IDisposable>();
             _dontDestroyOnLoadObjects = new List<GameObject>();
+
+            _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
+            UnityEngine.Object.DontDestroyOnLoad(_coroutines.gameObject);
+            _dontDestroyOnLoadObjects.Add(_coroutines.gameObject);
 
             _projectContext.Register(() => Resources.Load<LevelsDatabase>(LEVEL_DATABASE_PATH));
             _projectContext.Register(() => new GameSettings());
@@ -58,13 +63,10 @@ namespace EntryPoint
             // надо будет предусмотреть инициализацию структур и энамов
             _projectContext.Register(SetupDeviceType());
             _projectContext.Register(SetupPause);
+            _projectContext.Register(SetupTickables).NonLazy();
             
             if (_projectContext.Get<DeviceType>() == DeviceType.Handheld)
                 _projectContext.Register(SetupBrakeButton);
-
-            _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
-            UnityEngine.Object.DontDestroyOnLoad(_coroutines.gameObject);
-            _dontDestroyOnLoadObjects.Add(_coroutines.gameObject);
 
             Application.quitting += OnApplicationQuit;
             Application.focusChanged += OnFocusChanged;
@@ -83,6 +85,7 @@ namespace EntryPoint
             _projectContext.Register(SetupLocalizationRegistrator).NonLazy();
             _projectContext.Register(() => Resources.LoadAll<LanguageData>(""));
             _projectContext.Register(SetupPlatform, PLATFORM_DI_TAG);
+            _projectContext.Register(SetupLeaderboardData);
             _coroutines.StartCoroutine(SceneSetup());
             YandexGame.GameReadyAPI();
             YandexGame.GetDataEvent -= PluginYGInit;
@@ -103,14 +106,49 @@ namespace EntryPoint
                 _projectContext.Get<PauseManager>().Resume();
         }
 
+        private List<ITickable> SetupTickables()
+        {
+            var tickables = new List<ITickable>();
+
+            Action coroutine = () =>
+            {
+                tickables.ForEach((x) => x?.Tick(Time.deltaTime));
+            };
+
+            _tickablesCoroutine = _coroutines.StartCoroutine(TickTickables(tickables));
+
+            return tickables;
+        }
+
+        private ILeaderBoardData SetupLeaderboardData()
+        {
+            YandexCloudLeaderboard yandexCloudLeaderboard = new YandexCloudLeaderboard();
+
+            _projectContext.Get<List<ITickable>>().Add(yandexCloudLeaderboard);
+
+            return yandexCloudLeaderboard;
+        }
+
+        private IEnumerator TickTickables(List<ITickable> tickables)
+        {
+            while (true)
+            {
+                tickables.ForEach((x) => x?.Tick(Time.deltaTime));
+                yield return null;
+            }
+        }
+
         private void OnApplicationQuit()
         {
             Debug.Log("Quitting application...");
 
             foreach (IDisposable disposable in _disposables)
             {
-                Debug.Log($"Disposing {disposable.GetType()}");
-                disposable.Dispose();
+                if (disposable != null)
+                {
+                    Debug.Log($"Disposing {disposable.GetType()}");
+                    disposable.Dispose();
+                }
             }
 
             foreach (GameObject gameObject in _dontDestroyOnLoadObjects)
@@ -119,6 +157,7 @@ namespace EntryPoint
                 GameObject.Destroy(gameObject);
             }
 
+            _coroutines.StopCoroutine(_tickablesCoroutine);
             SceneManager.activeSceneChanged -= OnSceneChanged;
             Application.quitting -= OnApplicationQuit;
             Application.focusChanged -= OnFocusChanged;

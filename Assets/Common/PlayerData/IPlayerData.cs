@@ -26,7 +26,5 @@ namespace Common.Data
         public bool SpendCoins(int coins);
         public void TutorialCmplete();
         public void SaveLanguage(string language);
-        public Awaitable SaveLevelRecord(string levelId, float recordTime);
-        public Awaitable<float> GetLevelRecord(string levelId);
     }
 }

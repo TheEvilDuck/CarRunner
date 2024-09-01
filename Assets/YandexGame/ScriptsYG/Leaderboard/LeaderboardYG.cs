@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityToolbag;
 using YG.Utils.LB;
 using YG.Utils.Lang;
-using System.Collections.Generic;
 
 namespace YG
 {
@@ -64,8 +63,6 @@ namespace YG
         private string photoSize;
         private LBPlayerDataYG[] players = new LBPlayerDataYG[0];
 
-        private Dictionary<string, LBData> _cashedData = new Dictionary<string, LBData>();
-
         void Start()
         {
             if (playerPhoto == PlayerPhoto.NonePhoto)
@@ -76,36 +73,18 @@ namespace YG
                 photoSize = "medium";
             else if (playerPhoto == PlayerPhoto.Large)
                 photoSize = "large";
-
-            if (updateLBMethod == UpdateLBMethod.Start && YandexGame.initializedLB)
-            {
-                UpdateLB();
-            }
         }
 
-        private void OnEnable()
+        public void UpdateLB(LBData lb)
         {
-            YandexGame.onGetLeaderboard += OnUpdateLB;
+            nameLB = lb.technoName;
 
-            if (updateLBMethod == UpdateLBMethod.OnEnable && YandexGame.initializedLB)
-            {
-                UpdateLB();
-            }
-        }
-
-        private void OnDisable() => YandexGame.onGetLeaderboard -= OnUpdateLB;
-
-        void OnUpdateLB(LBData lb)
-        {
             if (lb.entries == "initialized")
             {
-                UpdateLB();
+                return;
             }
             
-            if (!_cashedData.ContainsKey(lb.technoName))
-                _cashedData.Add(lb.technoName, lb);
-
-            else if (lb.technoName == nameLB)
+            if (lb.technoName == nameLB)
             {
                 string noData = "...";
 
@@ -225,22 +204,6 @@ namespace YG
                 players[i].UpdateEntries();
             }
         }
-
-        public void UpdateLB()
-        {
-            if (_cashedData.ContainsKey(nameLB))
-            {
-                OnUpdateLB(_cashedData[nameLB]);
-            }
-            else
-            {
-                YandexGame.GetLeaderboard(nameLB, maxQuantityPlayers, quantityTop, quantityAround, photoSize);
-            }
-        }
-
-        public void NewScore(int score) => YandexGame.NewLeaderboardScores(nameLB, score);
-
-        public void NewScoreTimeConvert(float score) => YandexGame.NewLBScoreTimeConvert(nameLB, score);
 
         public string TimeTypeConvert(int score)
         {

@@ -12,6 +12,7 @@ namespace Common.UI.UIAnimations
 
         public event Action end;
         private int _currentAnimation = 0;
+        private Coroutine _currentCoroutine;
         private void OnDisable() 
         {
             if (_currentAnimation < _animations.Count)
@@ -23,7 +24,7 @@ namespace Common.UI.UIAnimations
         public void StartSequence()
         {
             _currentAnimation = 0;
-            StartCoroutine(PlayAnimation());
+            _currentCoroutine = StartCoroutine(PlayAnimation());
         }
 
         public void StopSequence()
@@ -31,6 +32,8 @@ namespace Common.UI.UIAnimations
             _animations[_currentAnimation].animator.animationEnd -= PlayNext;
             _animations[_currentAnimation].animator.StopAnimation();
             _currentAnimation = 0;
+
+            StopCoroutine(_currentCoroutine);
         }
 
         public void AddAnimation(UIAnimator uIAnimator, float delay, bool nextAnimationWait)

@@ -45,27 +45,27 @@ MonoBehaviour:
     entries: 3
     isDefault: 0
     isInvertSortOrder: 0
-    decimalOffset: 0
+    decimalOffset: 2
     type: 
     players:
-    - rank: 0
+    - rank: 1
       name: "\u0445\u0443\u0439"
-      score: 0
+      score: 67
       photo: 
       uniqueID: 
-    - rank: 0
+    - rank: 2
       name: "\u0433\u043E\u0432\u043D\u043E"
-      score: 0
+      score: 86
       photo: 
       uniqueID: 
-    - rank: 0
+    - rank: 3
       name: "\u043E\u0447\u043A\u043E"
-      score: 0
+      score: 55
       photo: 
       uniqueID: 
     thisPlayer:
-      rank: 0
-      score: 0
+      rank: 3
+      score: 55
   LocalizationEnable: 0
   callingLanguageCheck: 0
   translateMethod: 1
