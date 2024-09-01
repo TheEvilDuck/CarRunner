@@ -1,5 +1,5 @@
 {
-    "idSave": 2986,
+    "idSave": 2989,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -22,8 +22,8 @@
         "Snake"
     ],
     "SelectedLevel": "Field",
-    "Coins": 29838,
-    "MaxFallTries": 6,
+    "Coins": 21838,
+    "MaxFallTries": 7,
     "IsTutorialComplete": true,
     "savedLanguage": "ru",
     "WatchShopAdLastTime": "20:41:00"

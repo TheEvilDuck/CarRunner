@@ -15,8 +15,8 @@ namespace MainMenu.Shop.View
             if (shopItem is not FallTries fallTries)
                 throw new ArgumentException($"Somehow you passed wrong shopitem to view, you passed {shopItem.name}");
 
-            UpdateCost();
             _fallTries = fallTries;
+            UpdateCost();
 
             _fallTries.claimed += UpdateCost;
         }
