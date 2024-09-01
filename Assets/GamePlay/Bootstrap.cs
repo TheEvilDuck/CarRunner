@@ -59,7 +59,7 @@ namespace Gameplay
             _sceneContext.Register(() => new FallingTeleport(_sceneContext.Get<Car>()));
             _sceneContext.Register(() => new FallingEndGame());
             _sceneContext.Register(SetUpFallingBehaviourSwitcher);
-            _sceneContext.Register(() => new FallTries(3));
+            _sceneContext.Register(() => new FallTries(_sceneContext.Get<IPlayerData>().MaxFallTries));
             _sceneContext.Register(SetUpGameplayStateMachine);
             _sceneContext.Register(_settingsMenu);
             _sceneContext.Register(_timerView);
@@ -166,6 +166,7 @@ namespace Gameplay
 
             return fallingBehaviourSwitcher;
         }
+
         private void SetUpUI()
         {
             _speedometr.Init(_sceneContext.Get<Car>().CarBehavior);
