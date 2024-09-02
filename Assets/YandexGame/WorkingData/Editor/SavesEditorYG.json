@@ -1,5 +1,5 @@
 {
-    "idSave": 2989,
+    "idSave": 3002,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -21,8 +21,8 @@
         "City",
         "Snake"
     ],
-    "SelectedLevel": "Field",
-    "Coins": 21838,
+    "SelectedLevel": "Testing",
+    "Coins": 22742,
     "MaxFallTries": 7,
     "IsTutorialComplete": true,
     "savedLanguage": "ru",
