@@ -18,10 +18,13 @@ namespace Levels
         [SerializeField] private RoadSystem _roadSystem;
         [SerializeField] private CarConfig _startCar;
         [SerializeField] private Material _skybox;
+        [SerializeField] private Color _ambientSkyColor;
+        [SerializeField] private Color _ambientEquatorColor;
+        [SerializeField] private Color _ambientGroundColor;
         [field: SerializeField, Min(0)] public float StartTimer;
         [field: SerializeField] public SoundID BackGroundMusicId;
 
-        private void Start() 
+        private void Start()
         {
             _roadSystem.UpdateAllRoads();
         }
@@ -33,5 +36,8 @@ namespace Levels
         public Quaternion CarStartRotation => _carStartPosition.rotation;
         public CarConfig StartCar => _startCar;
         public Material Skybox => _skybox;
+        public Color AmbientSkyColor => _ambientSkyColor;
+        public Color AmbientEquatorColor => _ambientEquatorColor;
+        public Color AmbientGroundColor => _ambientGroundColor;
     }
 }

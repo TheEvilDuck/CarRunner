@@ -136,6 +136,9 @@ namespace Gameplay
             }
 
             RenderSettings.skybox = level.Skybox;
+            RenderSettings.ambientSkyColor = level.AmbientSkyColor;
+            RenderSettings.ambientEquatorColor = level.AmbientEquatorColor;
+            RenderSettings.ambientGroundColor = level.AmbientGroundColor;
 
             return level;
         }

@@ -6320,6 +6320,9 @@ MonoBehaviour:
   _roadSystem: {fileID: 8567846478902834769}
   _startCar: {fileID: 11400000, guid: 94890103c0fc9fa45b1eecb85f7cd19c, type: 2}
   _skybox: {fileID: 2100000, guid: c5ec218c5c7812b4481375d8377fa47b, type: 2}
+  _ambientSkyColor: {r: 0.8352941, g: 0.8352941, b: 0.8352941, a: 0}
+  _ambientEquatorColor: {r: 0.10980392, g: 0.16862746, b: 0.20784314, a: 0}
+  _ambientGroundColor: {r: 0.18039216, g: 0.70980394, b: 0.16078432, a: 0}
   StartTimer: 25
   BackGroundMusicId: 0
 --- !u!1 &9091408735921953079
