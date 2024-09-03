@@ -24,6 +24,10 @@ namespace Common.UI.UIAnimations
         public void StartSequence()
         {
             _currentAnimation = 0;
+
+            if (_currentCoroutine != null)
+                StopSequence();
+
             _currentCoroutine = StartCoroutine(PlayAnimation());
         }
 
@@ -33,7 +37,10 @@ namespace Common.UI.UIAnimations
             _animations[_currentAnimation].animator.StopAnimation();
             _currentAnimation = 0;
 
-            StopCoroutine(_currentCoroutine);
+            if (_currentCoroutine != null)
+                StopCoroutine(_currentCoroutine);
+
+            _currentCoroutine = null;
         }
 
         public void AddAnimation(UIAnimator uIAnimator, float delay, bool nextAnimationWait)

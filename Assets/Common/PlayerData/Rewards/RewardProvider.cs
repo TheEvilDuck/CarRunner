@@ -11,8 +11,7 @@ namespace Common.Data.Rewards
         private const float COINS_MULTIPLIER_FOR_REPLAYING_LEVEL = 0.25f;
         public int GetLevelCompletionReward(float remainingTime, IPlayerData playerData, LevelsDatabase levelsDatabase)
         {
-            string nextLevelId = levelsDatabase.GetNextLevelId(playerData.SelectedLevel);
-            int nextLevelCost = levelsDatabase.GetLevelCost(nextLevelId);
+            int nextLevelCost = levelsDatabase.GetLevelCost(playerData.SelectedLevel);
             var level = levelsDatabase.GetLevel(playerData.SelectedLevel);
             float startTime = level.StartTimer;
             float sumOfTimerGates = 0;

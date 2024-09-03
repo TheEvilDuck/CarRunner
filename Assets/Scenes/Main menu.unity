@@ -1620,7 +1620,7 @@ MonoBehaviour:
   _levelPlayButton: {fileID: 1341373906}
   _leaderboardYG: {fileID: 1360115895}
   _leaderboardLoadingAnimation: {fileID: 1977726936}
-  __leaderboardLoadingGameObject: {fileID: 486785113}
+  _leaderboardLoadingGameObject: {fileID: 486785113}
 --- !u!114 &500198843
 MonoBehaviour:
   m_ObjectHideFlags: 0

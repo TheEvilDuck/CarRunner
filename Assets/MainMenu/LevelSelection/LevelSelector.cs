@@ -22,7 +22,7 @@ namespace MainMenu.LevelSelection
         [SerializeField] private LevelPlayButton _levelPlayButton;
         [SerializeField] private LeaderboardYG _leaderboardYG;
         [SerializeField] private UIAnimatorSequence _leaderboardLoadingAnimation;
-        [SerializeField] private GameObject __leaderboardLoadingGameObject;
+        [SerializeField] private GameObject _leaderboardLoadingGameObject;
 
         public event Action<string> levelSelected;
         public event Func<string, bool> buyLevelPressed;
@@ -59,16 +59,15 @@ namespace MainMenu.LevelSelection
 
                     if (!string.Equals(_currentLevelId, levelId))
                     {
+                        _currentLevelId = levelId;
                         _leaderboardYG.SetNameLB(YandexCloudLeaderboard.LEADERBOARD_KEY + _currentLevelId);
-                        __leaderboardLoadingGameObject.SetActive(true);
+                        _leaderboardLoadingGameObject.SetActive(true);
                         _leaderboardLoadingAnimation.StartSequence();
                         var data = await leaderBoardData.GetLeaderBoard(levelId);
                         _leaderboardLoadingAnimation.StopSequence();
-                        __leaderboardLoadingGameObject.SetActive(false);
+                        _leaderboardLoadingGameObject.SetActive(false);
                         _leaderboardYG.UpdateLB(data);
                     }
-
-                    _currentLevelId = levelId;
                 });
 
                 _uIAnimatorSequence.AddAnimation(button.PosittionAnimator, 0.1f, false);

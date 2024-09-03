@@ -125,6 +125,7 @@ namespace EntryPoint
             YandexCloudLeaderboard yandexCloudLeaderboard = new YandexCloudLeaderboard();
 
             _projectContext.Get<List<ITickable>>().Add(yandexCloudLeaderboard);
+            _disposables.Add(yandexCloudLeaderboard);
 
             return yandexCloudLeaderboard;
         }
@@ -204,6 +205,8 @@ namespace EntryPoint
                 throw new ArgumentException($"Unknown device type");
 
             playerInput.Enable();
+            _projectContext.Get<PauseManager>().Register(playerInput);
+
             return playerInput;
         }
 

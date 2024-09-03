@@ -35,22 +35,33 @@ namespace Gameplay
         private void OnAdButtonPressed()
         {
             _sceneContext.Get<EndOfTheGame>().Hide();
-            
-            Action<int> onRewardVideoEvent = null;
 
-            onRewardVideoEvent = (int id) =>
+            void OnRewardWatched(int id)
             {
                 if (id != Gameplay.Bootstrap.WATCH_AD_REWAD_ID)
                     return;
                 
-                _pauseManager.Resume();
+                OnRewardVideoClosed();
 
-                YandexGame.RewardVideoEvent -= onRewardVideoEvent;
+                YandexGame.RewardVideoEvent -= OnRewardWatched;
                 OnAdWatched();
-            };
+            }
 
-            YandexGame.RewardVideoEvent += onRewardVideoEvent;
+            void OnRewardVideoClosed()
+            {
+                _pauseManager.Resume();
+                YandexGame.ErrorVideoEvent -= OnRewardVideoClosed;
+                YandexGame.CloseVideoEvent -= OnRewardVideoClosed;
+                var endOfTheGame = _sceneContext.Get<EndOfTheGame>();
+                endOfTheGame.Show();
+            }
+
+            YandexGame.RewardVideoEvent += OnRewardWatched;
+            YandexGame.ErrorVideoEvent += OnRewardVideoClosed;
+            YandexGame.CloseVideoEvent += OnRewardVideoClosed;
+
             _pauseManager.Pause();
+
             YandexGame.RewVideoShow(Gameplay.Bootstrap.WATCH_AD_REWAD_ID);
         }
 
@@ -61,7 +72,6 @@ namespace Gameplay
             var levelsDatabase = _sceneContext.Get<LevelsDatabase>();
             var playerData = _sceneContext.Get<IPlayerData>();
             var endOfTheGame = _sceneContext.Get<EndOfTheGame>();
-            endOfTheGame.Show();
 
             int rewardCoins = rewardProvider.GetLevelCompletionReward(timer.CurrentTime, playerData, levelsDatabase);
             playerData.AddCoins(rewardCoins);
