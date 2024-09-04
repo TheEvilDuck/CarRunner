@@ -112,6 +112,9 @@ namespace Gameplay
             _delayedStart -= OnDelayedStart;
             var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
             _disposables.Add(settingsAndSoundMediator);
+
+            if (!_sceneContext.Get<PauseManager>().IsPaused.Value)
+                YandexGame.GameplayStart();
         }
 
         private PauseMenu SetUpPauseMenu()
