@@ -4,6 +4,7 @@ using DI;
 using Gameplay.Cars;
 using Gameplay.UI;
 using Services.PlayerInput;
+using YG;
 
 namespace Gameplay.States
 {
@@ -22,8 +23,11 @@ namespace Gameplay.States
 
         protected override void OnEnter()
         {
+            YandexGame.GameplayStop();
+
             _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseMenu>());
             _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseButton>());
+            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<YandexGameGameplay>());
             _sceneContext.Get<IPlayerInput>().Disable();
             _sceneContext.Get<EndOfTheGame>().Show();
             _sceneContext.Get<PauseButton>().Hide();

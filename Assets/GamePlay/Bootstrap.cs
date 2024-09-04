@@ -77,6 +77,7 @@ namespace Gameplay
             _sceneContext.Register<IReadonlyObservable<CarConfig>>(() => _sceneContext.Get<Observable<CarConfig>>()).NonLazy();
             _sceneContext.Register(SetUpCarSwitcher).NonLazy();
             _sceneContext.Register(SetUpPause, GAMEPLAY_PAUSE_MANAGER_TAG).NonLazy();
+            _sceneContext.Register(new YandexGameGameplay());
             
             SetUpMediators();
             SetUpCamera();
@@ -105,6 +106,8 @@ namespace Gameplay
             _disposables.Clear();
 
             _sceneContext.Get<PauseManager>().Unregister(_sceneContext.Get<PauseManager>(GAMEPLAY_PAUSE_MANAGER_TAG));
+
+            YandexGame.GameplayStop();
         }
 
         private void OnDelayedStart()
@@ -213,6 +216,7 @@ namespace Gameplay
             pauseManager.Register(_sceneContext.Get<PauseLocker>());
             pauseManager.Register(_sceneContext.Get<IPlayerInput>());
             pauseManager.Register(_sceneContext.Get<PauseButton>());
+            pauseManager.Register(_sceneContext.Get<YandexGameGameplay>());
 
             _sceneContext.Get<PauseManager>().Register(pauseManager);
 

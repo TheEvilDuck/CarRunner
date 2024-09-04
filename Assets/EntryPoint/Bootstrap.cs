@@ -284,7 +284,6 @@ namespace EntryPoint
         {
             var pauseManager = new PauseManager();
             pauseManager.Register(_projectContext.Get<SoundController>());
-            pauseManager.Register(new YandexGameGameplay());
             return pauseManager;
         }
 
