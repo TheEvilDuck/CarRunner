@@ -1,12 +1,9 @@
 using Common;
-using Common.Sound;
 using Common.States;
 using DI;
 using Gameplay.Cars;
 using Gameplay.UI;
-using Levels;
 using Services.PlayerInput;
-using UnityEngine;
 
 namespace Gameplay.States
 {
@@ -25,14 +22,19 @@ namespace Gameplay.States
 
         protected override void OnEnter()
         {
+            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseMenu>());
+            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseButton>());
             _sceneContext.Get<IPlayerInput>().Disable();
             _sceneContext.Get<EndOfTheGame>().Show();
             _sceneContext.Get<PauseButton>().Hide();
+            _sceneContext.Get<PauseManager>().Pause();
+            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<Car>());
+        }
 
-            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseMenu>());
+        protected override void OnExit()
+        {
             _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseLocker>());
-            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<IPlayerInput>());
-            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseButton>());
+            _sceneContext.Get<PauseManager>().Resume();
         }
     }
 }

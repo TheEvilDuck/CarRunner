@@ -9,10 +9,11 @@ namespace Common.Data
     public class YandexCloudLeaderboard : ILeaderBoardData, IDisposable, ITickable
     {
         public const string LEADERBOARD_KEY = "yandexLevelRecords";
-        private const float LEADERBOARD_CALL_COOLDOWN = 1f;
+        private const float LEADERBOARD_CALL_COOLDOWN = 1.5f;
+        private const float CALL_TIMEOUT = 10f;
         private Dictionary<string, LBData> _cashedLeaderboard;
         private Queue<LeaderboardCall> _callLeaderboards;
-        private List<string> _queueCallsIds;
+        private Dictionary<string, float> _queueCallsTimeData;
 
         private float _lastLeaderBoardCall;
 
@@ -20,7 +21,7 @@ namespace Common.Data
         {
             _cashedLeaderboard = new Dictionary<string, LBData>();
             _callLeaderboards = new Queue<LeaderboardCall>();
-            _queueCallsIds = new List<string>();
+            _queueCallsTimeData = new Dictionary<string, float>();
 
             YandexGame.onGetLeaderboard += OnLeaderBoardLoaded;
         }
@@ -34,8 +35,19 @@ namespace Common.Data
         {
             CallLeaderboard(levelId);
 
-            while (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
+            while 
+            (
+            !_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId) && 
+            (!_queueCallsTimeData.ContainsKey(levelId) || 
+            Time.time - _queueCallsTimeData[levelId] < CALL_TIMEOUT)
+            )
                 await Awaitable.WaitForSecondsAsync(1);
+
+            if (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
+            {
+                Debug.LogError($"Can't load leaderboard: {LEADERBOARD_KEY + levelId}. Timeout!");
+                return null;
+            }
 
             return _cashedLeaderboard[LEADERBOARD_KEY + levelId];
         }
@@ -67,13 +79,13 @@ namespace Common.Data
                 return;
             
             leaderboardCall.call.Invoke();
-            _queueCallsIds.Remove(leaderboardCall.leaderBoardId);
+            _queueCallsTimeData.Remove(leaderboardCall.leaderBoardId);
             _lastLeaderBoardCall = Time.time;
         }
 
         private void CallLeaderboard(string levelId)
         {
-            if (_queueCallsIds.Contains(levelId))
+            if (_queueCallsTimeData.ContainsKey(levelId))
                 return;
 
             LeaderboardCall leaderboardCall = new LeaderboardCall()
@@ -83,7 +95,7 @@ namespace Common.Data
             };
 
             _callLeaderboards.Enqueue(leaderboardCall);
-            _queueCallsIds.Add(LEADERBOARD_KEY + levelId);
+            _queueCallsTimeData.Add(LEADERBOARD_KEY + levelId, Time.time);
         }
 
         private void OnLeaderBoardLoaded(LBData lBData)

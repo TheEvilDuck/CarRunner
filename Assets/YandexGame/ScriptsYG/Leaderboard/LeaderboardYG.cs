@@ -75,6 +75,35 @@ namespace YG
                 photoSize = "large";
         }
 
+        public void ShowNoData()
+        {
+            string noData = "...";
+            noData = YandexGame.savesData.language switch
+            {
+                "ru" => "Нет данных",
+                "en" => "No data",
+                "tr" => "Veri yok",
+                _ => "...",
+            };
+
+            DestroyLBList();
+
+            players = new LBPlayerDataYG[1];
+            GameObject playerObj = Instantiate(playerDataPrefab, rootSpawnPlayersData);
+
+            players[0] = playerObj.GetComponent<LBPlayerDataYG>();
+            players[0].data.name = noData;
+            players[0].data.photoUrl = null;
+            players[0].data.rank = null;
+            players[0].data.score = null;
+            players[0].data.inTop = false;
+            players[0].data.thisPlayer = false;
+            players[0].data.photoSprite = null;
+            players[0].UpdateEntries();
+
+            onUpdateData.Invoke();
+        }
+
         public void UpdateLB(LBData lb)
         {
             nameLB = lb.technoName;

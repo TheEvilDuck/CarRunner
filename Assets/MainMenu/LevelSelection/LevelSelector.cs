@@ -66,6 +66,13 @@ namespace MainMenu.LevelSelection
                         var data = await leaderBoardData.GetLeaderBoard(levelId);
                         _leaderboardLoadingAnimation.StopSequence();
                         _leaderboardLoadingGameObject.SetActive(false);
+
+                        if (data == null)
+                        {
+                            _leaderboardYG.ShowNoData();
+                            return;
+                        }
+
                         _leaderboardYG.UpdateLB(data);
                     }
                 });
