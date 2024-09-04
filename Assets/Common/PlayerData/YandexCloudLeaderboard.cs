@@ -38,8 +38,8 @@ namespace Common.Data
             while 
             (
             !_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId) && 
-            (!_queueCallsTimeData.ContainsKey(levelId) || 
-            Time.time - _queueCallsTimeData[levelId] < CALL_TIMEOUT)
+            (!_queueCallsTimeData.ContainsKey(LEADERBOARD_KEY + levelId) || 
+            Time.time - _queueCallsTimeData[LEADERBOARD_KEY + levelId] < CALL_TIMEOUT)
             )
                 await Awaitable.WaitForSecondsAsync(1);
 
@@ -85,7 +85,7 @@ namespace Common.Data
 
         private void CallLeaderboard(string levelId)
         {
-            if (_queueCallsTimeData.ContainsKey(levelId))
+            if (_queueCallsTimeData.ContainsKey(LEADERBOARD_KEY + levelId))
                 return;
 
             LeaderboardCall leaderboardCall = new LeaderboardCall()
