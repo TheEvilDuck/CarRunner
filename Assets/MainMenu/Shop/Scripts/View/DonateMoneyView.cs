@@ -1,8 +1,8 @@
 using System;
-using DI;
 using MainMenu.Shop.Logic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MainMenu.Shop.View
 {
@@ -10,6 +10,7 @@ namespace MainMenu.Shop.View
     {
         [SerializeField] private TextMeshProUGUI _costText;
         [SerializeField] private TextMeshProUGUI _rewardText;
+        [SerializeField] private Image _costImage;
         public override void Init(ShopItem shopItem)
         {
             if (shopItem is not DonateMoney donateMoney)
@@ -17,6 +18,11 @@ namespace MainMenu.Shop.View
 
             _costText.text = donateMoney.Cost.ToString();
             _rewardText.text = donateMoney.CoinsReward.ToString();
+        }
+
+        public override void SetCurrencyImage(Sprite sprite)
+        {
+            _costImage.sprite = sprite;
         }
     }
 }

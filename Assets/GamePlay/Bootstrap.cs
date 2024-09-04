@@ -52,6 +52,7 @@ namespace Gameplay
             _disposables = new List<IDisposable>();
 
             _sceneContext.Register(() => new PauseLocker(_sceneContext.Get<PauseManager>()));
+            _sceneContext.Register(() => new YandexGameGameplay());
             _sceneContext.Register(SetUpLevel);
             _sceneContext.Register(() => new Timer(_sceneContext.Get<Level>().StartTimer));
             _sceneContext.Register(SetUpCar);
@@ -77,7 +78,6 @@ namespace Gameplay
             _sceneContext.Register<IReadonlyObservable<CarConfig>>(() => _sceneContext.Get<Observable<CarConfig>>()).NonLazy();
             _sceneContext.Register(SetUpCarSwitcher).NonLazy();
             _sceneContext.Register(SetUpPause, GAMEPLAY_PAUSE_MANAGER_TAG).NonLazy();
-            _sceneContext.Register(new YandexGameGameplay());
             
             SetUpMediators();
             SetUpCamera();

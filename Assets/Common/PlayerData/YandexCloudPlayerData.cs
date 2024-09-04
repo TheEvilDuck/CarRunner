@@ -26,10 +26,10 @@ namespace Common.Data
         {
             get
             {
-                if (DateTime.TryParse(YandexGame.savesData.WatchShopAdLastTime, out var result))
-                {
-                    return result;
-                }
+                var dateTime = DateTime.FromBinary(YandexGame.savesData.WatchShopAdLastTime);
+
+                if (dateTime != null)
+                    return dateTime;
 
                 return DateTime.MinValue;
             }
@@ -114,7 +114,7 @@ namespace Common.Data
 
         public void SaveWatchAdLastTime()
         {
-            YandexGame.savesData.WatchShopAdLastTime = DateTime.Now.ToString();
+            YandexGame.savesData.WatchShopAdLastTime = DateTime.Now.ToBinary();
             YandexGame.SaveProgress();
         }
 

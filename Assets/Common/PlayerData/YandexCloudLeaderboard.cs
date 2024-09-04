@@ -9,11 +9,14 @@ namespace Common.Data
     public class YandexCloudLeaderboard : ILeaderBoardData, IDisposable, ITickable
     {
         public const string LEADERBOARD_KEY = "yandexLevelRecords";
-        private const float LEADERBOARD_CALL_COOLDOWN = 1.5f;
+        private const float LEADERBOARD_CALL_COOLDOWN = 300f;
+        private const float TIME_BETWEEN_CALLS = 2f;
+        private const int MAX_CALLS_IN_COOLDOWN = 20;
         private const float CALL_TIMEOUT = 10f;
         private Dictionary<string, LBData> _cashedLeaderboard;
         private Queue<LeaderboardCall> _callLeaderboards;
         private Dictionary<string, float> _queueCallsTimeData;
+        private int _lastCooldownCalls;
 
         private float _lastLeaderBoardCall;
 
@@ -33,7 +36,8 @@ namespace Common.Data
 
         public async Awaitable<LBData> GetLeaderBoard(string levelId)
         {
-            CallLeaderboard(levelId);
+            if (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
+                CallLeaderboard(levelId);
 
             while 
             (
@@ -54,7 +58,8 @@ namespace Common.Data
 
         public async Awaitable<float> GetLevelRecord(string levelId)
         {
-            CallLeaderboard(levelId);
+            if (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
+                CallLeaderboard(levelId);
 
             while (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
                 await Awaitable.WaitForSecondsAsync(1);
@@ -64,20 +69,33 @@ namespace Common.Data
 
         public async Awaitable SaveLevelRecord(string levelId, float recordTime)
         {
-            float previous = await GetLevelRecord(levelId);
+            if (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
+                await GetLevelRecord(levelId);
+
+            float previous = _cashedLeaderboard[LEADERBOARD_KEY + levelId].thisPlayer.score;
 
             if (recordTime * 1000f > previous)
+            {
+                _cashedLeaderboard[LEADERBOARD_KEY + levelId].thisPlayer.score = (int) (recordTime * 1000f);
                 YandexGame.NewLBScoreTimeConvert(LEADERBOARD_KEY + levelId, recordTime);
+                CallLeaderboard(levelId);
+            }
         }
 
         public void Tick(float deltaTime)
         {
-            if (Time.time - _lastLeaderBoardCall < LEADERBOARD_CALL_COOLDOWN)
+            if (_lastCooldownCalls >= MAX_CALLS_IN_COOLDOWN && Time.time - _lastLeaderBoardCall < LEADERBOARD_CALL_COOLDOWN)
+                return;
+            else if (Time.time - _lastLeaderBoardCall >= LEADERBOARD_CALL_COOLDOWN)
+                _lastCooldownCalls = 0;
+
+            if (Time.time - _lastLeaderBoardCall < TIME_BETWEEN_CALLS)
                 return;
 
             if (!_callLeaderboards.TryDequeue(out var leaderboardCall))
                 return;
             
+            _lastCooldownCalls ++;
             leaderboardCall.call.Invoke();
             _queueCallsTimeData.Remove(leaderboardCall.leaderBoardId);
             _lastLeaderBoardCall = Time.time;

@@ -31,7 +31,6 @@ namespace Gameplay.States
             _sceneContext.Get<IPlayerInput>().Disable();
             _sceneContext.Get<EndOfTheGame>().Show();
             _sceneContext.Get<PauseButton>().Hide();
-            _sceneContext.Get<PauseManager>().Pause();
             _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<Car>());
         }
 

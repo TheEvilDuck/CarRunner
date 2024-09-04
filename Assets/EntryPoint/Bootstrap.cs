@@ -58,6 +58,7 @@ namespace EntryPoint
             _projectContext.Register<ICameraSettings>(() => _projectContext.Get<GameSettings>());
             _projectContext.Register(SetupSoundController);
             _projectContext.Register(() => new RewardProvider());
+            _projectContext.Register(SetupImageLoadYG);
             // SetupDeviceType() инициализируется как инстанс, поскольку DeviceType это энам и не может быть null
             // А DI контейнер использует делегат только тогда, когда инстанс объекта null
             // надо будет предусмотреть инициализацию структур и энамов
@@ -74,6 +75,7 @@ namespace EntryPoint
             SceneManager.activeSceneChanged += OnSceneChanged;
 
             YandexGame.GetDataEvent += PluginYGInit;
+            YandexGame.GetPaymentsEvent += OnPaymentsGot;
         }
 
         private void PluginYGInit()
@@ -87,6 +89,7 @@ namespace EntryPoint
             _projectContext.Register(SetupPlatform, PLATFORM_DI_TAG);
             _projectContext.Register(SetupLeaderboardData);
             _coroutines.StartCoroutine(SceneSetup());
+            
             YandexGame.GameReadyAPI();
             YandexGame.GetDataEvent -= PluginYGInit;
         }
@@ -106,6 +109,11 @@ namespace EntryPoint
                 _projectContext.Get<PauseManager>().Resume();
         }
 
+        private void OnPaymentsGot()
+        {
+            _projectContext.Register(() => YandexGame.purchases);
+        }
+
         private List<ITickable> SetupTickables()
         {
             var tickables = new List<ITickable>();
@@ -118,6 +126,14 @@ namespace EntryPoint
             _tickablesCoroutine = _coroutines.StartCoroutine(TickTickables(tickables));
 
             return tickables;
+        }
+
+        private ImageLoadYG SetupImageLoadYG()
+        {
+            var prefab = Resources.Load<ImageLoadYG>("YGImageLoader");
+            var obj = UnityEngine.GameObject.Instantiate(prefab);
+            UnityEngine.GameObject.DontDestroyOnLoad(obj);
+            return obj;
         }
 
         private ILeaderBoardData SetupLeaderboardData()

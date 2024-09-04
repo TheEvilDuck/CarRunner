@@ -12,5 +12,6 @@ namespace MainMenu.Shop.View
         public UnityEvent Clicked => _button.onClick;
 
         public abstract void Init(ShopItem shopItem);
+        public virtual void SetCurrencyImage(Sprite sprite) {}
     }
 }

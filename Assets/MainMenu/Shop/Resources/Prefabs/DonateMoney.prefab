@@ -715,6 +715,7 @@ MonoBehaviour:
   _button: {fileID: 2423125741916802869}
   _costText: {fileID: 8528778896042734604}
   _rewardText: {fileID: 334366044458058973}
+  _costImage: {fileID: 6494429543597033478}
 --- !u!1 &8958918832947680367
 GameObject:
   m_ObjectHideFlags: 0

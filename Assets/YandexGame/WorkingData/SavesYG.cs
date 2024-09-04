@@ -20,7 +20,7 @@ namespace YG
         public int MaxFallTries = 1;
         public bool IsTutorialComplete = false;
         public string savedLanguage;
-        public string WatchShopAdLastTime;
+        public long WatchShopAdLastTime;
         public SavesYG()
         {
 
