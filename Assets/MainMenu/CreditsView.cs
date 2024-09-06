@@ -5,21 +5,24 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class CreditsView : MonoBehaviour, IMenuParent
+namespace MainMenu
 {
-    [SerializeField] private TextMeshProUGUI _credits;
-    [SerializeField] private Button _back;
-    [SerializeField] private UIAnimatorSequence _uIAnimatorSequence;
-
-    public UnityEvent BackPressed => _back.onClick;
-
-    public void Show()
+    public class CreditsView : MonoBehaviour, IMenuParent
     {
-        gameObject.SetActive(true);
-        _credits.gameObject.SetActive(true);
-        _back.gameObject.SetActive(true);
-        _uIAnimatorSequence.StartSequence();
-    }
+        [SerializeField] private TextMeshProUGUI _credits;
+        [SerializeField] private Button _back;
+        [SerializeField] private UIAnimatorSequence _uIAnimatorSequence;
 
-    public void Hide() => gameObject.SetActive(false);
+        public UnityEvent BackPressed => _back.onClick;
+
+        public void Show()
+        {
+            gameObject.SetActive(true);
+            _credits.gameObject.SetActive(true);
+            _back.gameObject.SetActive(true);
+            _uIAnimatorSequence.StartSequence();
+        }
+
+        public void Hide() => gameObject.SetActive(false);
+    }
 }
