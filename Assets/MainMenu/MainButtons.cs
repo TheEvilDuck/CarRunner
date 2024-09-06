@@ -14,6 +14,7 @@ namespace MainMenu
         [SerializeField] private Button _shop;
         [SerializeField] private Button _tutorial;
         [SerializeField] private Button _language;
+        [SerializeField] private Button _credits;
         [SerializeField] private UIAnimatorSequence _uIAnimatorSequence;
 
         public UnityEvent PlayClickedEvent => _play.onClick;
@@ -22,6 +23,7 @@ namespace MainMenu
         public UnityEvent ShopClicked => _shop.onClick;
         public UnityEvent TutorialClicked => _tutorial.onClick;
         public UnityEvent LanguageClicked => _language.onClick;
+        public UnityEvent CreditsClicked => _credits.onClick;
 
         public void Init(bool isWeb)
         {
@@ -37,5 +39,4 @@ namespace MainMenu
             _uIAnimatorSequence.StartSequence();
         }
     }
-
 }
