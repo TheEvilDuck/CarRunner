@@ -20,8 +20,6 @@ namespace Gameplay.States
         public override void Update()
         {
             _sceneContext.Get<Car>().CarBehavior.Brake(true);
-
-            Debug.Log("BRAKE");
         }
 
         protected override void OnEnter()

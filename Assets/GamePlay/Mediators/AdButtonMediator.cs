@@ -38,10 +38,10 @@ namespace Gameplay
 
             void OnRewardWatched(int id)
             {
+                OnRewardVideoClosed();
+
                 if (id != Gameplay.Bootstrap.WATCH_AD_REWAD_ID)
                     return;
-                
-                OnRewardVideoClosed();
 
                 YandexGame.RewardVideoEvent -= OnRewardWatched;
                 OnAdWatched();
@@ -49,6 +49,7 @@ namespace Gameplay
 
             void OnRewardVideoClosed()
             {
+                _pauseManager.Unlock();
                 _pauseManager.Resume();
                 YandexGame.ErrorVideoEvent -= OnRewardVideoClosed;
                 YandexGame.CloseVideoEvent -= OnRewardVideoClosed;
@@ -61,6 +62,7 @@ namespace Gameplay
             YandexGame.CloseVideoEvent += OnRewardVideoClosed;
 
             _pauseManager.Pause();
+            _pauseManager.Lock();
 
             YandexGame.RewVideoShow(Gameplay.Bootstrap.WATCH_AD_REWAD_ID);
         }

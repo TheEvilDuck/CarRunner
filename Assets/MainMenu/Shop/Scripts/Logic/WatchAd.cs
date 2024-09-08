@@ -37,13 +37,17 @@ namespace MainMenu.Shop.Logic
 
                 void OnAdClosed()
                 {
+                    sceneContext.Get<PauseManager>().Unlock();
                     sceneContext.Get<PauseManager>().Resume();
                     YandexGame.CloseVideoEvent -= OnAdClosed;
+                    YandexGame.ErrorVideoEvent -= OnAdClosed;
                 }
 
                 YandexGame.RewardVideoEvent += OnRewardVideoEvent;
                 YandexGame.CloseVideoEvent += OnAdClosed;
+                YandexGame.ErrorVideoEvent += OnAdClosed;
                 sceneContext.Get<PauseManager>().Pause();
+                sceneContext.Get<PauseManager>().Lock();
                 YandexGame.RewVideoShow(WATCH_AD_SHOP_ID);
                 
                 return true;
