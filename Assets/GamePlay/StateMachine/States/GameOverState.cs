@@ -27,19 +27,37 @@ namespace Gameplay.States
         protected override void OnEnter()
         {
             YandexGame.GameplayStop();
-
-            _sceneContext.Get<Car>().CarBehavior.enabled = false;
-            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseMenu>());
-            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseButton>());
-            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<YandexGameGameplay>());
-            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<Car>());
-            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseLocker>());
-            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<StateMachine>());
-            _sceneContext.Get<PauseManager>().Unregister(_sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG));
-            _sceneContext.Get<IPlayerInput>().Disable();
-            _sceneContext.Get<EndOfTheGame>().Show();
-            _sceneContext.Get<PauseButton>().Hide();
             
+            PauseManager scenePause = _sceneContext.Get<PauseManager>(Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG);
+            PauseManager globalPause = _sceneContext.Get<PauseManager>();
+
+            PauseMenu pauseMenu = _sceneContext.Get<PauseMenu>();
+            PauseButton pauseButton = _sceneContext.Get<PauseButton>();
+            Car car = _sceneContext.Get<Car>();
+            PauseLocker pauseLocker = _sceneContext.Get<PauseLocker>();
+            YandexGameGameplay yandexGameGameplay = _sceneContext.Get<YandexGameGameplay>();
+            EndOfTheGame endOfTheGame = _sceneContext.Get<EndOfTheGame>();
+            IPlayerInput playerInput = _sceneContext.Get<IPlayerInput>();
+
+            scenePause.Unregister(pauseMenu);
+            scenePause.Unregister(pauseButton);
+            scenePause.Unregister(car);
+            scenePause.Unregister(pauseLocker);
+            scenePause.Unregister(yandexGameGameplay);
+            scenePause.Unregister(_stateMachine);
+
+            scenePause.Pause();
+            scenePause.Lock();
+            globalPause.Unlock();
+
+            pauseMenu.Resume();
+            pauseButton.Hide();
+
+            globalPause.Unregister(scenePause);
+
+            endOfTheGame.Show();
+            car.CarBehavior.enabled = false;
+            playerInput.Disable();
         }
 
         protected override void OnExit()

@@ -15,6 +15,7 @@ namespace Services.PlayerInput
         private IBrakeButton _brake;
         private readonly Func<IBrakeButton> _brakeButtonFactory;
         private bool _enabled;
+        private bool _paused;
 
         public MobileInput(Func<IBrakeButton> brakeButtonFactory) 
         {
@@ -23,7 +24,7 @@ namespace Services.PlayerInput
 
         public void Update()
         {
-            if (!_enabled)
+            if (!_enabled || _paused)
                 return;
 
             bool isBrake = _brake.IsBraking;
@@ -71,8 +72,8 @@ namespace Services.PlayerInput
             _brake.Disable();
         }
 
-        public void Pause() => Disable();
+        public void Pause() => _paused = true;
 
-        public void Resume() => Enable();
+        public void Resume() => _paused = false;
     }
 }

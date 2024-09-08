@@ -13,6 +13,7 @@ namespace Services.PlayerInput
         #endif
 
         private bool _enabled;
+        private bool _paused;
 
         public void Disable()
         {
@@ -28,7 +29,7 @@ namespace Services.PlayerInput
 
         public void Update() 
         {
-            if (!_enabled)
+            if (!_enabled || _paused)
                 return;
 
             horizontalInput?.Invoke(Input.GetAxisRaw("Horizontal"));
@@ -43,8 +44,8 @@ namespace Services.PlayerInput
             #endif
         }
 
-        public void Pause() => Disable();
+        public void Pause() => _paused = true;
 
-        public void Resume() => Enable();
+        public void Resume() => _paused = false;
     }
 }

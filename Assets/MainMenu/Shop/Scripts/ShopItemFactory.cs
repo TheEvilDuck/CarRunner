@@ -34,7 +34,15 @@ namespace MainMenu.Shop
                     if (purchase != null)
                     {
                         currencyImageLoad.Load(purchase.currencyImageURL);
-                        shopItemView.SetCurrencyImage(currencyImageLoad.spriteImage.sprite);
+                        
+                        foreach (var data in YandexGame.purchases)
+                        {
+                            if (data.id == donateMoney.Id)
+                            {
+                                //currencyImageLoad.Load(data.currencyImageURL);
+                                //shopItemView.SetCurrencyImage(currencyImageLoad.spriteImage.sprite);
+                            }
+                        }
                     }
                 }
 

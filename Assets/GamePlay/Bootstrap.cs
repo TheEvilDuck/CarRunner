@@ -93,8 +93,8 @@ namespace Gameplay
             if (!_inited)
                 return;
 
-            _sceneContext.Get<StateMachine>().Update();
             _sceneContext.Get<IPlayerInput>().Update();
+            _sceneContext.Get<StateMachine>().Update();
             _sceneContext.Get<CarFalling>().Update();
         }
 
@@ -199,6 +199,9 @@ namespace Gameplay
 
             _disposables.Add(gameplayStateMachine);
 
+            //Эта грязнь здесь, чтобы избежать циклическую зависимость
+            _sceneContext.Get<PauseManager>(GAMEPLAY_PAUSE_MANAGER_TAG).Register(gameplayStateMachine);
+
             return gameplayStateMachine;
         }
 
@@ -207,8 +210,6 @@ namespace Gameplay
             var pauseManager = new PauseManager();
             pauseManager.Register(_sceneContext.Get<Timer>());
             pauseManager.Register(_sceneContext.Get<Car>());
-            pauseManager.Register(_sceneContext.Get<SoundController>());
-            pauseManager.Register(_sceneContext.Get<StateMachine>());
             pauseManager.Register(_sceneContext.Get<StartMessage>());
             pauseManager.Register(_sceneContext.Get<PauseMenu>());
             pauseManager.Register(_sceneContext.Get<PauseLocker>());
