@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using YG;
 using YG.Utils.LB;
+using System.Linq;
 
 namespace Common.Data
 {
@@ -79,6 +80,8 @@ namespace Common.Data
                 _cashedLeaderboard[LEADERBOARD_KEY + levelId].thisPlayer.score = (int) (recordTime * 1000f);
                 YandexGame.NewLBScoreTimeConvert(LEADERBOARD_KEY + levelId, recordTime);
                 CallLeaderboard(levelId);
+                
+                _cashedLeaderboard[LEADERBOARD_KEY + levelId] = LocalSortLBData(_cashedLeaderboard[LEADERBOARD_KEY + levelId]);
             }
         }
 
@@ -119,6 +122,27 @@ namespace Common.Data
         private void OnLeaderBoardLoaded(LBData lBData)
         {
             _cashedLeaderboard.TryAdd(lBData.technoName, lBData);
+        }
+
+        private LBData LocalSortLBData(LBData lBData)
+        {
+            int countOfPlayersInLB = lBData.players.Count();
+            int[] ranksBeforeSort = new int[countOfPlayersInLB];
+
+            for (int i = 0; i < countOfPlayersInLB; i++)
+                ranksBeforeSort[i] = lBData.players[i].rank;
+
+            lBData.players = lBData.players.OrderByDescending(player => player.score).ToArray();
+
+            for (int i = 0; i < countOfPlayersInLB; i++)
+            {
+                lBData.players[i].rank = ranksBeforeSort[i];
+                
+                if(YandexGame.playerId == lBData.players[i].uniqueID)
+                    lBData.thisPlayer.rank = ranksBeforeSort[i];
+            }
+            
+            return lBData;
         }
 
         private struct LeaderboardCall
