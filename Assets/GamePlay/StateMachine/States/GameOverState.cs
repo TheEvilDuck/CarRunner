@@ -4,6 +4,7 @@ using DI;
 using Gameplay.Cars;
 using Gameplay.UI;
 using Services.PlayerInput;
+using UnityEngine;
 using YG;
 
 namespace Gameplay.States
@@ -19,6 +20,8 @@ namespace Gameplay.States
         public override void Update()
         {
             _sceneContext.Get<Car>().CarBehavior.Brake(true);
+
+            Debug.Log("BRAKE");
         }
 
         protected override void OnEnter()
@@ -28,15 +31,18 @@ namespace Gameplay.States
             _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseMenu>());
             _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseButton>());
             _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<YandexGameGameplay>());
+            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<Car>());
+            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseLocker>());
+            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<StateMachine>());
+            _sceneContext.Get<PauseManager>().Unregister(_sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG));
             _sceneContext.Get<IPlayerInput>().Disable();
             _sceneContext.Get<EndOfTheGame>().Show();
             _sceneContext.Get<PauseButton>().Hide();
-            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<Car>());
+            
         }
 
         protected override void OnExit()
         {
-            _sceneContext.Get<PauseManager>(Gameplay.Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG).Unregister(_sceneContext.Get<PauseLocker>());
             _sceneContext.Get<PauseManager>().Resume();
         }
     }

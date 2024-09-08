@@ -105,8 +105,6 @@ namespace Gameplay
 
             _disposables.Clear();
 
-            _sceneContext.Get<PauseManager>().Unregister(_sceneContext.Get<PauseManager>(GAMEPLAY_PAUSE_MANAGER_TAG));
-
             YandexGame.GameplayStop();
         }
 
@@ -214,7 +212,6 @@ namespace Gameplay
             pauseManager.Register(_sceneContext.Get<StartMessage>());
             pauseManager.Register(_sceneContext.Get<PauseMenu>());
             pauseManager.Register(_sceneContext.Get<PauseLocker>());
-            pauseManager.Register(_sceneContext.Get<IPlayerInput>());
             pauseManager.Register(_sceneContext.Get<PauseButton>());
             pauseManager.Register(_sceneContext.Get<YandexGameGameplay>());
 
