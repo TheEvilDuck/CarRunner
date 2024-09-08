@@ -24,19 +24,28 @@ namespace MainMenu.Shop.Logic
             {
                 void OnRewardVideoEvent(int id)
                 {
+                    OnAdClosed();
+
                     if (id != WATCH_AD_SHOP_ID)
                         return;
 
                     playerData.SaveWatchAdLastTime();
-                    sceneContext.Get<PauseManager>().Resume();
 
                     YandexGame.RewardVideoEvent -= OnRewardVideoEvent;
                     OnAdWatched(sceneContext);
                 }
 
+                void OnAdClosed()
+                {
+                    sceneContext.Get<PauseManager>().Resume();
+                    YandexGame.CloseVideoEvent -= OnAdClosed;
+                }
+
                 YandexGame.RewardVideoEvent += OnRewardVideoEvent;
+                YandexGame.CloseVideoEvent += OnAdClosed;
                 sceneContext.Get<PauseManager>().Pause();
                 YandexGame.RewVideoShow(WATCH_AD_SHOP_ID);
+                
                 return true;
             }
 

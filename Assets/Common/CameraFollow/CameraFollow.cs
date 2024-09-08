@@ -4,7 +4,7 @@ namespace Common.Components
 {
     public class CameraFollow : MonoBehaviour
     {
-        private const float MIN_FOLLOW_SPEED = 0.0001f;
+        private const float MIN_FOLLOW_SPEED = 0.0005f;
 
         [SerializeField] private Transform _target;
         [SerializeField] private Vector3 _offset;
@@ -57,7 +57,7 @@ namespace Common.Components
             if (speed >= MIN_FOLLOW_SPEED)
                 goal = transform.position + (goal - transform.position).normalized * speed;
 
-            transform.position = goal;
+            transform.position = Vector3.Lerp(transform.position, goal, 0.75f);
             transform.LookAt(_target.position);
             
             _targetLastPosition = _target.position;

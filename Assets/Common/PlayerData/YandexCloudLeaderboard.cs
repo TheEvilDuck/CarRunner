@@ -75,14 +75,27 @@ namespace Common.Data
 
             float previous = _cashedLeaderboard[LEADERBOARD_KEY + levelId].thisPlayer.score;
 
-            if (recordTime * 1000f > previous)
+            if (recordTime * 1000f > previous || previous <= 0 && recordTime > 0)
             {
-                _cashedLeaderboard[LEADERBOARD_KEY + levelId].thisPlayer.score = (int) (recordTime * 1000f);
+                SaveThisPlayerLocal(levelId, (int) (recordTime * 1000f));
                 YandexGame.NewLBScoreTimeConvert(LEADERBOARD_KEY + levelId, recordTime);
                 CallLeaderboard(levelId);
                 
                 _cashedLeaderboard[LEADERBOARD_KEY + levelId] = LocalSortLBData(_cashedLeaderboard[LEADERBOARD_KEY + levelId]);
             }
+        }
+
+        private void SaveThisPlayerLocal(string levelId, int score)
+        {
+            foreach (var data in _cashedLeaderboard[LEADERBOARD_KEY + levelId].players)
+            {
+                if (data.uniqueID == YandexGame.playerId)
+                {
+                    data.score = score;
+                }
+            }
+
+            _cashedLeaderboard[LEADERBOARD_KEY + levelId].thisPlayer.score = score;
         }
 
         public void Tick(float deltaTime)

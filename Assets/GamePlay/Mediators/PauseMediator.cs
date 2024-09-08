@@ -11,14 +11,12 @@ namespace Gameplay
         private readonly PauseManager _pauseManager;
         private readonly PauseButton _pauseButton;
         private readonly PauseMenu _pauseMenu;
-        private readonly IPlayerInput _playerInput;
 
         public PauseMediator(DIContainer sceneContext)
         {
             _pauseManager = sceneContext.Get<PauseManager>();
             _pauseButton = sceneContext.Get<PauseButton>();
             _pauseMenu = sceneContext.Get<PauseMenu>();
-            _playerInput = sceneContext.Get<IPlayerInput>();
 
             _pauseButton.pressed += OnPauseButtonPressed;
             _pauseMenu.ResumeButtonPressed.AddListener(OnPauseButtonPressed);

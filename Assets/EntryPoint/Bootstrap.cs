@@ -221,7 +221,6 @@ namespace EntryPoint
                 throw new ArgumentException($"Unknown device type");
 
             playerInput.Enable();
-            _projectContext.Get<PauseManager>().Register(playerInput);
 
             return playerInput;
         }
@@ -300,6 +299,7 @@ namespace EntryPoint
         {
             var pauseManager = new PauseManager();
             pauseManager.Register(_projectContext.Get<SoundController>());
+            pauseManager.Register(_projectContext.Get<IPlayerInput>());
             return pauseManager;
         }
 
