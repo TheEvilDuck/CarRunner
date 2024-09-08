@@ -110,6 +110,9 @@ namespace Common.Sound
 
             foreach (var sound in _usedObjects)
             {
+                if (sound == null)
+                    continue;
+
                 sound.UnPause();
             }
         }
