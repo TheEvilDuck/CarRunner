@@ -14,6 +14,8 @@ namespace Common.Data
         private const float TIME_BETWEEN_CALLS = 2f;
         private const int MAX_CALLS_IN_COOLDOWN = 20;
         private const float CALL_TIMEOUT = 10f;
+
+        public event Action leaderboardUpdated;
         private Dictionary<string, LBData> _cashedLeaderboard;
         private Queue<LeaderboardCall> _callLeaderboards;
         private Dictionary<string, float> _queueCallsTimeData;
@@ -166,7 +168,8 @@ namespace Common.Data
 
         private void OnLeaderBoardLoaded(LBData lBData)
         {
-            _cashedLeaderboard.TryAdd(lBData.technoName, lBData);
+            _cashedLeaderboard[lBData.technoName] = lBData;
+            leaderboardUpdated?.Invoke();
         }
 
         private LBData LocalSortLBData(LBData lBData)

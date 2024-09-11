@@ -12,7 +12,7 @@ using YG;
 
 namespace MainMenu.LevelSelection
 {
-    public class LevelSelector: MonoBehaviour, IMenuParent
+    public class LevelSelector: MonoBehaviour, IMenuParent, IDisposable
     {
         [SerializeField] private LevelsDatabase _levels;
         [SerializeField] private LevelButton _levelButtonPrefab;
@@ -28,22 +28,37 @@ namespace MainMenu.LevelSelection
         public event Func<string, bool> buyLevelPressed;
 
         private Dictionary<LevelButton, string> _buttons;
+        private Dictionary<LevelButton, Action> _subscribtions;
         private string _currentLevelId;
         private bool _isReadyToPlay;
+        private ILeaderBoardData _leaderBoardData;
 
         public UnityEvent BackPressed => _backButton.onClick;
 
         public void Init(IEnumerable<string> passedLevels, IEnumerable<string> availableLevels, ILeaderBoardData leaderBoardData)
         {
             _buttons = new Dictionary<LevelButton, string>();
+            _subscribtions = new Dictionary<LevelButton, Action>();
             _levelPlayButton.Hide();
             _leaderboardLoadingAnimation.gameObject.SetActive(false);
+            _leaderBoardData = leaderBoardData;
 
             foreach (string levelId in _levels.GetAllLevels())
             {
                 LevelButton button = Instantiate(_levelButtonPrefab, _buttonsParent);
                 button.Init(levelId);
                 _buttons.Add(button, levelId);
+
+                Action sub = OnLeaderboardUpdated;
+
+                _leaderBoardData.leaderboardUpdated += sub;
+
+                _subscribtions.Add(button, sub);
+
+                async void OnLeaderboardUpdated()
+                {
+                    _leaderboardYG.UpdateLB(await _leaderBoardData.GetLeaderBoard(levelId));
+                }
 
                 button.Clicked.AddListener(async () => 
                 {
@@ -63,7 +78,7 @@ namespace MainMenu.LevelSelection
                         _leaderboardYG.SetNameLB(YandexCloudLeaderboard.LEADERBOARD_KEY + _currentLevelId);
                         _leaderboardLoadingGameObject.SetActive(true);
                         _leaderboardLoadingAnimation.StartSequence();
-                        var data = await leaderBoardData.GetLeaderBoard(levelId);
+                        var data = await _leaderBoardData.GetLeaderBoard(levelId);
                         _leaderboardLoadingAnimation.StopSequence();
                         _leaderboardLoadingGameObject.SetActive(false);
 
@@ -123,6 +138,14 @@ namespace MainMenu.LevelSelection
             _levelPlayButton.Hide();
             _leaderboardYG.gameObject.SetActive(false);
             gameObject.SetActive(false);
+        }
+
+        public void Dispose()
+        {
+            foreach (var pair in _subscribtions)
+            {
+                _leaderBoardData.leaderboardUpdated -= pair.Value;
+            }
         }
     }
 }

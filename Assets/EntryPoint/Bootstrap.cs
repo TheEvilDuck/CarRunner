@@ -92,6 +92,8 @@ namespace EntryPoint
             
             YandexGame.GameReadyAPI();
             YandexGame.GetDataEvent -= PluginYGInit;
+
+            OnFocusChanged(true);
         }
 
         private void OnSceneChanged(Scene previousScene, Scene nextScene)

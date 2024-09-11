@@ -71,6 +71,7 @@ namespace MainMenu
 
             _mainMenuView.Init();
             _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels, _sceneContext.Get<ILeaderBoardData>());
+            _disposables.Add(_mainMenuView.LevelSelector);
             _mainMenuView.ShopView.Init(_shopItemFactory, _sceneContext);
             _mainMenuView.TutorialView.Init(deviceType);
             Debug.Log(_sceneContext.Get<string>(EntryPoint.Bootstrap.PLATFORM_DI_TAG));
