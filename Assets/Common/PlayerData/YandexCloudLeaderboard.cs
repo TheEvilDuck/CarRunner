@@ -45,8 +45,8 @@ namespace Common.Data
             while 
             (
             !_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId) && 
-            (!_queueCallsTimeData.ContainsKey(LEADERBOARD_KEY + levelId) || 
-            Time.time - _queueCallsTimeData[LEADERBOARD_KEY + levelId] < CALL_TIMEOUT)
+            !_queueCallsTimeData.ContainsKey(LEADERBOARD_KEY + levelId) && 
+            Time.time - _queueCallsTimeData[LEADERBOARD_KEY + levelId] < CALL_TIMEOUT
             )
                 await Awaitable.WaitForSecondsAsync(1);
 
@@ -66,7 +66,7 @@ namespace Common.Data
 
             float timeout = 0;
 
-            while (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId) || timeout <= CALL_TIMEOUT)
+            while (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId) && timeout <= CALL_TIMEOUT)
             {
                 await Awaitable.WaitForSecondsAsync(1);
                 timeout += 1f;
