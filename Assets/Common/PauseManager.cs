@@ -50,13 +50,21 @@ namespace Common
             if (_locked)
                 return;
 
+            List<IPausable> markedToDelete = new List<IPausable>();
+
             if (_isPaused.Value == false)
             {
                 foreach (IPausable pausable in _pausables)
                 {
-                    pausable.Pause();
+                    if (pausable == null)
+                        markedToDelete.Add(pausable);
+                    else
+                        pausable.Pause();
                 }
             }
+
+            foreach (var pausable in markedToDelete)
+                _pausables.Remove(pausable);
 
             _isPaused.Value = true;
         }
@@ -66,13 +74,21 @@ namespace Common
             if (_locked)
                 return;
 
+            List<IPausable> markedToDelete = new List<IPausable>();
+
             if(_isPaused.Value == true)
             {
                 foreach (IPausable pausable in _pausables)
                 {
-                    pausable.Resume();
+                    if (pausable == null)
+                        markedToDelete.Add(pausable);
+                    else
+                        pausable.Resume();
                 }
             }
+
+            foreach (var pausable in markedToDelete)
+                _pausables.Remove(pausable);
 
             _isPaused.Value = false;
         }

@@ -105,6 +105,14 @@ namespace Gameplay
 
             _disposables.Clear();
 
+            PauseManager scenePause = _sceneContext.Get<PauseManager>(Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG);
+            PauseManager globalPause = _sceneContext.Get<PauseManager>();
+
+            PauseLocker pauseLocker = _sceneContext.Get<PauseLocker>();
+            scenePause.Unregister(pauseLocker);
+            globalPause.Unlock();
+            globalPause.Unregister(scenePause);
+            
             YandexGame.GameplayStop();
         }
 
