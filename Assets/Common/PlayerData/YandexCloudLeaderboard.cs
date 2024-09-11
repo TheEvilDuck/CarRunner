@@ -62,18 +62,26 @@ namespace Common.Data
             if (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
                 CallLeaderboard(levelId);
 
-            while (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
-                await Awaitable.WaitForSecondsAsync(1);
+            float timeout = 0;
 
-            return _cashedLeaderboard[LEADERBOARD_KEY + levelId].thisPlayer.score;
+            while (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId) || timeout <= CALL_TIMEOUT)
+            {
+                await Awaitable.WaitForSecondsAsync(1);
+                timeout += 1f;
+            }
+
+            if (_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
+                return _cashedLeaderboard[LEADERBOARD_KEY + levelId].thisPlayer.score;
+
+            return float.MinValue;
         }
 
         public async Awaitable SaveLevelRecord(string levelId, float recordTime)
         {
-            if (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
-                await GetLevelRecord(levelId);
+            float previous = float.MinValue;
 
-            float previous = _cashedLeaderboard[LEADERBOARD_KEY + levelId].thisPlayer.score;
+            if (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
+                previous = await GetLevelRecord(levelId);
 
             if (recordTime * 1000f > previous || previous <= 0 && recordTime > 0)
             {
@@ -87,12 +95,37 @@ namespace Common.Data
 
         private void SaveThisPlayerLocal(string levelId, int score)
         {
+            bool found = false;
+
             foreach (var data in _cashedLeaderboard[LEADERBOARD_KEY + levelId].players)
             {
                 if (data.uniqueID == YandexGame.playerId)
                 {
                     data.score = score;
+                    found = true;
                 }
+            }
+
+            if (!found)
+            {
+                if (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
+                {
+                    LBData lBData = new LBData();
+                    lBData.technoName = LEADERBOARD_KEY + levelId;
+                    lBData.thisPlayer = new LBThisPlayerData();
+                    _cashedLeaderboard.Add(LEADERBOARD_KEY + levelId, lBData);
+                }
+
+                List<LBPlayerData> newLB = new List<LBPlayerData>(_cashedLeaderboard[LEADERBOARD_KEY + levelId].players);
+
+                LBPlayerData newData = new LBPlayerData();
+                newData.uniqueID = YandexGame.playerId;
+                newData.name = YandexGame.playerName;
+                newData.photo = YandexGame.playerPhoto;
+                newData.score = score;
+                newLB.Add(newData);
+
+                _cashedLeaderboard[LEADERBOARD_KEY + levelId].players = newLB.ToArray();
             }
 
             _cashedLeaderboard[LEADERBOARD_KEY + levelId].thisPlayer.score = score;
