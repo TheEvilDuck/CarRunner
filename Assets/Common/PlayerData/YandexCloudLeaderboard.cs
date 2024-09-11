@@ -78,10 +78,9 @@ namespace Common.Data
 
         public async Awaitable SaveLevelRecord(string levelId, float recordTime)
         {
-            float previous = float.MinValue;
+            float previous = await GetLevelRecord(levelId);
 
-            if (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
-                previous = await GetLevelRecord(levelId);
+            Debug.Log($"Trying to change {previous} to {recordTime * 1000f}");
 
             if (recordTime * 1000f > previous || previous <= 0 && recordTime > 0)
             {

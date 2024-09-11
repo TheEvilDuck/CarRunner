@@ -42,7 +42,7 @@ namespace Common
                 throw new ArgumentException("Pause manager must not contain itself");
 
             if (!_pausables.Remove(pausable))
-                throw new ArgumentException($"This pause mabanger doesn't contain passed pausable of type {pausable.GetType()}");
+                Debug.LogWarning($"This pause manager doesn't contain passed pausable of type {pausable.GetType()}");
         }
 
         public void Pause()

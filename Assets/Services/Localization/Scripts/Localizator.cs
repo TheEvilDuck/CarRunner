@@ -52,7 +52,6 @@ namespace Services.Localization
 
         private void TranslateLocalizable(ILocalizable localizable)
         {
-            Debug.Log($"Localization requested from: {localizable.TextId}");
             localizable.UpdateText(_localizationService.GetText(localizable.TextId));
         }
     }
