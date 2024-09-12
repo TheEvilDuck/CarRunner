@@ -42,6 +42,7 @@ namespace MainMenu
         {
             _disposables = new List<IDisposable>();
 
+            _sceneContext.Register(_disposables);
             _sceneContext.Register(_mainMenuView);
             _sceneContext.Register(_mainMenuView.SettingsMenu);
             _sceneContext.Register(_mainMenuView.LevelSelector);
