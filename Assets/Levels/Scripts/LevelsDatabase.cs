@@ -12,7 +12,7 @@ namespace Levels
         public Level GetLevel(string id) => FindLevel(id).Level;
 
         public int GetLevelCost(string id) => FindLevel(id).Cost;
-        public float GetLevelRewardDivider(string id) => FindLevel(id).RewardDivider;
+        public int GetMaxReward(string id) => FindLevel(id).MaxReward;
 
         public string GetNextLevelId(string levelId)
         {
@@ -61,8 +61,8 @@ namespace Levels
         {
             [field: SerializeField] public string LevelId {get; private set;}
             [field: SerializeField] public Level Level {get; private set;}
-            [field: SerializeField] public int Cost {get; private set;}
-            [field: SerializeField] public float RewardDivider {get; private set;}
+            [field: SerializeField, Min(0)] public int Cost {get; private set;}
+            [field: SerializeField, Min(0)] public int MaxReward {get; private set;}
         } 
     }
 

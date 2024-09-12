@@ -11,11 +11,10 @@ namespace Common.Data.Rewards
         private const float COINS_MULTIPLIER_FOR_REPLAYING_LEVEL = 0.25f;
         public int GetLevelCompletionReward(float remainingTime, IPlayerData playerData, LevelsDatabase levelsDatabase)
         {
-            int nextLevelCost = levelsDatabase.GetLevelCost(playerData.SelectedLevel);
             var level = levelsDatabase.GetLevel(playerData.SelectedLevel);
             float startTime = level.StartTimer;
             float sumOfTimerGates = 0;
-            float rewardDivider = levelsDatabase.GetLevelRewardDivider(playerData.SelectedLevel);
+            int maxReward = levelsDatabase.GetMaxReward(playerData.SelectedLevel);
 
             foreach (var timerGate in level.TimerGates)
                 if (timerGate.Time > 0)
@@ -26,7 +25,7 @@ namespace Common.Data.Rewards
             if (playerData.PassedLevels.Contains(playerData.SelectedLevel))
                 k = COINS_MULTIPLIER_FOR_REPLAYING_LEVEL;
             
-            int coins = Mathf.CeilToInt(nextLevelCost * (remainingTime / (startTime + sumOfTimerGates)) * rewardDivider * k);
+            int coins = Mathf.CeilToInt(maxReward * (remainingTime / (startTime + sumOfTimerGates)) * k);
             return coins;
         }
 
