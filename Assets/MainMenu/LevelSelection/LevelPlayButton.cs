@@ -17,11 +17,10 @@ namespace MainMenu.LevelSelection
 
         public event Action<ILocalizable> updateRequested;
 
-        public UnityEvent clicked => _button.onClick;
-
-        public string TextId {get; private set;}
-
         private bool _registered;
+
+        public UnityEvent clicked => _button.onClick;
+        public string TextId {get; private set;}
 
         private void OnEnable()
         {

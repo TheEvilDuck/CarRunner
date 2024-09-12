@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using YG;
+using YG.Utils.LB;
 
 namespace MainMenu.LevelSelection
 {
@@ -28,7 +29,7 @@ namespace MainMenu.LevelSelection
         public event Func<string, bool> buyLevelPressed;
 
         private Dictionary<LevelButton, string> _buttons;
-        private Dictionary<LevelButton, Action> _subscribtions;
+        private Dictionary<LevelButton, Action<LBData>> _subscribtions;
         private string _currentLevelId;
         private bool _isReadyToPlay;
         private ILeaderBoardData _leaderBoardData;
@@ -38,7 +39,7 @@ namespace MainMenu.LevelSelection
         public void Init(IEnumerable<string> passedLevels, IEnumerable<string> availableLevels, ILeaderBoardData leaderBoardData)
         {
             _buttons = new Dictionary<LevelButton, string>();
-            _subscribtions = new Dictionary<LevelButton, Action>();
+            _subscribtions = new Dictionary<LevelButton, Action<LBData>>();
             _levelPlayButton.Hide();
             _leaderboardLoadingAnimation.gameObject.SetActive(false);
             _leaderBoardData = leaderBoardData;
@@ -49,15 +50,18 @@ namespace MainMenu.LevelSelection
                 button.Init(levelId);
                 _buttons.Add(button, levelId);
 
-                Action sub = OnLeaderboardUpdated;
+                Action<LBData> sub = OnLeaderboardUpdated;
 
                 _leaderBoardData.leaderboardUpdated += sub;
 
                 _subscribtions.Add(button, sub);
 
-                async void OnLeaderboardUpdated()
+                async void OnLeaderboardUpdated(LBData lBData)
                 {
-                    _leaderboardYG.UpdateLB(await _leaderBoardData.GetLeaderBoard(levelId));
+                    if (!string.Equals(lBData.technoName, _leaderBoardData.GetLeaderboardId(_currentLevelId)))
+                        return;
+
+                    _leaderboardYG.UpdateLB(await _leaderBoardData.GetLeaderBoard(_currentLevelId));
                 }
 
                 button.Clicked.AddListener(async () => 

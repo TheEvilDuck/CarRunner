@@ -106,6 +106,9 @@ namespace YG
 
         public void UpdateLB(LBData lb)
         {
+            if (lb == null)
+                return;
+
             nameLB = lb.technoName;
 
             if (lb.entries == "initialized")

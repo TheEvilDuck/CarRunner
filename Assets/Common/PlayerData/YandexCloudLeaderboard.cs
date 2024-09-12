@@ -15,7 +15,7 @@ namespace Common.Data
         private const int MAX_CALLS_IN_COOLDOWN = 20;
         private const float CALL_TIMEOUT = 10f;
 
-        public event Action leaderboardUpdated;
+        public event Action<LBData> leaderboardUpdated;
         private Dictionary<string, LBData> _cashedLeaderboard;
         private Queue<LeaderboardCall> _callLeaderboards;
         private Dictionary<string, float> _queueCallsTimeData;
@@ -39,41 +39,41 @@ namespace Common.Data
 
         public async Awaitable<LBData> GetLeaderBoard(string levelId)
         {
-            if (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
+            if (!_cashedLeaderboard.ContainsKey(GetLeaderboardId(levelId)))
                 CallLeaderboard(levelId);
 
             while 
             (
-            !_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId) && 
-            !_queueCallsTimeData.ContainsKey(LEADERBOARD_KEY + levelId) && 
-            Time.time - _queueCallsTimeData[LEADERBOARD_KEY + levelId] < CALL_TIMEOUT
+            !_cashedLeaderboard.ContainsKey(GetLeaderboardId(levelId)) && 
+            _queueCallsTimeData.ContainsKey(GetLeaderboardId(levelId)) && 
+            Time.time - _queueCallsTimeData[GetLeaderboardId(levelId)] < CALL_TIMEOUT
             )
                 await Awaitable.WaitForSecondsAsync(1);
 
-            if (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
+            if (!_cashedLeaderboard.ContainsKey(GetLeaderboardId(levelId)))
             {
-                Debug.LogError($"Can't load leaderboard: {LEADERBOARD_KEY + levelId}. Timeout!");
+                Debug.LogError($"Can't load leaderboard: {GetLeaderboardId(levelId)}. Timeout!");
                 return null;
             }
 
-            return _cashedLeaderboard[LEADERBOARD_KEY + levelId];
+            return _cashedLeaderboard[GetLeaderboardId(levelId)];
         }
 
         public async Awaitable<float> GetLevelRecord(string levelId)
         {
-            if (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
+            if (!_cashedLeaderboard.ContainsKey(GetLeaderboardId(levelId)))
                 CallLeaderboard(levelId);
 
             float timeout = 0;
 
-            while (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId) && timeout <= CALL_TIMEOUT)
+            while (!_cashedLeaderboard.ContainsKey(GetLeaderboardId(levelId)) && timeout <= CALL_TIMEOUT)
             {
                 await Awaitable.WaitForSecondsAsync(1);
                 timeout += 1f;
             }
 
             if (_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
-                return _cashedLeaderboard[LEADERBOARD_KEY + levelId].thisPlayer.score;
+                return _cashedLeaderboard[GetLeaderboardId(levelId)].thisPlayer.score;
 
             return float.MinValue;
         }
@@ -87,10 +87,10 @@ namespace Common.Data
             if (recordTime * 1000f > previous || previous <= 0 && recordTime > 0)
             {
                 SaveThisPlayerLocal(levelId, (int) (recordTime * 1000f));
-                YandexGame.NewLBScoreTimeConvert(LEADERBOARD_KEY + levelId, recordTime);
+                YandexGame.NewLBScoreTimeConvert(GetLeaderboardId(levelId), recordTime);
                 CallLeaderboard(levelId);
                 
-                _cashedLeaderboard[LEADERBOARD_KEY + levelId] = LocalSortLBData(_cashedLeaderboard[LEADERBOARD_KEY + levelId]);
+                _cashedLeaderboard[GetLeaderboardId(levelId)] = LocalSortLBData(_cashedLeaderboard[GetLeaderboardId(levelId)]);
             }
         }
 
@@ -98,7 +98,7 @@ namespace Common.Data
         {
             bool found = false;
 
-            foreach (var data in _cashedLeaderboard[LEADERBOARD_KEY + levelId].players)
+            foreach (var data in _cashedLeaderboard[GetLeaderboardId(levelId)].players)
             {
                 if (data.uniqueID == YandexGame.playerId)
                 {
@@ -109,15 +109,15 @@ namespace Common.Data
 
             if (!found)
             {
-                if (!_cashedLeaderboard.ContainsKey(LEADERBOARD_KEY + levelId))
+                if (!_cashedLeaderboard.ContainsKey(GetLeaderboardId(levelId)))
                 {
                     LBData lBData = new LBData();
-                    lBData.technoName = LEADERBOARD_KEY + levelId;
+                    lBData.technoName = GetLeaderboardId(levelId);
                     lBData.thisPlayer = new LBThisPlayerData();
-                    _cashedLeaderboard.Add(LEADERBOARD_KEY + levelId, lBData);
+                    _cashedLeaderboard.Add(GetLeaderboardId(levelId), lBData);
                 }
 
-                List<LBPlayerData> newLB = new List<LBPlayerData>(_cashedLeaderboard[LEADERBOARD_KEY + levelId].players);
+                List<LBPlayerData> newLB = new List<LBPlayerData>(_cashedLeaderboard[GetLeaderboardId(levelId)].players);
 
                 LBPlayerData newData = new LBPlayerData();
                 newData.uniqueID = YandexGame.playerId;
@@ -126,10 +126,10 @@ namespace Common.Data
                 newData.score = score;
                 newLB.Add(newData);
 
-                _cashedLeaderboard[LEADERBOARD_KEY + levelId].players = newLB.ToArray();
+                _cashedLeaderboard[GetLeaderboardId(levelId)].players = newLB.ToArray();
             }
 
-            _cashedLeaderboard[LEADERBOARD_KEY + levelId].thisPlayer.score = score;
+            _cashedLeaderboard[GetLeaderboardId(levelId)].thisPlayer.score = score;
         }
 
         public void Tick(float deltaTime)
@@ -153,23 +153,23 @@ namespace Common.Data
 
         private void CallLeaderboard(string levelId)
         {
-            if (_queueCallsTimeData.ContainsKey(LEADERBOARD_KEY + levelId))
+            if (_queueCallsTimeData.ContainsKey(GetLeaderboardId(levelId)))
                 return;
 
             LeaderboardCall leaderboardCall = new LeaderboardCall()
             {
-                call = () => YandexGame.GetLeaderboard(LEADERBOARD_KEY + levelId, 10, 3, 3, "small"),
-                leaderBoardId = LEADERBOARD_KEY + levelId
+                call = () => YandexGame.GetLeaderboard(GetLeaderboardId(levelId), 10, 3, 3, "small"),
+                leaderBoardId = GetLeaderboardId(levelId)
             };
 
             _callLeaderboards.Enqueue(leaderboardCall);
-            _queueCallsTimeData.Add(LEADERBOARD_KEY + levelId, Time.time);
+            _queueCallsTimeData.Add(GetLeaderboardId(levelId), Time.time);
         }
 
         private void OnLeaderBoardLoaded(LBData lBData)
         {
             _cashedLeaderboard[lBData.technoName] = lBData;
-            leaderboardUpdated?.Invoke();
+            leaderboardUpdated?.Invoke(lBData);
         }
 
         private LBData LocalSortLBData(LBData lBData)
@@ -192,6 +192,8 @@ namespace Common.Data
             
             return lBData;
         }
+
+        public string GetLeaderboardId(string levelId) => LEADERBOARD_KEY + levelId;
 
         private struct LeaderboardCall
         {

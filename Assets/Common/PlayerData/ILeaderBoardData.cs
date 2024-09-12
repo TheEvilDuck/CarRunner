@@ -6,10 +6,11 @@ namespace Common.Data
 {
     public interface ILeaderBoardData
     {
-        public event Action leaderboardUpdated;
+        public event Action<LBData> leaderboardUpdated;
         public Awaitable SaveLevelRecord(string levelId, float recordTime);
         public Awaitable<float> GetLevelRecord(string levelId);
         public Awaitable<LBData> GetLeaderBoard(string levelId);
+        public string GetLeaderboardId(string levelId);
 
     }
 }
