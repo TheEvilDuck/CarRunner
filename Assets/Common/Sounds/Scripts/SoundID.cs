@@ -6,7 +6,8 @@ namespace Common.Sound
         SFXGate = 1,
         SFXGarage = 2,
         MainMenuMusic = 3,
-        Music_evening = 4
+        Music_evening = 4,
+        Music_space = 5
     }
 }
 
