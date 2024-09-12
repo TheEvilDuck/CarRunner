@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioClips:
   - <SoundID>k__BackingField: 0
-    <AudioClip>k__BackingField: {fileID: 8300000, guid: 26364aaf1f64b40c1a047b0bacfbd10e, type: 3}
+    <AudioClip>k__BackingField: {fileID: 8300000, guid: 93704fd94ecf5d74f995a0b79cb6546d, type: 3}
     <AudioMixerGroup>k__BackingField: {fileID: 4998207502586117421, guid: 4604e844800f807428a373b9ac1d785b, type: 2}
     <Loop>k__BackingField: 1
   - <SoundID>k__BackingField: 1
