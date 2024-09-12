@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Icons
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 99b5fd78a3d82f34c8ee6b83de3e1188, type: 3}
+    - {fileID: 2800000, guid: 93e6e57293b2a3a478ad63f03a839aa6, type: 3}
+    - {fileID: 2800000, guid: 119c9aecdd301ec42a5e20e4d9550494, type: 3}
+    - {fileID: 2800000, guid: 50d8fd52ca12f4e438c7e6521eb7c1dc, type: 3}
+    - {fileID: 2800000, guid: a77ae2e52b6a73b42b14f62295455ad8, type: 3}
+    - {fileID: 2800000, guid: e108d4441f0447542bef2851bdbc38f3, type: 3}
+    - {fileID: 2800000, guid: 918dda1b63c309340821a52d09dd9651, type: 3}
+    - {fileID: 2800000, guid: 8ec292022b4fffe40bfa72134fa44c98, type: 3}
+    - {fileID: 2800000, guid: ca45286443fc440479bb3b0df88d6c8e, type: 3}
+    - {fileID: 2800000, guid: a8aea42ed28106142897541e858d4d7c, type: 3}
+    - {fileID: 2800000, guid: 54530e057d958b34d83f1e5666100404, type: 3}
+    - {fileID: 2800000, guid: 0c8baf3b1dbf2ae41bba42227cdcaeeb, type: 3}
+    - {fileID: 2800000, guid: e7977a101ebd45147a3045c165a9dad2, type: 3}
+    - {fileID: 2800000, guid: 0b0744c5c405bba49af551d71fdd460a, type: 3}
+    - {fileID: 2800000, guid: 3fa5070d14b9f6f43be8e08f92c2de49, type: 3}
+    - {fileID: 2800000, guid: ccdded6d309e90a4188271ad317a38ac, type: 3}
+    - {fileID: 2800000, guid: c800f97c3dd76a6469ab86666cd71867, type: 3}
+    - {fileID: 2800000, guid: bf9eff7d96f781b48b7049d58a08bae4, type: 3}
+    - {fileID: 2800000, guid: f9dd271bc957e2440af7f500ab78c063, type: 3}
+    - {fileID: 2800000, guid: fdf83b6b91030504581194d3c5386569, type: 3}
+    - {fileID: 2800000, guid: 4429b74d0d7d7ed4e8a72895a27f7451, type: 3}
+    - {fileID: 6192944022281365145, guid: ca991f6300a05f24baea52b4a81af977, type: 3}
+    - {fileID: 2800000, guid: 383a631aee226ca4faa3646c34b96ff4, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - e7977a101ebd45147a3045c165a9dad2: 21300000
+    - 8ec292022b4fffe40bfa72134fa44c98: 21300000
+    - 50d8fd52ca12f4e438c7e6521eb7c1dc: 21300000
+    - 93e6e57293b2a3a478ad63f03a839aa6: 21300000
+    - ca991f6300a05f24baea52b4a81af977: 3286163911610860551
+    - e108d4441f0447542bef2851bdbc38f3: 21300000
+    - ca45286443fc440479bb3b0df88d6c8e: 21300000
+    - 54530e057d958b34d83f1e5666100404: 21300000
+    - 0b0744c5c405bba49af551d71fdd460a: 21300000
+    - a77ae2e52b6a73b42b14f62295455ad8: 21300000
+    - 99b5fd78a3d82f34c8ee6b83de3e1188: 21300000
+    - 383a631aee226ca4faa3646c34b96ff4: 21300000
+    - f9dd271bc957e2440af7f500ab78c063: 21300000
+    - 918dda1b63c309340821a52d09dd9651: 21300000
+    - 0c8baf3b1dbf2ae41bba42227cdcaeeb: 21300000
+    - fdf83b6b91030504581194d3c5386569: 21300000
+    - c800f97c3dd76a6469ab86666cd71867: 21300000
+    - 119c9aecdd301ec42a5e20e4d9550494: 21300000
+    - 3fa5070d14b9f6f43be8e08f92c2de49: 21300000
+    - 4429b74d0d7d7ed4e8a72895a27f7451: 21300000
+    - ccdded6d309e90a4188271ad317a38ac: 21300000
+    - bf9eff7d96f781b48b7049d58a08bae4: 21300000
+    - a8aea42ed28106142897541e858d4d7c: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: e7977a101ebd45147a3045c165a9dad2, type: 3}
+  - {fileID: 21300000, guid: 8ec292022b4fffe40bfa72134fa44c98, type: 3}
+  - {fileID: 21300000, guid: 50d8fd52ca12f4e438c7e6521eb7c1dc, type: 3}
+  - {fileID: 21300000, guid: 93e6e57293b2a3a478ad63f03a839aa6, type: 3}
+  - {fileID: 3286163911610860551, guid: ca991f6300a05f24baea52b4a81af977, type: 3}
+  - {fileID: 21300000, guid: e108d4441f0447542bef2851bdbc38f3, type: 3}
+  - {fileID: 21300000, guid: ca45286443fc440479bb3b0df88d6c8e, type: 3}
+  - {fileID: 21300000, guid: 54530e057d958b34d83f1e5666100404, type: 3}
+  - {fileID: 21300000, guid: 0b0744c5c405bba49af551d71fdd460a, type: 3}
+  - {fileID: 21300000, guid: a77ae2e52b6a73b42b14f62295455ad8, type: 3}
+  - {fileID: 21300000, guid: 99b5fd78a3d82f34c8ee6b83de3e1188, type: 3}
+  - {fileID: 21300000, guid: 383a631aee226ca4faa3646c34b96ff4, type: 3}
+  - {fileID: 21300000, guid: f9dd271bc957e2440af7f500ab78c063, type: 3}
+  - {fileID: 21300000, guid: 918dda1b63c309340821a52d09dd9651, type: 3}
+  - {fileID: 21300000, guid: 0c8baf3b1dbf2ae41bba42227cdcaeeb, type: 3}
+  - {fileID: 21300000, guid: fdf83b6b91030504581194d3c5386569, type: 3}
+  - {fileID: 21300000, guid: c800f97c3dd76a6469ab86666cd71867, type: 3}
+  - {fileID: 21300000, guid: 119c9aecdd301ec42a5e20e4d9550494, type: 3}
+  - {fileID: 21300000, guid: 3fa5070d14b9f6f43be8e08f92c2de49, type: 3}
+  - {fileID: 21300000, guid: 4429b74d0d7d7ed4e8a72895a27f7451, type: 3}
+  - {fileID: 21300000, guid: ccdded6d309e90a4188271ad317a38ac, type: 3}
+  - {fileID: 21300000, guid: bf9eff7d96f781b48b7049d58a08bae4, type: 3}
+  - {fileID: 21300000, guid: a8aea42ed28106142897541e858d4d7c, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - speetometr arrow
+  - settings icon
+  - fall icon
+  - finish icon
+  - yan-icon
+  - loading
+  - shop icon
+  - tutorial icon
+  - toggle
+  - language icon
+  - 10329496
+  - finish
+  - Grad 1
+  - pause button
+  - speedometr 1
+  - Grad 2
+  - Brale pedal
+  - coin icon
+  - Selection
+  - Grad 3
+  - Button
+  - Grad
+  - timer
+  m_RenderDataMap: {}
+  m_Tag: Icons
+  m_IsVariant: 0

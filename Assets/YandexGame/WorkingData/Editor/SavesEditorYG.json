@@ -1,5 +1,5 @@
 {
-    "idSave": 3009,
+    "idSave": 3146,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -10,7 +10,12 @@
         "CountryHard",
         "Autobahn",
         "City",
-        "Snake"
+        "Snake",
+        "test",
+        "пизда вагины",
+        "ъъъ",
+        "333",
+        "space_1"
     ],
     "PassedLevels": [
         "Testing",
@@ -19,11 +24,16 @@
         "CountryHard",
         "Autobahn",
         "City",
-        "Snake"
+        "Snake",
+        "test",
+        "пизда вагины",
+        "ъъъ",
+        "333",
+        "space_1"
     ],
     "SelectedLevel": "Field",
-    "Coins": 39360,
-    "MaxFallTries": 9,
+    "Coins": 4287,
+    "MaxFallTries": 22,
     "IsTutorialComplete": true,
     "savedLanguage": "en",
     "WatchShopAdLastTime": -8584759800708976450
