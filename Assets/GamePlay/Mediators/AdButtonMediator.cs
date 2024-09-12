@@ -1,13 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Common;
 using Common.Data;
 using Common.Data.Rewards;
 using DI;
 using Gameplay.UI;
 using Levels;
-using UnityEngine;
 using YG;
 
 namespace Gameplay
@@ -81,5 +78,4 @@ namespace Gameplay
             _adButton.Hide();
         }
     }
-
 }
