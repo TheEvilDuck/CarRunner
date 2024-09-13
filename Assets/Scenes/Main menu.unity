@@ -388,6 +388,18 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 5813219755845854355, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.7294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 5813219755845854355, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.61960787
+      objectReference: {fileID: 0}
+    - target: {fileID: 5813219755845854355, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.49019608
+      objectReference: {fileID: 0}
     - target: {fileID: 7001046365671124443, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_Color.b
       value: 0.54901963
@@ -1997,6 +2009,18 @@ PrefabInstance:
     - target: {fileID: 2766240931849273489, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_text
       value: Language
+      objectReference: {fileID: 0}
+    - target: {fileID: 5813219755845854355, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.7294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 5813219755845854355, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.61960787
+      objectReference: {fileID: 0}
+    - target: {fileID: 5813219755845854355, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.49019608
       objectReference: {fileID: 0}
     - target: {fileID: 7001046365671124443, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_Color.b
@@ -3935,7 +3959,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.43656135, y: 1}
-  m_AnchoredPosition: {x: 15.615051, y: 2.999878}
+  m_AnchoredPosition: {x: 15.61499, y: 2.999878}
   m_SizeDelta: {x: -37.22705, y: -104}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &985953861
@@ -4174,7 +4198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1117216483
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4380,31 +4404,31 @@ MonoBehaviour:
   _tutorialData:
   - <DeviceType>k__BackingField: 3
     <TutorialDataElements>k__BackingField:
-    - <Sprite>k__BackingField: {fileID: -361991129, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: b036700a067cd9d4989b0862f74b1344, type: 3}
       <TextId>k__BackingField: tutorial_input_desktop
-    - <Sprite>k__BackingField: {fileID: 1306279860, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: 4e804b2dfe784fe40a02317dc1382c1a, type: 3}
       <TextId>k__BackingField: tutorial_rules
-    - <Sprite>k__BackingField: {fileID: -1406384908, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: 1c001ad549506224a9bcf7cf046fbe70, type: 3}
       <TextId>k__BackingField: tutorial_timer_gates
-    - <Sprite>k__BackingField: {fileID: -1240119025, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: ee69afabe722c5148abef8ce6ed5445e, type: 3}
       <TextId>k__BackingField: tutorial_garages
-    - <Sprite>k__BackingField: {fileID: 21300000, guid: 1338c17e7e30f7b498e65020ba7c8363, type: 3}
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: a5b9a94d2dc607448b950d7b8bc549c2, type: 3}
       <TextId>k__BackingField: tutorial_falls
-    - <Sprite>k__BackingField: {fileID: -1825208571, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: adeb92264093a0f458a459f9f494973b, type: 3}
       <TextId>k__BackingField: tutorial_finish
   - <DeviceType>k__BackingField: 1
     <TutorialDataElements>k__BackingField:
-    - <Sprite>k__BackingField: {fileID: 388245114, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: 4aac52b38507b62498a59eb1319ebe24, type: 3}
       <TextId>k__BackingField: tutorial_input_mobile
-    - <Sprite>k__BackingField: {fileID: 1306279860, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: 4e804b2dfe784fe40a02317dc1382c1a, type: 3}
       <TextId>k__BackingField: tutorial_rules
-    - <Sprite>k__BackingField: {fileID: -1406384908, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: 1c001ad549506224a9bcf7cf046fbe70, type: 3}
       <TextId>k__BackingField: tutorial_timer_gates
-    - <Sprite>k__BackingField: {fileID: -1240119025, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: ee69afabe722c5148abef8ce6ed5445e, type: 3}
       <TextId>k__BackingField: tutorial_garages
-    - <Sprite>k__BackingField: {fileID: 21300000, guid: 1338c17e7e30f7b498e65020ba7c8363, type: 3}
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: a5b9a94d2dc607448b950d7b8bc549c2, type: 3}
       <TextId>k__BackingField: tutorial_falls
-    - <Sprite>k__BackingField: {fileID: -1825208571, guid: 20e5599e71989b945aa97c2644bb4990, type: 3}
+    - <Sprite>k__BackingField: {fileID: 21300000, guid: adeb92264093a0f458a459f9f494973b, type: 3}
       <TextId>k__BackingField: tutorial_finish
   _animations: {fileID: 1121588841}
   _slideText: {fileID: 1501912126}
@@ -5182,7 +5206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1995610092561803839, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 30.86847
+      value: 30.868378
       objectReference: {fileID: 0}
     - target: {fileID: 1995610092561803839, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7884,7 +7908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1968051434
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8201,8 +8225,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.284}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -15}
-  m_SizeDelta: {x: -60, y: -30.000046}
+  m_AnchoredPosition: {x: 0, y: -58.87297}
+  m_SizeDelta: {x: -60, y: 57.746}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2130543755
 MonoBehaviour:
@@ -8253,10 +8277,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46
+  m_fontSize: 46.35
   m_fontSizeBase: 46
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0

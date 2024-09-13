@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 9920c8b11a1808b41aa1f72316bb9a7d
+AssetOrigin:
+  serializedVersion: 1
+  productId: 288596
+  packageName: Low Poly Nature Pack Lite
+  packageVersion: 1.0
+  assetPath: Assets/Low Poly Nature Pack Lite/Models/tent_red.fbx
+  uploadId: 673293
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -16,8 +23,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -36,7 +41,7 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 0.5
-    meshCompression: 0
+    meshCompression: 2
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
@@ -90,7 +95,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.005
+    globalScale: 0.5
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
@@ -107,10 +112,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 288596
-  packageName: Low Poly Nature Pack Lite
-  packageVersion: 1.0
-  assetPath: Assets/Low Poly Nature Pack Lite/Models/tent_red.fbx
-  uploadId: 673293

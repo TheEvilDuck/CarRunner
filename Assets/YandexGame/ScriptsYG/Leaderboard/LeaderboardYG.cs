@@ -80,9 +80,6 @@ namespace YG
             string noData = "...";
             noData = YandexGame.savesData.language switch
             {
-                "ru" => "Нет данных",
-                "en" => "No data",
-                "tr" => "Veri yok",
                 _ => "...",
             };
 
@@ -124,9 +121,6 @@ namespace YG
                 {
                     noData = YandexGame.savesData.language switch
                     {
-                        "ru" => "Нет данных",
-                        "en" => "No data",
-                        "tr" => "Veri yok",
                         _ => "...",
                     };
                 }

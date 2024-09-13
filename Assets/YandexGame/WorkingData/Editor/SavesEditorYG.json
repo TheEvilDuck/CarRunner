@@ -1,5 +1,5 @@
 {
-    "idSave": 3146,
+    "idSave": 3193,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -15,7 +15,8 @@
         "пизда вагины",
         "ъъъ",
         "333",
-        "space_1"
+        "space_1",
+        "Space1"
     ],
     "PassedLevels": [
         "Testing",
@@ -29,10 +30,11 @@
         "пизда вагины",
         "ъъъ",
         "333",
-        "space_1"
+        "space_1",
+        "Space1"
     ],
-    "SelectedLevel": "Field",
-    "Coins": 4287,
+    "SelectedLevel": "Space1",
+    "Coins": 34694,
     "MaxFallTries": 22,
     "IsTutorialComplete": true,
     "savedLanguage": "en",
