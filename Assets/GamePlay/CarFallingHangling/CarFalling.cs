@@ -26,6 +26,9 @@ namespace Gameplay.CarFallingHandling
         {
             _car = car;
             _groundCheckLayer = groundCheckLayer;
+
+            _lastCarRotation = car.Rotation;
+            _lastRoadPosition = car.Position;
         }
 
         public void Update()
