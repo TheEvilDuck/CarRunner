@@ -154,10 +154,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 399646895}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.807394}
+  m_AnchorMin: {x: 0, y: 0.92}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1.1099854}
-  m_SizeDelta: {x: -514.4741, y: 1.6797943}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -500, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &53085982
 MonoBehaviour:
@@ -206,12 +206,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 75.9
-  m_fontSizeBase: 75.9
+  m_fontSize: 60.85
+  m_fontSizeBase: 76
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 60
+  m_fontSizeMax: 76
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -914,13 +914,25 @@ PrefabInstance:
       propertyPath: _animationTime
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 2942213095931245677, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576235520358982590, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910214050372122859, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6014306361714842569, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
       propertyPath: m_Name
       value: SettingsMenu
       objectReference: {fileID: 0}
     - target: {fileID: 6014306361714842569, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6200195981524763410, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
       propertyPath: _animations.Array.data[2].delay
@@ -959,6 +971,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8014487263261707320, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8021467599039799551, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416788430265443871, guid: c6681369ae5fc684d81737b7fca43e01, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -2989,7 +3009,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1708280403
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3941,7 +3961,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 752758209181317995, guid: ab7d0f4cf9bc37d4a8bba9de2cdfa8d5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.5000916
+      value: 1.500061
       objectReference: {fileID: 0}
     - target: {fileID: 1881959926588987092, guid: ab7d0f4cf9bc37d4a8bba9de2cdfa8d5, type: 3}
       propertyPath: _playOnStart
