@@ -1,5 +1,5 @@
 {
-    "idSave": 3193,
+    "idSave": 3195,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -33,7 +33,7 @@
         "space_1",
         "Space1"
     ],
-    "SelectedLevel": "Space1",
+    "SelectedLevel": "Field",
     "Coins": 34694,
     "MaxFallTries": 22,
     "IsTutorialComplete": true,
