@@ -83,6 +83,9 @@ namespace Gameplay
             SetUpCamera();
             SetUpUI();
 
+            if (Application.isFocused)
+                _sceneContext.Get<PauseManager>().Resume();
+
             ShowAd();
 
             _delayedStart += OnDelayedStart;
@@ -97,8 +100,8 @@ namespace Gameplay
             _sceneContext.Get<StateMachine>().Update();
             _sceneContext.Get<CarFalling>().Update();
         }
-
-        private void OnDestroy() 
+        
+        protected override void OnBeforeSceneChanged()
         {
             foreach (IDisposable disposable in _disposables)
                 disposable.Dispose();

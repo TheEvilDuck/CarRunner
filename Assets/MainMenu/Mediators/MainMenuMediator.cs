@@ -1,10 +1,9 @@
-using Common;
 using Common.Data;
 using DI;
 using Levels;
+using Services.SceneManagement;
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace MainMenu
 {
@@ -14,6 +13,7 @@ namespace MainMenu
         private readonly IPlayerData _playerData;
         private readonly LevelsDatabase _levelsDatabase;
         private readonly NotEnoughMoneyPopup _notEnoughMoneyPopup;
+        private readonly ISceneManager _sceneManager;
 
         public MainMenuMediator(DIContainer sceneContainer)
         {
@@ -21,6 +21,7 @@ namespace MainMenu
             _playerData = sceneContainer.Get<IPlayerData>();
             _levelsDatabase = sceneContainer.Get<LevelsDatabase>();
             _notEnoughMoneyPopup = sceneContainer.Get<NotEnoughMoneyPopup>();
+            _sceneManager = sceneContainer.Get<ISceneManager>();
 
             _mainMenuView.MainButtons.ExitClickedEvent.AddListener(OnExitPressed);
             _mainMenuView.LevelSelector.levelSelected += OnLevelSelected;
@@ -39,7 +40,7 @@ namespace MainMenu
         private void OnLevelSelected(string levelId)
         {
             _playerData.SaveSelectedLevel(levelId);
-            SceneManager.LoadScene(SceneIDs.GAMEPLAY);
+            _sceneManager.LoadScene(SceneIDs.GAMEPLAY);
         }
 
         private bool OnBuyLevelButtonPressed(string levelId)

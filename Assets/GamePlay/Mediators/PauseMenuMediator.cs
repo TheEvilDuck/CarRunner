@@ -1,7 +1,7 @@
 using System;
 using Common;
 using DI;
-using UnityEngine.SceneManagement;
+using Services.SceneManagement;
 
 namespace Gameplay
 {
@@ -9,11 +9,13 @@ namespace Gameplay
     {
         private readonly SceneChangingButtons _pauseMenuButtons;
         private readonly PauseManager _pauseManager;
+        private readonly ISceneManager _sceneManager;
 
         public PauseMenuMediator(DIContainer sceneContext)
         {
             _pauseMenuButtons = sceneContext.Get<SceneChangingButtons>();
             _pauseManager = sceneContext.Get<PauseManager>();
+            _sceneManager = sceneContext.Get<ISceneManager>();
 
             _pauseMenuButtons.RestartButtonPressed.AddListener(OnRestartPressed);
             _pauseMenuButtons.GoToMainMenuButtonPressed.AddListener(OnExitPressed);
@@ -27,13 +29,13 @@ namespace Gameplay
         private void OnRestartPressed()
         {
             _pauseManager.Unlock();
-            SceneManager.LoadScene(SceneIDs.GAMEPLAY);
+            _sceneManager.LoadScene(SceneIDs.GAMEPLAY);
         }
 
         private void OnExitPressed()
         {
             _pauseManager.Unlock();
-            SceneManager.LoadScene(SceneIDs.MAIN_MENU);
+            _sceneManager.LoadScene(SceneIDs.MAIN_MENU);
         }
     }
 }

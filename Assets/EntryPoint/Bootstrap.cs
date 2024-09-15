@@ -10,6 +10,7 @@ using Gameplay.UI;
 using Levels;
 using Services.Localization;
 using Services.PlayerInput;
+using Services.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
@@ -59,6 +60,7 @@ namespace EntryPoint
             _projectContext.Register(SetupSoundController);
             _projectContext.Register(() => new RewardProvider());
             _projectContext.Register(SetupImageLoadYG);
+            _projectContext.Register(SetupSceneManager);
             // SetupDeviceType() инициализируется как инстанс, поскольку DeviceType это энам и не может быть null
             // А DI контейнер использует делегат только тогда, когда инстанс объекта null
             // надо будет предусмотреть инициализацию структур и энамов
@@ -206,6 +208,11 @@ namespace EntryPoint
                 new GameObject("Camera").AddComponent<Camera>();
                 MonoBehaviour.Instantiate(Resources.Load<Canvas>(LOADING_SCREEN));
             }
+        }
+
+        private ISceneManager SetupSceneManager()
+        {
+            return new SimpleUnitySceneManager();
         }
 
         private IPlayerInput SetupInput()

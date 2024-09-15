@@ -1,4 +1,4 @@
-namespace Common
+namespace Services.SceneManagement
 {
     public static class SceneIDs
     {

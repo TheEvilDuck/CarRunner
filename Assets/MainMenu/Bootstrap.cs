@@ -28,7 +28,7 @@ namespace MainMenu
             _sceneContext.Get<SoundController>().Play(SoundID.MainMenuMusic);
         }
 
-        private void OnDestroy()
+        protected override void OnBeforeSceneChanged()
         {
             _gameSettings.SaveSettings();
             
@@ -78,6 +78,9 @@ namespace MainMenu
             Debug.Log(_sceneContext.Get<string>(EntryPoint.Bootstrap.PLATFORM_DI_TAG));
             //TODO заменить на сравнение с нужной платформой, я просто хз, какая стринга, в документации нет
             _mainMenuView.MainButtons.Init(true);
+
+            if (Application.isFocused)
+                _sceneContext.Get<PauseManager>().Resume();
             
         }
 
