@@ -26,7 +26,6 @@ namespace EntryPoint
         private const string LOADING_SCREEN = "Loading screen";
         private static Bootstrap _gameInstance;
         private DIContainer _projectContext;
-        private Coroutines _coroutines;
         private List<IDisposable> _disposables;
         private List<GameObject> _dontDestroyOnLoadObjects;
         private Coroutine _tickablesCoroutine;
@@ -48,11 +47,8 @@ namespace EntryPoint
             _projectContext = new DIContainer();
             _disposables = new List<IDisposable>();
             _dontDestroyOnLoadObjects = new List<GameObject>();
-
-            _coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
-            UnityEngine.Object.DontDestroyOnLoad(_coroutines.gameObject);
-            _dontDestroyOnLoadObjects.Add(_coroutines.gameObject);
-
+            
+            _projectContext.Register(SetupCoroutines);
             _projectContext.Register(() => Resources.Load<LevelsDatabase>(LEVEL_DATABASE_PATH));
             _projectContext.Register(() => new GameSettings());
             _projectContext.Register<ISoundSettings>(() => _projectContext.Get<GameSettings>());
@@ -90,7 +86,7 @@ namespace EntryPoint
             _projectContext.Register(() => Resources.LoadAll<LanguageData>(""));
             _projectContext.Register(SetupPlatform, PLATFORM_DI_TAG);
             _projectContext.Register(SetupLeaderboardData);
-            _coroutines.StartCoroutine(SceneSetup());
+            _projectContext.Get<Coroutines>().StartCoroutine(SceneSetup());
             
             YandexGame.GameReadyAPI();
             YandexGame.GetDataEvent -= PluginYGInit;
@@ -127,7 +123,7 @@ namespace EntryPoint
                 tickables.ForEach((x) => x?.Tick(Time.deltaTime));
             };
 
-            _tickablesCoroutine = _coroutines.StartCoroutine(TickTickables(tickables));
+            _tickablesCoroutine = _projectContext.Get<Coroutines>().StartCoroutine(TickTickables(tickables));
 
             return tickables;
         }
@@ -178,7 +174,7 @@ namespace EntryPoint
                 GameObject.Destroy(gameObject);
             }
 
-            _coroutines.StopCoroutine(_tickablesCoroutine);
+            _projectContext.Get<Coroutines>().StopCoroutine(_tickablesCoroutine);
             SceneManager.activeSceneChanged -= OnSceneChanged;
             Application.quitting -= OnApplicationQuit;
             Application.focusChanged -= OnFocusChanged;
@@ -213,6 +209,15 @@ namespace EntryPoint
         private ISceneManager SetupSceneManager()
         {
             return new SimpleUnitySceneManager();
+        }
+
+        private Coroutines SetupCoroutines()
+        {
+            var coroutines = new GameObject("COROUTINES").AddComponent<Coroutines>();
+            UnityEngine.Object.DontDestroyOnLoad(coroutines.gameObject);
+            _dontDestroyOnLoadObjects.Add(coroutines.gameObject);
+
+            return coroutines;
         }
 
         private IPlayerInput SetupInput()

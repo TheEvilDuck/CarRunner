@@ -13,5 +13,6 @@ namespace MainMenu.Shop.View
 
         public abstract void Init(ShopItem shopItem);
         public virtual void SetCurrencyImage(Sprite sprite) {}
+        public virtual void SetItemImage(Sprite sprite) {}
     }
 }

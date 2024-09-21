@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common;
 using DI;
 using MainMenu.Shop.Logic;
 using MainMenu.Shop.View;
+using Services.SpriteURLLoading;
 using UnityEngine;
 using YG;
 using YG.Utils.Pay;
@@ -19,7 +21,6 @@ namespace MainMenu.Shop
         {
             List<ShopItemView> result = new List<ShopItemView>();
             var purchases = sceneContext.Get<Purchase[]>().ToList();
-            var currencyImageLoad = sceneContext.Get<ImageLoadYG>();
 
             foreach (ShopItemAndPrefab shopItemAndPrefab in _shopContent)
             {
@@ -33,16 +34,28 @@ namespace MainMenu.Shop
 
                     if (purchase != null)
                     {
-                        currencyImageLoad.Load(purchase.currencyImageURL);
-                        
-                        foreach (var data in YandexGame.purchases)
+                        SpriteURLLoader currencyImageLoader = new SpriteURLLoader();
+                        SpriteURLLoader itemImageLoader = new SpriteURLLoader();
+
+                        currencyImageLoader.LoadedSprite.changed += OnCurrencyImageLoaded;
+                        itemImageLoader.LoadedSprite.changed += OnItemImageLoaded;
+
+                        var coroutines = sceneContext.Get<Coroutines>();
+
+                        void OnCurrencyImageLoaded(Sprite sprite)
                         {
-                            if (data.id == donateMoney.Id)
-                            {
-                                //currencyImageLoad.Load(data.currencyImageURL);
-                                //shopItemView.SetCurrencyImage(currencyImageLoad.spriteImage.sprite);
-                            }
+                            shopItemView.SetCurrencyImage(sprite);
+                            currencyImageLoader.LoadedSprite.changed -= OnCurrencyImageLoaded;
                         }
+
+                        void OnItemImageLoaded(Sprite sprite)
+                        {
+                            shopItemView.SetItemImage(sprite);
+                            itemImageLoader.LoadedSprite.changed -= OnItemImageLoaded;
+                        }
+
+                        coroutines.StartCoroutine(currencyImageLoader.Load(purchase.currencyImageURL));
+                        coroutines.StartCoroutine(itemImageLoader.Load(purchase.imageURI));
                     }
                 }
 

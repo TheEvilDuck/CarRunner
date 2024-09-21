@@ -11,6 +11,8 @@ namespace MainMenu.Shop.View
         [SerializeField] private TextMeshProUGUI _costText;
         [SerializeField] private TextMeshProUGUI _rewardText;
         [SerializeField] private Image _costImage;
+        [SerializeField] private Image _itemImage;
+        
         public override void Init(ShopItem shopItem)
         {
             if (shopItem is not DonateMoney donateMoney)
@@ -23,6 +25,11 @@ namespace MainMenu.Shop.View
         public override void SetCurrencyImage(Sprite sprite)
         {
             _costImage.sprite = sprite;
+        }
+
+        public override void SetItemImage(Sprite sprite)
+        {
+            _itemImage.sprite = sprite;
         }
     }
 }
