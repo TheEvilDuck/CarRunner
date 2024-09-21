@@ -82,6 +82,9 @@ namespace EntryPoint
 
         private void PluginYGInit()
         {
+            YandexGameFullScreenAd yandexGameFullScreenAd = new YandexGameFullScreenAd();
+            _disposables.Add(yandexGameFullScreenAd);
+            _projectContext.Register(yandexGameFullScreenAd);
             _projectContext.Register(SetupPlayerData);
             _projectContext.Register(SetupInput);
             _projectContext.Register(SetupLocalizationService);

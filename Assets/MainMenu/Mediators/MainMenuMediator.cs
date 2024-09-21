@@ -1,9 +1,11 @@
+using Common;
 using Common.Data;
 using DI;
 using Levels;
 using Services.SceneManagement;
 using System;
 using UnityEngine;
+using YG;
 
 namespace MainMenu
 {
@@ -14,6 +16,7 @@ namespace MainMenu
         private readonly LevelsDatabase _levelsDatabase;
         private readonly NotEnoughMoneyPopup _notEnoughMoneyPopup;
         private readonly ISceneManager _sceneManager;
+        private readonly YandexGameFullScreenAd _yandexGameFullScreenAd;
 
         public MainMenuMediator(DIContainer sceneContainer)
         {
@@ -22,25 +25,32 @@ namespace MainMenu
             _levelsDatabase = sceneContainer.Get<LevelsDatabase>();
             _notEnoughMoneyPopup = sceneContainer.Get<NotEnoughMoneyPopup>();
             _sceneManager = sceneContainer.Get<ISceneManager>();
+            _yandexGameFullScreenAd = sceneContainer.Get<YandexGameFullScreenAd>();
 
             _mainMenuView.MainButtons.ExitClickedEvent.AddListener(OnExitPressed);
             _mainMenuView.LevelSelector.levelSelected += OnLevelSelected;
             _mainMenuView.LevelSelector.buyLevelPressed += OnBuyLevelButtonPressed;
             _notEnoughMoneyPopup.yesClicked += OnYesNotEnoughMoneyPopupPressed;
+            _yandexGameFullScreenAd.AdIsShown += OnAdIsShown;
         }
+
         public void Dispose()
         {
             _mainMenuView.MainButtons.ExitClickedEvent.RemoveListener(OnExitPressed);
             _mainMenuView.LevelSelector.levelSelected -= OnLevelSelected;
             _mainMenuView.LevelSelector.buyLevelPressed -= OnBuyLevelButtonPressed;
             _notEnoughMoneyPopup.yesClicked -= OnYesNotEnoughMoneyPopupPressed;
+            _yandexGameFullScreenAd.AdIsShown -= OnAdIsShown;
         }
 
         private void OnExitPressed() => Application.Quit();
+
+        private void OnAdIsShown() => _sceneManager.LoadScene(SceneIDs.GAMEPLAY);
+
         private void OnLevelSelected(string levelId)
         {
             _playerData.SaveSelectedLevel(levelId);
-            _sceneManager.LoadScene(SceneIDs.GAMEPLAY);
+            _yandexGameFullScreenAd.ShowFullscreenAd();
         }
 
         private bool OnBuyLevelButtonPressed(string levelId)

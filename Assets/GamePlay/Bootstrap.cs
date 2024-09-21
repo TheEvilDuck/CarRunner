@@ -86,8 +86,6 @@ namespace Gameplay
             if (Application.isFocused)
                 _sceneContext.Get<PauseManager>().Resume();
 
-            ShowAd();
-
             _delayedStart += OnDelayedStart;
         }
 
@@ -267,7 +265,5 @@ namespace Gameplay
             _cameraFollow.transform.position = car.transform.position;
             _cameraFollow.SetTarget(car.transform);
         }
-        
-        private void ShowAd() => YandexGame.FullscreenShow();
     }
 }
