@@ -9,6 +9,7 @@ using MainMenu.LanguageSelection;
 using MainMenu.Shop;
 using Services.Localization;
 using UnityEngine;
+using YG;
 
 namespace MainMenu
 {
@@ -74,6 +75,7 @@ namespace MainMenu
             _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels, _sceneContext.Get<ILeaderBoardData>());
             _disposables.Add(_mainMenuView.LevelSelector);
             _mainMenuView.ShopView.Init(_shopItemFactory, _sceneContext);
+            YandexGame.ConsumePurchases();
             _mainMenuView.TutorialView.Init(deviceType);
             Debug.Log(_sceneContext.Get<string>(EntryPoint.Bootstrap.PLATFORM_DI_TAG));
             //TODO заменить на сравнение с нужной платформой, я просто хз, какая стринга, в документации нет

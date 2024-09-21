@@ -36,7 +36,6 @@ namespace MainMenu.Shop.Logic
             _onPurchaseSuccessEvent = onPurchaseSuccessEvent;
 
             YandexGame.PurchaseSuccessEvent += _onPurchaseSuccessEvent;
-            YandexGame.ConsumePurchases();
         }
 
         public override bool TryClaim(DIContainer sceneContext)
