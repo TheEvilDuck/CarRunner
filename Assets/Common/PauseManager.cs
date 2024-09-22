@@ -31,6 +31,7 @@ namespace Common
             if (_pausables.Contains(pausable))
             {
                 Debug.LogWarning($"Pausable {pausable.GetType()} is already registered! Registration will be ignored");
+                return;
             }
 
             _pausables.Add(pausable);
