@@ -60,7 +60,7 @@ namespace EntryPoint
             // SetupDeviceType() инициализируется как инстанс, поскольку DeviceType это энам и не может быть null
             // А DI контейнер использует делегат только тогда, когда инстанс объекта null
             // надо будет предусмотреть инициализацию структур и энамов
-            _projectContext.Register(SetupDeviceType);
+            _projectContext.Register(SetupDeviceType());
             _projectContext.Register(SetupPause);
             _projectContext.Register(SetupTickables).NonLazy();
             
