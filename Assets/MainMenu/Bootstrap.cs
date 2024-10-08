@@ -30,6 +30,8 @@ namespace MainMenu
 
         protected override void OnBeforeSceneChanged()
         {
+            base.OnBeforeSceneChanged();
+
             _gameSettings.SaveSettings();
             
             foreach (IDisposable disposable in _disposables)

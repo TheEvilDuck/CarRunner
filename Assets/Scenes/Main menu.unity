@@ -4312,7 +4312,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1121588840
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5206,7 +5206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1995610092561803839, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 30.868378
+      value: 30.868408
       objectReference: {fileID: 0}
     - target: {fileID: 1995610092561803839, guid: 9aec305ef5680ca4e8167b2f28dd5db6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5679,8 +5679,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.45000002}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.5007324, y: -18.756104}
-  m_SizeDelta: {x: 1471.2134, y: -34.507797}
+  m_AnchoredPosition: {x: -0.5, y: 19}
+  m_SizeDelta: {x: 966.832, y: -126.214}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1444734020
 MonoBehaviour:
@@ -5956,8 +5956,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.33200002}
   m_AnchorMax: {x: 1, y: 0.33200002}
-  m_AnchoredPosition: {x: -0.5, y: -15}
-  m_SizeDelta: {x: -187, y: 249.724}
+  m_AnchoredPosition: {x: -0.5, y: 32.127}
+  m_SizeDelta: {x: -57.4102, y: 329.3743}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1501912126
 MonoBehaviour:
@@ -6006,11 +6006,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 72
+  m_fontSizeBase: 56.84
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 45
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -6044,7 +6044,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 5.4759455, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -8277,7 +8277,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.95
+  m_fontSize: 43.9
   m_fontSizeBase: 46
   m_fontWeight: 400
   m_enableAutoSizing: 1

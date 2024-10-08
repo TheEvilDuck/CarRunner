@@ -25,6 +25,8 @@ namespace EntryPoint
         private void OnDestroy() 
         {
             _projectContext.Get<ISceneManager>().beforeSceneLoadingStarted -= OnBeforeSceneChanged;
+
+            Debug.Log("Monobehaviour bootstrap destroyed");
         }
 
         private IEnumerator Start() 
@@ -38,7 +40,10 @@ namespace EntryPoint
         }
 
         protected virtual void Setup() {}
-        protected virtual void OnBeforeSceneChanged() {}
+        protected virtual void OnBeforeSceneChanged() 
+        {
+            _projectContext.Get<ISceneManager>().beforeSceneLoadingStarted -= OnBeforeSceneChanged;
+        }
     }
 
 }

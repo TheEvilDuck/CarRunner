@@ -2,6 +2,7 @@ using System;
 using Common;
 using DI;
 using Services.SceneManagement;
+using UnityEngine;
 
 namespace Gameplay
 {
@@ -10,12 +11,14 @@ namespace Gameplay
         private readonly SceneChangingButtons _pauseMenuButtons;
         private readonly PauseManager _pauseManager;
         private readonly ISceneManager _sceneManager;
+        private readonly YandexGameFullScreenAd _yandexGameFullScreenAd;
 
         public PauseMenuMediator(DIContainer sceneContext)
         {
             _pauseMenuButtons = sceneContext.Get<SceneChangingButtons>();
             _pauseManager = sceneContext.Get<PauseManager>();
             _sceneManager = sceneContext.Get<ISceneManager>();
+            _yandexGameFullScreenAd = sceneContext.Get<YandexGameFullScreenAd>();
 
             _pauseMenuButtons.RestartButtonPressed.AddListener(OnRestartPressed);
             _pauseMenuButtons.GoToMainMenuButtonPressed.AddListener(OnExitPressed);
@@ -28,7 +31,6 @@ namespace Gameplay
 
         private void OnRestartPressed()
         {
-            _pauseManager.Unlock();
             _sceneManager.LoadScene(SceneIDs.GAMEPLAY);
         }
 
@@ -36,6 +38,12 @@ namespace Gameplay
         {
             _pauseManager.Unlock();
             _sceneManager.LoadScene(SceneIDs.MAIN_MENU);
+        }
+
+        private void OnAdIsShown()
+        {
+            //_pauseManager.Unlock();
+            //_sceneManager.LoadScene(SceneIDs.GAMEPLAY);
         }
     }
 }
