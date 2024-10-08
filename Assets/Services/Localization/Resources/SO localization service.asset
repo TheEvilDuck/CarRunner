@@ -484,7 +484,7 @@ MonoBehaviour:
         without a haste nor competition - the time will not be saved. We recommend
         you to watch the tutorial first in the main menu (and the first watching
         will provide you a small reward)\r"
-  - textId: Space2
+  - textId: Spacee2
     localizationDataElements:
     - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
       translation: Space coaster
