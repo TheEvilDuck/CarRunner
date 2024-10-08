@@ -106,11 +106,8 @@ namespace Gameplay
         {
             base.OnBeforeSceneChanged();
 
-            Debug.Log("Resources clean up");
-
             foreach (IDisposable disposable in _disposables)
             {
-                Debug.Log($"Disposed {disposable.GetType()}");
                 disposable?.Dispose();
             }
 
@@ -123,8 +120,6 @@ namespace Gameplay
             scenePause.Unregister(pauseLocker);
             globalPause.Unlock();
             globalPause.Unregister(scenePause);
-
-            Debug.Log("Resources clean up done!");
             
             YandexGame.GameplayStop();
         }

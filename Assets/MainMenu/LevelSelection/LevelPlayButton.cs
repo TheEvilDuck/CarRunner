@@ -44,14 +44,12 @@ namespace MainMenu.LevelSelection
             }
 
             TextId = _playTextId;
-            Debug.Log(_playTextId);
             updateRequested?.Invoke(this);
         }
         public void ShowLocked(int cost) => _buttonText.text = cost.ToString();
 
         public void UpdateText(string text)
         {
-            Debug.Log(text);
             _buttonText.text = text;
         }
 

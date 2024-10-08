@@ -7,7 +7,11 @@ namespace Levels
     [CreateAssetMenu(fileName = "Levels database", menuName = "Levels/New levels database")]
     public class LevelsDatabase : ScriptableObject
     {
+        [SerializeField] private LevelData _tutorialLevel;
+
         [SerializeField] private List<LevelData> _levels;
+
+        public string TutorialLevelId => _tutorialLevel.LevelId;
 
         public Level GetLevel(string id) => FindLevel(id).Level;
 
@@ -45,6 +49,9 @@ namespace Levels
 
         private LevelData FindLevel(string id)
         {
+            if (string.Equals(id, TutorialLevelId))
+                return _tutorialLevel;
+
             foreach (LevelData levelData in _levels)
             {
                 if (string.Equals(id, levelData.LevelId))

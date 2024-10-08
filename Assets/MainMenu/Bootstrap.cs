@@ -5,6 +5,7 @@ using Common.Data;
 using Common.Mediators;
 using Common.Sound;
 using EntryPoint;
+using Levels;
 using MainMenu.LanguageSelection;
 using MainMenu.Shop;
 using Services.Localization;
@@ -73,11 +74,16 @@ namespace MainMenu
             DeviceType deviceType = _sceneContext.Get<DeviceType>();
 
             _mainMenuView.Init();
-            _mainMenuView.LevelSelector.Init(playerData.PassedLevels, playerData.AvailableLevels, _sceneContext.Get<ILeaderBoardData>());
+            _mainMenuView.LevelSelector.Init(
+                playerData.PassedLevels, 
+                playerData.AvailableLevels, 
+                _sceneContext.Get<ILeaderBoardData>(), 
+                _sceneContext.Get<LevelsDatabase>().TutorialLevelId
+                );
+            
             _disposables.Add(_mainMenuView.LevelSelector);
             _mainMenuView.ShopView.Init(_shopItemFactory, _sceneContext);
             _mainMenuView.TutorialView.Init(deviceType);
-            Debug.Log(_sceneContext.Get<string>(EntryPoint.Bootstrap.PLATFORM_DI_TAG));
             //TODO заменить на сравнение с нужной платформой, я просто хз, какая стринга, в документации нет
             _mainMenuView.MainButtons.Init(true);
 

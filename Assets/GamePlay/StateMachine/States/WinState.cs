@@ -20,14 +20,15 @@ namespace Gameplay.States
             var leaderboard = _sceneContext.Get<ILeaderBoardData>();
             var timer = _sceneContext.Get<Timer>();
             var rewardProvider = _sceneContext.Get<RewardProvider>();
+            var levelsDatabase = _sceneContext.Get<LevelsDatabase>();
 
             playerData.AddPassedLevel(playerData.SelectedLevel);
 
-            int coinsReward = rewardProvider.GetLevelCompletionReward(timer.CurrentTime, playerData, _sceneContext.Get<LevelsDatabase>());
+            int coinsReward = rewardProvider.GetLevelCompletionReward(timer.CurrentTime, playerData, levelsDatabase);
             playerData.AddCoins(coinsReward);
             _sceneContext.Get<EndOfTheGame>().Win(coinsReward);
 
-            if (timer.CurrentTime > 0)
+            if (timer.CurrentTime > 0 && !string.Equals(playerData.SelectedLevel, levelsDatabase.TutorialLevelId))
             {
                 leaderboard.SaveLevelRecord(playerData.SelectedLevel, timer.CurrentTime);
             }

@@ -33,7 +33,6 @@ namespace Gameplay
                             return;
 
                         currentCarConfig.Value = garage.CarConfig;
-                        Debug.Log(currentCarConfig.Value.name);
                         _car.InitCar(garage.CarConfig,wheelPrefab);
                         _timer.OffsetTime(-garage.TimeCost);
                     }

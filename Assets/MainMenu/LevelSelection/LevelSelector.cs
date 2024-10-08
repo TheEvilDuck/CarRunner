@@ -24,6 +24,7 @@ namespace MainMenu.LevelSelection
         [SerializeField] private LeaderboardYG _leaderboardYG;
         [SerializeField] private UIAnimatorSequence _leaderboardLoadingAnimation;
         [SerializeField] private GameObject _leaderboardLoadingGameObject;
+        [SerializeField] private GameObject _tutorialLevelText;
 
         public event Action<string> levelSelected;
         public event Func<string, bool> buyLevelPressed;
@@ -36,13 +37,32 @@ namespace MainMenu.LevelSelection
 
         public UnityEvent BackPressed => _backButton.onClick;
 
-        public void Init(IEnumerable<string> passedLevels, IEnumerable<string> availableLevels, ILeaderBoardData leaderBoardData)
+        public void Init(IEnumerable<string> passedLevels, IEnumerable<string> availableLevels, ILeaderBoardData leaderBoardData, string tutorialLevelId)
         {
             _buttons = new Dictionary<LevelButton, string>();
             _subscribtions = new Dictionary<LevelButton, Action<LBData>>();
             _levelPlayButton.Hide();
             _leaderboardLoadingAnimation.gameObject.SetActive(false);
             _leaderBoardData = leaderBoardData;
+            _tutorialLevelText.SetActive(false);
+
+            LevelButton tutorialButton = Instantiate(_levelButtonPrefab, _buttonsParent);
+            tutorialButton.Init(tutorialLevelId);
+            _buttons.Add(tutorialButton, tutorialLevelId);
+
+            tutorialButton.Clicked.AddListener(() => 
+            {
+                _levelPlayButton.Show();
+                _levelPlayButton.ShowPlayText();
+                _isReadyToPlay = true;
+
+                _tutorialLevelText.SetActive(true);
+                _leaderboardYG.gameObject.SetActive(false);
+                _currentLevelId = tutorialLevelId;
+            });
+
+            _uIAnimatorSequence.AddAnimation(tutorialButton.PosittionAnimator, 0.1f, false);
+            _uIAnimatorSequence.AddAnimation(tutorialButton.TransparencyAnimation, 0, false);
 
             foreach (string levelId in _levels.GetAllLevels())
             {
@@ -78,6 +98,7 @@ namespace MainMenu.LevelSelection
 
                     if (!string.Equals(_currentLevelId, levelId))
                     {
+                        _tutorialLevelText.SetActive(false);
                         _currentLevelId = levelId;
                         _leaderboardYG.SetNameLB(YandexCloudLeaderboard.LEADERBOARD_KEY + _currentLevelId);
                         _leaderboardLoadingGameObject.SetActive(true);
@@ -141,6 +162,7 @@ namespace MainMenu.LevelSelection
         {
             _levelPlayButton.Hide();
             _leaderboardYG.gameObject.SetActive(false);
+            _tutorialLevelText.SetActive(false);
             gameObject.SetActive(false);
         }
 

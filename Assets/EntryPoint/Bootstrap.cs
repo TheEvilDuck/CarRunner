@@ -53,7 +53,6 @@ namespace EntryPoint
             _projectContext.Register(() => new GameSettings());
             _projectContext.Register<ISoundSettings>(() => _projectContext.Get<GameSettings>());
             _projectContext.Register<ICameraSettings>(() => _projectContext.Get<GameSettings>());
-            _projectContext.Register(SetupSoundController);
             _projectContext.Register(() => new RewardProvider());
             _projectContext.Register(SetupImageLoadYG);
             _projectContext.Register(SetupSceneManager);
@@ -74,11 +73,13 @@ namespace EntryPoint
 
             YandexGame.GetDataEvent += PluginYGInit;
             YandexGame.GetPaymentsEvent += OnPaymentsGot;
+            YandexGame.OpenFullAdEvent += OnFullVideoOpenEvent;
         }
 
         private void PluginYGInit()
         {
             _projectContext.Register(SetupYandexFuulScreenAd);
+            _projectContext.Register(SetupSoundController);
             _projectContext.Register(SetupPlayerData);
             _projectContext.Register(SetupInput);
             _projectContext.Register(SetupLocalizationService);
@@ -94,6 +95,8 @@ namespace EntryPoint
 
             OnFocusChanged(true);
         }
+
+        private void OnFullVideoOpenEvent() => _projectContext.Get<PauseManager>().Pause();
 
         private void OnSceneChanged(Scene previousScene, Scene nextScene)
         {
@@ -168,20 +171,16 @@ namespace EntryPoint
 
         private void OnApplicationQuit()
         {
-            Debug.Log("Quitting application...");
-
             foreach (IDisposable disposable in _disposables)
             {
                 if (disposable != null)
                 {
-                    Debug.Log($"Disposing {disposable.GetType()}");
                     disposable.Dispose();
                 }
             }
 
             foreach (GameObject gameObject in _dontDestroyOnLoadObjects)
             {
-                Debug.Log($"Destroying {gameObject.name} from _dontDestroyOnLoadObjects");
                 GameObject.Destroy(gameObject);
             }
 
@@ -189,6 +188,7 @@ namespace EntryPoint
             SceneManager.activeSceneChanged -= OnSceneChanged;
             Application.quitting -= OnApplicationQuit;
             Application.focusChanged -= OnFocusChanged;
+            YandexGame.OpenFullAdEvent -= OnFullVideoOpenEvent;
         }
 
         private async Awaitable SceneSetup()
@@ -236,8 +236,6 @@ namespace EntryPoint
             IPlayerInput playerInput;
             DeviceType deviceType = _projectContext.Get<DeviceType>();
 
-            Debug.Log($"Setup player input for : {deviceType}");
-
             if (deviceType == DeviceType.Desktop)
                 playerInput = new DesktopInput();
             else if (deviceType == DeviceType.Handheld)
@@ -265,6 +263,7 @@ namespace EntryPoint
             }
 
             playerData.AddAvailableLevel(_projectContext.Get<LevelsDatabase>().GetFirstLevel());
+            playerData.AddAvailableLevel(_projectContext.Get<LevelsDatabase>().TutorialLevelId);
 
             return playerData;
         }
@@ -302,8 +301,6 @@ namespace EntryPoint
             deviceType = DeviceType.Desktop;
             //deviceType = DeviceType.Handheld;
 #endif
-
-            Debug.Log($"Device type selected: {deviceType}");
 
             return deviceType;
         }

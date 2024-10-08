@@ -25,7 +25,6 @@ namespace MainMenu.LanguageSelection
         public void Init(IEnumerable<LanguageData> languageData, string currentLanguage)
         {
             _buttons = new Dictionary<LanguageUI, UnityAction>();
-            Debug.Log($"Initializaing language selector menu with {currentLanguage}");
 
             foreach (var data in languageData)
             {
