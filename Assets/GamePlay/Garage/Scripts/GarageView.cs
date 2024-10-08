@@ -48,6 +48,7 @@ namespace Gameplay.Garages
 
             _currentCarConfig = currentCarConfig;
             _currentCarConfig.changed += OnPlayerCarChanged;
+            _carView.ChangeMaterial(_garageData.CarConfig.Materials);
             OnPlayerCarChanged(_currentCarConfig.Value);
         }
 

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a13ed0a0258ab5b4cbd546fc414a6c87, type: 3}
-  m_Name: Bus
+  m_Name: Rocket van
   m_EditorClassIdentifier: 
-  <Acceleration>k__BackingField: 350
-  <MaxSpeed>k__BackingField: 60
+  <Acceleration>k__BackingField: 4500
+  <MaxSpeed>k__BackingField: 130
   <Materials>k__BackingField:
-  - {fileID: 2100000, guid: 3a87e53ad4924264d8d815e461df6664, type: 2}
-  <CarViewPrefab>k__BackingField: {fileID: 7791317916947039077, guid: 5078fce33d79385438e77a66de430e13, type: 3}
+  - {fileID: 2100000, guid: 8d937782c962a9044a28c21514c73ffb, type: 2}
+  <CarViewPrefab>k__BackingField: {fileID: 2546989195843074419, guid: 9477e79ef7bef4c4b838f3caf4fba920, type: 3}

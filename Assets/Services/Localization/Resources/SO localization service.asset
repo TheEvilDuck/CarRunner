@@ -484,4 +484,17 @@ MonoBehaviour:
         without a haste nor competition - the time will not be saved. We recommend
         you to watch the tutorial first in the main menu (and the first watching
         will provide you a small reward)\r"
+  - textId: Space2
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      translation: Space coaster
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      translation: "\u041A\u043E\u0441\u043C\u0438\u0447\u0435\u0441\u043A\u0438\u0435
+        \u0433\u043E\u0440\u043A\u0438"
+  - textId: Space3
+    localizationDataElements:
+    - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
+      translation: Car LHC
+    - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
+      translation: "\u0411\u0410\u041A \u043C\u0430\u0448\u0438\u043D"
   _defaultLanguage: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}

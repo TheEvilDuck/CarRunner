@@ -12,6 +12,7 @@ namespace Gameplay.CarFallingHandling
         }
         public void HandleFalling(Vector3 lastCarPosition, Quaternion lastCarRotation)
         {
+            lastCarRotation.eulerAngles = new Vector3(0, lastCarRotation.eulerAngles.y, 0);
             _car.TeleportCar(lastCarPosition, lastCarRotation);
         }
     }

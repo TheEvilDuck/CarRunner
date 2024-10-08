@@ -21,14 +21,16 @@ namespace Gameplay.CarFallingHandling
         private Vector3 _lastRoadPosition;
         private float _lastTime;
         private float _returnLastTime;
+        private readonly float _yPositionToTeleportOffset;
 
-        public CarFalling(Car car, LayerMask groundCheckLayer)
+        public CarFalling(Car car, LayerMask groundCheckLayer, float yPositionToTeleportOffset)
         {
             _car = car;
             _groundCheckLayer = groundCheckLayer;
 
             _lastCarRotation = car.Rotation;
             _lastRoadPosition = car.Position;
+            _yPositionToTeleportOffset = yPositionToTeleportOffset;
         }
 
         public void Update()
@@ -81,7 +83,7 @@ namespace Gameplay.CarFallingHandling
 
         private bool CheckCarPosition()
         {
-            return _car.Position.y <= Y_POSITION_TO_TELEPORT + _lastRoadPosition.y;
+            return _car.Position.y <= Y_POSITION_TO_TELEPORT + _lastRoadPosition.y + _yPositionToTeleportOffset;
         }
 
         private Vector3[] GetGroundCheckPositions()

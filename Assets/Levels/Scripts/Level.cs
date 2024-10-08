@@ -18,6 +18,7 @@ namespace Levels
         [SerializeField] private RoadSystem _roadSystem;
         [SerializeField] private CarConfig _startCar;
         [SerializeField] private Material _skybox;
+        [SerializeField] private float _yPositionToTeleportOffset = 0;
         [SerializeField] private Color _ambientSkyColor;
         [SerializeField] private Color _ambientEquatorColor;
         [SerializeField] private Color _ambientGroundColor;
@@ -39,5 +40,6 @@ namespace Levels
         public Color AmbientSkyColor => _ambientSkyColor;
         public Color AmbientEquatorColor => _ambientEquatorColor;
         public Color AmbientGroundColor => _ambientGroundColor;
+        public float YPositionToTeleportOffset => _yPositionToTeleportOffset;
     }
 }

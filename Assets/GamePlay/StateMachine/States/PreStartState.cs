@@ -19,6 +19,11 @@ namespace Gameplay.States
             _startMessage = sceneContext.Get<StartMessage>();
         }
 
+        public override void Update()
+        {
+            _carBehaviour.Brake(true);
+        }
+
         protected override void OnEnter()
         {
             _carBehaviour.enabled = false;
