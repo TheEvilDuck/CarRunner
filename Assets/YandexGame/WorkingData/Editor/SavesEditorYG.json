@@ -1,5 +1,5 @@
 {
-    "idSave": 3195,
+    "idSave": 3236,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -34,9 +34,9 @@
         "Space1"
     ],
     "SelectedLevel": "Field",
-    "Coins": 34694,
+    "Coins": 34895,
     "MaxFallTries": 22,
     "IsTutorialComplete": true,
-    "savedLanguage": "en",
+    "savedLanguage": "ru",
     "WatchShopAdLastTime": -8584759800708976450
 }

@@ -1,10 +1,11 @@
 using System;
+using UnityEngine;
 
 namespace Services.SceneManagement
 {
     public interface ISceneManager
     {
         public event Action beforeSceneLoadingStarted;
-        public void LoadScene(string sceneId);
+        public Awaitable LoadScene(string sceneId);
     }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Services.Localization
 {
     public class LocalizationRegistrator

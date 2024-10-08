@@ -2,6 +2,7 @@ using System;
 using Common;
 using DI;
 using Services.SceneManagement;
+using UnityEngine;
 
 namespace Gameplay
 {
@@ -21,22 +22,16 @@ namespace Gameplay
 
             _pauseMenuButtons.RestartButtonPressed.AddListener(OnRestartPressed);
             _pauseMenuButtons.GoToMainMenuButtonPressed.AddListener(OnExitPressed);
-
-            _yandexGameFullScreenAd.AdIsShown += OnAdIsShown;
         }
         public void Dispose()
         {
             _pauseMenuButtons.RestartButtonPressed.RemoveListener(OnRestartPressed);
             _pauseMenuButtons.GoToMainMenuButtonPressed.RemoveListener(OnExitPressed);
-
-            _yandexGameFullScreenAd.AdIsShown -= OnAdIsShown;
         }
 
         private void OnRestartPressed()
         {
-            //_pauseManager.Unlock();
-            //_sceneManager.LoadScene(SceneIDs.GAMEPLAY);
-            _yandexGameFullScreenAd.ShowFullscreenAd();
+            _sceneManager.LoadScene(SceneIDs.GAMEPLAY);
         }
 
         private void OnExitPressed()
@@ -47,8 +42,8 @@ namespace Gameplay
 
         private void OnAdIsShown()
         {
-            _pauseManager.Unlock();
-            _sceneManager.LoadScene(SceneIDs.GAMEPLAY);
+            //_pauseManager.Unlock();
+            //_sceneManager.LoadScene(SceneIDs.GAMEPLAY);
         }
     }
 }

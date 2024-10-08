@@ -82,9 +82,7 @@ namespace EntryPoint
 
         private void PluginYGInit()
         {
-            YandexGameFullScreenAd yandexGameFullScreenAd = new YandexGameFullScreenAd();
-            _disposables.Add(yandexGameFullScreenAd);
-            _projectContext.Register(yandexGameFullScreenAd);
+            _projectContext.Register(SetupYandexFuulScreenAd);
             _projectContext.Register(SetupPlayerData);
             _projectContext.Register(SetupInput);
             _projectContext.Register(SetupLocalizationService);
@@ -104,6 +102,8 @@ namespace EntryPoint
         private void OnSceneChanged(Scene previousScene, Scene nextScene)
         {
             _projectContext.Get<SoundController>().StopAll();
+
+            LoadScreen();
             
             InitSceneBootstrap();
         }
@@ -133,6 +133,14 @@ namespace EntryPoint
             _tickablesCoroutine = _coroutines.StartCoroutine(TickTickables(tickables));
 
             return tickables;
+        }
+
+        private YandexGameFullScreenAd SetupYandexFuulScreenAd()
+        {
+            YandexGameFullScreenAd yandexGameFullScreenAd = new YandexGameFullScreenAd();
+            _disposables.Add(yandexGameFullScreenAd);
+
+            return yandexGameFullScreenAd;
         }
 
         private ImageLoadYG SetupImageLoadYG()
@@ -187,10 +195,10 @@ namespace EntryPoint
             Application.focusChanged -= OnFocusChanged;
         }
 
-        private IEnumerator SceneSetup()
+        private async Awaitable SceneSetup()
         {
             if (!InitSceneBootstrap())
-                yield return SceneManager.LoadSceneAsync(SceneIDs.MAIN_MENU);
+                await _projectContext.Get<ISceneManager>().LoadScene(SceneIDs.MAIN_MENU);
         }
 
         private bool InitSceneBootstrap()

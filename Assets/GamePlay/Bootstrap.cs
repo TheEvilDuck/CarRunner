@@ -29,7 +29,6 @@ namespace Gameplay
         public const string GAMEPLAY_PAUSE_MANAGER_TAG = "Gameplay pause";
         private const string RANGE_OF_CAMERA_SETTINGS_PATH = "Range Of Camera Settings";
         public const int WATCH_AD_REWAD_ID = 2;
-        [SerializeField] private Camera _camera;
         [SerializeField] private TimerView _timerView;
         [SerializeField] private Car _carPrefab;
         [SerializeField] private GameObject _wheelPrefab;
@@ -51,6 +50,8 @@ namespace Gameplay
         {
             _disposables = new List<IDisposable>();
 
+            _sceneContext.Get<YandexGameFullScreenAd>().ShowFullscreenAd();
+
             _sceneContext.Register(() => new PauseLocker(_sceneContext.Get<PauseManager>()));
             _sceneContext.Register(() => new YandexGameGameplay());
             _sceneContext.Register(SetUpLevel);
@@ -70,7 +71,7 @@ namespace Gameplay
             _sceneContext.Register(_pauseMenuButtons);
             _sceneContext.Register(_anticlicker, "anticlicker");
             _sceneContext.Register(Resources.Load<RangeOfCameraSettings>(RANGE_OF_CAMERA_SETTINGS_PATH));
-            _sceneContext.Register(_camera);
+            _sceneContext.Register(() => Camera.main);
             _sceneContext.Register(_cameraFollow);
             _sceneContext.Register(_startMessage);
             _sceneContext.Register(() => new Observable<CarConfig>());
@@ -85,6 +86,8 @@ namespace Gameplay
 
             if (Application.isFocused)
                 _sceneContext.Get<PauseManager>().Resume();
+            else
+                _sceneContext.Get<PauseManager>().Pause();
 
             _delayedStart += OnDelayedStart;
         }
@@ -101,8 +104,15 @@ namespace Gameplay
         
         protected override void OnBeforeSceneChanged()
         {
+            base.OnBeforeSceneChanged();
+
+            Debug.Log("Resources clean up");
+
             foreach (IDisposable disposable in _disposables)
-                disposable.Dispose();
+            {
+                Debug.Log($"Disposed {disposable.GetType()}");
+                disposable?.Dispose();
+            }
 
             _disposables.Clear();
 
@@ -113,6 +123,8 @@ namespace Gameplay
             scenePause.Unregister(pauseLocker);
             globalPause.Unlock();
             globalPause.Unregister(scenePause);
+
+            Debug.Log("Resources clean up done!");
             
             YandexGame.GameplayStop();
         }
