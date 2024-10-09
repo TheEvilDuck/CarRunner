@@ -18,6 +18,7 @@ namespace Gameplay.States
         private readonly Level _level;
         private readonly FallingEndGame _fallingEndGame;
         private readonly PauseManager _scenePause;
+        private readonly PauseManager _projectPause;
         private readonly StartMessage _startMessage;
         public RaceGameState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine)
         {
@@ -28,6 +29,7 @@ namespace Gameplay.States
             _fallingEndGame = sceneContext.Get<FallingEndGame>();
             _soundController = sceneContext.Get<SoundController>();
             _scenePause = sceneContext.Get<PauseManager>(Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG);
+            _projectPause = sceneContext.Get<PauseManager>();
             _startMessage = sceneContext.Get<StartMessage>();
         }
 
@@ -41,9 +43,9 @@ namespace Gameplay.States
             _timer.Restart();
             _car.enabled = true;
             
-            _scenePause.IsPaused.changed += OnScenePauseChanged;
+            _projectPause.IsPaused.changed += OnScenePauseChanged;
 
-            OnScenePauseChanged(_scenePause.IsPaused.Value);
+            OnScenePauseChanged(_projectPause.IsPaused.Value);
 
             _timer.end+=Lose;
             _fallingEndGame.falled += Lose;
@@ -56,7 +58,7 @@ namespace Gameplay.States
             _timer.end-=Lose;
             _finish.passed -= Win;
             _fallingEndGame.falled -= Lose;
-            _scenePause.IsPaused.changed -= OnScenePauseChanged;
+            _projectPause.IsPaused.changed -= OnScenePauseChanged;
         }
 
         private void Lose()
