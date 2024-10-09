@@ -53,6 +53,7 @@ namespace EntryPoint
             _projectContext.Register(SetupCoroutines);
             _projectContext.Register(() => Resources.Load<LevelsDatabase>(LEVEL_DATABASE_PATH));
             _projectContext.Register(() => new GameSettings());
+            _projectContext.Register<ISettings>(() => _projectContext.Get<GameSettings>());
             _projectContext.Register<ISoundSettings>(() => _projectContext.Get<GameSettings>());
             _projectContext.Register<ICameraSettings>(() => _projectContext.Get<GameSettings>());
             _projectContext.Register(() => new RewardProvider());
@@ -175,6 +176,8 @@ namespace EntryPoint
 
         private void OnApplicationQuit()
         {
+            _projectContext.Get<ISettings>().SaveSettings();
+
             foreach (IDisposable disposable in _disposables)
             {
                 if (disposable != null)

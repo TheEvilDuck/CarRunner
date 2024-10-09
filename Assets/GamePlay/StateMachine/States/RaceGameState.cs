@@ -40,7 +40,10 @@ namespace Gameplay.States
         {
             _timer.Restart();
             _car.enabled = true;
-            _soundController.Play(_level.BackGroundMusicId);
+            
+            _scenePause.IsPaused.changed += OnScenePauseChanged;
+
+            OnScenePauseChanged(_scenePause.IsPaused.Value);
 
             _timer.end+=Lose;
             _fallingEndGame.falled += Lose;
@@ -53,6 +56,7 @@ namespace Gameplay.States
             _timer.end-=Lose;
             _finish.passed -= Win;
             _fallingEndGame.falled -= Lose;
+            _scenePause.IsPaused.changed -= OnScenePauseChanged;
         }
 
         private void Lose()
@@ -63,6 +67,15 @@ namespace Gameplay.States
         private void Win()
         {
             _stateMachine.ChangeState<WinState>();
+        }
+
+        private void OnScenePauseChanged(bool isPaused)
+        {
+            if (isPaused)
+                return;
+
+            if (!_soundController.IsPlaying(_level.BackGroundMusicId))
+                _soundController.Play(_level.BackGroundMusicId);
         }
     }
 }

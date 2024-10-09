@@ -19,7 +19,7 @@ namespace MainMenu
         [SerializeField] private NotEnoughMoneyPopup _notEnoughMoneyPopup;
         [SerializeField] private CoinsView _coinsView;
         [SerializeField] private ShopItemFactory _shopItemFactory;
-        private GameSettings _gameSettings;
+        private ISettings _gameSettings;
         private List<IDisposable> _disposables;
         private void Start() 
         {
@@ -56,7 +56,7 @@ namespace MainMenu
             _sceneContext.Register(_shopItemFactory);
             _sceneContext.Register(SetupLanguageSelectionUI);
 
-            _gameSettings = _sceneContext.Get<GameSettings>();
+            _gameSettings = _sceneContext.Get<ISettings>();
 
             var mainMenuMediator = new MainMenuMediator(_sceneContext);
             var settingsMediator = new SettingsAndUIMediator(_sceneContext);

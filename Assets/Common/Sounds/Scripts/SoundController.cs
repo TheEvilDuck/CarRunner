@@ -63,6 +63,25 @@ namespace Common.Sound
             _usedObjects.Add(audioSource);
         }
 
+        public bool IsPlaying(SoundID soundID)
+        {
+            if (_usedObjects == null)
+                return false;
+
+            if (_usedObjects.Count == 0)
+                return false;
+
+            for (int i = _usedObjects.Count - 1; i > -1; i--)
+            {
+                if (_usedObjects[i] != null && _usedObjects[i].clip == _sound.GetAudio(soundID))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public void Stop(SoundID soundID)
         {
             if (_usedObjects.Count > 0)
@@ -91,6 +110,12 @@ namespace Common.Sound
         public void SetValue(AudioMixerExposedParameters param, float normalizedValue)
         {
             var convertedValue = _rangeOfExposedParameters.GetRange(param, normalizedValue);
+
+            if (normalizedValue == 0)
+            {
+                convertedValue = MUTE_VOLUME;
+            }
+
             _audioMixer.SetFloat(_audioMixerExposedParameters[param], convertedValue);
         }
 
@@ -119,6 +144,7 @@ namespace Common.Sound
 
         public void Dispose()
         {
+            StopAll();
             _audioSourcePool.Dispose();
         }
 

@@ -25,36 +25,42 @@ namespace Common
         {
             _soundSettings.Mute = flag;
             SoundSettingsChanged?.Invoke();
+            SaveSettings();
         }
 
         public void SetMasterVolume(float volume)
         {
             _soundSettings.MasterVolume = volume;
             SoundSettingsChanged?.Invoke();
+            SaveSettings();
         }
 
         public void SetBackgroundMusicVolume(float volume)
         {
             _soundSettings.BackgroundMusicVolume = volume;
             SoundSettingsChanged?.Invoke();
+            SaveSettings();
         }
         
         public void SetSFXSoundsVolume(float volume)
         {
             _soundSettings.SFXSoundVolume = volume;
             SoundSettingsChanged?.Invoke();
+            SaveSettings();
         }
 
         public void SetAngleOfView(float value)
         {
             _cameraSettings.AngleOfView = value;
             CameraSettingsChanged?.Invoke();
+            SaveSettings();
         }
 
         public void SetZOffset(float value)
         {
             _cameraSettings.ZOffset = value;
             CameraSettingsChanged?.Invoke();
+            SaveSettings();
         }
 
         public void SaveSettings()

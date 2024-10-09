@@ -16,15 +16,15 @@ MonoBehaviour:
   - <Parameter>k__BackingField: 2
     Range:
       <MinValue>k__BackingField: -35
-      <MaxValue>k__BackingField: 5
+      <MaxValue>k__BackingField: 2
   - <Parameter>k__BackingField: 1
     Range:
       <MinValue>k__BackingField: -35
-      <MaxValue>k__BackingField: 5
+      <MaxValue>k__BackingField: 2
   - <Parameter>k__BackingField: 5
     Range:
       <MinValue>k__BackingField: -35
-      <MaxValue>k__BackingField: 5
+      <MaxValue>k__BackingField: 2
   - <Parameter>k__BackingField: 3
     Range:
       <MinValue>k__BackingField: 1
