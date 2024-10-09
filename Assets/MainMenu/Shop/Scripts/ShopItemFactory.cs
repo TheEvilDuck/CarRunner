@@ -39,6 +39,8 @@ namespace MainMenu.Shop
 
                         currencyImageLoader.LoadedSprite.changed += OnCurrencyImageLoaded;
                         itemImageLoader.LoadedSprite.changed += OnItemImageLoaded;
+                        currencyImageLoader.error += OnCurrencyImageError;
+                        itemImageLoader.error += OnItemImageError;
 
                         var coroutines = sceneContext.Get<Coroutines>();
 
@@ -46,12 +48,26 @@ namespace MainMenu.Shop
                         {
                             shopItemView.SetCurrencyImage(sprite);
                             currencyImageLoader.LoadedSprite.changed -= OnCurrencyImageLoaded;
+                            currencyImageLoader.error -= OnCurrencyImageError;
+                            itemImageLoader.error -= OnItemImageError;
                         }
 
                         void OnItemImageLoaded(Sprite sprite)
                         {
                             shopItemView.SetItemImage(sprite);
                             itemImageLoader.LoadedSprite.changed -= OnItemImageLoaded;
+                        }
+
+                        void OnCurrencyImageError()
+                        {
+                            currencyImageLoader.LoadedSprite.changed -= OnCurrencyImageLoaded;
+                            currencyImageLoader.error -= OnCurrencyImageError;
+                        }
+
+                        void OnItemImageError()
+                        {
+                            itemImageLoader.LoadedSprite.changed -= OnItemImageLoaded;
+                            itemImageLoader.error -= OnItemImageError;
                         }
 
                         coroutines.StartCoroutine(currencyImageLoader.Load(purchase.currencyImageURL));

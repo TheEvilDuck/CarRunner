@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Common;
 using Common.Data;
 using Common.Data.Rewards;
+using Common.Mediators;
 using Common.Sound;
 using DI;
 using Gameplay.UI;
@@ -48,6 +49,7 @@ namespace EntryPoint
             _disposables = new List<IDisposable>();
             _dontDestroyOnLoadObjects = new List<GameObject>();
             
+            _projectContext.Register(SetupSoundController);
             _projectContext.Register(SetupCoroutines);
             _projectContext.Register(() => Resources.Load<LevelsDatabase>(LEVEL_DATABASE_PATH));
             _projectContext.Register(() => new GameSettings());
@@ -79,7 +81,6 @@ namespace EntryPoint
         private void PluginYGInit()
         {
             _projectContext.Register(SetupYandexFuulScreenAd);
-            _projectContext.Register(SetupSoundController);
             _projectContext.Register(SetupPlayerData);
             _projectContext.Register(SetupInput);
             _projectContext.Register(SetupLocalizationService);
@@ -88,7 +89,10 @@ namespace EntryPoint
             _projectContext.Register(() => Resources.LoadAll<LanguageData>(""));
             _projectContext.Register(SetupPlatform, PLATFORM_DI_TAG);
             _projectContext.Register(SetupLeaderboardData);
-            _projectContext.Get<Coroutines>().StartCoroutine(SceneSetup());
+
+            SetupMediators();
+
+            SceneSetup();
             
             YandexGame.GameReadyAPI();
             YandexGame.GetDataEvent -= PluginYGInit;
@@ -191,7 +195,7 @@ namespace EntryPoint
             YandexGame.OpenFullAdEvent -= OnFullVideoOpenEvent;
         }
 
-        private async Awaitable SceneSetup()
+        private async void SceneSetup()
         {
             if (!InitSceneBootstrap())
                 await _projectContext.Get<ISceneManager>().LoadScene(SceneIDs.MAIN_MENU);
@@ -354,6 +358,13 @@ namespace EntryPoint
         {
             LocalizationRegistrator localizationRegistrator = new LocalizationRegistrator(_projectContext.Get<Localizator>());
             return localizationRegistrator;
+        }
+
+        private void SetupMediators()
+        {
+            var coinsLeaderboardMediator = new CoinsLeaderboardMediator(_projectContext);
+
+            _disposables.Add(coinsLeaderboardMediator);
         }
     }
 }

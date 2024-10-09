@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5b227a20855044e9f75626696e0719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseType: 4
-  pauseMethod: 1
+  pauseType: 3
+  pauseMethod: 0
   closingADValues:
     timeScale: 1
     audioPause: 0

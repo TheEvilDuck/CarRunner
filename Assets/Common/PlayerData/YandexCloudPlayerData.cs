@@ -71,7 +71,6 @@ namespace Common.Data
 
             YandexGame.savesData.Coins += coins;
             YandexGame.SaveProgress();
-            YandexGame.NewLeaderboardScores("coins", YandexGame.savesData.Coins);
             coinsChanged?.Invoke(YandexGame.savesData.Coins);
         }
 
@@ -129,7 +128,6 @@ namespace Common.Data
 
             YandexGame.savesData.Coins -= coins;
             YandexGame.SaveProgress();
-            YandexGame.NewLeaderboardScores("coins", YandexGame.savesData.Coins);
             coinsChanged?.Invoke(YandexGame.savesData.Coins);
             return true;
         }

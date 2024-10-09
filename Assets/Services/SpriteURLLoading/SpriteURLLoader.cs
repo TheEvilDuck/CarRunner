@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Common.Reactive;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace Services.SpriteURLLoading
     public class SpriteURLLoader
     {
         public bool debug;
+        public event Action error;
         private Observable<Sprite> _loadedSprite = new Observable<Sprite>();
         public IReadonlyObservable<Sprite> LoadedSprite => _loadedSprite;
 
@@ -22,6 +24,8 @@ namespace Services.SpriteURLLoading
                 {
                     if (debug)
                         Debug.LogError("Error: " + webRequest.error);
+
+                    error?.Invoke();
                 }
                 else
                 {
