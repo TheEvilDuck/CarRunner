@@ -1,3 +1,4 @@
+using Common;
 using Common.States;
 using DI;
 using Gameplay.Cars;
@@ -12,11 +13,15 @@ namespace Gameplay.States
         private readonly CarBehaviour _carBehaviour;
         private readonly IPlayerInput _playerInput;
         private readonly StartMessage _startMessage;
+        private readonly PauseManager _globalPause;
+        private readonly PauseButton _pauseButton;
         public PreStartState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine)
         {
             _carBehaviour = sceneContext.Get<Car>().CarBehavior;
             _playerInput = sceneContext.Get<IPlayerInput>();
             _startMessage = sceneContext.Get<StartMessage>();
+            _globalPause = sceneContext.Get<PauseManager>();
+            _pauseButton = sceneContext.Get<PauseButton>();
         }
 
         public override void Update()
@@ -32,6 +37,7 @@ namespace Gameplay.States
             _startMessage.Show();
 
             _playerInput.screenInput += OnScreenInput;
+            _pauseButton.Hide();
         }
 
         protected override void OnExit()
@@ -40,10 +46,16 @@ namespace Gameplay.States
             
             if (_startMessage != null)
                 _startMessage.Hide();
+
+            if (!_globalPause.IsPaused.Value)
+                _pauseButton.Show();
         }
 
         private void OnScreenInput(Vector2 position)
         {
+            if (_globalPause.IsPaused.Value)
+                return;
+
             _stateMachine.ChangeState<RaceGameState>();
         }
     }

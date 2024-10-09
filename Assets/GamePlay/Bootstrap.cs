@@ -229,7 +229,6 @@ namespace Gameplay
             pauseManager.Register(_sceneContext.Get<StartMessage>());
             pauseManager.Register(_sceneContext.Get<PauseMenu>());
             pauseManager.Register(_sceneContext.Get<PauseLocker>());
-            pauseManager.Register(_sceneContext.Get<PauseButton>());
             pauseManager.Register(_sceneContext.Get<YandexGameGameplay>());
 
             _sceneContext.Get<PauseManager>().Register(pauseManager);

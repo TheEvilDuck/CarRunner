@@ -20,6 +20,8 @@ namespace Gameplay.States
         private readonly PauseManager _scenePause;
         private readonly PauseManager _projectPause;
         private readonly StartMessage _startMessage;
+        private readonly PauseButton _pauseButton;
+
         public RaceGameState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine)
         {
             _timer = sceneContext.Get<Timer>();
@@ -31,6 +33,7 @@ namespace Gameplay.States
             _scenePause = sceneContext.Get<PauseManager>(Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG);
             _projectPause = sceneContext.Get<PauseManager>();
             _startMessage = sceneContext.Get<StartMessage>();
+            _pauseButton = sceneContext.Get<PauseButton>();
         }
 
         public override void Update()
@@ -52,6 +55,7 @@ namespace Gameplay.States
             _finish.passed += Win;
 
             _scenePause.Unregister(_startMessage);
+            _scenePause.Register(_pauseButton);
         }
         protected override void OnExit()
         {
@@ -59,6 +63,8 @@ namespace Gameplay.States
             _finish.passed -= Win;
             _fallingEndGame.falled -= Lose;
             _projectPause.IsPaused.changed -= OnScenePauseChanged;
+            _pauseButton.Hide();
+            _scenePause.Unregister(_pauseButton);
         }
 
         private void Lose()
@@ -76,7 +82,7 @@ namespace Gameplay.States
             if (isPaused)
                 return;
 
-            if (!_soundController.IsPlaying(_level.BackGroundMusicId))
+            if (!_soundController.IsSoundExisting(_level.BackGroundMusicId))
                 _soundController.Play(_level.BackGroundMusicId);
         }
     }

@@ -88,6 +88,28 @@ namespace Common.Sound
             return false;
         }
 
+        public bool IsSoundExisting(SoundID soundID)
+        {
+            if (_usedObjects == null)
+                return false;
+
+            if (_usedObjects.Count == 0)
+                return false;
+
+            if (_paused)
+                return false;
+
+            for (int i = _usedObjects.Count - 1; i > -1; i--)
+            {
+                if (_usedObjects[i] != null && _usedObjects[i].clip == _sound.GetAudio(soundID))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public void Stop(SoundID soundID)
         {
             if (_usedObjects.Count > 0)
