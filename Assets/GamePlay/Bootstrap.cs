@@ -1,6 +1,5 @@
 using System.Linq;
 using Common;
-using Common.Sound;
 using Common.States;
 using Gameplay.Cars;
 using Gameplay.Garages;
@@ -21,11 +20,13 @@ using YG;
 using UnityEngine.UI;
 using Common.UI;
 using Common.Reactive;
+using Common.Disposables;
 
 namespace Gameplay
 {
     public class Bootstrap : MonoBehaviourBootstrap
     {
+        public const string GAMEPLAY_DISPOSABLES_TAG = nameof(GAMEPLAY_DISPOSABLES_TAG);
         public const string GAMEPLAY_PAUSE_MANAGER_TAG = "Gameplay pause";
         private const string RANGE_OF_CAMERA_SETTINGS_PATH = "Range Of Camera Settings";
         public const int WATCH_AD_REWAD_ID = 2;
@@ -44,14 +45,11 @@ namespace Gameplay
         [SerializeField] private StartMessage _startMessage;
         [SerializeField] private Transform _brakeButtonParent;
         [SerializeField] private CarFallingView _carFallingView;
-        private List<IDisposable> _disposables;
 
         protected override void Setup()
         {
-            _disposables = new List<IDisposable>();
-
             _sceneContext.Get<YandexGameFullScreenAd>().ShowFullscreenAd();
-
+            _sceneContext.Register(() => new CompositeDisposable(), GAMEPLAY_DISPOSABLES_TAG);
             _sceneContext.Register(() => new PauseLocker(_sceneContext.Get<PauseManager>()));
             _sceneContext.Register(() => new YandexGameGameplay());
             _sceneContext.Register(SetUpLevel);
@@ -106,12 +104,7 @@ namespace Gameplay
         {
             base.OnBeforeSceneChanged();
 
-            foreach (IDisposable disposable in _disposables)
-            {
-                disposable?.Dispose();
-            }
-
-            _disposables.Clear();
+            _sceneContext.Get<CompositeDisposable>(GAMEPLAY_DISPOSABLES_TAG).Dispose();
 
             PauseManager scenePause = _sceneContext.Get<PauseManager>(Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG);
             PauseManager globalPause = _sceneContext.Get<PauseManager>();
@@ -128,7 +121,7 @@ namespace Gameplay
         {
             _delayedStart -= OnDelayedStart;
             var settingsAndSoundMediator = new SettingsAndSoundMediator(_sceneContext);
-            _disposables.Add(settingsAndSoundMediator);
+            _sceneContext.Get<CompositeDisposable>(GAMEPLAY_DISPOSABLES_TAG).Add(settingsAndSoundMediator);
 
             if (!_sceneContext.Get<PauseManager>().IsPaused.Value)
                 YandexGame.GameplayStart();
@@ -176,7 +169,7 @@ namespace Gameplay
         private CarSwitcher SetUpCarSwitcher()
         {
             var carSwitcher = new CarSwitcher(_sceneContext.Get<Car>(),_sceneContext.Get<Level>().Garages,_sceneContext.Get<Timer>(), _wheelPrefab, _sceneContext.Get<Observable<CarConfig>>());
-            _disposables.Add(carSwitcher);
+            _sceneContext.Get<CompositeDisposable>(GAMEPLAY_DISPOSABLES_TAG).Add(carSwitcher);
             return carSwitcher;
         }
 
@@ -185,7 +178,7 @@ namespace Gameplay
             var fallingBehaviourSwitcher = new FallingBehaviourSwitcher(_sceneContext.Get<CarFalling>());
             fallingBehaviourSwitcher.AttachBehaviour(_sceneContext.Get<FallingTeleport>());
 
-            _disposables.Add(fallingBehaviourSwitcher);
+            _sceneContext.Get<CompositeDisposable>(GAMEPLAY_DISPOSABLES_TAG).Add(fallingBehaviourSwitcher);
 
             return fallingBehaviourSwitcher;
         }
@@ -213,7 +206,7 @@ namespace Gameplay
             gameplayStateMachine.AddState(winState);
             gameplayStateMachine.AddState(loseState);
 
-            _disposables.Add(gameplayStateMachine);
+            _sceneContext.Get<CompositeDisposable>(GAMEPLAY_DISPOSABLES_TAG).Add(gameplayStateMachine);
 
             //Эта грязнь здесь, чтобы избежать циклическую зависимость
             _sceneContext.Get<PauseManager>(GAMEPLAY_PAUSE_MANAGER_TAG).Register(gameplayStateMachine);
@@ -249,20 +242,21 @@ namespace Gameplay
             var carFallingMediator = new CarFallingMediator(_sceneContext);
             var adButtonMediator = new AdButtonMediator(_sceneContext);
             var fullscreenAdMediator = new FullscreenAdMediator(_sceneContext);
-            var settingsAndCameraMediator = new SettingsAndCameraMediator(_sceneContext);            
+            var settingsAndCameraMediator = new SettingsAndCameraMediator(_sceneContext);    
+            var disposables = _sceneContext.Get<CompositeDisposable>(GAMEPLAY_DISPOSABLES_TAG);        
 
-            _disposables.Add(timerMediator);
-            _disposables.Add(carControllerMediator);
-            _disposables.Add(timerAndGatesMediator);
-            _disposables.Add(soundMediator);
-            _disposables.Add(endGameMediator);
-            _disposables.Add(pauseMediator);
-            _disposables.Add(pauseMenuMediator);
-            _disposables.Add(settingMediator);
-            _disposables.Add(carFallingMediator);
-            _disposables.Add(adButtonMediator);
-            _disposables.Add(fullscreenAdMediator);
-            _disposables.Add(settingsAndCameraMediator);
+            disposables.Add(timerMediator);
+            disposables.Add(carControllerMediator);
+            disposables.Add(timerAndGatesMediator);
+            disposables.Add(soundMediator);
+            disposables.Add(endGameMediator);
+            disposables.Add(pauseMediator);
+            disposables.Add(pauseMenuMediator);
+            disposables.Add(settingMediator);
+            disposables.Add(carFallingMediator);
+            disposables.Add(adButtonMediator);
+            disposables.Add(fullscreenAdMediator);
+            disposables.Add(settingsAndCameraMediator);
         }
 
         private void SetUpCamera()

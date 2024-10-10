@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Common;
 using Common.Data;
 using Common.Data.Rewards;
+using Common.Disposables;
 using Common.Mediators;
 using Common.Sound;
 using DI;
@@ -21,13 +22,13 @@ namespace EntryPoint
     public class Bootstrap
     {
         public const string PLATFORM_DI_TAG = "platform";
+        public const string PROJECT_DISPOSABLES_TAG = nameof(PROJECT_DISPOSABLES_TAG);
         private const string BRAKE_BUTTON_RESOURCES_PATH = "Prefabs/BrakeButton";
         private const string LEVEL_DATABASE_PATH = "Levels database";
         private const string SOUND_CONTROLLER_PATH = "Prefabs/SoundController";
         private const string LOADING_SCREEN = "Loading screen";
         private static Bootstrap _gameInstance;
         private DIContainer _projectContext;
-        private List<IDisposable> _disposables;
         private List<GameObject> _dontDestroyOnLoadObjects;
         private Coroutine _tickablesCoroutine;
 
@@ -46,9 +47,9 @@ namespace EntryPoint
             Application.targetFrameRate = 60;
 
             _projectContext = new DIContainer();
-            _disposables = new List<IDisposable>();
             _dontDestroyOnLoadObjects = new List<GameObject>();
             
+            _projectContext.Register(() => new CompositeDisposable(), PROJECT_DISPOSABLES_TAG);
             _projectContext.Register(SetupSoundController);
             _projectContext.Register(SetupCoroutines);
             _projectContext.Register(() => Resources.Load<LevelsDatabase>(LEVEL_DATABASE_PATH));
@@ -142,7 +143,7 @@ namespace EntryPoint
         private YandexGameFullScreenAd SetupYandexFuulScreenAd()
         {
             YandexGameFullScreenAd yandexGameFullScreenAd = new YandexGameFullScreenAd();
-            _disposables.Add(yandexGameFullScreenAd);
+            _projectContext.Get<CompositeDisposable>(PROJECT_DISPOSABLES_TAG).Add(yandexGameFullScreenAd);
 
             return yandexGameFullScreenAd;
         }
@@ -160,7 +161,7 @@ namespace EntryPoint
             YandexCloudLeaderboard yandexCloudLeaderboard = new YandexCloudLeaderboard();
 
             _projectContext.Get<List<ITickable>>().Add(yandexCloudLeaderboard);
-            _disposables.Add(yandexCloudLeaderboard);
+            _projectContext.Get<CompositeDisposable>(PROJECT_DISPOSABLES_TAG);
 
             return yandexCloudLeaderboard;
         }
@@ -177,14 +178,7 @@ namespace EntryPoint
         private void OnApplicationQuit()
         {
             _projectContext.Get<ISettings>().SaveSettings();
-
-            foreach (IDisposable disposable in _disposables)
-            {
-                if (disposable != null)
-                {
-                    disposable.Dispose();
-                }
-            }
+            _projectContext.Get<CompositeDisposable>(PROJECT_DISPOSABLES_TAG)?.Dispose();
 
             foreach (GameObject gameObject in _dontDestroyOnLoadObjects)
             {
@@ -262,7 +256,7 @@ namespace EntryPoint
             if (YandexGame.SDKEnabled)
             {
                 playerData = new YandexCloudPlayerData();
-                _disposables.Add(playerData as IDisposable);
+                _projectContext.Get<CompositeDisposable>(PROJECT_DISPOSABLES_TAG).Add(playerData as IDisposable);
             }
             else
             {
@@ -319,7 +313,7 @@ namespace EntryPoint
             UnityEngine.Object.DontDestroyOnLoad(soundController.gameObject);
             soundController.Init();
             _dontDestroyOnLoadObjects.Add(soundController.gameObject);
-            _disposables.Add(soundController);
+            _projectContext.Get<CompositeDisposable>(PROJECT_DISPOSABLES_TAG).Add(soundController);
 
             return soundController;
         }
@@ -367,7 +361,7 @@ namespace EntryPoint
         {
             var coinsLeaderboardMediator = new CoinsLeaderboardMediator(_projectContext);
 
-            _disposables.Add(coinsLeaderboardMediator);
+            _projectContext.Get<CompositeDisposable>(PROJECT_DISPOSABLES_TAG).Add(coinsLeaderboardMediator);
         }
     }
 }

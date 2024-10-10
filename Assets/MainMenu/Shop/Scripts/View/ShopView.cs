@@ -4,6 +4,7 @@ using DI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using YG;
 
 namespace MainMenu.Shop.View
 {
@@ -18,6 +19,7 @@ namespace MainMenu.Shop.View
         public void Init(ShopItemFactory shopItemFactory, DIContainer sceneContext)
         {
             var items = shopItemFactory.GetSetUpView(_shopItemViewContent, sceneContext);
+            YandexGame.ConsumePurchases();
         }
         public void Hide()
         {
