@@ -1,5 +1,4 @@
 using System;
-using UnityEngine.Events;
 using YG;
 
 namespace Common
@@ -7,15 +6,21 @@ namespace Common
     public class YandexGameFullScreenAd : IDisposable
     {
         public event Action AdIsShown;
+        public event Action adShowingStarted;
 
         public YandexGameFullScreenAd() => YandexGame.CloseFullAdEvent += OnCloseFullAdEvent;
 
         public void ShowFullscreenAd()
         {
             if (YandexGame.timerShowAd >= YandexGame.Instance.infoYG.fullscreenAdInterval)
+            {
+                adShowingStarted?.Invoke();
                 YandexGame.FullscreenShow();
+            }
             else
+            {
                 AdIsShown?.Invoke();
+            }
         }
 
         public void Dispose() => YandexGame.CloseFullAdEvent -= OnCloseFullAdEvent;

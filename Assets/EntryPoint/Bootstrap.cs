@@ -26,7 +26,6 @@ namespace EntryPoint
         private const string BRAKE_BUTTON_RESOURCES_PATH = "Prefabs/BrakeButton";
         private const string LEVEL_DATABASE_PATH = "Levels database";
         private const string SOUND_CONTROLLER_PATH = "Prefabs/SoundController";
-        private const string LOADING_SCREEN = "Loading screen";
         private static Bootstrap _gameInstance;
         private DIContainer _projectContext;
         private List<GameObject> _dontDestroyOnLoadObjects;
@@ -41,14 +40,13 @@ namespace EntryPoint
 
         private void RunGame()
         {
-            LoadScreen();
-
             Application.runInBackground = true;
             Application.targetFrameRate = 60;
 
             _projectContext = new DIContainer();
             _dontDestroyOnLoadObjects = new List<GameObject>();
             
+            _projectContext.Register(SetupLoadScreen);
             _projectContext.Register(() => new CompositeDisposable(), PROJECT_DISPOSABLES_TAG);
             _projectContext.Register(SetupSoundController);
             _projectContext.Register(SetupCoroutines);
@@ -107,8 +105,6 @@ namespace EntryPoint
         private void OnSceneChanged(Scene previousScene, Scene nextScene)
         {
             _projectContext.Get<SoundController>().StopAll();
-
-            LoadScreen();
             
             InitSceneBootstrap();
         }
@@ -209,13 +205,12 @@ namespace EntryPoint
             return true;
         }
 
-        private void LoadScreen()
+        private LoadScreen SetupLoadScreen()
         {
-            if (SceneManager.GetActiveScene().name == SceneIDs.BOOTSTRAP)
-            {
-                new GameObject("Camera").AddComponent<Camera>();
-                MonoBehaviour.Instantiate(Resources.Load<Canvas>(LOADING_SCREEN));
-            }
+            LoadScreen loadScreen = new LoadScreen();
+            _dontDestroyOnLoadObjects.Add(loadScreen.Screen);
+
+            return loadScreen;
         }
 
         private ISceneManager SetupSceneManager()
@@ -360,8 +355,10 @@ namespace EntryPoint
         private void SetupMediators()
         {
             var coinsLeaderboardMediator = new CoinsLeaderboardMediator(_projectContext);
+            var loadingScreenMediator = new LoadingScreenMediator(_projectContext);
 
             _projectContext.Get<CompositeDisposable>(PROJECT_DISPOSABLES_TAG).Add(coinsLeaderboardMediator);
+            _projectContext.Get<CompositeDisposable>(PROJECT_DISPOSABLES_TAG).Add(loadingScreenMediator);
         }
     }
 }

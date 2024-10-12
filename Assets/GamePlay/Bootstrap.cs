@@ -48,7 +48,6 @@ namespace Gameplay
 
         protected override void Setup()
         {
-            _sceneContext.Get<YandexGameFullScreenAd>().ShowFullscreenAd();
             _sceneContext.Register(() => new CompositeDisposable(), GAMEPLAY_DISPOSABLES_TAG);
             _sceneContext.Register(() => new PauseLocker(_sceneContext.Get<PauseManager>()));
             _sceneContext.Register(() => new YandexGameGameplay());
@@ -104,6 +103,7 @@ namespace Gameplay
         {
             base.OnBeforeSceneChanged();
 
+            _sceneContext.Get<YandexGameFullScreenAd>().ShowFullscreenAd();
             _sceneContext.Get<CompositeDisposable>(GAMEPLAY_DISPOSABLES_TAG).Dispose();
 
             PauseManager scenePause = _sceneContext.Get<PauseManager>(Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG);
