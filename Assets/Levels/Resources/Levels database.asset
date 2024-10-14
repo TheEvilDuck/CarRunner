@@ -32,25 +32,25 @@ MonoBehaviour:
     <MaxReward>k__BackingField: 5000
   - <LevelId>k__BackingField: Snake
     <Level>k__BackingField: {fileID: 1168434427502181582, guid: e71f6db080b89dc4689f8efc9fce497e, type: 3}
-    <Cost>k__BackingField: 4000
+    <Cost>k__BackingField: 3000
     <MaxReward>k__BackingField: 6000
   - <LevelId>k__BackingField: Autobahn
     <Level>k__BackingField: {fileID: 5526645067866161188, guid: 47ed97ba361e31347baa203a5d3568b5, type: 3}
-    <Cost>k__BackingField: 5000
+    <Cost>k__BackingField: 4000
     <MaxReward>k__BackingField: 7000
   - <LevelId>k__BackingField: CountryHard
     <Level>k__BackingField: {fileID: 3673910866174486215, guid: 956ef20e65f843d4c81b98c21810a614, type: 3}
-    <Cost>k__BackingField: 6000
+    <Cost>k__BackingField: 5000
     <MaxReward>k__BackingField: 9000
   - <LevelId>k__BackingField: Space1
     <Level>k__BackingField: {fileID: 6749789171122117895, guid: 890269f0e92fe1d4195ddd668154c78b, type: 3}
-    <Cost>k__BackingField: 10000
+    <Cost>k__BackingField: 9000
     <MaxReward>k__BackingField: 16000
   - <LevelId>k__BackingField: Spacee2
     <Level>k__BackingField: {fileID: 52625039515477669, guid: 52d43b32bdcce2b48b6b3272ee633018, type: 3}
-    <Cost>k__BackingField: 15000
+    <Cost>k__BackingField: 13500
     <MaxReward>k__BackingField: 20000
   - <LevelId>k__BackingField: Space3
     <Level>k__BackingField: {fileID: 7855417376350775634, guid: 4d293dd8517945c45b61a932fc3a0190, type: 3}
-    <Cost>k__BackingField: 20000
+    <Cost>k__BackingField: 16000
     <MaxReward>k__BackingField: 30000
