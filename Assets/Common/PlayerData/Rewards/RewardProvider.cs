@@ -6,9 +6,9 @@ namespace Common.Data.Rewards
 {
     public class RewardProvider
     {
-        private const int TUTORIAL_COMPLETION_REWARD = 1000;
+        private const int TUTORIAL_COMPLETION_REWARD = 2000;
 
-        private const float COINS_MULTIPLIER_FOR_REPLAYING_LEVEL = 0.25f;
+        private const float COINS_MULTIPLIER_FOR_REPLAYING_LEVEL = 0.5f;
         public int GetLevelCompletionReward(float remainingTime, IPlayerData playerData, LevelsDatabase levelsDatabase)
         {
             var level = levelsDatabase.GetLevel(playerData.SelectedLevel);
