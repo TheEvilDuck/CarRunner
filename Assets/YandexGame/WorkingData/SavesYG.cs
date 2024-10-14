@@ -16,7 +16,7 @@ namespace YG
         public List<string> AvailableLevels = new List<string>();
         public List<string> PassedLevels = new List<string>();
         public string SelectedLevel;
-        public int Coins = 1000;
+        public int Coins = 2000;
         public int MaxFallTries = 1;
         public bool IsTutorialComplete = false;
         public string savedLanguage;

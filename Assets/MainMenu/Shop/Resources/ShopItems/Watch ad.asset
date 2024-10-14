@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0251cd583a08a6242a79563942beee76, type: 3}
   m_Name: Watch ad
   m_EditorClassIdentifier: 
-  <CoinsReward>k__BackingField: 250
-  <AdCooldown>k__BackingField: 120
+  <CoinsReward>k__BackingField: 300
+  <AdCooldown>k__BackingField: 30
