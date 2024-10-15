@@ -10,11 +10,11 @@ namespace Gameplay.CarFallingHandling
         public event Action<Vector3, Quaternion> carFallen;
         private const float Y_POSITION_TO_TELEPORT = -30F;
         private const float MAX_GROUND_CHECK_LENGTH = 4F;
-        private const float GROUND_CHECK_RATE = 0.5f;
-        private const float GROUND_CHECK_OFFSET = 6f;
-        private const float Y_POSITION_OFFSET = 3f;
+        private const float GROUND_CHECK_RATE = 0.25f;
+        private const float GROUND_CHECK_OFFSET = 3f;
+        private const float Y_POSITION_OFFSET = 2f;
         private const float FALL_DEBOUNCE_TIME = 1f;
-        private const float MAX_ANGLE_GROUNDED = 35f;
+        private const float MAX_ANGLE_GROUNDED = 45f;
         private readonly Car _car;
         private readonly LayerMask _groundCheckLayer;
         private Quaternion _lastCarRotation;

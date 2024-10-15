@@ -430,20 +430,20 @@ MonoBehaviour:
   - textId: credits_text
     localizationDataElements:
     - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
-      translation: "\u0418\u0433\u0440\u0443 \u0441\u0434\u0435\u043B\u0430\u043B\u0438:\r\n\u2014Milt
-        (\u0418\u0434\u0435\u044F \u043F\u0440\u043E\u0435\u043A\u0442\u0430): Tg
-        @prostomilt\r\n\r\n\u2014TheEvilDuck (\u0420\u043E\u043B\u0438 \u0442\u0435\u0445\u043B\u0438\u0434\u0430
+      translation: "\u0418\u0433\u0440\u0443 \u0441\u0434\u0435\u043B\u0430\u043B\u0438:\n\r\n\u2014Milt
+        (prostomilt) - \u0438\u0434\u0435\u044F \u043F\u0440\u043E\u0435\u043A\u0442\u0430\r\n\r\n\u2014TheEvilDuck
+        (Sheldone) - \u0440\u043E\u043B\u0438 \u0442\u0435\u0445\u043B\u0438\u0434\u0430
         \u0438 \u0442\u0438\u043C\u043B\u0438\u0434\u0430, \u0433\u0435\u0439\u043C\u0434\u0438\u0437\u0430\u0439\u043D,
         \u043A\u043E\u0434, \u0433\u0440\u0430\u0444\u0438\u043A\u0430, \u043C\u0443\u0437\u044B\u043A\u0430,
-        \u0443\u0440\u043E\u0432\u043D\u0438): boxheaddyamonag@gmail.com, \r\nTg
-        @Sheldone\r\n\r\n\u2014Sever (\u041A\u043E\u0434 \u0438 \u0443\u0440\u043E\u0432\u043D\u0438):
-        salavatfattahov@gmail.com, \r\nTg @SlvtF\n\n\u2014Carville (\u041C\u0443\u0437\u044B\u043A\u0430):
-        Tg @Carville \r"
+        \u0443\u0440\u043E\u0432\u043D\u0438: boxheaddyamonag@gmail.com\r\r\n\r\n\u2014Sever
+        (SlvtF) - \u043A\u043E\u0434 \u0438 \u0443\u0440\u043E\u0432\u043D\u0438:
+        salavatfattahov@gmail.com\n\r\n\u2014Carville \u0438 patao_potato - \u043C\u0443\u0437\u044B\u043A\u0430\r"
     - language: {fileID: 11400000, guid: 66d623eef1d84164190b6a1c3e70215c, type: 2}
-      translation: "The game was made by:\r\n\u2014Milt (original idea): Tg @prostomilt\n\r\n\u2014TheEvilDuck
-        (Techlead and teamlead roles, gamedesign, code, graphics, music, leveldesign):
-        boxheaddyamonag@gmail.com, \nTg @Sheldone\n\r\n\u2014Sever (Code, leveldesign):
-        salavatfattahov@gmail.com, \nTg @SlvtF\n\n\u2014Carville (Music): Tg @Carville\r"
+      translation: "The game was made by:\n\r\n\u2014Milt (prostomilt) - original
+        idea\n\r\n\u2014TheEvilDuck (Sheldone) - techlead and teamlead roles, gamedesign,
+        code, graphics, music, leveldesign: boxheaddyamonag@gmail.com\n\r\n\u2014Sever
+        (SlvtF) - code, leveldesign: salavatfattahov@gmail.com\n\n\u2014Carville
+        and patao_potato - music\r"
   - textId: loading
     localizationDataElements:
     - language: {fileID: 11400000, guid: 19b9cbf1ca19881498d22e5c6cf01e6b, type: 2}
