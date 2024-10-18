@@ -93,8 +93,7 @@ namespace EntryPoint
             SetupMediators();
 
             SceneSetup();
-            
-            YandexGame.GameReadyAPI();
+        
             YandexGame.GetDataEvent -= PluginYGInit;
 
             OnFocusChanged(true);
@@ -191,7 +190,10 @@ namespace EntryPoint
         private async void SceneSetup()
         {
             if (!InitSceneBootstrap())
+            {
                 await _projectContext.Get<ISceneManager>().LoadScene(SceneIDs.MAIN_MENU);
+                YandexGame.GameReadyAPI();
+            }
         }
 
         private bool InitSceneBootstrap()
