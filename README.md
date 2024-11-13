@@ -1,6 +1,6 @@
 ##### Название проекта: 
 # Car time runner 2024
-![[Icon.png]]
+https://github.com/TheEvilDuck/CarRunner/blob/main/Icon.png
 ##### Ссылка на игру
 https://yandex.ru/games/app/359734?lang=ru
 ##### Описание проекта
