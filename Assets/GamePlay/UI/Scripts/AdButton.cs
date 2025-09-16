@@ -1,9 +1,9 @@
-using Common.UI.UIAnimations;
+using Common.UI.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Gameplay.UI
+namespace GamePlay.UI.Scripts
 {
     public class AdButton : MonoBehaviour
     {

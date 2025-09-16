@@ -1,6 +1,6 @@
 using Common;
 
-namespace Gameplay
+namespace GamePlay
 {
     public class PauseLocker : IPausable
     {

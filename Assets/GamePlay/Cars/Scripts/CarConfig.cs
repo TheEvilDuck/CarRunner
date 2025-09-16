@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay.Cars
+namespace GamePlay.Cars.Scripts
 {
     [CreateAssetMenu(fileName = "CarConfig", menuName = "Car/Config")]
     public class CarConfig : ScriptableObject

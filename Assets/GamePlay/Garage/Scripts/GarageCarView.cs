@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gameplay.Garages
+namespace GamePlay.Garage.Scripts
 {
     public class GarageCarView : MonoBehaviour
     {

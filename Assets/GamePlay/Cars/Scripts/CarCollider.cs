@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Gameplay.Cars
+namespace GamePlay.Cars.Scripts
 {
     [RequireComponent(typeof(Collider))]
     public class CarCollider : MonoBehaviour

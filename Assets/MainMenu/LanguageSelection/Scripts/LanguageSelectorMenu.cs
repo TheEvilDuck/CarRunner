@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Common.MenuParent;
-using Common.UI.UIAnimations;
-using Services.Localization;
+using Common.UI.Scripts;
+using Services.Localization.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace MainMenu.LanguageSelection
+namespace MainMenu.LanguageSelection.Scripts
 {
     public class LanguageSelectorMenu : MonoBehaviour, IMenuParent
     {

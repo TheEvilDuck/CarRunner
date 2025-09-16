@@ -1,5 +1,5 @@
 using Common.MenuParent;
-using Common.UI.UIAnimations;
+using Common.UI.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;

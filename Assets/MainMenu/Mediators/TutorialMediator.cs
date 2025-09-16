@@ -1,9 +1,10 @@
-using Common.Data;
-using Common.Data.Rewards;
-using DI;
 using System;
+using Infrastructure.DI;
+using MainMenu.Tutorial.Scripts;
+using Services.PlayerData;
+using Services.PlayerData.Rewards;
 
-namespace MainMenu
+namespace MainMenu.Mediators
 {
     public class TutorialMediator : IDisposable
     {
@@ -11,7 +12,7 @@ namespace MainMenu
         private IPlayerData _playerData;
         private RewardProvider _rewardProvider;
 
-        public TutorialMediator(DIContainer sceneContext)
+        public TutorialMediator(IDIContainer sceneContext)
         {
             _tutorialView = sceneContext.Get<TutorialView>();
             _playerData = sceneContext.Get<IPlayerData>();

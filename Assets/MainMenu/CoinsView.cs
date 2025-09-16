@@ -1,4 +1,4 @@
-using Common.UI.UIAnimations;
+using Common.UI.Scripts;
 using TMPro;
 using UnityEngine;
 

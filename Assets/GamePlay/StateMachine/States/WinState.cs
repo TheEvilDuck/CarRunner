@@ -1,14 +1,16 @@
-using Common.Data;
-using Common.Data.Rewards;
-using Common.States;
-using DI;
-using Levels;
+using Common.CoroutinePerformer;
+using GamePlay.UI.Scripts;
+using Infrastructure.DI;
+using Levels.Scripts;
+using Services.LeaderBoards;
+using Services.PlayerData;
+using Services.PlayerData.Rewards;
 
-namespace Gameplay.States
+namespace GamePlay.StateMachine.States
 {
     public class WinState : GameOverState
     {
-        public WinState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine, sceneContext)
+        public WinState(Common.States.StateMachine stateMachine, IDIContainer sceneContext) : base(stateMachine, sceneContext)
         {
         }
 
@@ -17,10 +19,11 @@ namespace Gameplay.States
             base.OnEnter();
 
             var playerData = _sceneContext.Get<IPlayerData>();
-            var leaderboard = _sceneContext.Get<ILeaderBoardData>();
-            var timer = _sceneContext.Get<Timer>();
+            var leaderboard = _sceneContext.Get<ILeaderBoardService>();
+            var timer = _sceneContext.Get<Timer.Timer>();
             var rewardProvider = _sceneContext.Get<RewardProvider>();
             var levelsDatabase = _sceneContext.Get<LevelsDatabase>();
+            var coroutinePerformer = _sceneContext.Get<ICoroutinePerformer>();
 
             playerData.AddPassedLevel(playerData.SelectedLevel);
 
@@ -30,7 +33,9 @@ namespace Gameplay.States
 
             if (timer.CurrentTime > 0 && !string.Equals(playerData.SelectedLevel, levelsDatabase.TutorialLevelId))
             {
-                leaderboard.SaveLevelRecord(playerData.SelectedLevel, timer.CurrentTime);
+                coroutinePerformer.StartCoroutine(leaderboard.SaveLevelRecordAsync(
+                    playerData.SelectedLevel,
+                    timer.CurrentTime));
             }
         }
     }

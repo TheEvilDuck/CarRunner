@@ -1,11 +1,11 @@
 using System;
-using Common;
-using Common.Data;
-using DI;
+using System.Collections;
+using Infrastructure.DI;
+using Services.Ads;
+using Services.PlayerData;
 using UnityEngine;
-using YG;
 
-namespace MainMenu.Shop.Logic
+namespace MainMenu.Shop.Scripts.Logic
 {
     [CreateAssetMenu(menuName = "Shop/Shop items/new watch ad", fileName = "Watch ad")]
     public class WatchAd : ShopItem
@@ -14,63 +14,34 @@ namespace MainMenu.Shop.Logic
         [field: SerializeField, Min(0)] public int CoinsReward {get; private set;}
         [field: SerializeField, Min(0)] public double AdCooldown {get; private set;}
 
-        public Func<float> GetCurrentCooldown {get; private set;} = () => 0;
-
-        public override bool TryClaim(DIContainer sceneContext)
+        public float GetCurrentCooldown(IDIContainer container)
         {
-            IPlayerData playerData = sceneContext.Get<IPlayerData>();
+            return Mathf.Max(0,
+                (float)(AdCooldown - (DateTime.Now - container.Get<IPlayerData>().WatchShopAdLastTime).TotalSeconds));
+        }
+        
+        public override bool CanBeClaimed(IDIContainer container)
+        {
+            if (GetCurrentCooldown(container) < AdCooldown)
+                return false;
 
-            if ((DateTime.Now - playerData.WatchShopAdLastTime).TotalSeconds >= AdCooldown)
+            IAdsService adsService = container.Get<IAdsService>();
+            return adsService.Ready;
+        }
+
+        protected override IEnumerator Claim(IDIContainer container, Action<bool> callback)
+        {
+            IAdsService adsService = container.Get<IAdsService>();
+
+            void OnAdShown(bool fullyShown)
             {
-                void OnRewardVideoEvent(int id)
-                {
-                    OnAdClosed();
-
-                    if (id != WATCH_AD_SHOP_ID)
-                        return;
-
-                    playerData.SaveWatchAdLastTime();
-
-                    YandexGame.RewardVideoEvent -= OnRewardVideoEvent;
-                    OnAdWatched(sceneContext);
-                }
-
-                void OnAdClosed()
-                {
-                    sceneContext.Get<PauseManager>().Unlock();
-                    sceneContext.Get<PauseManager>().Resume();
-                    YandexGame.CloseVideoEvent -= OnAdClosed;
-                    YandexGame.ErrorVideoEvent -= OnAdClosed;
-                }
-
-                YandexGame.RewardVideoEvent += OnRewardVideoEvent;
-                YandexGame.CloseVideoEvent += OnAdClosed;
-                YandexGame.ErrorVideoEvent += OnAdClosed;
-                sceneContext.Get<PauseManager>().Pause();
-                sceneContext.Get<PauseManager>().Lock();
-                YandexGame.RewVideoShow(WATCH_AD_SHOP_ID);
+                if (fullyShown)
+                    container.Get<IPlayerData>().AddCoins(CoinsReward);
                 
-                return true;
+                callback?.Invoke(fullyShown);
             }
 
-            return false;
-        
-        }
-
-        public override void Init(DIContainer sceneContext)
-        {
-            GetCurrentCooldown = () =>
-            {
-                return Mathf.Max(0, (float)(AdCooldown - (DateTime.Now - sceneContext.Get<IPlayerData>().WatchShopAdLastTime).TotalSeconds));
-            };
-
-            
-        }
-
-        private void OnAdWatched(DIContainer sceneContext)
-        {
-            sceneContext.Get<IPlayerData>().AddCoins(CoinsReward);
-            Claim();
+            yield return adsService.ShowRewardedAd(WATCH_AD_SHOP_ID, OnAdShown);
         }
     }
 }

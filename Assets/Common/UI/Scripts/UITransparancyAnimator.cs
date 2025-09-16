@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Common.UI.UIAnimations
+namespace Common.UI.Scripts
 {
     public class UITransparancyAnimator : UIAnimator
     {

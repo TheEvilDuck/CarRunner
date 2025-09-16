@@ -1,20 +1,21 @@
 using Common;
-using Common.Sound;
+using Common.Sounds.Scripts;
 using Common.States;
-using DI;
-using Gameplay.CarFallingHandling;
-using Gameplay.Cars;
-using Gameplay.UI;
-using Levels;
+using GamePlay.CarFallingHangling;
+using GamePlay.Cars.Scripts;
+using GamePlay.Infrastructure;
+using GamePlay.UI.Scripts;
+using Infrastructure.DI;
+using Levels.Scripts;
 
-namespace Gameplay.States
+namespace GamePlay.StateMachine.States
 {
     public class RaceGameState : State
     {
-        private readonly Timer _timer;
+        private readonly Timer.Timer _timer;
         private readonly CarBehaviour _car;
         private readonly SimpleCarCollisionTrigger _finish;
-        private readonly SoundController _soundController;
+        private readonly ISoundController _soundController;
         private readonly Level _level;
         private readonly FallingEndGame _fallingEndGame;
         private readonly PauseManager _scenePause;
@@ -22,15 +23,15 @@ namespace Gameplay.States
         private readonly StartMessage _startMessage;
         private readonly PauseButton _pauseButton;
 
-        public RaceGameState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine)
+        public RaceGameState(Common.States.StateMachine stateMachine, IDIContainer sceneContext) : base(stateMachine)
         {
-            _timer = sceneContext.Get<Timer>();
+            _timer = sceneContext.Get<Timer.Timer>();
             _car = sceneContext.Get<Car>().CarBehavior;
             _level = sceneContext.Get<Level>();
             _finish = _level.Finish;
             _fallingEndGame = sceneContext.Get<FallingEndGame>();
-            _soundController = sceneContext.Get<SoundController>();
-            _scenePause = sceneContext.Get<PauseManager>(Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG);
+            _soundController = sceneContext.Get<ISoundController>();
+            _scenePause = sceneContext.Get<PauseManager>(GameplayTags.PAUSE_MANAGER);
             _projectPause = sceneContext.Get<PauseManager>();
             _startMessage = sceneContext.Get<StartMessage>();
             _pauseButton = sceneContext.Get<PauseButton>();

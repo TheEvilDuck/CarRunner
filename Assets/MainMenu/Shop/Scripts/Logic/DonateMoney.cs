@@ -1,10 +1,12 @@
-using Common.Data;
-using Common.Disposables;
-using DI;
+using System;
+using System.Collections;
+using System.Linq;
+using Infrastructure.DI;
+using Services.PlayerData;
+using Services.PurchaseService;
 using UnityEngine;
-using YG;
 
-namespace MainMenu.Shop.Logic
+namespace MainMenu.Shop.Scripts.Logic
 {
     [CreateAssetMenu(menuName = "Shop/Shop items/new donate money", fileName = "Donate money")]
     public class DonateMoney : ShopItem
@@ -13,28 +15,25 @@ namespace MainMenu.Shop.Logic
         [field: SerializeField, Min(0)] public int Cost { get; private set; }
         [field: SerializeField, Min(0)] public int CoinsReward { get; private set; }
 
-        public override void Init(DIContainer sceneContext)
+        public override bool CanBeClaimed(IDIContainer container)
         {
-            void onPurchaseSuccessEvent(string id)
-            {
-                if (id == Id)
-                {
-                    sceneContext.Get<IPlayerData>().AddCoins(CoinsReward);
-                    Claim();
-                    YandexGame.SaveProgress();
-                }
-            }
-
-            YandexGame.PurchaseSuccessEvent += onPurchaseSuccessEvent;
-
-            sceneContext.Get<CompositeDisposable>(MainMenu.Bootstrap.MAIN_MENU_DISPOSABLES_TAG)
-                .Add(new DisposableDelegate(() => YandexGame.PurchaseSuccessEvent -= onPurchaseSuccessEvent));
+            IPurchaseService purchaseService = container.Get<IPurchaseService>();
+            return purchaseService.Purchases.FirstOrDefault(data => data.ID == Id) != default;
         }
 
-        public override bool TryClaim(DIContainer sceneContext)
+        protected override IEnumerator Claim(IDIContainer container, Action<bool> callback)
         {
-            YandexGame.BuyPayments(Id);
-            return true;
+            IPurchaseService purchaseService = container.Get<IPurchaseService>();
+            
+            void OnPurchaseProceed(bool success)
+            {
+                if (success)
+                    container.Get<IPlayerData>().AddCoins(CoinsReward);
+                
+                callback?.Invoke(success);
+            }
+
+            yield return purchaseService.HandlePurchase(Id, OnPurchaseProceed);
         }
     }
 }

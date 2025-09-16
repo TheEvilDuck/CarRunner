@@ -1,8 +1,10 @@
 using Common.MenuParent;
-using Common.UI;
+using Common.Settings;
 using MainMenu.LanguageSelection;
+using MainMenu.LanguageSelection.Scripts;
 using MainMenu.LevelSelection;
-using MainMenu.Shop.View;
+using MainMenu.Shop.Scripts.View;
+using MainMenu.Tutorial.Scripts;
 using UnityEngine;
 
 namespace MainMenu

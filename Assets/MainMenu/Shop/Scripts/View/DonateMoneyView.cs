@@ -1,10 +1,13 @@
 using System;
-using MainMenu.Shop.Logic;
+using System.Linq;
+using Infrastructure.DI;
+using MainMenu.Shop.Scripts.Logic;
+using Services.PurchaseService;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MainMenu.Shop.View
+namespace MainMenu.Shop.Scripts.View
 {
     public class DonateMoneyView : ShopItemView
     {
@@ -13,21 +16,30 @@ namespace MainMenu.Shop.View
         [SerializeField] private Image _costImage;
         [SerializeField] private Image _itemImage;
         
-        public override void Init(ShopItem shopItem)
+        public override void Init(ShopItem shopItem, IDIContainer container)
         {
             if (shopItem is not DonateMoney donateMoney)
                 throw new ArgumentException($"Somehow you passed wrong shopitem to view, you passed {shopItem.name}");
 
             _costText.text = donateMoney.Cost.ToString();
             _rewardText.text = donateMoney.CoinsReward.ToString();
+            
+            IPurchaseService purchaseService = container.Get<IPurchaseService>();
+            var purchase = purchaseService.Purchases.FirstOrDefault(x => x.ID == donateMoney.Id);
+
+            if (purchase != null)
+            {
+                SetCurrencyImage(purchase.CurrencyIcon);
+                SetItemImage(purchase.ItemIcon);
+            }
         }
 
-        public override void SetCurrencyImage(Sprite sprite)
+        private void SetCurrencyImage(Sprite sprite)
         {
             _costImage.sprite = sprite;
         }
 
-        public override void SetItemImage(Sprite sprite)
+        private void SetItemImage(Sprite sprite)
         {
             _itemImage.sprite = sprite;
         }

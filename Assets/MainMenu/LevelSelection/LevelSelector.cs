@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Common.Data;
 using Common.MenuParent;
-using Common.UI.UIAnimations;
+using Common.UI.Scripts;
 using Levels;
+using Levels.Scripts;
+using Services.LeaderBoards;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -13,7 +15,7 @@ using YG.Utils.LB;
 
 namespace MainMenu.LevelSelection
 {
-    public class LevelSelector: MonoBehaviour, IMenuParent, IDisposable
+    public class LevelSelector: MonoBehaviour, IMenuParent
     {
         [SerializeField] private LevelsDatabase _levels;
         [SerializeField] private LevelButton _levelButtonPrefab;
@@ -30,20 +32,23 @@ namespace MainMenu.LevelSelection
         public event Func<string, bool> buyLevelPressed;
 
         private Dictionary<LevelButton, string> _buttons;
-        private Dictionary<LevelButton, Action<LBData>> _subscribtions;
+        
         private string _currentLevelId;
         private bool _isReadyToPlay;
-        private ILeaderBoardData _leaderBoardData;
+        private ILeaderBoardService _leaderBoardService;
 
         public UnityEvent BackPressed => _backButton.onClick;
 
-        public void Init(IEnumerable<string> passedLevels, IEnumerable<string> availableLevels, ILeaderBoardData leaderBoardData, string tutorialLevelId)
+        public IEnumerator Init(
+            IEnumerable<string> passedLevels, 
+            IEnumerable<string> availableLevels, 
+            ILeaderBoardService leaderBoardService, 
+            string tutorialLevelId)
         {
             _buttons = new Dictionary<LevelButton, string>();
-            _subscribtions = new Dictionary<LevelButton, Action<LBData>>();
             _levelPlayButton.Hide();
             _leaderboardLoadingAnimation.gameObject.SetActive(false);
-            _leaderBoardData = leaderBoardData;
+            _leaderBoardService = leaderBoardService;
             _tutorialLevelText.SetActive(false);
 
             LevelButton tutorialButton = Instantiate(_levelButtonPrefab, _buttonsParent);
@@ -70,20 +75,14 @@ namespace MainMenu.LevelSelection
                 button.Init(levelId);
                 _buttons.Add(button, levelId);
 
-                Action<LBData> sub = OnLeaderboardUpdated;
-
-                _leaderBoardData.leaderboardUpdated += sub;
-
-                _subscribtions.Add(button, sub);
-
-                async void OnLeaderboardUpdated(LBData lBData)
+                void OnLeaderBoardGet(bool success, ILeaderBoardData data)
                 {
-                    if (!string.Equals(lBData.technoName, _leaderBoardData.GetLeaderboardId(_currentLevelId)))
-                        return;
-
-                    _leaderboardYG.UpdateLB(await _leaderBoardData.GetLeaderBoard(_currentLevelId));
+                    // Вьюху лидербордов переписать на свою!
+                    //_leaderboardYG.UpdateLB(await _leaderBoardData.GetLeaderBoard(_currentLevelId));
                 }
 
+                yield return _leaderBoardService.GetLevelLeaderBoardAsync(levelId, OnLeaderBoardGet);
+                
                 button.Clicked.AddListener(async () => 
                 {
                     _levelPlayButton.Show();
@@ -96,7 +95,7 @@ namespace MainMenu.LevelSelection
                     else
                         _levelPlayButton.ShowLocked(_levels.GetLevelCost(levelId));
 
-                    if (!string.Equals(_currentLevelId, levelId))
+                    /*if (!string.Equals(_currentLevelId, levelId))
                     {
                         _tutorialLevelText.SetActive(false);
                         _currentLevelId = levelId;
@@ -114,7 +113,7 @@ namespace MainMenu.LevelSelection
                         }
 
                         _leaderboardYG.UpdateLB(data);
-                    }
+                    }*/ // ПЕРЕПИСАТЬ ВЬЮХУ НА СВОЮ
                 });
 
                 _uIAnimatorSequence.AddAnimation(button.PosittionAnimator, 0.1f, false);
@@ -164,14 +163,6 @@ namespace MainMenu.LevelSelection
             _leaderboardYG.gameObject.SetActive(false);
             _tutorialLevelText.SetActive(false);
             gameObject.SetActive(false);
-        }
-
-        public void Dispose()
-        {
-            foreach (var pair in _subscribtions)
-            {
-                _leaderBoardData.leaderboardUpdated -= pair.Value;
-            }
         }
     }
 }

@@ -1,19 +1,20 @@
 using System;
 using System.Collections.Generic;
-using DI;
-using Levels;
+using GamePlay.TimerGates.Scripts;
+using Infrastructure.DI;
+using Levels.Scripts;
 
-namespace Gameplay.TimerGates
+namespace GamePlay.Mediators
 {
     public class TimerAndGatesMediator : IDisposable
     {
         private readonly IEnumerable<TimerGate> _timerGates;
-        private readonly Timer _timer;
+        private readonly Timer.Timer _timer;
 
-        public TimerAndGatesMediator(DIContainer sceneContext)
+        public TimerAndGatesMediator(IDIContainer sceneContext)
         {
             _timerGates = sceneContext.Get<Level>().TimerGates;
-            _timer = sceneContext.Get<Timer>();
+            _timer = sceneContext.Get<Timer.Timer>();
 
             foreach (TimerGate timerGate in _timerGates)
             {

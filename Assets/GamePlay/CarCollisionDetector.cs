@@ -1,7 +1,7 @@
-using Gameplay.Cars;
+using GamePlay.Cars.Scripts;
 using UnityEngine;
 
-namespace Gameplay
+namespace GamePlay
 {
     [RequireComponent(typeof(Collider))]
     public abstract class CarCollisionDetector : MonoBehaviour

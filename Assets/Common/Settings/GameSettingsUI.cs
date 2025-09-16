@@ -2,7 +2,7 @@ using Common.MenuParent;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Common.UI
+namespace Common.Settings
 {
     public class GameSettingsUI : MonoBehaviour, IMenuParent
     {

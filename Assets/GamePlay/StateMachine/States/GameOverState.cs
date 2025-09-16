@@ -1,18 +1,17 @@
 using Common;
 using Common.States;
-using DI;
-using Gameplay.Cars;
-using Gameplay.UI;
-using Services.PlayerInput;
-using UnityEngine;
-using YG;
+using GamePlay.Cars.Scripts;
+using GamePlay.Infrastructure;
+using GamePlay.UI.Scripts;
+using Infrastructure.DI;
+using Services.InputService;
 
-namespace Gameplay.States
+namespace GamePlay.StateMachine.States
 {
     public abstract class GameOverState : State
     {
-        protected readonly DIContainer _sceneContext;
-        public GameOverState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine)
+        protected readonly IDIContainer _sceneContext;
+        public GameOverState(Common.States.StateMachine stateMachine, IDIContainer sceneContext) : base(stateMachine)
         {
             _sceneContext = sceneContext;
         }
@@ -24,24 +23,20 @@ namespace Gameplay.States
 
         protected override void OnEnter()
         {
-            YandexGame.GameplayStop();
-            
-            PauseManager scenePause = _sceneContext.Get<PauseManager>(Bootstrap.GAMEPLAY_PAUSE_MANAGER_TAG);
+            PauseManager scenePause = _sceneContext.Get<PauseManager>(GameplayTags.PAUSE_MANAGER);
             PauseManager globalPause = _sceneContext.Get<PauseManager>();
 
             PauseMenu pauseMenu = _sceneContext.Get<PauseMenu>();
             PauseButton pauseButton = _sceneContext.Get<PauseButton>();
             Car car = _sceneContext.Get<Car>();
             PauseLocker pauseLocker = _sceneContext.Get<PauseLocker>();
-            YandexGameGameplay yandexGameGameplay = _sceneContext.Get<YandexGameGameplay>();
             EndOfTheGame endOfTheGame = _sceneContext.Get<EndOfTheGame>();
-            IPlayerInput playerInput = _sceneContext.Get<IPlayerInput>();
+            PlayerInput playerInput = _sceneContext.Get<PlayerInput>();
 
             scenePause.Unregister(pauseMenu);
             scenePause.Unregister(pauseButton);
             scenePause.Unregister(car);
             scenePause.Unregister(pauseLocker);
-            scenePause.Unregister(yandexGameGameplay);
             scenePause.Unregister(_stateMachine);
 
             scenePause.Pause();

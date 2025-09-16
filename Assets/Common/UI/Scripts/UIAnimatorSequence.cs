@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Common.UI.UIAnimations
+namespace Common.UI.Scripts
 {
     public class UIAnimatorSequence: MonoBehaviour
     {

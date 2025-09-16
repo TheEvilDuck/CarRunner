@@ -1,8 +1,8 @@
 using Common;
-using Common.UI.UIAnimations;
+using Common.UI.Scripts;
 using UnityEngine;
 
-namespace Gameplay.UI
+namespace GamePlay.UI.Scripts
 {
     public class StartMessage : MonoBehaviour, IPausable
     {

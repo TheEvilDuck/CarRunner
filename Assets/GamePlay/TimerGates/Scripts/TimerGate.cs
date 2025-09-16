@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Gameplay.TimerGates
+namespace GamePlay.TimerGates.Scripts
 {
     [RequireComponent(typeof(Collider))]
     public class TimerGate : CarCollisionDetector

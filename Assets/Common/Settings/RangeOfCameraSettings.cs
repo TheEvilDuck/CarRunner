@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Common
+namespace Common.Settings
 {
     [CreateAssetMenu(menuName = "RangeOfCameraSettings")]
     public class RangeOfCameraSettings : ScriptableObject

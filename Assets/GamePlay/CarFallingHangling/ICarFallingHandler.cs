@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay.CarFallingHandling
+namespace GamePlay.CarFallingHangling
 {
     public interface ICarFallingHandler
     {

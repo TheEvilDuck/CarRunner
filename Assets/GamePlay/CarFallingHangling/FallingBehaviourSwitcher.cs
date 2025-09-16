@@ -1,6 +1,6 @@
 using System;
 
-namespace Gameplay.CarFallingHandling
+namespace GamePlay.CarFallingHangling
 {
     public class FallingBehaviourSwitcher: IDisposable
     {

@@ -1,13 +1,13 @@
 using System.Collections.Generic;
-using Common.Sound;
-using Gameplay;
-using Gameplay.Cars;
-using Gameplay.Garages;
-using Gameplay.TimerGates;
+using Common.Sounds.Scripts;
+using GamePlay;
+using GamePlay.Cars.Scripts;
+using GamePlay.Garage.Scripts;
+using GamePlay.TimerGates.Scripts;
 using RoadArchitect;
 using UnityEngine;
 
-namespace Levels
+namespace Levels.Scripts
 {
     public class Level : MonoBehaviour
     {

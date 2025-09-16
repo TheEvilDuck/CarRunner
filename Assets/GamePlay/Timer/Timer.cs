@@ -2,7 +2,7 @@ using System;
 using Common;
 using UnityEngine;
 
-namespace Gameplay
+namespace GamePlay.Timer
 {
     public class Timer: IPausable
     {

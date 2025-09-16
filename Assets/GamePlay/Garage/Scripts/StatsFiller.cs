@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Gameplay.Garages
+namespace GamePlay.Garage.Scripts
 {
     public class StatsFiller : MonoBehaviour
     {

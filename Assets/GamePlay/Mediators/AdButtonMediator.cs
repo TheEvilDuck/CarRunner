@@ -1,26 +1,37 @@
 using System;
+using System.Collections;
 using Common;
-using Common.Data;
-using Common.Data.Rewards;
-using DI;
-using Gameplay.UI;
-using Levels;
-using YG;
+using Common.CoroutinePerformer;
+using GamePlay.Infrastructure;
+using GamePlay.UI.Scripts;
+using Infrastructure.DI;
+using Levels.Scripts;
+using Services.Ads;
+using Services.PlayerData;
+using Services.PlayerData.Rewards;
 
-namespace Gameplay
+namespace GamePlay.Mediators
 {
     public class AdButtonMediator : IDisposable
     {
-        private readonly DIContainer _sceneContext;
-        private AdButton _adButton;
-        private IPlayerData _playerData;
-        private PauseManager _pauseManager;
-        public AdButtonMediator(DIContainer sceneContext)
+        private readonly AdButton _adButton;
+        private readonly IAdsService _adsService;
+        private readonly EndOfTheGame _endOfTheGame;
+        private readonly ICoroutinePerformer _coroutinePerformer;
+        private readonly RewardProvider _rewardProvider;
+        private readonly Timer.Timer _timer;
+        private readonly LevelsDatabase _levelsDatabase;
+        private readonly IPlayerData _playerData;
+
+        public AdButtonMediator(IDIContainer sceneContext)
         {
-            _sceneContext = sceneContext;
-            _adButton = _sceneContext.Get<EndOfTheGame>().AdButton;
+            _adButton = sceneContext.Get<EndOfTheGame>().AdButton;
+            _adsService = sceneContext.Get<IAdsService>();
+            _endOfTheGame = sceneContext.Get<EndOfTheGame>();
+            _rewardProvider = sceneContext.Get<RewardProvider>();
+            _timer = sceneContext.Get<Timer.Timer>();
+            _levelsDatabase = sceneContext.Get<LevelsDatabase>();
             _playerData = sceneContext.Get<IPlayerData>();
-            _pauseManager = sceneContext.Get<PauseManager>();
 
             _adButton.clicked.AddListener(OnAdButtonPressed);
         }
@@ -30,52 +41,25 @@ namespace Gameplay
         }
 
         private void OnAdButtonPressed()
+            => _coroutinePerformer.StartCoroutine(OnAdButtonPressedAsync());
+
+        private IEnumerator OnAdButtonPressedAsync()
         {
-            _sceneContext.Get<EndOfTheGame>().Hide();
+            _endOfTheGame.Hide();
 
-            void OnRewardWatched(int id)
+            void OnAdWatched(bool success)
             {
-                OnRewardVideoClosed();
-
-                if (id != Gameplay.Bootstrap.WATCH_AD_REWAD_ID)
-                    return;
-
-                YandexGame.RewardVideoEvent -= OnRewardWatched;
-                OnAdWatched();
+                int rewardCoins 
+                    = _rewardProvider.GetLevelCompletionReward(_timer.CurrentTime, _playerData, _levelsDatabase);
+                
+                _playerData.AddCoins(rewardCoins);
+                _endOfTheGame.Win(rewardCoins * 2);
+                _adButton.Hide();
             }
 
-            void OnRewardVideoClosed()
-            {
-                _pauseManager.Unlock();
-                _pauseManager.Resume();
-                YandexGame.ErrorVideoEvent -= OnRewardVideoClosed;
-                YandexGame.CloseVideoEvent -= OnRewardVideoClosed;
-                var endOfTheGame = _sceneContext.Get<EndOfTheGame>();
-                endOfTheGame.Show();
-            }
+            yield return _adsService.ShowRewardedAd(Bootstrap.WATCH_AD_REWAD_ID, OnAdWatched);
 
-            YandexGame.RewardVideoEvent += OnRewardWatched;
-            YandexGame.ErrorVideoEvent += OnRewardVideoClosed;
-            YandexGame.CloseVideoEvent += OnRewardVideoClosed;
-
-            _pauseManager.Pause();
-            _pauseManager.Lock();
-
-            YandexGame.RewVideoShow(Gameplay.Bootstrap.WATCH_AD_REWAD_ID);
-        }
-
-        private void OnAdWatched()
-        {
-            var rewardProvider = _sceneContext.Get<RewardProvider>();
-            var timer = _sceneContext.Get<Timer>();
-            var levelsDatabase = _sceneContext.Get<LevelsDatabase>();
-            var playerData = _sceneContext.Get<IPlayerData>();
-            var endOfTheGame = _sceneContext.Get<EndOfTheGame>();
-
-            int rewardCoins = rewardProvider.GetLevelCompletionReward(timer.CurrentTime, playerData, levelsDatabase);
-            playerData.AddCoins(rewardCoins);
-            endOfTheGame.Win(rewardCoins * 2);
-            _adButton.Hide();
+            _endOfTheGame.Show();
         }
     }
 }

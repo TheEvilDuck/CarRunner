@@ -1,31 +1,37 @@
 using System;
 using System.Collections;
-using MainMenu.Shop.Logic;
-using Services.Localization;
+using Infrastructure.DI;
+using MainMenu.Shop.Scripts.Logic;
+using Services.Localization.Scripts;
 using TMPro;
 using UnityEngine;
 
-namespace MainMenu.Shop.View
+namespace MainMenu.Shop.Scripts.View
 {
     public class WatchAdView : ShopItemView, ILocalizable
     {
         private const string LOCALIZATION_ID = "watch_ad";
+        
         [SerializeField] private TextMeshProUGUI _rewardText;
         [SerializeField] private TextMeshProUGUI _watchAdText;
+        
         private Coroutine _currentTimer;
         private WatchAd _watchAd;
+        private IDIContainer _container;
 
         public event Action<ILocalizable> updateRequested;
 
         public string TextId => LOCALIZATION_ID;
 
-        public override void Init(ShopItem shopItem)
+        public override void Init(ShopItem shopItem, IDIContainer container)
         {
             if (shopItem is not WatchAd watchAd)
-                throw new ArgumentException($"Somehow you passed wrong shopitem to view, you passed {shopItem.name}");
-
+                throw new ArgumentException(
+                    $"You must pass to watch ad view only watch ad shop items! {shopItem.GetType()} passed!");
+            
             _rewardText.text = watchAd.CoinsReward.ToString();
             _watchAd = watchAd;
+            _container = container;
 
             LocalizationRegistrator.Instance.RegisterLocalizable(this, true);
         }
@@ -34,7 +40,7 @@ namespace MainMenu.Shop.View
         {
             _watchAd.claimed += OnRewardClaimed;
 
-            if ((float)_watchAd.GetCurrentCooldown.Invoke() > 0)
+            if (_watchAd.GetCurrentCooldown(_container) > 0)
             {
                 if (_currentTimer != null)
                     StopCoroutine(_currentTimer);
@@ -62,9 +68,9 @@ namespace MainMenu.Shop.View
 
         private IEnumerator CDTimer()
         {
-            while ((float)_watchAd.GetCurrentCooldown.Invoke() > 0)
+            while (_watchAd.GetCurrentCooldown(_container) > 0)
             {
-                _watchAdText.text = Mathf.CeilToInt((float)_watchAd.GetCurrentCooldown.Invoke()).ToString();
+                _watchAdText.text = Mathf.CeilToInt(_watchAd.GetCurrentCooldown(_container)).ToString();
                 yield return null;
             }
 

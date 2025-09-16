@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,21 +7,19 @@ namespace Services.SceneManagement
 {
     public class SimpleUnitySceneManager : ISceneManager
     {
-        public event Action beforeSceneLoadingStarted;
-        public event Action afterScemeLoadingEnd;
+        public event Action<string> sceneLoaded;
+        public event Action<string> sceneLoadingRequested;
 
-        public async Awaitable LoadScene(string sceneId)
+        public IEnumerator LoadScene(string sceneId)
         {
-            beforeSceneLoadingStarted?.Invoke();
+            sceneLoadingRequested?.Invoke(sceneId);
 
             if (!string.Equals(sceneId, SceneManager.GetActiveScene().name) && !string.Equals(sceneId, SceneIDs.BOOTSTRAP))
-                await SceneManager.LoadSceneAsync(SceneIDs.BOOTSTRAP);
-
-            await Awaitable.WaitForSecondsAsync(0.5f);
+                yield return SceneManager.LoadSceneAsync(SceneIDs.BOOTSTRAP);
             
-            await SceneManager.LoadSceneAsync(sceneId);
+            yield return SceneManager.LoadSceneAsync(sceneId);
 
-            afterScemeLoadingEnd?.Invoke();
+            sceneLoaded?.Invoke(sceneId);
         }
     }
 }

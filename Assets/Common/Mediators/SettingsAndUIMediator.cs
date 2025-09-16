@@ -1,6 +1,6 @@
-using Common.UI;
-using DI;
 using System;
+using Common.Settings;
+using Infrastructure.DI;
 
 namespace Common.Mediators
 {
@@ -11,7 +11,7 @@ namespace Common.Mediators
         private readonly SoundSettingsView _soundSettingsView;
         private readonly CameraSettingsView _cameraSettingsView;
 
-        public SettingsAndUIMediator(DIContainer sceneContext)
+        public SettingsAndUIMediator(IDIContainer sceneContext)
         {
             _cameraSettings = sceneContext.Get<ICameraSettings>();
             _soundSettings = sceneContext.Get<ISoundSettings>();

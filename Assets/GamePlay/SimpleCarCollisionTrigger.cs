@@ -1,6 +1,6 @@
 using System;
 
-namespace Gameplay
+namespace GamePlay
 {
     public class SimpleCarCollisionTrigger : CarCollisionDetector
     {

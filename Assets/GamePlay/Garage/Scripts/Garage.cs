@@ -1,9 +1,9 @@
 using System;
 using Common.Reactive;
-using Gameplay.Cars;
+using GamePlay.Cars.Scripts;
 using UnityEngine;
 
-namespace Gameplay.Garages
+namespace GamePlay.Garage.Scripts
 {
     [RequireComponent(typeof(Collider))]
     public class Garage : CarCollisionDetector, IGarageData

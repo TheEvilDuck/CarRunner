@@ -1,21 +1,21 @@
 using System;
 using System.Collections.Generic;
 using Common.Reactive;
-using Gameplay.Cars;
-using Gameplay.Garages;
+using GamePlay.Cars.Scripts;
+using GamePlay.Garage.Scripts;
 using UnityEngine;
 
-namespace Gameplay
+namespace GamePlay
 {
     public class CarSwitcher: IDisposable
     {
         private Car _car;
         private IEnumerable<IGarageData> _garages;
-        private Timer _timer;
+        private Timer.Timer _timer;
 
         private Dictionary<IGarageData, Action> _delegates;
 
-        public CarSwitcher(Car car, IEnumerable<IGarageData> garages, Timer timer, GameObject wheelPrefab, Observable<CarConfig> currentCarConfig)
+        public CarSwitcher(Car car, IEnumerable<IGarageData> garages, Timer.Timer timer, GameObject wheelPrefab, Observable<CarConfig> currentCarConfig)
         {
             _car = car;
             _garages = garages;

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Common.UI.UIAnimations;
+using Common.UI.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 

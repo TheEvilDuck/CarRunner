@@ -1,13 +1,12 @@
-using Common;
-using Common.Data;
-using DI;
-using Levels;
-using Services.SceneManagement;
 using System;
+using Infrastructure.DI;
+using Levels.Scripts;
+using Services.Ads;
+using Services.PlayerData;
+using Services.SceneManagement;
 using UnityEngine;
-using YG;
 
-namespace MainMenu
+namespace MainMenu.Mediators
 {
     public class MainMenuMediator : IDisposable
     {
@@ -18,7 +17,7 @@ namespace MainMenu
         private readonly ISceneManager _sceneManager;
         private readonly YandexGameFullScreenAd _yandexGameFullScreenAd;
 
-        public MainMenuMediator(DIContainer sceneContainer)
+        public MainMenuMediator(IDIContainer sceneContainer)
         {
             _mainMenuView = sceneContainer.Get<MainMenuView>();
             _playerData = sceneContainer.Get<IPlayerData>();
@@ -31,7 +30,7 @@ namespace MainMenu
             _mainMenuView.LevelSelector.levelSelected += OnLevelSelected;
             _mainMenuView.LevelSelector.buyLevelPressed += OnBuyLevelButtonPressed;
             _notEnoughMoneyPopup.yesClicked += OnYesNotEnoughMoneyPopupPressed;
-            _yandexGameFullScreenAd.AdIsShown += OnAdIsShown;
+            _yandexGameFullScreenAd.adIsShown += OnAdIsShown;
         }
 
         public void Dispose()
@@ -40,7 +39,7 @@ namespace MainMenu
             _mainMenuView.LevelSelector.levelSelected -= OnLevelSelected;
             _mainMenuView.LevelSelector.buyLevelPressed -= OnBuyLevelButtonPressed;
             _notEnoughMoneyPopup.yesClicked -= OnYesNotEnoughMoneyPopupPressed;
-            _yandexGameFullScreenAd.AdIsShown -= OnAdIsShown;
+            _yandexGameFullScreenAd.adIsShown -= OnAdIsShown;
         }
 
         private void OnExitPressed() => Application.Quit();

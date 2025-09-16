@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
-namespace Gameplay.UI
+
+namespace GamePlay.Timer
 {
     public class TimerView : MonoBehaviour
     {

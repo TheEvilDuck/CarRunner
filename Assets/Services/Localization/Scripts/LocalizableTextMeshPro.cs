@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-namespace Services.Localization
+namespace Services.Localization.Scripts
 {
     public class LocalizableTextMeshPro : MonoBehaviour, ILocalizable
     {

@@ -1,20 +1,18 @@
 using System;
-using Common.Data;
-using DI;
+using Infrastructure.DI;
+using Services.PlayerData;
 
-namespace MainMenu
+namespace MainMenu.Mediators
 {
     public class CoinsMediator : IDisposable
     {
-        private readonly DIContainer _sceneContext;
         private readonly IPlayerData _playerData;
         private readonly CoinsView _coinsView;
 
-        public CoinsMediator(DIContainer sceneContext)
+        public CoinsMediator(IDIContainer container)
         {
-            _sceneContext = sceneContext;
-            _playerData = _sceneContext.Get<IPlayerData>();
-            _coinsView = _sceneContext.Get<CoinsView>();
+            _playerData = container.Get<IPlayerData>();
+            _coinsView = container.Get<CoinsView>();
 
             _playerData.coinsChanged += OnCoinsChanged;
 

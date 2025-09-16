@@ -1,10 +1,10 @@
 using System;
 using Common;
-using DI;
+using GamePlay.UI.Scripts;
+using Infrastructure.DI;
 using Services.SceneManagement;
-using UnityEngine;
 
-namespace Gameplay
+namespace GamePlay.Mediators
 {
     public class PauseMenuMediator : IDisposable
     {
@@ -12,7 +12,7 @@ namespace Gameplay
         private readonly PauseManager _pauseManager;
         private readonly ISceneManager _sceneManager;
 
-        public PauseMenuMediator(DIContainer sceneContext)
+        public PauseMenuMediator(IDIContainer sceneContext)
         {
             _pauseMenuButtons = sceneContext.Get<SceneChangingButtons>();
             _pauseManager = sceneContext.Get<PauseManager>();

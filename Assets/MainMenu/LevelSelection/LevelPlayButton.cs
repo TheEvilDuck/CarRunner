@@ -1,6 +1,7 @@
 using System;
-using Common.UI.UIAnimations;
+using Common.UI.Scripts;
 using Services.Localization;
+using Services.Localization.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;

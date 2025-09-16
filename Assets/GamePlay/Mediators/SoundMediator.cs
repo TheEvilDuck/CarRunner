@@ -1,26 +1,22 @@
-using Common;
-using Common.Sound;
-using Common.States;
-using DI;
-using Gameplay.Garages;
-using Gameplay.TimerGates;
-using Levels;
-using MainMenu;
 using System;
 using System.Collections.Generic;
+using Common.Sounds.Scripts;
+using GamePlay.TimerGates.Scripts;
+using Infrastructure.DI;
+using Levels.Scripts;
 
-namespace Gameplay
+namespace GamePlay.Mediators
 {
     public class SoundMediator : IDisposable
     {
-        private SoundController _soundController;
+        private ISoundController _soundController;
         private IEnumerable<TimerGate> _gates;
-        private IEnumerable<Garage> _garages;
+        private IEnumerable<Garage.Scripts.Garage> _garages;
         
-        public SoundMediator(DIContainer sceneContext)
+        public SoundMediator(IDIContainer sceneContext)
         {
             
-            _soundController = sceneContext.Get<SoundController>();
+            _soundController = sceneContext.Get<ISoundController>();
             var level = sceneContext.Get<Level>();
             _gates = level.TimerGates;
             _garages = level.Garages;
@@ -28,7 +24,7 @@ namespace Gameplay
             foreach (TimerGate gate in _gates)
                 gate.passed += OnGatePassed;
 
-            foreach (Garage garage in _garages)
+            foreach (Garage.Scripts.Garage garage in _garages)
                 garage.passed += OnGaregePassed;
         }
 
@@ -37,7 +33,7 @@ namespace Gameplay
             foreach (TimerGate gate in _gates)
                 gate.passed -= OnGatePassed;
 
-            foreach (Garage garage in _garages)
+            foreach (Garage.Scripts.Garage garage in _garages)
                 garage.passed -= OnGaregePassed;
         }
 

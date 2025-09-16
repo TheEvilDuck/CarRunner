@@ -1,24 +1,24 @@
 using Common;
 using Common.States;
-using DI;
-using Gameplay.Cars;
-using Gameplay.UI;
-using Services.PlayerInput;
+using GamePlay.Cars.Scripts;
+using GamePlay.UI.Scripts;
+using Infrastructure.DI;
+using Services.InputService;
 using UnityEngine;
 
-namespace Gameplay.States
+namespace GamePlay.StateMachine.States
 {
     public class PreStartState : State
     {
         private readonly CarBehaviour _carBehaviour;
-        private readonly IPlayerInput _playerInput;
+        private readonly PlayerInput _playerInput;
         private readonly StartMessage _startMessage;
         private readonly PauseManager _globalPause;
         private readonly PauseButton _pauseButton;
-        public PreStartState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine)
+        public PreStartState(Common.States.StateMachine stateMachine, IDIContainer sceneContext) : base(stateMachine)
         {
             _carBehaviour = sceneContext.Get<Car>().CarBehavior;
-            _playerInput = sceneContext.Get<IPlayerInput>();
+            _playerInput = sceneContext.Get<PlayerInput>();
             _startMessage = sceneContext.Get<StartMessage>();
             _globalPause = sceneContext.Get<PauseManager>();
             _pauseButton = sceneContext.Get<PauseButton>();

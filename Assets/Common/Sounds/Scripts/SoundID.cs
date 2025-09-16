@@ -1,4 +1,4 @@
-namespace Common.Sound
+namespace Common.Sounds.Scripts
 {
     public enum SoundID
     {

@@ -1,10 +1,10 @@
-using Common.UI.UIAnimations;
+using Common.UI.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace MainMenu.LanguageSelection
+namespace MainMenu.LanguageSelection.Scripts
 {
     public class LanguageUI : MonoBehaviour
     {

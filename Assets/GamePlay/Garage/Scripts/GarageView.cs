@@ -1,10 +1,10 @@
 using Common.Reactive;
-using Common.UI.UIAnimations;
-using Gameplay.Cars;
+using Common.UI.Scripts;
+using GamePlay.Cars.Scripts;
 using TMPro;
 using UnityEngine;
 
-namespace Gameplay.Garages
+namespace GamePlay.Garage.Scripts
 {
     public class GarageView : MonoBehaviour
     {

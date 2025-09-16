@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Common
+namespace Common.Settings
 {
     public class GameSettings : ICameraSettings, ISoundSettings
     {

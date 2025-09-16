@@ -1,18 +1,19 @@
 using System;
-using Common.Sound;
-using DI;
+using Common.Settings;
+using Common.Sounds.Scripts;
+using Infrastructure.DI;
 
 namespace Common.Mediators
 {
     public class SettingsAndSoundMediator: IDisposable
     {
-        private readonly SoundController _soundController;
+        private readonly ISoundController _soundController;
         private readonly ISoundSettings _soundSettings;
 
-        public SettingsAndSoundMediator(DIContainer sceneContext)
+        public SettingsAndSoundMediator(IDIContainer sceneContext)
         {
             _soundSettings = sceneContext.Get<ISoundSettings>();
-            _soundController = sceneContext.Get<SoundController>();
+            _soundController = sceneContext.Get<ISoundController>();
 
             UpdateSoundSettings();
             _soundSettings.SoundSettingsChanged += UpdateSoundSettings;

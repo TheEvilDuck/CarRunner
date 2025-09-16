@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Common.UI.UIAnimations
+namespace Common.UI.Scripts
 {
     public abstract class UIAnimator : MonoBehaviour
     {

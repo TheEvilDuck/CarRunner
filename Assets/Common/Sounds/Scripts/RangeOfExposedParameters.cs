@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Common.Sound
+namespace Common.Sounds.Scripts
 {
     [CreateAssetMenu(menuName = "RangeOfExposedParameters")]
     public class RangeOfExposedParameters : ScriptableObject

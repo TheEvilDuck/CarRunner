@@ -1,9 +1,10 @@
-using Common;
-using DI;
-using Services.SceneManagement;
 using System;
+using Common;
+using GamePlay.UI.Scripts;
+using Infrastructure.DI;
+using Services.SceneManagement;
 
-namespace Gameplay
+namespace GamePlay.Mediators
 {
     public class EndGameMediator : IDisposable
     {
@@ -11,7 +12,7 @@ namespace Gameplay
         private readonly PauseManager _pauseManager;
         private readonly ISceneManager _sceneManager;
 
-        public EndGameMediator(DIContainer sceneContext)
+        public EndGameMediator(IDIContainer sceneContext)
         {
             _endGameUI = sceneContext.Get<EndOfTheGame>();
             _pauseManager = sceneContext.Get<PauseManager>();

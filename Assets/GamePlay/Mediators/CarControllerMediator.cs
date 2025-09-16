@@ -1,18 +1,19 @@
 using System;
-using DI;
-using Services.PlayerInput;
+using GamePlay.Cars.Scripts;
+using Infrastructure.DI;
+using Services.InputService;
 
-namespace Gameplay.Cars
+namespace GamePlay.Mediators
 {
     public class CarControllerMediator : IDisposable
     {
         private readonly CarBehaviour _car;
-        private readonly IPlayerInput _playerInput;
+        private readonly PlayerInput _playerInput;
 
-        public CarControllerMediator(DIContainer sceneContext)
+        public CarControllerMediator(IDIContainer sceneContext)
         {
             _car = sceneContext.Get<Car>().CarBehavior;
-            _playerInput = sceneContext.Get<IPlayerInput>();
+            _playerInput = sceneContext.Get<PlayerInput>();
 
             _playerInput.horizontalInput += OnHorizontalInput;
             _playerInput.brakeInput += OnBrakeInput;

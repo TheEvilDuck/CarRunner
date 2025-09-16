@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay.Cars
+namespace GamePlay.Cars.Scripts
 {
     public interface IReadOnlyWheel
     {

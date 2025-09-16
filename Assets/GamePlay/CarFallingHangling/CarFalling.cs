@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Gameplay.Cars;
+using GamePlay.Cars.Scripts;
 using UnityEngine;
 
-namespace Gameplay.CarFallingHandling
+namespace GamePlay.CarFallingHangling
 {
     public class CarFalling
     {

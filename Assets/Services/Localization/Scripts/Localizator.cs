@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-namespace Services.Localization
+namespace Services.Localization.Scripts
 {
     public class Localizator: IDisposable
     {

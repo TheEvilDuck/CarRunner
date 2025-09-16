@@ -1,7 +1,7 @@
 using System;
-using Gameplay.Cars;
+using GamePlay.Cars.Scripts;
 
-namespace Gameplay.Garages
+namespace GamePlay.Garage.Scripts
 {
     public interface IGarageData
     {

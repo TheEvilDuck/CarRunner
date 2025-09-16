@@ -1,10 +1,9 @@
 using System;
 using Common;
-using DI;
-using Gameplay.UI;
-using Services.PlayerInput;
+using GamePlay.UI.Scripts;
+using Infrastructure.DI;
 
-namespace Gameplay
+namespace GamePlay.Mediators
 {
     public class PauseMediator : IDisposable
     {
@@ -12,7 +11,7 @@ namespace Gameplay
         private readonly PauseButton _pauseButton;
         private readonly PauseMenu _pauseMenu;
 
-        public PauseMediator(DIContainer sceneContext)
+        public PauseMediator(IDIContainer sceneContext)
         {
             _pauseManager = sceneContext.Get<PauseManager>();
             _pauseButton = sceneContext.Get<PauseButton>();

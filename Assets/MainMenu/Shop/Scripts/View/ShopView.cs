@@ -1,12 +1,11 @@
 using Common.MenuParent;
-using Common.UI.UIAnimations;
-using DI;
+using Common.UI.Scripts;
+using Infrastructure.DI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using YG;
 
-namespace MainMenu.Shop.View
+namespace MainMenu.Shop.Scripts.View
 {
     public class ShopView : MonoBehaviour, IMenuParent
     {
@@ -16,10 +15,9 @@ namespace MainMenu.Shop.View
 
         public UnityEvent BackPressed => _backButton.onClick;
 
-        public void Init(ShopItemFactory shopItemFactory, DIContainer sceneContext)
+        public void Init(ShopItemFactory shopItemFactory, IDIContainer sceneContext)
         {
             var items = shopItemFactory.GetSetUpView(_shopItemViewContent, sceneContext);
-            YandexGame.ConsumePurchases();
         }
         public void Hide()
         {

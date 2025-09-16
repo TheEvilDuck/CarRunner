@@ -1,11 +1,11 @@
-using Common.States;
-using DI;
+using GamePlay.UI.Scripts;
+using Infrastructure.DI;
 
-namespace Gameplay.States
+namespace GamePlay.StateMachine.States
 {
     public class LoseState : GameOverState
     {
-        public LoseState(StateMachine stateMachine, DIContainer sceneContext) : base(stateMachine, sceneContext)
+        public LoseState(Common.States.StateMachine stateMachine, IDIContainer sceneContext) : base(stateMachine, sceneContext)
         {
         }
 

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Common;
 using UnityEngine;
 
-namespace Gameplay.Cars
+namespace GamePlay.Cars.Scripts
 {
     public class CarView : MonoBehaviour, IPausable
     {

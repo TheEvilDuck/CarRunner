@@ -1,31 +1,33 @@
-using Common.Data;
-using DI;
+using System;
+using System.Collections;
+using Infrastructure.DI;
+using Services.PlayerData;
 using UnityEngine;
 
-namespace MainMenu.Shop.Logic
+namespace MainMenu.Shop.Scripts.Logic
 {
     [CreateAssetMenu(menuName = "Shop/Shop items/new FallTries", fileName = "FallTries")]
     public class FallTries : ShopItem
     {
+        [SerializeField, Min(0)] private int _baseCost;
         [SerializeField, Min(1)] private int _costCoefficient;
-        private IPlayerData _playerData;
-        [field: SerializeField, Min(0)] public int BaseCost { get; private set; }
 
-        public override void Init(DIContainer sceneContext) => _playerData = sceneContext.Get<IPlayerData>();
-
-        public override bool TryClaim(DIContainer sceneContext)
+        public int GetFinalCost(IDIContainer container) 
+            => _baseCost * (1 + (container.Get<IPlayerData>().MaxFallTries - 1) * _costCoefficient);
+        
+        public override bool CanBeClaimed(IDIContainer container)
         {
-            IPlayerData playerData = sceneContext.Get<IPlayerData>();
-
-            if (playerData.Coins < FinalCost())
-                return false;
-
-            playerData.SpendCoins(FinalCost());
-            playerData.AddOrSubtractFallTries(1);
-            Claim();
-            return true;
+            IPlayerData playerData = container.Get<IPlayerData>();
+            return playerData.Coins >= GetFinalCost(container);
         }
 
-        public int FinalCost() => BaseCost * (1 + (_playerData.MaxFallTries - 1) * _costCoefficient);
+        protected override IEnumerator Claim(IDIContainer container, Action<bool> callback)
+        {
+            IPlayerData playerData = container.Get<IPlayerData>();
+            playerData.SpendCoins(GetFinalCost(container));
+            playerData.AddOrSubtractFallTries(1);
+            callback?.Invoke(true);
+            yield break;
+        }
     }
 }

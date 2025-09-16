@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Levels
+namespace Levels.Scripts
 {
     [CreateAssetMenu(fileName = "Levels database", menuName = "Levels/New levels database")]
     public class LevelsDatabase : ScriptableObject

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Services.Localization
+namespace Services.Localization.Scripts
 {
     [CreateAssetMenu(menuName = "Localization/New SO lozalization service", fileName = "SO localization service")]
     public class SOLocalizationService : ScriptableObject, ILocalizationService

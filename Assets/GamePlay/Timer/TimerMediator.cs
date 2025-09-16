@@ -1,15 +1,14 @@
 using System;
-using DI;
-using Gameplay.UI;
+using Infrastructure.DI;
 
-namespace Gameplay
+namespace GamePlay.Timer
 {
     public class TimerMediator : IDisposable
     {
         private Timer _timer;
         private TimerView _timerView;
 
-        public TimerMediator(DIContainer sceneContext)
+        public TimerMediator(IDIContainer sceneContext)
         {
             _timer = sceneContext.Get<Timer>();
             _timerView = sceneContext.Get<TimerView>();

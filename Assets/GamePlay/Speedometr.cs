@@ -1,8 +1,8 @@
-using Gameplay.Cars;
+using GamePlay.Cars.Scripts;
 using TMPro;
 using UnityEngine;
 
-namespace Gameplay
+namespace GamePlay
 {
     public class Speedometr : MonoBehaviour
     {

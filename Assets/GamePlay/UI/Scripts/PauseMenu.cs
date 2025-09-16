@@ -1,11 +1,11 @@
 using Common;
 using Common.MenuParent;
-using Common.UI;
-using Common.UI.UIAnimations;
+using Common.Settings;
+using Common.UI.Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Gameplay.UI
+namespace GamePlay.UI.Scripts
 {
     public class PauseMenu : MonoBehaviour, IPausable
     {

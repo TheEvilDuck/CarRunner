@@ -3,7 +3,7 @@ using Common;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Gameplay.UI
+namespace GamePlay.UI.Scripts
 {
     public class PauseButton : MonoBehaviour, IPausable
     {

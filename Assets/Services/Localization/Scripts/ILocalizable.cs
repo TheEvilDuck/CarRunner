@@ -1,6 +1,6 @@
 using System;
 
-namespace Services.Localization
+namespace Services.Localization.Scripts
 {
     public interface ILocalizable
     {

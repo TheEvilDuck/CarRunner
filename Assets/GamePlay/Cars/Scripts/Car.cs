@@ -1,7 +1,7 @@
 using Common;
 using UnityEngine;
 
-namespace Gameplay.Cars
+namespace GamePlay.Cars.Scripts
 {
     public class Car : MonoBehaviour, IPausable
     {

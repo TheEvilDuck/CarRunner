@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Gameplay.CarFallingHandling
+namespace GamePlay.CarFallingHangling
 {
     public class FallingEndGame : ICarFallingHandler
     {

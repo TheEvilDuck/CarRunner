@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Pool;
 
-namespace Common.Sound
+namespace Common.Sounds.Scripts
 {
-    public class SoundController : MonoBehaviour, IPausable, IDisposable
+    public class SoundController : MonoBehaviour, IDisposable, ISoundController
     {
         private const float MUTE_VOLUME = -80f;
         [SerializeField] private Sounds _sound;

@@ -1,14 +1,14 @@
-using Common.MenuParent;
-using Common.UI.UIAnimations;
-using Services.Localization;
 using System;
 using System.Collections.Generic;
+using Common.MenuParent;
+using Common.UI.Scripts;
+using Services.Localization.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace MainMenu
+namespace MainMenu.Tutorial.Scripts
 {
     public class TutorialView : MonoBehaviour, IMenuParent, ILocalizable
     {

@@ -1,16 +1,16 @@
 using System;
-using Common.Data;
-using DI;
-using MainMenu.LanguageSelection;
+using Infrastructure.DI;
+using MainMenu.LanguageSelection.Scripts;
+using Services.PlayerData;
 
-namespace MainMenu
+namespace MainMenu.Mediators
 {
     public class LanguageMediator : IDisposable
     {
         private readonly IPlayerData _playerData;
         private readonly LanguageSelectorMenu _languageSelectorMenu;
 
-        public LanguageMediator(DIContainer sceneContext)
+        public LanguageMediator(IDIContainer sceneContext)
         {
             _playerData = sceneContext.Get<IPlayerData>();
             _languageSelectorMenu = sceneContext.Get<LanguageSelectorMenu>();

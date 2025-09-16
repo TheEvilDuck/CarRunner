@@ -1,6 +1,6 @@
 using System;
-using Common.Components;
-using DI;
+using Common.Settings;
+using Infrastructure.DI;
 using UnityEngine;
 
 namespace Common.Mediators
@@ -9,14 +9,14 @@ namespace Common.Mediators
     {
         private Camera _camera;
         private ICameraSettings _cameraSettings;
-        private CameraFollow _cameraFollow;
+        private CameraFollow.CameraFollow _cameraFollow;
         private RangeOfCameraSettings _rangeOfCameraSettings;
 
-        public SettingsAndCameraMediator(DIContainer sceneContext)
+        public SettingsAndCameraMediator(IDIContainer sceneContext)
         {
             _cameraSettings = sceneContext.Get<ICameraSettings>();
             _camera = sceneContext.Get<Camera>();
-            _cameraFollow = sceneContext.Get<CameraFollow>();
+            _cameraFollow = sceneContext.Get<CameraFollow.CameraFollow>();
             _rangeOfCameraSettings = sceneContext.Get<RangeOfCameraSettings>();
 
             UpdateCameraSettings();

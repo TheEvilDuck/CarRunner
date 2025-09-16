@@ -1,11 +1,11 @@
 using System;
-using DI;
-using Gameplay.CarFallingHandling;
-using Gameplay.UI;
-using Levels;
+using GamePlay.CarFallingHangling;
+using GamePlay.UI.Scripts;
+using Infrastructure.DI;
+using Levels.Scripts;
 using UnityEngine;
 
-namespace Gameplay
+namespace GamePlay.Mediators
 {
     public class CarFallingMediator : IDisposable
     {
@@ -17,7 +17,7 @@ namespace Gameplay
         private readonly CarFallingView _carFallingView;
         private readonly Level _level;
 
-        public CarFallingMediator(DIContainer sceneContext)
+        public CarFallingMediator(IDIContainer sceneContext)
         {
             _fallTries = sceneContext.Get<FallTries>();
             _fallingEndGame = sceneContext.Get<FallingEndGame>();

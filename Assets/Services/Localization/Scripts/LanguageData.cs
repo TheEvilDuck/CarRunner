@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Services.Localization
+namespace Services.Localization.Scripts
 {
     [CreateAssetMenu(menuName = "Localization/New languageData", fileName = "LanguageData")]
     public class LanguageData : ScriptableObject
