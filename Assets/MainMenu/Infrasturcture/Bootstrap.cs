@@ -42,14 +42,14 @@ namespace MainMenu.Infrasturcture
 
         public override IEnumerator Initialize(IDIContainer container)
         {
-            Debug.Log("AAAAAAAAA");
-            
             IPlayerData playerData = container.Get<IPlayerData>();
             DeviceType deviceType = container.Get<IDeviceTypeHandler>().GetDeviceType();
 
+            playerData.LoadProgressOfLevels();
+
             _mainMenuView.Init();
             
-            _mainMenuView.LevelSelector.Init(
+            yield return _mainMenuView.LevelSelector.Init(
                 playerData.PassedLevels, 
                 playerData.AvailableLevels, 
                 container.Get<ILeaderBoardService>(), 
@@ -60,6 +60,8 @@ namespace MainMenu.Infrasturcture
             _mainMenuView.TutorialView.Init(deviceType);
             //TODO заменить на сравнение с нужной платформой, я просто хз, какая стринга, в документации нет
             _mainMenuView.MainButtons.Init(true);
+
+            SetupMediators(container);
 
             if (Application.isFocused)
                 container.Get<PauseManager>().Resume();

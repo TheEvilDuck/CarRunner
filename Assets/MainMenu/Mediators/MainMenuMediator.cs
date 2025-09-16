@@ -15,7 +15,7 @@ namespace MainMenu.Mediators
         private readonly LevelsDatabase _levelsDatabase;
         private readonly NotEnoughMoneyPopup _notEnoughMoneyPopup;
         private readonly ISceneManager _sceneManager;
-        private readonly YandexGameFullScreenAd _yandexGameFullScreenAd;
+        private readonly IAdsService _adsService;
 
         public MainMenuMediator(IDIContainer sceneContainer)
         {
@@ -24,13 +24,13 @@ namespace MainMenu.Mediators
             _levelsDatabase = sceneContainer.Get<LevelsDatabase>();
             _notEnoughMoneyPopup = sceneContainer.Get<NotEnoughMoneyPopup>();
             _sceneManager = sceneContainer.Get<ISceneManager>();
-            _yandexGameFullScreenAd = sceneContainer.Get<YandexGameFullScreenAd>();
+            _adsService = sceneContainer.Get<IAdsService>();
 
             _mainMenuView.MainButtons.ExitClickedEvent.AddListener(OnExitPressed);
             _mainMenuView.LevelSelector.levelSelected += OnLevelSelected;
             _mainMenuView.LevelSelector.buyLevelPressed += OnBuyLevelButtonPressed;
             _notEnoughMoneyPopup.yesClicked += OnYesNotEnoughMoneyPopupPressed;
-            _yandexGameFullScreenAd.adIsShown += OnAdIsShown;
+            _adsService.adIsShown += OnAdIsShown;
         }
 
         public void Dispose()
@@ -39,7 +39,7 @@ namespace MainMenu.Mediators
             _mainMenuView.LevelSelector.levelSelected -= OnLevelSelected;
             _mainMenuView.LevelSelector.buyLevelPressed -= OnBuyLevelButtonPressed;
             _notEnoughMoneyPopup.yesClicked -= OnYesNotEnoughMoneyPopupPressed;
-            _yandexGameFullScreenAd.adIsShown -= OnAdIsShown;
+            _adsService.adIsShown -= OnAdIsShown;
         }
 
         private void OnExitPressed() => Application.Quit();
@@ -49,7 +49,7 @@ namespace MainMenu.Mediators
         private void OnLevelSelected(string levelId)
         {
             _playerData.SaveSelectedLevel(levelId);
-            _yandexGameFullScreenAd.ShowFullscreenAd();
+            _adsService.ShowFullscreenAd();
         }
 
         private bool OnBuyLevelButtonPressed(string levelId)

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc4c0abced464454ae89185be30eed1b, type: 3}
-  m_Name: Test
+  m_Name: fakeDonate 1
   m_EditorClassIdentifier: 
-  <ID>k__BackingField: test
+  <ID>k__BackingField: coins_3
   <Price>k__BackingField: 200
   <CurrencyIcon>k__BackingField: {fileID: 3286163911610860551, guid: ca991f6300a05f24baea52b4a81af977, type: 3}
   <ItemIcon>k__BackingField: {fileID: 21300000, guid: 119c9aecdd301ec42a5e20e4d9550494, type: 3}

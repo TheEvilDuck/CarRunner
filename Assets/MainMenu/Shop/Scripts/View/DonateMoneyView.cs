@@ -20,15 +20,14 @@ namespace MainMenu.Shop.Scripts.View
         {
             if (shopItem is not DonateMoney donateMoney)
                 throw new ArgumentException($"Somehow you passed wrong shopitem to view, you passed {shopItem.name}");
-
-            _costText.text = donateMoney.Cost.ToString();
-            _rewardText.text = donateMoney.CoinsReward.ToString();
             
             IPurchaseService purchaseService = container.Get<IPurchaseService>();
-            var purchase = purchaseService.Purchases.FirstOrDefault(x => x.ID == donateMoney.Id);
+            IPurchaseData purchase = purchaseService.Purchases.FirstOrDefault(x => x.ID == donateMoney.Id);
 
             if (purchase != null)
             {
+                _costText.text = purchase.Price;
+                _rewardText.text = donateMoney.CurrencyAmount.ToString();
                 SetCurrencyImage(purchase.CurrencyIcon);
                 SetItemImage(purchase.ItemIcon);
             }

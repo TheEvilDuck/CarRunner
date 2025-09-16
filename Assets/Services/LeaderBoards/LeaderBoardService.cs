@@ -72,10 +72,16 @@ namespace Services.LeaderBoards
             void GetCoinsCallback(bool success, ILeaderBoardData data)
             {
                 if (success == false || data == null)
+                {
                     onResult?.Invoke(false, 0);
-                
+                    return;
+                }
+
                 if (data.TryGetEntryFor(currentPlayerID, out LeaderBoardDataEntry entry) == false)
+                {
                     onResult?.Invoke(false, 0);
+                    return;
+                }
                 
                 onResult?.Invoke(true, entry.Score);
             }

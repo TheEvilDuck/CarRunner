@@ -24,7 +24,12 @@ namespace MainMenu.Shop.Scripts.Logic
         protected override IEnumerator Claim(IDIContainer container, Action<bool> callback)
         {
             IPlayerData playerData = container.Get<IPlayerData>();
-            playerData.SpendCoins(GetFinalCost(container));
+
+            int cost = GetFinalCost(container);
+            
+            if (cost > 0)
+                playerData.SpendCoins(cost);
+            
             playerData.AddOrSubtractFallTries(1);
             callback?.Invoke(true);
             yield break;

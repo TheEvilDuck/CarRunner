@@ -95,25 +95,21 @@ namespace MainMenu.LevelSelection
                     else
                         _levelPlayButton.ShowLocked(_levels.GetLevelCost(levelId));
 
-                    /*if (!string.Equals(_currentLevelId, levelId))
+                    if (!string.Equals(_currentLevelId, levelId))
                     {
                         _tutorialLevelText.SetActive(false);
                         _currentLevelId = levelId;
-                        _leaderboardYG.SetNameLB(YandexCloudLeaderboard.LEADERBOARD_KEY + _currentLevelId);
+                        //_leaderboardYG.SetNameLB(YandexCloudLeaderboard.LEADERBOARD_KEY + _currentLevelId);
                         _leaderboardLoadingGameObject.SetActive(true);
                         _leaderboardLoadingAnimation.StartSequence();
-                        var data = await _leaderBoardData.GetLeaderBoard(levelId);
+                        //var data = await _leaderBoardData.GetLeaderBoard(levelId);
                         _leaderboardLoadingAnimation.StopSequence();
                         _leaderboardLoadingGameObject.SetActive(false);
 
-                        if (data == null)
-                        {
-                            _leaderboardYG.ShowNoData();
-                            return;
-                        }
+                        _leaderboardYG.ShowNoData();
 
-                        _leaderboardYG.UpdateLB(data);
-                    }*/ // ПЕРЕПИСАТЬ ВЬЮХУ НА СВОЮ
+                        //_leaderboardYG.UpdateLB(data);
+                    }
                 });
 
                 _uIAnimatorSequence.AddAnimation(button.PosittionAnimator, 0.1f, false);

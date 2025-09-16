@@ -12,8 +12,7 @@ namespace MainMenu.Shop.Scripts.Logic
     public class DonateMoney : ShopItem
     {
         [field: SerializeField] public string Id { get; private set; }
-        [field: SerializeField, Min(0)] public int Cost { get; private set; }
-        [field: SerializeField, Min(0)] public int CoinsReward { get; private set; }
+        [field: SerializeField] public int CurrencyAmount { get; private set; }
 
         public override bool CanBeClaimed(IDIContainer container)
         {
@@ -28,7 +27,7 @@ namespace MainMenu.Shop.Scripts.Logic
             void OnPurchaseProceed(bool success)
             {
                 if (success)
-                    container.Get<IPlayerData>().AddCoins(CoinsReward);
+                    container.Get<IPlayerData>().AddCoins(CurrencyAmount);
                 
                 callback?.Invoke(success);
             }

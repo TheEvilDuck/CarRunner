@@ -143,7 +143,7 @@ namespace Services.LeaderBoards
 
         private void CallLeaderboard(string key)
         {
-            if (_queueCallsTimeData.ContainsKey(key))
+            if (_queueCallsTimeData.ContainsKey(GetLeaderboardId(key)))
                 return;
 
             LeaderboardCall leaderboardCall = new LeaderboardCall()
