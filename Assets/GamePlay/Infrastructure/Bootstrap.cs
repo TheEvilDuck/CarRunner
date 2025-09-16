@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using Common;
@@ -8,6 +9,7 @@ using Common.Mediators;
 using Common.Reactive;
 using Common.Settings;
 using Common.Tickables;
+using EntryPoint;
 using GamePlay.CarFallingHangling;
 using GamePlay.Cars.Scripts;
 using GamePlay.Mediators;
@@ -55,17 +57,21 @@ namespace GamePlay.Infrastructure
             container.Register(() => SetUpLevel(container));
             container.Register(() => new Timer.Timer(container.Get<Level>().StartTimer));
             container.Register(() => SetUpCar(container));
-            container.Register(() => new CarFalling(container.Get<Car>(), _groundCheckLayer, container.Get<Level>().YPositionToTeleportOffset));
+
+            container.Register(() => SetupCarFalling(container))
+                .AddToTickables(GameplayTags.TICKABLES);
+            
             container.Register(() => new FallingTeleport(container.Get<Car>()));
             container.Register(() => new FallingEndGame());
-            
+
             container.Register(() => SetUpFallingBehaviourSwitcher(container))
                 .AddToDisposables(GameplayTags.DISPOSABLES);
             
             container.Register(() => new FallTries(container.Get<IPlayerData>().MaxFallTries));
-            
+
             container.Register(() => SetUpGameplayStateMachine(container))
-                .AddToDisposables(GameplayTags.DISPOSABLES);
+                .AddToDisposables(GameplayTags.DISPOSABLES)
+                .AddToTickables(GameplayTags.TICKABLES);
             
             container.Register(_settingsMenu);
             container.Register(_timerView);
@@ -82,7 +88,9 @@ namespace GamePlay.Infrastructure
             container.Register(_carFallingView);
             container.Register(() => SetupInputFactory(container));
             container.Register(SetupBrakeButtonFactory);
-            container.Register(() => SetupGameplayUpdater(container));
+
+            container.Register(SetupTickables, GameplayTags.TICKABLES)
+                .AddToTickables(EntryPointTags.PROJECT_TICKABLES_TAG);
             
             container.Register<IReadonlyObservable<CarConfig>>(() => container.Get<Observable<CarConfig>>())
                 .NonLazy();
@@ -117,20 +125,10 @@ namespace GamePlay.Infrastructure
 
             yield return new WaitForEndOfFrame();
             
-            GameplayUpdater gameplayUpdater = container.Get<GameplayUpdater>();
-            container.Get<TickableManager>(GameplayTags.TICKABLES).Register(gameplayUpdater);
-            
-            container.Get<YandexGameIntegrator>().MarkGameReady();
-            
             container.Get<YandexGameIntegrator>().MarkGameplay(true);
         }
-
-        private GameplayUpdater SetupGameplayUpdater(IDIContainer container)
-        {
-            Common.States.StateMachine stateMachine = container.Get<Common.States.StateMachine>();
-            CarFalling carFalling = container.Get<CarFalling>();
-            return new GameplayUpdater(stateMachine, carFalling);
-        }
+        
+        private TickableManager SetupTickables() => new TickableManager();
         
         private IBrakeButtonFactory SetupBrakeButtonFactory() => new BrakeButtonFactory(_brakeButtonParent);
         
@@ -168,6 +166,13 @@ namespace GamePlay.Infrastructure
             RenderSettings.ambientGroundColor = level.AmbientGroundColor;
 
             return level;
+        }
+        
+        private CarFalling SetupCarFalling(IDIContainer container)
+        {
+            Car car = container.Get<Car>();
+            float yPositionToTeleportOffset = container.Get<Level>().YPositionToTeleportOffset;
+            return new CarFalling(car, _groundCheckLayer, yPositionToTeleportOffset);
         }
 
         private Car SetUpCar(IDIContainer container)
@@ -273,6 +278,7 @@ namespace GamePlay.Infrastructure
             var adButtonMediator = new AdButtonMediator(container);
             var settingsAndCameraMediator = new SettingsAndCameraMediator(container);    
             var settingsAndSoundMediator = new SettingsAndSoundMediator(container);
+            var gameplayTickablesCleanup = new GameplayTickablesCleanup(container);
             var onSceneChangedDisposeContextMediator = new OnSceneChangedDisposeContextMediator(container, GameplayTags.DISPOSABLES);
             
             var disposables = container.Get<CompositeDisposable>(GameplayTags.DISPOSABLES);        
@@ -291,6 +297,7 @@ namespace GamePlay.Infrastructure
             disposables.Add(settingsAndSoundMediator);
             disposables.Add(onSceneChangedDisposeContextMediator);
             disposables.Add(gameplayMarkingMediator);
+            disposables.Add(gameplayTickablesCleanup);
         }
     }
 }

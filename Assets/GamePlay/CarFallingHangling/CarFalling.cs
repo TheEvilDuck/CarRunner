@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Common.Tickables;
 using GamePlay.Cars.Scripts;
 using UnityEngine;
 
 namespace GamePlay.CarFallingHangling
 {
-    public class CarFalling
+    public class CarFalling: ITickable
     {
         public event Action<Vector3, Quaternion> carFallen;
         private const float Y_POSITION_TO_TELEPORT = -30F;
@@ -33,7 +34,7 @@ namespace GamePlay.CarFallingHangling
             _yPositionToTeleportOffset = yPositionToTeleportOffset;
         }
 
-        public void Update()
+        public void Tick(float deltaTime)
         {
             if (Time.time - _lastTime >= GROUND_CHECK_RATE)
             {

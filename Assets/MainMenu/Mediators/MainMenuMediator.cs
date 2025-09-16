@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Common.CoroutinePerformer;
 using Infrastructure.DI;
 using Levels.Scripts;
 using Services.Ads;
@@ -16,6 +18,7 @@ namespace MainMenu.Mediators
         private readonly NotEnoughMoneyPopup _notEnoughMoneyPopup;
         private readonly ISceneManager _sceneManager;
         private readonly IAdsService _adsService;
+        private readonly ICoroutinePerformer _coroutinePerformer;
 
         public MainMenuMediator(IDIContainer sceneContainer)
         {
@@ -25,12 +28,12 @@ namespace MainMenu.Mediators
             _notEnoughMoneyPopup = sceneContainer.Get<NotEnoughMoneyPopup>();
             _sceneManager = sceneContainer.Get<ISceneManager>();
             _adsService = sceneContainer.Get<IAdsService>();
+            _coroutinePerformer = sceneContainer.Get<ICoroutinePerformer>();
 
             _mainMenuView.MainButtons.ExitClickedEvent.AddListener(OnExitPressed);
             _mainMenuView.LevelSelector.levelSelected += OnLevelSelected;
             _mainMenuView.LevelSelector.buyLevelPressed += OnBuyLevelButtonPressed;
             _notEnoughMoneyPopup.yesClicked += OnYesNotEnoughMoneyPopupPressed;
-            _adsService.adIsShown += OnAdIsShown;
         }
 
         public void Dispose()
@@ -39,17 +42,21 @@ namespace MainMenu.Mediators
             _mainMenuView.LevelSelector.levelSelected -= OnLevelSelected;
             _mainMenuView.LevelSelector.buyLevelPressed -= OnBuyLevelButtonPressed;
             _notEnoughMoneyPopup.yesClicked -= OnYesNotEnoughMoneyPopupPressed;
-            _adsService.adIsShown -= OnAdIsShown;
         }
 
         private void OnExitPressed() => Application.Quit();
 
-        private void OnAdIsShown() => _sceneManager.LoadScene(SceneIDs.GAMEPLAY);
-
         private void OnLevelSelected(string levelId)
+            => _coroutinePerformer.StartCoroutine(OnLevelSelectedAsync(levelId));
+
+        private IEnumerator OnLevelSelectedAsync(string levelID)
         {
-            _playerData.SaveSelectedLevel(levelId);
-            _adsService.ShowFullscreenAd();
+            _playerData.SaveSelectedLevel(levelID);
+            
+            if (_adsService.Ready)
+                yield return _adsService.ShowFullscreenAd();
+
+            yield return _sceneManager.LoadScene(SceneIDs.GAMEPLAY);
         }
 
         private bool OnBuyLevelButtonPressed(string levelId)

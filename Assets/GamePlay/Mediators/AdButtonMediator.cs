@@ -32,6 +32,7 @@ namespace GamePlay.Mediators
             _timer = sceneContext.Get<Timer.Timer>();
             _levelsDatabase = sceneContext.Get<LevelsDatabase>();
             _playerData = sceneContext.Get<IPlayerData>();
+            _coroutinePerformer = sceneContext.Get<ICoroutinePerformer>();
 
             _adButton.clicked.AddListener(OnAdButtonPressed);
         }

@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Donate mid
   m_EditorClassIdentifier: 
   <Id>k__BackingField: coins_2
-  <Cost>k__BackingField: 20
-  <CoinsReward>k__BackingField: 3000
+  <CurrencyAmount>k__BackingField: 0

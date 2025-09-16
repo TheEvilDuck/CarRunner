@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Common.Tickables
 {
-    public class TickableManager : ITickableManager
+    public class TickableManager : ITickable
     {
         private readonly List<ITickable> _tickables = new List<ITickable>();
         

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Common.CoroutinePerformer;
 using UnityEngine;
 
@@ -13,14 +14,17 @@ namespace Common.Tickables
             _coroutinePerformer = coroutinePerformer;
         }
 
-        public ITickableManager CreateWithCoroutinePerformer()
+        public TickableManager CreateWithCoroutinePerformer()
         {
             TickableManager tickableManager = new TickableManager();
 
             IEnumerator TickableRoutine()
             {
-                tickableManager.Tick(Time.deltaTime);
-                yield return null;
+                while (true)
+                {
+                    tickableManager.Tick(Time.deltaTime);
+                    yield return null;
+                }
             }
 
             _coroutinePerformer.StartCoroutine(TickableRoutine());

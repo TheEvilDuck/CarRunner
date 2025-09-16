@@ -1,15 +1,25 @@
 using System;
+using UnityEngine;
 
 namespace Infrastructure.DI
 {
     internal abstract class ObjectData
     {
+        public event Action Created;
         public abstract bool NotCreatedYet { get; }
         
         public T Get<T>()
         {
             var casted = (ObjectData<T>)this;
-            return casted.Get();
+
+            T instance = casted.Get(out bool created);
+
+            if (created)
+            {
+                Created?.Invoke();
+            }
+            
+            return instance;
         }
     }
 
@@ -30,11 +40,18 @@ namespace Infrastructure.DI
             _value = value;
         }
 
-        public T Get()
+        public T Get(out bool created)
         {
             if (NotCreatedYet)
+            {
                 _value = _createMethod.Invoke();
-
+                created = true;
+            }
+            else
+            {
+                created = false;
+            }
+            
             return _value;
         }
     }

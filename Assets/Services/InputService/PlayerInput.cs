@@ -11,7 +11,7 @@ namespace Services.InputService
         public event Action<bool> brakeInput;
         public event Action<Vector2> screenInput;
 
-        private bool _paused;
+        private bool _paused = false;
         private bool _enabled;
         
         private IInputSource _inputSource;

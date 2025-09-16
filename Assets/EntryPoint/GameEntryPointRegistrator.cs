@@ -63,7 +63,7 @@ namespace EntryPoint
 
             container.Register(SetupInput)
                 .AddToDisposables(EntryPointTags.PROJECT_DISPOSABLES_TAG)
-                .AddToTickablesNonLazy(EntryPointTags.PROJECT_TICKABLES_TAG);
+                .AddToTickables(EntryPointTags.PROJECT_TICKABLES_TAG);
             
             container.Register(() => SetupLocalizationService(container));
             
@@ -90,7 +90,7 @@ namespace EntryPoint
             
             container.Register(() => SetupLeaderBoardProvider(container))
                 .AddToDisposables(EntryPointTags.PROJECT_DISPOSABLES_TAG)
-                .AddToTickablesNonLazy(EntryPointTags.PROJECT_TICKABLES_TAG);
+                .AddToTickables(EntryPointTags.PROJECT_TICKABLES_TAG);
 
             container.Register(() => SetupLeaderBoardService(container));
             container.Register(() => SetupYandexGameIntegrator(container));
@@ -110,7 +110,7 @@ namespace EntryPoint
             return new TickableManagerFactory(coroutinePerformer);
         }
 
-        private ITickableManager SetupProjectTickables(IDIContainer container)
+        private TickableManager SetupProjectTickables(IDIContainer container)
         {
             TickableManagerFactory tickableManagerFactory = container.Get<TickableManagerFactory>();
             return tickableManagerFactory.CreateWithCoroutinePerformer();

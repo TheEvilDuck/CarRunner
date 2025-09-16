@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Common.Disposables;
 using Common.Tickables;
+using UnityEngine;
 
 namespace Infrastructure.DI
 {
@@ -78,11 +79,11 @@ namespace Infrastructure.DI
         public class DIContainerBulder<T>
         {
             private readonly DIContainer _container;
-            private readonly ObjectData<T> _objectData;
+            private readonly ObjectData _objectData;
             private readonly List<Action> _onInitializedCallbacks;
 
             internal DIContainerBulder(
-                ObjectData<T> objectData, 
+                ObjectData objectData, 
                 List<Action> onInitializedCallbacks, 
                 DIContainer container)
             {
@@ -112,19 +113,33 @@ namespace Infrastructure.DI
                 return this;
             }
             
-            public DIContainerBulder<T> AddToTickablesNonLazy(string tickablesTag = null)
+            public DIContainerBulder<T> AddToTickables(string tickablesTag = null)
             {
                 _onInitializedCallbacks.Add(() =>
                 {
                     if (_objectData.NotCreatedYet)
-                        return;
-                        
-                    T value = _objectData.Get<T>();
+                    {
+                        void OnCreated()
+                        {
+                            Debug.Log("LAZY CREATED");
+                            _objectData.Created -= OnCreated;
+                            Register(_objectData.Get<T>());
+                        }
 
-                    if (value is not ITickable tickable)
-                        return;
+                        _objectData.Created += OnCreated;
+                    }
+                    else
+                    {
+                        Register(_objectData.Get<T>());
+                    }
+
+                    void Register(T value)
+                    {
+                        if (value is not ITickable tickable)
+                            return;
                     
-                    _container.Get<ITickableManager>(tickablesTag).Register(tickable);
+                        _container.Get<TickableManager>(tickablesTag).Register(tickable);
+                    }
                 });
 
                 return this;

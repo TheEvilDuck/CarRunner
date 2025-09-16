@@ -31,7 +31,6 @@ namespace Infrastructure.Bootstraps
         private void OnSceneLoaded(string sceneName)
         {
             MonoBehaviourBootstrap monoBehaviourBootstrap = GameObject.FindAnyObjectByType<MonoBehaviourBootstrap>();
-            Debug.Log("AAA");
 
             if (monoBehaviourBootstrap == null)
                 return;

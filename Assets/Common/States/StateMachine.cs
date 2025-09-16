@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Common.Tickables;
 
 namespace Common.States
 {
-    public class StateMachine: IDisposable, IPausable
+    public class StateMachine: IDisposable, IPausable, ITickable
     {
         private Dictionary<Type,State> _states;
         private State _currentState;
@@ -45,7 +46,7 @@ namespace Common.States
         }
 
         public void Dispose() => _currentState?.Exit();
-        public void Update()
+        public void Tick(float deltaTime)
         {
             if (_paused)
                 return;
