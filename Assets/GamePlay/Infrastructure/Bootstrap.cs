@@ -106,7 +106,6 @@ namespace GamePlay.Infrastructure
         {
             SetupInputs(container);
             SetUpCamera(container);
-            SetUpPause(container);
             SetUpMediators(container);
             SetUpUI(container);
 
