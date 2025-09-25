@@ -1,8 +1,10 @@
 using System;
 using Common;
+using Common.CoroutinePerformer;
 using GamePlay.UI.Scripts;
 using Infrastructure.DI;
 using Services.SceneManagement;
+using UnityEngine.SceneManagement;
 
 namespace GamePlay.Mediators
 {
@@ -11,12 +13,14 @@ namespace GamePlay.Mediators
         private readonly SceneChangingButtons _pauseMenuButtons;
         private readonly PauseManager _pauseManager;
         private readonly ISceneManager _sceneManager;
+        private readonly ICoroutinePerformer _coroutinePerformer;
 
         public PauseMenuMediator(IDIContainer sceneContext)
         {
             _pauseMenuButtons = sceneContext.Get<SceneChangingButtons>();
             _pauseManager = sceneContext.Get<PauseManager>();
             _sceneManager = sceneContext.Get<ISceneManager>();
+            _coroutinePerformer = sceneContext.Get<ICoroutinePerformer>();
 
             _pauseMenuButtons.RestartButtonPressed.AddListener(OnRestartPressed);
             _pauseMenuButtons.GoToMainMenuButtonPressed.AddListener(OnExitPressed);
@@ -29,13 +33,13 @@ namespace GamePlay.Mediators
 
         private void OnRestartPressed()
         {
-            _sceneManager.LoadScene(SceneIDs.GAMEPLAY);
+            _coroutinePerformer.StartCoroutine(_sceneManager.LoadScene(SceneIDs.GAMEPLAY));
         }
 
         private void OnExitPressed()
         {
             _pauseManager.Unlock();
-            _sceneManager.LoadScene(SceneIDs.MAIN_MENU);
+            _coroutinePerformer.StartCoroutine(_sceneManager.LoadScene(SceneIDs.MAIN_MENU));
         }
     }
 }
