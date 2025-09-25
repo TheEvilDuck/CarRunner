@@ -2,7 +2,7 @@ using System;
 using Infrastructure.DI;
 using MainMenu.Tutorial.Scripts;
 using Services.PlayerData;
-using Services.PlayerData.Rewards;
+using Services.RewardProvider;
 
 namespace MainMenu.Mediators
 {

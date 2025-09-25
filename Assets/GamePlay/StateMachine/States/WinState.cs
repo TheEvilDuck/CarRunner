@@ -4,7 +4,7 @@ using Infrastructure.DI;
 using Levels.Scripts;
 using Services.LeaderBoards;
 using Services.PlayerData;
-using Services.PlayerData.Rewards;
+using Services.RewardProvider;
 
 namespace GamePlay.StateMachine.States
 {
@@ -27,7 +27,7 @@ namespace GamePlay.StateMachine.States
 
             playerData.AddPassedLevel(playerData.SelectedLevel);
 
-            int coinsReward = rewardProvider.GetLevelCompletionReward(timer.CurrentTime, playerData, levelsDatabase);
+            int coinsReward = rewardProvider.GetLevelCompletionReward(timer.CurrentTime, playerData.SelectedLevel);
             playerData.AddCoins(coinsReward);
             _sceneContext.Get<EndOfTheGame>().Win(coinsReward);
 

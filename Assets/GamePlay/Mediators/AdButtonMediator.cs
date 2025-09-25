@@ -8,7 +8,7 @@ using Infrastructure.DI;
 using Levels.Scripts;
 using Services.Ads;
 using Services.PlayerData;
-using Services.PlayerData.Rewards;
+using Services.RewardProvider;
 
 namespace GamePlay.Mediators
 {
@@ -20,7 +20,6 @@ namespace GamePlay.Mediators
         private readonly ICoroutinePerformer _coroutinePerformer;
         private readonly RewardProvider _rewardProvider;
         private readonly Timer.Timer _timer;
-        private readonly LevelsDatabase _levelsDatabase;
         private readonly IPlayerData _playerData;
 
         public AdButtonMediator(IDIContainer sceneContext)
@@ -30,7 +29,7 @@ namespace GamePlay.Mediators
             _endOfTheGame = sceneContext.Get<EndOfTheGame>();
             _rewardProvider = sceneContext.Get<RewardProvider>();
             _timer = sceneContext.Get<Timer.Timer>();
-            _levelsDatabase = sceneContext.Get<LevelsDatabase>();
+            sceneContext.Get<LevelsDatabase>();
             _playerData = sceneContext.Get<IPlayerData>();
             _coroutinePerformer = sceneContext.Get<ICoroutinePerformer>();
 
@@ -51,7 +50,7 @@ namespace GamePlay.Mediators
             void OnAdWatched(bool success)
             {
                 int rewardCoins 
-                    = _rewardProvider.GetLevelCompletionReward(_timer.CurrentTime, _playerData, _levelsDatabase);
+                    = _rewardProvider.GetLevelCompletionReward(_timer.CurrentTime, _playerData.SelectedLevel);
                 
                 _playerData.AddCoins(rewardCoins);
                 _endOfTheGame.Win(rewardCoins * 2);

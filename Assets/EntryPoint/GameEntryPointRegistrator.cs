@@ -21,10 +21,10 @@ using Services.LeaderBoards;
 using Services.Localization;
 using Services.Localization.Scripts;
 using Services.PlayerData;
-using Services.PlayerData.Rewards;
 using Services.PurchaseService;
 using Services.PurchaseService.FakeStorePurchases;
 using Services.PurchaseService.YandexPurchases;
+using Services.RewardProvider;
 using Services.SceneManagement;
 using Services.TimerService;
 using UnityEngine;
@@ -50,7 +50,7 @@ namespace EntryPoint
             container.Register<ISettings>(() => container.Get<GameSettings>());
             container.Register<ISoundSettings>(() => container.Get<GameSettings>());
             container.Register<ICameraSettings>(() => container.Get<GameSettings>());
-            container.Register(() => new RewardProvider());
+            container.Register(() => SetupRewardProvider(container));
             container.Register(() => SetupPause(container));
             //container.Register(SetupImageLoadYG);
             container.Register(SetupSceneManager);
@@ -103,6 +103,13 @@ namespace EntryPoint
 
         private IApplicationStatusService SetupApplicationStatusService() => new ApplicationStatusService();
         private ILoadingCurtainService SetupLoadingCurtain() => new LoadingCurtainService();
+
+        private IRewardProvider SetupRewardProvider(IDIContainer container)
+        {
+            IPlayerData playerData = container.Get<IPlayerData>();
+            LevelsDatabase levelsDatabase = container.Get<LevelsDatabase>();
+            return new RewardProvider(playerData, levelsDatabase);
+        }
 
         private TickableManagerFactory SetupTickableManagerFactory(IDIContainer container)
         {
