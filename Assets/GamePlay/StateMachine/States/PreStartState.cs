@@ -21,7 +21,7 @@ namespace GamePlay.StateMachine.States
             _carBehaviour = sceneContext.Get<Car>().CarBehavior;
             _playerInput = sceneContext.Get<PlayerInput>();
             _startMessage = sceneContext.Get<StartMessage>();
-            _pauseManager = sceneContext.Get<PauseManager>(GameplayTags.PAUSE_MANAGER);
+            _pauseManager = sceneContext.Get<PauseManager>();
             _pauseButton = sceneContext.Get<PauseButton>();
         }
 
@@ -39,6 +39,8 @@ namespace GamePlay.StateMachine.States
 
             _playerInput.screenInput += OnScreenInput;
             _pauseButton.Hide();
+            
+            _pauseManager.Resume();
         }
 
         protected override void OnExit()

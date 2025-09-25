@@ -121,7 +121,6 @@ namespace Infrastructure.DI
                     {
                         void OnCreated()
                         {
-                            Debug.Log("LAZY CREATED");
                             _objectData.Created -= OnCreated;
                             Register(_objectData.Get<T>());
                         }
