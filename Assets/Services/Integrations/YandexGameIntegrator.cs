@@ -17,6 +17,7 @@ namespace Services.Integrations
         {
             _pauseManager = pauseManager;
 
+            YandexGame.GetDataEvent += OnYandexGameGetDataEvent;
             _pauseManager.IsPaused.changed += OnPauseChanged;
         }
 
@@ -24,7 +25,6 @@ namespace Services.Integrations
 
         public IEnumerator Initialize()
         {
-            YandexGame.GetDataEvent += OnYandexGameGetDataEvent;
             yield return new WaitUntil(() => IsInitialized);
         }
         

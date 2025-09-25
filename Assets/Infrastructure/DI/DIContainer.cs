@@ -112,6 +112,26 @@ namespace Infrastructure.DI
 
                 return this;
             }
+
+            public DIContainerBulder<T> InAdditionRegisterAs<K>(string tag = null)
+            {
+                if (!(typeof(K).IsAssignableFrom(typeof(T))))
+                    throw new ArgumentException($"Can't register {typeof(T).Name} as {typeof(K).Name}. Not a derived type");
+
+                K CreationMethod()
+                {
+                    T value = _objectData.Get<T>();
+                    
+                    if (value is K castedValue)
+                        return castedValue;
+
+                    return default(K);
+                }
+
+                _container.Register<K>(CreationMethod);
+
+                return this;
+            }
             
             public DIContainerBulder<T> AddToTickables(string tickablesTag = null)
             {

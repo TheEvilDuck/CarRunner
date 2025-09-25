@@ -4,7 +4,7 @@ using Common.Reactive;
 using YG;
 using YG.Utils.LB;
 
-namespace Services.PlayerData
+namespace Services.PlayerData.Implementation.YandexCloud
 {
     public class YandexCloudPlayerData : IPlayerData
     {

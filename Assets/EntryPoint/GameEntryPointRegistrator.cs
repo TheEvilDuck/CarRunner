@@ -9,6 +9,7 @@ using Common.LoadingCurtain;
 using Common.Settings;
 using Common.Sounds.Scripts;
 using Common.Tickables;
+using Configs;
 using Infrastructure.Bootstraps;
 using Infrastructure.DI;
 using Levels;
@@ -21,6 +22,11 @@ using Services.LeaderBoards;
 using Services.Localization;
 using Services.Localization.Scripts;
 using Services.PlayerData;
+using Services.PlayerData.Core;
+using Services.PlayerData.Core.Wallet;
+using Services.PlayerData.Implementation.PlayerPrefsData;
+using Services.PlayerData.Implementation.YandexCloud;
+using Services.PlayerData.SavingStrategy;
 using Services.PurchaseService;
 using Services.PurchaseService.FakeStorePurchases;
 using Services.PurchaseService.YandexPurchases;
@@ -36,6 +42,7 @@ namespace EntryPoint
     {
         private const string SOUND_CONTROLLER_PATH = "Prefabs/SoundController";
         private const string LEVEL_DATABASE_PATH = "Levels database";
+        private const string WALLET_CONFIG_PATH = "WalletConfig";
         
         public void MakeRegistrationsInto(DIContainer container)
         {
@@ -93,12 +100,29 @@ namespace EntryPoint
                 .AddToTickables(EntryPointTags.PROJECT_TICKABLES_TAG);
 
             container.Register(() => SetupLeaderBoardService(container));
-            container.Register(() => SetupYandexGameIntegrator(container));
+            
+            container.Register(() => SetupYandexGameIntegrator(container))
+                .AddToDisposables(EntryPointTags.PROJECT_DISPOSABLES_TAG)
+                .NonLazy();
             
             container.Register(SetupPurchaseService)
                 .AddToDisposables(EntryPointTags.PROJECT_DISPOSABLES_TAG);
 
             container.Register(SetupTimerService);
+
+            container.Register(SetupWalletConfig);
+
+            container.Register(SetupWalletDataProvider);
+
+            container.Register(() => SetupWalletService(container))
+                .InAdditionRegisterAs<IWalletService>()
+                .AddToDisposables(EntryPointTags.PROJECT_DISPOSABLES_TAG);
+
+            container.Register(() => SetupSaveLoadService(container))
+                .AddToDisposables(EntryPointTags.PROJECT_DISPOSABLES_TAG);
+
+            container.Register(() => SetupDataChangedSavingStrategy(container))
+                .AddToDisposables(EntryPointTags.PROJECT_DISPOSABLES_TAG);
         }
 
         private IApplicationStatusService SetupApplicationStatusService() => new ApplicationStatusService();
@@ -228,5 +252,32 @@ namespace EntryPoint
 
         private IPurchaseService SetupPurchaseService() => new FakeStorePurchaseService();
         private ITimerService SetupTimerService() => new TimerService();
+
+        private IWalletConfig SetupWalletConfig() => Resources.Load<WalletConfig>(WALLET_CONFIG_PATH);
+
+        private IDataProvider<IWalletData> SetupWalletDataProvider()
+        {
+            return new PlayerPrefsWalletDataProvider();
+        }
+
+        private WalletService SetupWalletService(IDIContainer container)
+        {
+            IWalletConfig config = container.Get<IWalletConfig>();
+            IDataProvider<IWalletData> dataProvider = container.Get<IDataProvider<IWalletData>>();
+            ICoroutinePerformer coroutinePerformer = container.Get<ICoroutinePerformer>();
+            return new WalletService(dataProvider, coroutinePerformer, config);
+        }
+
+        private SaveLoadService SetupSaveLoadService(IDIContainer container)
+        {
+            ICoroutinePerformer coroutinePerformer = container.Get<ICoroutinePerformer>();
+            return new SaveLoadService(coroutinePerformer);
+        }
+
+        private DataChangedSavingStrategy SetupDataChangedSavingStrategy(IDIContainer container)
+        {
+            WalletService walletService = container.Get<WalletService>();
+            return new DataChangedSavingStrategy(walletService);
+        }
     }
 }

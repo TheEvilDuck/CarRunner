@@ -10,13 +10,13 @@ namespace MainMenu.Mediators
     {
         private TutorialView _tutorialView;
         private IPlayerData _playerData;
-        private RewardProvider _rewardProvider;
+        private IRewardProvider _rewardProvider;
 
         public TutorialMediator(IDIContainer sceneContext)
         {
             _tutorialView = sceneContext.Get<TutorialView>();
             _playerData = sceneContext.Get<IPlayerData>();
-            _rewardProvider = sceneContext.Get<RewardProvider>();
+            _rewardProvider = sceneContext.Get<IRewardProvider>();
 
             _tutorialView.UnderstandablePressed.AddListener(OnUnderstandablePressed);
         }

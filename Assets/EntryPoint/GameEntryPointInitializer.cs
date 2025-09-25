@@ -10,6 +10,10 @@ using EntryPoint.Mediators;
 using Infrastructure.Bootstraps;
 using Infrastructure.DI;
 using Services.Integrations;
+using Services.PlayerData;
+using Services.PlayerData.Core;
+using Services.PlayerData.Core.Wallet;
+using Services.PlayerData.SavingStrategy;
 using Services.PurchaseService;
 using Services.SceneManagement;
 using UnityEngine;
@@ -22,6 +26,18 @@ namespace EntryPoint
         {
             ILoadingCurtainService loadingCurtainService = container.Get<ILoadingCurtainService>();
             loadingCurtainService.Show();
+            
+            SaveLoadService saveLoadService = container.Get<SaveLoadService>();
+            WalletService walletService = container.Get<WalletService>();
+            DataChangedSavingStrategy savingStrategy = container.Get<DataChangedSavingStrategy>();
+            
+            saveLoadService.Register(walletService, savingStrategy);
+
+            yield return saveLoadService.LoadAll();
+            
+            walletService.AddCoins(100);
+            
+            Debug.Log($"TEST WALLET: {walletService.Coins.Value}");
             
             yield return container.Get<YandexGameIntegrator>().Initialize();
             

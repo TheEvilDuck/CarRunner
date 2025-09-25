@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Common.Reactive;
 using UnityEngine;
 
-namespace Services.PlayerData
+namespace Services.PlayerData.Implementation.PlayerPrefsData
 {
     public class PlayerDataPlayerPrefs : IPlayerData
     {
@@ -26,16 +26,16 @@ namespace Services.PlayerData
 
         public IEnumerable<string> AvailableLevels => _progressOfLvls.AvailableLevels;
         public IEnumerable<string> PassedLevels => _progressOfLvls.PassedLevels;
-        public string SelectedLevel => PlayerPrefs.GetString(PREFS_SELECTED_LEVEL);
-        public int Coins => PlayerPrefs.GetInt(PREFS_COINS, COINS_DEFAULT_VALUE);
-        public int MaxFallTries => PlayerPrefs.GetInt(PREFS_FALL_TRIES, MAX_FALL_TRIES_DEFAULT_VALUE);
-        public string SavedPreferedLanguage => PlayerPrefs.GetString(PREFS_LANGUAGE);
+        public string SelectedLevel => UnityEngine.PlayerPrefs.GetString(PREFS_SELECTED_LEVEL);
+        public int Coins => UnityEngine.PlayerPrefs.GetInt(PREFS_COINS, COINS_DEFAULT_VALUE);
+        public int MaxFallTries => UnityEngine.PlayerPrefs.GetInt(PREFS_FALL_TRIES, MAX_FALL_TRIES_DEFAULT_VALUE);
+        public string SavedPreferedLanguage => UnityEngine.PlayerPrefs.GetString(PREFS_LANGUAGE);
         public float RecordTime
         {
             get
             {
-                if(PlayerPrefs.HasKey(PREFS_TIME_RECORD))
-                    return PlayerPrefs.GetFloat(PREFS_TIME_RECORD);
+                if(UnityEngine.PlayerPrefs.HasKey(PREFS_TIME_RECORD))
+                    return UnityEngine.PlayerPrefs.GetFloat(PREFS_TIME_RECORD);
                 else
                     return 0;
             }
@@ -44,7 +44,7 @@ namespace Services.PlayerData
         {
             get
             {
-                var dateTimeString = PlayerPrefs.GetString(PREFS_WATCH_AD_LAST_DATE, DateTime.MinValue.ToString());
+                var dateTimeString = UnityEngine.PlayerPrefs.GetString(PREFS_WATCH_AD_LAST_DATE, DateTime.MinValue.ToString());
                 var dateTime = DateTime.Parse(dateTimeString);
                 return dateTime;
             }
@@ -53,7 +53,7 @@ namespace Services.PlayerData
         {
             get
             {
-                if (PlayerPrefs.HasKey(PREFS_IS_TUTOR_COMPLETE))
+                if (UnityEngine.PlayerPrefs.HasKey(PREFS_IS_TUTOR_COMPLETE))
                     return true;
                 else 
                     return false;
@@ -67,19 +67,19 @@ namespace Services.PlayerData
             LoadProgressOfLevels();
             _savedPreferedLanguage = new Observable<string>();
             LoadLanguage();
-            _savedPreferedLanguage.changed += (language) => PlayerPrefs.SetString(PREFS_LANGUAGE, language);
+            _savedPreferedLanguage.changed += (language) => UnityEngine.PlayerPrefs.SetString(PREFS_LANGUAGE, language);
         }
 
         public void TutorialCmplete()
         {
-            if (!PlayerPrefs.HasKey(PREFS_IS_TUTOR_COMPLETE))
+            if (!UnityEngine.PlayerPrefs.HasKey(PREFS_IS_TUTOR_COMPLETE))
             {
                 int convertBool = Convert.ToInt32(true);
-                PlayerPrefs.SetInt(PREFS_IS_TUTOR_COMPLETE, convertBool);
+                UnityEngine.PlayerPrefs.SetInt(PREFS_IS_TUTOR_COMPLETE, convertBool);
             }
         }
 
-        public void SaveSelectedLevel(string levelId) => PlayerPrefs.SetString(PREFS_SELECTED_LEVEL, levelId);
+        public void SaveSelectedLevel(string levelId) => UnityEngine.PlayerPrefs.SetString(PREFS_SELECTED_LEVEL, levelId);
 
         public void AddPassedLevel(string levelId)
         {
@@ -107,9 +107,9 @@ namespace Services.PlayerData
         {
             string progressOfLevels;
 
-            if (PlayerPrefs.HasKey(PREFS_PROGRESS_OF_LEVELS))
+            if (UnityEngine.PlayerPrefs.HasKey(PREFS_PROGRESS_OF_LEVELS))
             {
-                progressOfLevels = PlayerPrefs.GetString(PREFS_PROGRESS_OF_LEVELS);
+                progressOfLevels = UnityEngine.PlayerPrefs.GetString(PREFS_PROGRESS_OF_LEVELS);
                 _progressOfLvls = JsonUtility.FromJson<ProgressOfLevels>(progressOfLevels);
                 return true;
             }
@@ -125,7 +125,7 @@ namespace Services.PlayerData
             if (coins <= 0)
                 throw new ArgumentOutOfRangeException($"Coins count must be positive, you passed {coins}");
 
-            PlayerPrefs.SetInt(PREFS_COINS, Coins + coins);
+            UnityEngine.PlayerPrefs.SetInt(PREFS_COINS, Coins + coins);
             coinsChanged?.Invoke(Coins);
         }
 
@@ -139,11 +139,11 @@ namespace Services.PlayerData
                 if (MaxFallTries - fallTries < 0)
                     throw new ArgumentOutOfRangeException("You don't have enough FallTries");
 
-                PlayerPrefs.SetInt(PREFS_FALL_TRIES, MaxFallTries + fallTries);
+                UnityEngine.PlayerPrefs.SetInt(PREFS_FALL_TRIES, MaxFallTries + fallTries);
             }
 
             if (fallTries > 0)
-                PlayerPrefs.SetInt(PREFS_FALL_TRIES, MaxFallTries + fallTries);
+                UnityEngine.PlayerPrefs.SetInt(PREFS_FALL_TRIES, MaxFallTries + fallTries);
         }
 
         public bool SpendCoins(int coins)
@@ -154,23 +154,23 @@ namespace Services.PlayerData
             if (coins > Coins)
                 return false;
 
-            PlayerPrefs.SetInt(PREFS_COINS, Coins - coins);
+            UnityEngine.PlayerPrefs.SetInt(PREFS_COINS, Coins - coins);
             coinsChanged?.Invoke(Coins);
             return true;
         }
 
         public void SaveWatchAdLastTime()
         {
-            PlayerPrefs.SetString(PREFS_WATCH_AD_LAST_DATE, DateTime.Now.ToString());
+            UnityEngine.PlayerPrefs.SetString(PREFS_WATCH_AD_LAST_DATE, DateTime.Now.ToString());
         }
 
         public async Awaitable SaveLevelRecord(string levelId, float recordTime)
         {
             string recordsJson;
             
-            if (PlayerPrefs.HasKey(PREFS_TIME_RECORD))
+            if (UnityEngine.PlayerPrefs.HasKey(PREFS_TIME_RECORD))
             {
-                recordsJson = PlayerPrefs.GetString(PREFS_PROGRESS_OF_LEVELS);
+                recordsJson = UnityEngine.PlayerPrefs.GetString(PREFS_PROGRESS_OF_LEVELS);
                 _levelRecords = JsonUtility.FromJson<List<LevelRecord>>(recordsJson);
             }
             else
@@ -200,16 +200,16 @@ namespace Services.PlayerData
                 _levelRecords.Add(currentLevelRecord);
 
             recordsJson = JsonUtility.ToJson(_levelRecords);
-            PlayerPrefs.SetString(PREFS_PROGRESS_OF_LEVELS, recordsJson);
+            UnityEngine.PlayerPrefs.SetString(PREFS_PROGRESS_OF_LEVELS, recordsJson);
         }
 
         public async Awaitable<float> GetLevelRecord(string levelId)
         {
             string recordsJson;
 
-            if (PlayerPrefs.HasKey(PREFS_TIME_RECORD))
+            if (UnityEngine.PlayerPrefs.HasKey(PREFS_TIME_RECORD))
             {
-                recordsJson = PlayerPrefs.GetString(PREFS_PROGRESS_OF_LEVELS);
+                recordsJson = UnityEngine.PlayerPrefs.GetString(PREFS_PROGRESS_OF_LEVELS);
                 _levelRecords = JsonUtility.FromJson<List<LevelRecord>>(recordsJson);
 
                 foreach (LevelRecord levelRecord in _levelRecords)
@@ -231,9 +231,9 @@ namespace Services.PlayerData
 
         private void LoadLanguage()
         {
-            if(PlayerPrefs.HasKey(PREFS_LANGUAGE))
+            if(UnityEngine.PlayerPrefs.HasKey(PREFS_LANGUAGE))
             {
-                string language = PlayerPrefs.GetString(PREFS_LANGUAGE);
+                string language = UnityEngine.PlayerPrefs.GetString(PREFS_LANGUAGE);
                 _savedPreferedLanguage.Value = language;
             }
             else
@@ -247,7 +247,7 @@ namespace Services.PlayerData
         private void SaveProgressOfLevels()
         {
             string progressOfLevels = JsonUtility.ToJson(_progressOfLvls);
-            PlayerPrefs.SetString(PREFS_PROGRESS_OF_LEVELS, progressOfLevels);
+            UnityEngine.PlayerPrefs.SetString(PREFS_PROGRESS_OF_LEVELS, progressOfLevels);
         }
 
         [Serializable]
