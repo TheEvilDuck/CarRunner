@@ -24,27 +24,13 @@ namespace MainMenu.Infrasturcture
             container.Register(_mainMenuView.LevelSelector);
             container.Register(_mainMenuView.ShopView);
             container.Register(_mainMenuView.TutorialView);
+            container.Register(_mainMenuView.LanguageSelectorMenu);
             container.Register(_notEnoughMoneyPopup);
             container.Register(_coinsView);
             container.Register(_shopItemFactory);
-            container.Register(() => SetupLanguageSelectionUI(container));
         }
 
         protected override IBootstrapInitializer GetInnerInitializer(IDIContainer container)
             => new Initializer(_mainMenuView, _shopItemFactory);
-
-        private LanguageSelectorMenu SetupLanguageSelectionUI(IDIContainer container)
-        {
-            string currentLanguage = container.Get<IPlayerData>().SavedPreferdLanguage.Value;
-
-            if (string.IsNullOrEmpty(currentLanguage))
-            {
-                Debug.Log($"No saved language found, trying to get default language");
-                currentLanguage = container.Get<ILocalizationService>().CurrentLanguage;
-            }
-
-            _mainMenuView.LanguageSelectorMenu.Init(container.Get<LanguageData[]>(), currentLanguage);
-            return _mainMenuView.LanguageSelectorMenu;
-        }
     }
 }

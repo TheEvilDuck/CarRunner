@@ -1,5 +1,5 @@
 {
-    "idSave": 3236,
+    "idSave": 3243,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -16,7 +16,8 @@
         "ъъъ",
         "333",
         "space_1",
-        "Space1"
+        "Space1",
+        "tutorial_level"
     ],
     "PassedLevels": [
         "Testing",

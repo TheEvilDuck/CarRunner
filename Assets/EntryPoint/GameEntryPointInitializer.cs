@@ -12,6 +12,7 @@ using Infrastructure.DI;
 using Services.Integrations;
 using Services.PlayerData;
 using Services.PlayerData.Core;
+using Services.PlayerData.Core.Language;
 using Services.PlayerData.Core.Levels;
 using Services.PlayerData.Core.Wallet;
 using Services.PlayerData.SavingStrategy;
@@ -31,16 +32,14 @@ namespace EntryPoint
             SaveLoadService saveLoadService = container.Get<SaveLoadService>();
             WalletService walletService = container.Get<WalletService>();
             LevelsService levelsService = container.Get<LevelsService>();
+            LanguageService languageService = container.Get<LanguageService>();
             DataChangedSavingStrategy savingStrategy = container.Get<DataChangedSavingStrategy>();
             
             saveLoadService.Register(walletService, savingStrategy);
             saveLoadService.Register(levelsService, savingStrategy);
+            saveLoadService.Register(languageService, savingStrategy);
 
             yield return saveLoadService.LoadAll();
-            
-            walletService.AddCoins(100);
-            
-            Debug.Log($"TEST WALLET: {walletService.Coins.Value}");
             
             yield return container.Get<YandexGameIntegrator>().Initialize();
             

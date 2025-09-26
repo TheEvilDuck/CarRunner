@@ -23,6 +23,7 @@ using Services.Localization;
 using Services.Localization.Scripts;
 using Services.PlayerData;
 using Services.PlayerData.Core;
+using Services.PlayerData.Core.Language;
 using Services.PlayerData.Core.Levels;
 using Services.PlayerData.Core.Wallet;
 using Services.PlayerData.Implementation.PlayerPrefsData;
@@ -73,7 +74,8 @@ namespace EntryPoint
                 .AddToDisposables(EntryPointTags.PROJECT_DISPOSABLES_TAG)
                 .AddToTickables(EntryPointTags.PROJECT_TICKABLES_TAG);
             
-            container.Register(() => SetupLocalizationService(container));
+            container.Register(SetupLocalizationService);
+            container.Register(SetupPreferedLanguageService);
             
             container.Register(SetupDeviceTypeHandler);
             
@@ -116,6 +118,7 @@ namespace EntryPoint
 
             container.Register(SetupWalletDataProvider);
             container.Register(SetupLevelsDataProvider);
+            container.Register(SetupLanguageDataProvider);
 
             container.Register(() => SetupWalletService(container))
                 .InAdditionRegisterAs<IWalletService>()
@@ -123,6 +126,9 @@ namespace EntryPoint
 
             container.Register(() => SetupLevelsService(container))
                 .InAdditionRegisterAs<ILevelsService>();
+
+            container.Register(() => SetupLanguageService(container))
+                .InAdditionRegisterAs<ILanguageService>();
 
             container.Register(() => SetupSaveLoadService(container))
                 .AddToDisposables(EntryPointTags.PROJECT_DISPOSABLES_TAG);
@@ -179,29 +185,17 @@ namespace EntryPoint
             return pauseManager;
         }
         
-        private ILocalizationService SetupLocalizationService(IDIContainer container)
-        {
-            var service = Resources.Load<SOLocalizationService>("SO localization service");
-            
-            string currentLanguage = container.Get<IPlayerData>().SavedPreferdLanguage.Value;
+        private ILocalizationService SetupLocalizationService()
+            => Resources.Load<SOLocalizationService>("SO localization service");
 
-            if (string.IsNullOrEmpty(currentLanguage))
-            {
-                currentLanguage = service.CurrentLanguage;
-                container.Get<IPlayerData>().SaveLanguage(currentLanguage);
-            }
-
-            service.SetLanguage(currentLanguage);
-
-            container.Get<IPlayerData>().SavedPreferdLanguage.changed += service.SetLanguage;
-
-            return service;
-        }
+        private IPreferedLanguageService SetupPreferedLanguageService()
+            => new ConstantPreferedLanguageService();
         
         private Localizator SetupLocalizator(IDIContainer container)
         {
-            Localizator localizator = new Localizator(container.Get<ILocalizationService>());
-            return localizator;
+            ILocalizationService localizationService = container.Get<ILocalizationService>();
+            ILanguageService languageService = container.Get<ILanguageService>();
+            return new Localizator(localizationService, languageService);
         }
         
         private LocalizationRegistrator SetupLocalizationRegistrator(IDIContainer container)
@@ -270,6 +264,7 @@ namespace EntryPoint
 
         private IDataProvider<IWalletData> SetupWalletDataProvider() => new PlayerPrefsWalletDataProvider();
         private IDataProvider<ILevelsData> SetupLevelsDataProvider() => new PlayerPrefsLevelsDataProvider();
+        private IDataProvider<ILanguageData> SetupLanguageDataProvider() => new PlayerPrefsLanguageDataProvider();
 
         private WalletService SetupWalletService(IDIContainer container)
         {
@@ -285,6 +280,14 @@ namespace EntryPoint
             ICoroutinePerformer coroutinePerformer = container.Get<ICoroutinePerformer>();
             LevelsDatabase levelsDatabase = container.Get<LevelsDatabase>();
             return new LevelsService(dataProvider, coroutinePerformer, levelsDatabase);
+        }
+
+        private LanguageService SetupLanguageService(IDIContainer container)
+        {
+            IDataProvider<ILanguageData> dataProvider = container.Get<IDataProvider<ILanguageData>>();
+            ICoroutinePerformer coroutinePerformer = container.Get<ICoroutinePerformer>();
+            IPreferedLanguageService preferedLanguageService = container.Get<IPreferedLanguageService>();
+            return new LanguageService(dataProvider, coroutinePerformer, preferedLanguageService);
         }
 
         private SaveLoadService SetupSaveLoadService(IDIContainer container)

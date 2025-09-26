@@ -1,19 +1,24 @@
 using System;
 using System.Collections.Generic;
+using Services.PlayerData.Core.Language;
 
 namespace Services.Localization.Scripts
 {
     public class Localizator: IDisposable
     {
         private readonly ILocalizationService _localizationService;
+        private readonly ILanguageService _languageService;
         private readonly List<ILocalizable> _localizables;
 
-        public Localizator(ILocalizationService localizationService)
+        public Localizator(
+            ILocalizationService localizationService, 
+            ILanguageService languageService)
         {
             _localizationService = localizationService;
+            _languageService = languageService;
             _localizables = new List<ILocalizable>();
 
-            _localizationService.languageChanged += TranslateAll;
+            _languageService.Language.changed += OnLanguageChanged;
             TranslateAll();
         }
 
@@ -32,7 +37,7 @@ namespace Services.Localization.Scripts
 
         public void Dispose()
         {
-            _localizationService.languageChanged -= TranslateAll;
+            _languageService.Language.changed -= OnLanguageChanged;
 
             foreach (ILocalizable localizable in _localizables)
                 localizable.updateRequested -= TranslateLocalizable;
@@ -51,7 +56,12 @@ namespace Services.Localization.Scripts
 
         private void TranslateLocalizable(ILocalizable localizable)
         {
-            localizable.UpdateText(_localizationService.GetText(localizable.TextId));
+            string localizedText 
+                = _localizationService.GetText(_languageService.Language.Value, localizable.TextId);
+            
+            localizable.UpdateText(localizedText);
         }
+
+        private void OnLanguageChanged(string language) => TranslateAll();
     }
 }

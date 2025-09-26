@@ -12,7 +12,9 @@ using Levels.Scripts;
 using MainMenu.Mediators;
 using MainMenu.Shop.Scripts;
 using Services.LeaderBoards;
+using Services.Localization.Scripts;
 using Services.PlayerData;
+using Services.PlayerData.Core.Language;
 using UnityEngine;
 
 namespace MainMenu.Infrasturcture
@@ -45,7 +47,11 @@ namespace MainMenu.Infrasturcture
                 container.Get<ILeaderBoardService>(), 
                 container.Get<LevelsDatabase>().TutorialLevelId
             );
+
+            ILanguageService languageService = container.Get<ILanguageService>();
+            LanguageData[] languageDatas = container.Get<LanguageData[]>();
             
+            _mainMenuView.LanguageSelectorMenu.Init(languageDatas, languageService.Language.Value);
             _mainMenuView.ShopView.Init(_shopItemFactory, container);
             _mainMenuView.TutorialView.Init(deviceType);
             //TODO заменить на сравнение с нужной платформой, я просто хз, какая стринга, в документации нет

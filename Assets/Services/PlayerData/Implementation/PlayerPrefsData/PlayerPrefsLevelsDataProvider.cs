@@ -10,19 +10,19 @@ namespace Services.PlayerData.Implementation.PlayerPrefsData
 {
     public class PlayerPrefsLevelsDataProvider: IDataProvider<ILevelsData>
     {
-        private const string SELECTED_LEVEL_ID = "PLAYERPREFS_SELECTED_LEVEL";
-        private const string PROGRESS_OF_LEVELS_ID = "PLAYERPREFS_PROGRESS_OF_LEVELS";
+        private const string SELECTED_LEVEL_KEY = "PLAYERPREFS_SELECTED_LEVEL";
+        private const string PROGRESS_OF_LEVELS_KEY = "PLAYERPREFS_PROGRESS_OF_LEVELS";
         
         public IEnumerator Load(DataLoadCallback<ILevelsData> callback)
         {
-            if (!PlayerPrefs.HasKey(SELECTED_LEVEL_ID) || !PlayerPrefs.HasKey(PROGRESS_OF_LEVELS_ID))
+            if (!PlayerPrefs.HasKey(SELECTED_LEVEL_KEY) || !PlayerPrefs.HasKey(PROGRESS_OF_LEVELS_KEY))
             {
                 callback?.Invoke(false, null);
                 yield break;
             }
             
-            string selectedLevelId = PlayerPrefs.GetString(SELECTED_LEVEL_ID);
-            string progressOfLevelsJson = PlayerPrefs.GetString(PROGRESS_OF_LEVELS_ID);
+            string selectedLevelId = PlayerPrefs.GetString(SELECTED_LEVEL_KEY);
+            string progressOfLevelsJson = PlayerPrefs.GetString(PROGRESS_OF_LEVELS_KEY);
             
             ProgressOfLevels progressOfLevels = JsonUtility.FromJson<ProgressOfLevels>(progressOfLevelsJson);
 
@@ -37,9 +37,9 @@ namespace Services.PlayerData.Implementation.PlayerPrefsData
             progressOfLevels.PassedLevels.AddRange(data.PassedLevels);
             
             string progressOfLevelsJson = JsonUtility.ToJson(progressOfLevels);
-            PlayerPrefs.SetString(PROGRESS_OF_LEVELS_ID, progressOfLevelsJson);
+            PlayerPrefs.SetString(PROGRESS_OF_LEVELS_KEY, progressOfLevelsJson);
             
-            PlayerPrefs.SetString(SELECTED_LEVEL_ID, data.SelectedLevel);
+            PlayerPrefs.SetString(SELECTED_LEVEL_KEY, data.SelectedLevel);
             
             callback?.Invoke(true);
             yield break;
