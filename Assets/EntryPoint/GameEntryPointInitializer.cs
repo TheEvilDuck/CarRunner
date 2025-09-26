@@ -12,6 +12,7 @@ using Infrastructure.DI;
 using Services.Integrations;
 using Services.PlayerData;
 using Services.PlayerData.Core;
+using Services.PlayerData.Core.Levels;
 using Services.PlayerData.Core.Wallet;
 using Services.PlayerData.SavingStrategy;
 using Services.PurchaseService;
@@ -29,9 +30,11 @@ namespace EntryPoint
             
             SaveLoadService saveLoadService = container.Get<SaveLoadService>();
             WalletService walletService = container.Get<WalletService>();
+            LevelsService levelsService = container.Get<LevelsService>();
             DataChangedSavingStrategy savingStrategy = container.Get<DataChangedSavingStrategy>();
             
             saveLoadService.Register(walletService, savingStrategy);
+            saveLoadService.Register(levelsService, savingStrategy);
 
             yield return saveLoadService.LoadAll();
             

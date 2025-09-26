@@ -23,6 +23,7 @@ using Services.Localization;
 using Services.Localization.Scripts;
 using Services.PlayerData;
 using Services.PlayerData.Core;
+using Services.PlayerData.Core.Levels;
 using Services.PlayerData.Core.Wallet;
 using Services.PlayerData.Implementation.PlayerPrefsData;
 using Services.PlayerData.Implementation.YandexCloud;
@@ -109,14 +110,19 @@ namespace EntryPoint
                 .AddToDisposables(EntryPointTags.PROJECT_DISPOSABLES_TAG);
 
             container.Register(SetupTimerService);
+            container.Register(() => SetupAvailableLevelsService(container));
 
             container.Register(SetupWalletConfig);
 
             container.Register(SetupWalletDataProvider);
+            container.Register(SetupLevelsDataProvider);
 
             container.Register(() => SetupWalletService(container))
                 .InAdditionRegisterAs<IWalletService>()
                 .AddToDisposables(EntryPointTags.PROJECT_DISPOSABLES_TAG);
+
+            container.Register(() => SetupLevelsService(container))
+                .InAdditionRegisterAs<ILevelsService>();
 
             container.Register(() => SetupSaveLoadService(container))
                 .AddToDisposables(EntryPointTags.PROJECT_DISPOSABLES_TAG);
@@ -255,10 +261,15 @@ namespace EntryPoint
 
         private IWalletConfig SetupWalletConfig() => Resources.Load<WalletConfig>(WALLET_CONFIG_PATH);
 
-        private IDataProvider<IWalletData> SetupWalletDataProvider()
+        private AvailableLevelsService SetupAvailableLevelsService(IDIContainer container)
         {
-            return new PlayerPrefsWalletDataProvider();
+            LevelsDatabase levelsDatabase = container.Get<LevelsDatabase>();
+            ILevelsService levelsService = container.Get<ILevelsService>();
+            return new AvailableLevelsService(levelsDatabase, levelsService);
         }
+
+        private IDataProvider<IWalletData> SetupWalletDataProvider() => new PlayerPrefsWalletDataProvider();
+        private IDataProvider<ILevelsData> SetupLevelsDataProvider() => new PlayerPrefsLevelsDataProvider();
 
         private WalletService SetupWalletService(IDIContainer container)
         {
@@ -266,6 +277,14 @@ namespace EntryPoint
             IDataProvider<IWalletData> dataProvider = container.Get<IDataProvider<IWalletData>>();
             ICoroutinePerformer coroutinePerformer = container.Get<ICoroutinePerformer>();
             return new WalletService(dataProvider, coroutinePerformer, config);
+        }
+
+        private LevelsService SetupLevelsService(IDIContainer container)
+        {
+            IDataProvider<ILevelsData> dataProvider = container.Get<IDataProvider<ILevelsData>>();
+            ICoroutinePerformer coroutinePerformer = container.Get<ICoroutinePerformer>();
+            LevelsDatabase levelsDatabase = container.Get<LevelsDatabase>();
+            return new LevelsService(dataProvider, coroutinePerformer, levelsDatabase);
         }
 
         private SaveLoadService SetupSaveLoadService(IDIContainer container)
